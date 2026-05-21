@@ -89,18 +89,13 @@ If a value is not listed above, verify it before production use rather than assu
 | `backend/models/` | SQLAlchemy models. |
 | `backend/db/` | Database configuration and session setup. |
 | `backend/jobs/` | Scheduler and background job code. |
-| `backend/docs/` | Backend-specific documentation, including CSV upload details. |
-| `backend/tests/` | Backend test suite. |
 | `frontend/` | React/Vite frontend application. |
 | `frontend/src/` | Frontend application source. |
 | `frontend/src/components/` | Shared UI components. |
 | `frontend/src/auth/` | Frontend authentication helpers and guards. |
-| `frontend/src/test/` | Frontend tests and test setup. |
 | `frontend/nginx/` | Nginx config used by the production frontend container. |
 | `frontend/public/` | Static assets for the frontend. |
 | `backend/migrations/versions/` | Alembic migration history. |
-| `docs/` | Repository documentation such as CORS notes and frontend Docker notes. |
-| `tests/` | Repository-level tests. |
 | `docker-compose.yml` | Local multi-service orchestration for the app stack. |
 | `.env.template.example` | Environment template with the main configuration variables. |
 
