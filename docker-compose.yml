@@ -1,0 +1,78 @@
+services:
+  db:
+    image: postgres:15-alpine
+    container_name: aq_db
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB}
+    ports:
+      - "${POSTGRES_PORT}:5432"
+    volumes:
+      - pg_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB}"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+
+  adminer:
+    image: adminer:4
+    container_name: aq_adminer
+    restart: unless-stopped
+    ports:
+      - "${ADMINER_PORT}:8080"
+    depends_on:
+      db:
+        condition: service_healthy
+
+  api:
+    build: ./backend
+    container_name: aq_api
+    restart: unless-stopped
+    env_file: .env
+    environment:
+      POSTGRES_HOST: db
+      POSTGRES_PORT: "5432"
+      PYTHONPATH: /app
+    ports:
+      - "${API_PORT:-8000}:8000"
+    volumes:
+      - qaqc_plugins:/app/qaqc/plugins_local
+    depends_on:
+      db:
+        condition: service_healthy
+
+  scheduler:
+    build: ./backend
+    container_name: aq_scheduler
+    restart: unless-stopped
+    env_file: .env
+    environment:
+      POSTGRES_HOST: db
+      POSTGRES_PORT: "5432"
+      SCHEDULER_TICK_SECONDS: ${SCHEDULER_TICK_SECONDS:-15}
+      SCHEDULER_CREATE_DEFAULT: ${SCHEDULER_CREATE_DEFAULT:-1}
+      PYTHONPATH: /app
+    command: ["python", "-m", "jobs.scheduler"]
+    volumes:
+      - qaqc_plugins:/app/qaqc/plugins_local
+    depends_on:
+      db:
+        condition: service_healthy
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: aq_frontend
+    restart: unless-stopped
+    ports:
+      - "80:80"
+    depends_on:
+      - api
+
+volumes:
+  pg_data:
+  qaqc_plugins:

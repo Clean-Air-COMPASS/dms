@@ -1,0 +1,70 @@
+# Dependencies
+frontend/node_modules/
+
+# Frontend build and tooling outputs
+frontend/dist/
+frontend/.vite/
+
+# Python bytecode and tool caches
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+.coverage
+coverage/
+htmlcov/
+
+# Distribution / packaging
+build/
+dist/
+*.egg-info/
+.eggs/
+
+# Local environments and secrets
+.env
+.env.*
+!.env.template.example
+frontend/.env
+frontend/.env.local
+frontend/.env.*.local
+venv/
+.venv/
+.Python
+
+# Local data, dumps, logs, and temp outputs
+tmp/
+backend/tmp/
+*.tmp
+*.log
+*.bak
+*.backup
+*.orig
+*.sqlite3
+*.db
+*.dump
+*.sql
+*.csv.tmp
+*.tsbuildinfo
+
+# Docker/local volume artifacts
+pg_data/
+postgres-data/
+docker-data/
+
+# Editor and OS files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
+
+# Alembic versions (keep the files, but ignore pyc)
+migrations/versions/*.pyc
+backend/migrations/versions/*.pyc
+
+# Obsolete local design exports
+System_Design_Plan_COMPASS_DMS_draft1 (1).docx
+SystemDesignPlan.txt
