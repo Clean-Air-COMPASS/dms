@@ -185,4 +185,4 @@ Contribution guidelines are still being defined. External contributions should n
 
 ## License
 
-No open-source license has been selected yet. Until a `LICENSE` file is added, all rights are reserved; do not copy, reuse, modify, or redistribute this code without permission.
+CompassAQ is licensed under [Apache 2.0](LICENSE) 
