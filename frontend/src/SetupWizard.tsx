@@ -1,61 +1,183 @@
+import { Trans, useTranslation } from 'react-i18next';
 
 
-import React, { useState, useEffect, useCallback, useMemo } from 'react';
+import React, { useState, useEffect, useCallback, useMemo, useRef } from 'react';
+import { browserSupportsWebAuthnAutofill, WebAuthnAbortService } from '@simplewebauthn/browser';
+import { registerPasskey } from './auth/passkeys';
+import { login as authenticateForPasskey } from './auth/authClient';
 import PasswordInput from './components/PasswordInput';
 import PasswordStrengthIndicator from './components/PasswordStrengthIndicator';
 import { validatePasswordStrength } from './utils/passwordStrength';
 import { API_BASE } from './apiBase';
+import i18n, {
+  writeAnonymousLanguagePreference,
+  type SupportedLanguageCode,
+} from './i18n';
+import LanguageSelector from './components/LanguageSelector';
+import { getLocalTimezone } from './utils/timezone';
 
 
 interface DataSource {
   external_api_id: number;
+  provider_code: string | null;
   name: string;
   description: string | null;
   has_api_key: boolean;
+  requires_credential: boolean;
+  enabled: boolean;
+  is_configured?: boolean;
+  import_authenticated_locations?: boolean;
+  runnable_reason: 'disabled' | 'configuration_required' | 'paid_provider_requests_disabled' | 'ready' | 'unsupported_provider';
 }
 
-interface VerifyResponse {
+interface SetupResponse {
   success: boolean;
+  is_configured?: boolean;
   message: string;
-  provider_name?: string;
+  message_code?: string;
+  message_context?: Record<string, string | number>;
+  detail?: unknown;
+}
+
+const SETUP_ERROR_KEYS = {
+  setup_already_completed: 'setup:serverErrors.alreadyCompleted',
+  password_confirmation_mismatch: 'setup:serverErrors.passwordConfirmationMismatch',
+  password_policy_not_met: 'setup:serverErrors.passwordPolicyNotMet',
+  setup_admin_email_exists: 'setup:serverErrors.adminEmailExists',
+  api_key_confirmation_mismatch: 'setup:serverErrors.apiKeyConfirmationMismatch',
+  data_source_not_found: 'setup:serverErrors.dataSourceNotFound',
+  api_key_required: 'setup:serverErrors.apiKeyRequired',
+  setup_admin_required: 'setup:serverErrors.adminRequired',
+} as const;
+
+function translateSetupError(
+  detail: unknown,
+  fallbackKey: 'setup:serverErrors.adminCreationFailed' | 'setup:serverErrors.apiKeySaveFailed' | 'setup:serverErrors.completionFailed',
+): string {
+  if (detail && typeof detail === 'object' && 'error_code' in detail) {
+    const errorCode = String(detail.error_code);
+    const key = SETUP_ERROR_KEYS[errorCode as keyof typeof SETUP_ERROR_KEYS];
+    if (key) {
+      const context = 'error_context' in detail && detail.error_context && typeof detail.error_context === 'object'
+        ? detail.error_context as Record<string, string | number>
+        : {};
+      return i18n.t(key, context);
+    }
+  }
+  return i18n.t(fallbackKey);
+}
+
+function isSetupEmailValidationError(status: number, detail: unknown): boolean {
+  // FastAPI/Pydantic identifies the rejected body field. Never infer it from
+  // HTTP 422 alone or display the validator's diagnostic message.
+  return status === 422 && Array.isArray(detail) && detail.some(error => (
+    error !== null && typeof error === 'object'
+    && error.type === 'value_error'
+    && Array.isArray(error.loc) && error.loc.length === 2
+    && error.loc[0] === 'body' && error.loc[1] === 'email'
+  ));
 }
 
 
-type WizardStep = 'admin' | 'datasource' | 'geoapify' | 'complete';
+type WizardStep = 'welcome' | 'admin' | 'secure' | 'datasource' | 'geoapify' | 'complete';
 
 interface SetupWizardProps {
   onSetupComplete: () => void;
+  initialAdminCreated?: boolean;
 }
 
-export default function SetupWizard({ onSetupComplete }: SetupWizardProps) {
+export default function SetupWizard({
+  onSetupComplete,
+  initialAdminCreated = false,
+}: SetupWizardProps) {
+  useTranslation();
+  const [defaultLanguageCode, setDefaultLanguageCode] = useState<SupportedLanguageCode>(
+    i18n.resolvedLanguage === 'es' ? 'es' : 'en',
+  );
   
-  const [currentStep, setCurrentStep] = useState<WizardStep>('admin');
+  const [currentStep, setCurrentStep] = useState<WizardStep>(
+    initialAdminCreated ? 'datasource' : 'welcome',
+  );
   
   
   const [adminEmail, setAdminEmail] = useState('');
+  const [adminEmailError, setAdminEmailError] = useState<string | null>(null);
+  const adminEmailInput = useRef<HTMLInputElement>(null);
   const [adminPassword, setAdminPassword] = useState('');
   const [adminConfirmPassword, setAdminConfirmPassword] = useState('');
   const [adminError, setAdminError] = useState<string | null>(null);
-  const [adminSuccess, setAdminSuccess] = useState(false);
   const [adminSubmitting, setAdminSubmitting] = useState(false);
+  useEffect(() => {
+    if (adminEmailError && !adminSubmitting) adminEmailInput.current?.focus();
+  }, [adminEmailError, adminSubmitting]);
+  const [passkeyBusy, setPasskeyBusy] = useState(false);
+  const [passkeyCreated, setPasskeyCreated] = useState(false);
+  const [passkeyMessage, setPasskeyMessage] = useState<'unsupported' | 'cancelled' | 'failed' | null>(null);
+  const passkeyToken = useRef<string | null>(null);
+  const passkeyController = useRef<AbortController | null>(null);
+
+  useEffect(() => () => {
+    passkeyController.current?.abort();
+    WebAuthnAbortService.cancelCeremony();
+  }, []);
+
+  function continueAfterPasskey() {
+    passkeyController.current?.abort();
+    WebAuthnAbortService.cancelCeremony();
+    passkeyToken.current = null;
+    setAdminPassword('');
+    setAdminConfirmPassword('');
+    setCurrentStep('datasource');
+  }
+
+  async function handleCreatePasskey() {
+    const controller = new AbortController();
+    passkeyController.current = controller;
+    setPasskeyMessage(null);
+    setPasskeyBusy(true);
+    try {
+      if (!await browserSupportsWebAuthnAutofill()) {
+        setPasskeyMessage('unsupported');
+        return;
+      }
+      if (controller.signal.aborted) return;
+      if (!passkeyToken.current) {
+        // Authorize enrollment without changing the post-setup sign-in flow.
+        const result = await authenticateForPasskey({ email: adminEmail.trim(), password: adminPassword }, false);
+        if (controller.signal.aborted) return;
+        if (!result.success) throw new Error('passkey_failed');
+        passkeyToken.current = result.token;
+        setAdminPassword('');
+        setAdminConfirmPassword('');
+      }
+      await registerPasskey(passkeyToken.current, controller.signal);
+      if (!controller.signal.aborted) {
+        setPasskeyCreated(true);
+        continueAfterPasskey();
+      }
+    } catch (error) {
+      if (!controller.signal.aborted) {
+        setPasskeyMessage(error instanceof Error && error.name === 'NotAllowedError' ? 'cancelled' : 'failed');
+      }
+    } finally {
+      if (!controller.signal.aborted) setPasskeyBusy(false);
+    }
+  }
   
   
   const [dataSources, setDataSources] = useState<DataSource[]>([]);
-  const [selectedSourceId, setSelectedSourceId] = useState<number | null>(null);
-  const [sourceApiKey, setSourceApiKey] = useState('');
-  const [sourceConfirmApiKey, setSourceConfirmApiKey] = useState('');
+  const [importAuthenticatedLocations, setImportAuthenticatedLocations] = useState(false);
+  const [sourceDrafts, setSourceDrafts] = useState<Record<number, { apiKey: string }>>({});
   const [sourceError, setSourceError] = useState<string | null>(null);
-  const [sourceSuccess, setSourceSuccess] = useState<string | null>(null);
-  const [sourceVerifying, setSourceVerifying] = useState(false);
-  const [sourceVerified, setSourceVerified] = useState(false);
+  const [sourceLoading, setSourceLoading] = useState(true);
   const [sourceSaving, setSourceSaving] = useState(false);
+  const [sourcesSaved, setSourcesSaved] = useState(false);
+  const [sourceCredentialSupplied, setSourceCredentialSupplied] = useState(false);
   
   
   const [geoapifyKey, setGeoapifyKey] = useState('');
   const [geoapifyError, setGeoapifyError] = useState<string | null>(null);
-  const [geoapifySuccess, setGeoapifySuccess] = useState<string | null>(null);
-  const [geoapifyVerifying, setGeoapifyVerifying] = useState(false);
-  const [geoapifyVerified, setGeoapifyVerified] = useState(false);
+  const [geoapifyConfigured, setGeoapifyConfigured] = useState(false);
   const [geoapifySaving, setGeoapifySaving] = useState(false);
   
   
@@ -67,12 +189,22 @@ export default function SetupWizard({ onSetupComplete }: SetupWizardProps) {
     async function loadDataSources() {
       try {
         const resp = await fetch(`${API_BASE}/setup/data-sources`);
-        if (resp.ok) {
-          const data = await resp.json();
-          setDataSources(data.data_sources || []);
-        }
+        if (!resp.ok) throw new Error('source_load_failed');
+        const data = await resp.json();
+        const loadedSources: DataSource[] = data.data_sources || [];
+        const sourceOrder: Record<string, number> = { demo: 0, purpleair: 1, openaq: 2, airgradient: 3 };
+        // Stable sort preserves the API's existing order for custom sources.
+        loadedSources.sort((a, b) => (sourceOrder[a.provider_code ?? ''] ?? 4) - (sourceOrder[b.provider_code ?? ''] ?? 4));
+        setDataSources(loadedSources);
+        setImportAuthenticatedLocations(loadedSources.find(source => source.provider_code === 'airgradient')?.import_authenticated_locations ?? false);
+        setSourceDrafts(Object.fromEntries(loadedSources.map((source) => [
+          source.external_api_id,
+          { apiKey: '' },
+        ])));
       } catch {
-        // Ignore errors - data sources are optional
+        setSourceError(i18n.t('common:errors.loadDataSources'));
+      } finally {
+        setSourceLoading(false);
       }
     }
     loadDataSources();
@@ -84,33 +216,41 @@ export default function SetupWizard({ onSetupComplete }: SetupWizardProps) {
     [adminPassword, adminEmail]
   );
 
+  const handleAdminEmailInvalid = useCallback((event: React.InvalidEvent<HTMLInputElement>) => {
+    if (!event.currentTarget.validity.typeMismatch) return;
+
+    event.preventDefault();
+    setAdminError(null);
+    setAdminEmailError(i18n.t('setup:setupWizard.messages.emailAddressInvalid'));
+  }, []);
+
   
   const handleCreateAdmin = useCallback(async (e: React.FormEvent) => {
     e.preventDefault();
     setAdminError(null);
-    setAdminSuccess(false);
+    setAdminEmailError(null);
 
     
     if (!adminEmail.trim()) {
-      setAdminError('Email address is required');
+      setAdminError(i18n.t('setup:setupWizard.messages.emailAddressRequired'));
       return;
     }
 
     
     if (!adminPassword) {
-      setAdminError('Password is required');
+      setAdminError(i18n.t('setup:setupWizard.messages.passwordRequired'));
       return;
     }
 
     
     if (!passwordStrength.isValid) {
-      setAdminError('Please choose a stronger password that meets all requirements.');
+      setAdminError(i18n.t('setup:setupWizard.messages.pleaseChooseStrongerPasswordThatMeets'));
       return;
     }
 
     
     if (adminPassword !== adminConfirmPassword) {
-      setAdminError('Passwords do not match');
+      setAdminError(i18n.t('setup:setupWizard.messages.passwordsDoNotMatch'));
       return;
     }
 
@@ -126,126 +266,103 @@ export default function SetupWizard({ onSetupComplete }: SetupWizardProps) {
         }),
       });
 
-      const data = await resp.json();
+      const data: SetupResponse = await resp.json();
       
       if (resp.ok && data.success) {
-        setAdminSuccess(true);
-        
-        setTimeout(() => setCurrentStep('datasource'), 1500);
+        setCurrentStep('secure');
+      } else if (isSetupEmailValidationError(resp.status, data.detail)) {
+        setAdminEmailError(i18n.t('setup:setupWizard.messages.emailAddressInvalid'));
       } else {
         
-        setAdminError(data.detail || 'Failed to create admin account');
+        setAdminError(translateSetupError(data.detail, 'setup:serverErrors.adminCreationFailed'));
       }
     } catch {
-      setAdminError('Network error. Please try again.');
+      setAdminError(i18n.t('setup:setupWizard.messages.networkErrorPleaseTryAgain'));
     } finally {
       setAdminSubmitting(false);
     }
   }, [adminEmail, adminPassword, adminConfirmPassword, passwordStrength.isValid]);
 
   
-  const handleVerifyDataSource = useCallback(async () => {
-    if (!selectedSourceId || !sourceApiKey.trim()) return;
-    
+  const handleSourceEnabled = async (source: DataSource, enabled: boolean) => {
+    setSourceSaving(true);
     setSourceError(null);
-    setSourceSuccess(null);
-    setSourceVerifying(true);
-    setSourceVerified(false);
-
     try {
-      const resp = await fetch(`${API_BASE}/setup/verify-data-source`, {
+      const response = await fetch(`${API_BASE}/setup/data-source`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          external_api_id: selectedSourceId,
-          api_key: sourceApiKey.trim(),
+          external_api_id: source.external_api_id,
+          enabled,
+          ...(source.provider_code === 'airgradient'
+            ? { import_authenticated_locations: importAuthenticatedLocations } : {}),
         }),
       });
-
-      const data: VerifyResponse = await resp.json();
-      
-      if (data.success) {
-        setSourceSuccess(data.message);
-        setSourceVerified(true);
-      } else {
-        setSourceError(data.message);
-      }
+      const result: SetupResponse = await response.json();
+      if (!response.ok || !result.success) throw new Error('source_save_failed');
+      setDataSources(current => current.map(item => item.external_api_id === source.external_api_id
+        ? { ...item, enabled, is_configured: result.is_configured ?? item.is_configured } : item));
     } catch {
-      setSourceError('Network error during verification. Please try again.');
+      setSourceError(i18n.t('dataSources:demo.saveFailed'));
     } finally {
-      setSourceVerifying(false);
+      setSourceSaving(false);
     }
-  }, [selectedSourceId, sourceApiKey]);
+  };
 
-  
-  const handleSaveDataSource = useCallback(async () => {
-    if (!selectedSourceId || !sourceApiKey.trim()) return;
-    
-    
-    if (sourceApiKey !== sourceConfirmApiKey) {
-      setSourceError('API keys do not match');
-      return;
-    }
-
+  const handleSaveDataSources = useCallback(async () => {
     setSourceError(null);
     setSourceSaving(true);
 
     try {
-      const resp = await fetch(`${API_BASE}/setup/data-source`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          external_api_id: selectedSourceId,
-          api_key: sourceApiKey.trim(),
-          confirm_api_key: sourceConfirmApiKey.trim(),
-        }),
-      });
-
-      const data = await resp.json();
-      
-      if (resp.ok && data.success) {
-        setSourceSuccess(data.message + ' Moving to next step...');
-        setTimeout(() => setCurrentStep('geoapify'), 1500);
-      } else {
-        setSourceError(data.detail || 'Failed to save API key');
+      let credentialSupplied = false;
+      for (const source of dataSources) {
+        // Credential-free choices are persisted immediately by their control.
+        if (source.requires_credential === false && source.provider_code !== 'airgradient') continue;
+        const draft = sourceDrafts[source.external_api_id] ?? { apiKey: '' };
+        const apiKey = draft.apiKey.trim();
+        // Setup derives the initial enablement intent from the supplied credential.
+        const requestBody: {
+          external_api_id: number;
+          enabled: boolean;
+          api_key?: string | null;
+          import_authenticated_locations?: boolean;
+        } = {
+          external_api_id: source.external_api_id,
+          enabled: source.provider_code === 'airgradient' ? source.enabled || Boolean(apiKey) : Boolean(apiKey),
+        };
+        if (apiKey) {
+          credentialSupplied = true;
+          requestBody.api_key = apiKey;
+        } else if (!source.has_api_key) {
+          requestBody.api_key = null;
+        }
+        if (source.provider_code === 'airgradient') {
+          requestBody.import_authenticated_locations = importAuthenticatedLocations;
+        }
+        const resp = await fetch(`${API_BASE}/setup/data-source`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(requestBody),
+        });
+        const data: SetupResponse = await resp.json();
+        if (!resp.ok || !data.success) {
+          setSourceError(translateSetupError(data.detail, 'setup:serverErrors.apiKeySaveFailed'));
+          return;
+        }
+        if (source.provider_code === 'airgradient') {
+          setDataSources(current => current.map(item => item.external_api_id === source.external_api_id
+            ? { ...item, enabled: requestBody.enabled, is_configured: data.is_configured ?? item.is_configured } : item));
+        }
       }
+      setSourceCredentialSupplied(credentialSupplied);
+      setSourcesSaved(true);
+      setCurrentStep('geoapify');
     } catch {
-      setSourceError('Network error. Please try again.');
+      setSourceError(i18n.t('setup:setupWizard.messages.networkErrorPleaseTryAgain2'));
     } finally {
       setSourceSaving(false);
     }
-  }, [selectedSourceId, sourceApiKey, sourceConfirmApiKey]);
-
-  
-  const handleVerifyGeoapify = useCallback(async () => {
-    if (!geoapifyKey.trim()) return;
-    
-    setGeoapifyError(null);
-    setGeoapifySuccess(null);
-    setGeoapifyVerifying(true);
-    setGeoapifyVerified(false);
-
-    try {
-      const resp = await fetch(`${API_BASE}/setup/verify-geoapify`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ api_key: geoapifyKey.trim() }),
-      });
-
-      const data: VerifyResponse = await resp.json();
-      
-      if (data.success) {
-        setGeoapifySuccess(data.message);
-        setGeoapifyVerified(true);
-      } else {
-        setGeoapifyError(data.message);
-      }
-    } catch {
-      setGeoapifyError('Network error during verification. Please try again.');
-    } finally {
-      setGeoapifyVerifying(false);
-    }
-  }, [geoapifyKey]);
+  }, [dataSources, sourceDrafts, importAuthenticatedLocations]);
 
   
   const handleSaveGeoapify = useCallback(async () => {
@@ -261,16 +378,16 @@ export default function SetupWizard({ onSetupComplete }: SetupWizardProps) {
         body: JSON.stringify({ api_key: geoapifyKey.trim() }),
       });
 
-      const data = await resp.json();
+      const data: SetupResponse = await resp.json();
       
       if (resp.ok && data.success) {
-        setGeoapifySuccess(data.message + ' Moving to final step...');
-        setTimeout(() => setCurrentStep('complete'), 1500);
+        setGeoapifyConfigured(true);
+        setCurrentStep('complete');
       } else {
-        setGeoapifyError(data.detail || 'Failed to save API key');
+        setGeoapifyError(translateSetupError(data.detail, 'setup:serverErrors.apiKeySaveFailed'));
       }
     } catch {
-      setGeoapifyError('Network error. Please try again.');
+      setGeoapifyError(i18n.t('setup:setupWizard.messages.networkErrorPleaseTryAgain3'));
     } finally {
       setGeoapifySaving(false);
     }
@@ -285,21 +402,25 @@ export default function SetupWizard({ onSetupComplete }: SetupWizardProps) {
       const resp = await fetch(`${API_BASE}/setup/complete`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          default_language_code: defaultLanguageCode,
+          system_timezone: getLocalTimezone(),
+        }),
       });
 
-      const data = await resp.json();
+      const data: SetupResponse = await resp.json();
       
       if (resp.ok && data.success) {
         onSetupComplete();
       } else {
-        setCompletionError(data.detail || 'Failed to complete setup');
+        setCompletionError(translateSetupError(data.detail, 'setup:serverErrors.completionFailed'));
       }
     } catch {
-      setCompletionError('Network error. Please try again.');
+      setCompletionError(i18n.t('setup:setupWizard.messages.networkErrorPleaseTryAgain4'));
     } finally {
       setCompleting(false);
     }
-  }, [onSetupComplete]);
+  }, [defaultLanguageCode, onSetupComplete]);
 
   
   const handleSkipDataSource = () => {
@@ -314,95 +435,160 @@ export default function SetupWizard({ onSetupComplete }: SetupWizardProps) {
   
   const getStepNumber = (step: WizardStep): number => {
     switch (step) {
-      case 'admin': return 1;
+      // Securing the account is part of the existing account progress stage.
+      case 'admin':
+      case 'secure': return 1;
       case 'datasource': return 2;
       case 'geoapify': return 3;
       case 'complete': return 4;
-      default: return 1;
+      case 'welcome': return 0;
     }
   };
 
   const currentStepNumber = getStepNumber(currentStep);
-  const selectedSource = dataSources.find(s => s.external_api_id === selectedSourceId);
-
+  const sourceConfiguredAndEnabled = (sourcesSaved && sourceCredentialSupplied)
+    || dataSources.some(source => source.provider_code === 'airgradient' && source.enabled && source.is_configured === true);
   return (
-    <div className="setup-wizard-overlay">
+    <div className={`setup-wizard-overlay${currentStep === 'datasource' ? ' setup-wizard-overlay--sources' : ''}`}>
       <div className="setup-wizard-container">
         
         <div className="setup-wizard-header">
-          <h1 className="setup-wizard-title">Welcome to COMPASS</h1>
-          <p className="setup-wizard-subtitle">Air Quality Data Platform</p>
+          <h1 className="setup-wizard-title"><Trans ns="setup" i18nKey="setupWizard.headings.productName" /></h1>
+          <p className="setup-wizard-subtitle"><Trans ns="setup" i18nKey="setupWizard.text.airQualityDataPlatform" /></p>
+          <LanguageSelector
+            id="setup-default-language"
+            value={defaultLanguageCode}
+            onChange={(languageCode) => {
+              setDefaultLanguageCode(languageCode);
+              writeAnonymousLanguagePreference(window.localStorage, languageCode);
+              void i18n.changeLanguage(languageCode);
+            }}
+          />
         </div>
 
         
-        <div className="setup-wizard-progress">
+        {currentStep !== 'welcome' && <div className="setup-wizard-progress">
           <div className={`setup-progress-step ${currentStepNumber >= 1 ? 'active' : ''} ${currentStepNumber > 1 ? 'completed' : ''}`}>
             <div className="setup-progress-number">{currentStepNumber > 1 ? '✓' : '1'}</div>
-            <div className="setup-progress-label">Admin Account</div>
+            <div className="setup-progress-label"><Trans ns="setup" i18nKey="setupWizard.text.adminAccount" /></div>
           </div>
           <div className="setup-progress-line"></div>
           <div className={`setup-progress-step ${currentStepNumber >= 2 ? 'active' : ''} ${currentStepNumber > 2 ? 'completed' : ''}`}>
             <div className="setup-progress-number">{currentStepNumber > 2 ? '✓' : '2'}</div>
-            <div className="setup-progress-label">Data Source</div>
+            <div className="setup-progress-label"><Trans ns="setup" i18nKey="setupWizard.text.dataSource" /></div>
           </div>
           <div className="setup-progress-line"></div>
           <div className={`setup-progress-step ${currentStepNumber >= 3 ? 'active' : ''} ${currentStepNumber > 3 ? 'completed' : ''}`}>
             <div className="setup-progress-number">{currentStepNumber > 3 ? '✓' : '3'}</div>
-            <div className="setup-progress-label">Location Search</div>
+            <div className="setup-progress-label"><Trans ns="setup" i18nKey="setupWizard.text.locationSearch" /></div>
           </div>
           <div className="setup-progress-line"></div>
           <div className={`setup-progress-step ${currentStepNumber >= 4 ? 'active' : ''}`}>
             <div className="setup-progress-number">4</div>
-            <div className="setup-progress-label">Complete</div>
+            <div className="setup-progress-label"><Trans ns="setup" i18nKey="setupWizard.text.complete" /></div>
           </div>
-        </div>
+        </div>}
 
         
         <div className="setup-wizard-content">
+          <span role="status" className="sr-only">{passkeyCreated ? i18n.t('setup:passkey.success') : ''}</span>
+          {currentStep === 'welcome' && (
+            <div className="setup-step setup-welcome-step">
+              <h2 className="setup-step-title"><Trans ns="setup" i18nKey="setupWizard.headings.welcomeCompassAQ" /></h2>
+              <p className="setup-step-description">
+                <Trans ns="setup" i18nKey="setupWizard.text.welcomePreparation" />
+              </p>
+
+              <h3 className="setup-prerequisite-heading">
+                <Trans ns="setup" i18nKey="setupWizard.headings.optionalItems" />
+              </h3>
+              <ul className="setup-prerequisite-list">
+                <li>
+                  <span className="setup-prerequisite-dot" aria-hidden="true" />
+                  <span><strong><Trans ns="setup" i18nKey="setupWizard.text.airGradientApiToken" /></strong> — <Trans ns="setup" i18nKey="setupWizard.text.airGradientPurpose" /></span>
+                </li>
+                <li>
+                  <span className="setup-prerequisite-dot" aria-hidden="true" />
+                  <span><strong><Trans ns="setup" i18nKey="setupWizard.text.openAQApiKey" /></strong> — <Trans ns="setup" i18nKey="setupWizard.text.openAQPurpose" /></span>
+                </li>
+                <li>
+                  <span className="setup-prerequisite-dot" aria-hidden="true" />
+                  <span><strong><Trans ns="setup" i18nKey="setupWizard.text.purpleAirApiKey" /></strong> — <Trans ns="setup" i18nKey="setupWizard.text.purpleAirPurpose" /></span>
+                </li>
+                <li>
+                  <span className="setup-prerequisite-dot" aria-hidden="true" />
+                  <span><strong><Trans ns="setup" i18nKey="setupWizard.text.geoapifyApiKey" /></strong> — <Trans ns="setup" i18nKey="setupWizard.text.geoapifyPurpose" /></span>
+                </li>
+                <li>
+                  <span className="setup-prerequisite-dot" aria-hidden="true" />
+                  <span><strong><Trans ns="setup" i18nKey="setupWizard.text.smtpSettings" /></strong> — <Trans ns="setup" i18nKey="setupWizard.text.smtpPurpose" /></span>
+                </li>
+              </ul>
+
+              <p className="setup-welcome-optionality">
+                <Trans ns="setup" i18nKey="setupWizard.text.noneRequired" />
+              </p>
+              <div className="setup-form-actions-row setup-welcome-actions">
+                <button
+                  type="button"
+                  className="setup-btn setup-btn-primary"
+                  onClick={() => setCurrentStep('admin')}
+                >
+                  <Trans ns="setup" i18nKey="setupWizard.actions.continue" />
+                </button>
+              </div>
+            </div>
+          )}
+
           
           {currentStep === 'admin' && (
             <div className="setup-step">
-              <h2 className="setup-step-title">Create Admin Account</h2>
+              <h2 className="setup-step-title"><Trans ns="setup" i18nKey="setupWizard.headings.createAdminAccount" /></h2>
               <p className="setup-step-description">
-                Create your administrator account to manage the platform. This account will have full access to all features.
-              </p>
+                <Trans ns="setup" i18nKey="setupWizard.text.createAdministratorAccountManagePlatformAccount" /></p>
 
               {adminError && (
-                <div className="setup-alert setup-alert-error">
+                <div className="setup-alert setup-alert-error" role="alert">
                   {adminError}
-                </div>
-              )}
-
-              {adminSuccess && (
-                <div className="setup-alert setup-alert-success">
-                  Admin account created successfully! Moving to next step...
                 </div>
               )}
 
               <form onSubmit={handleCreateAdmin} className="setup-form">
                 <div className="setup-form-field">
-                  <label htmlFor="admin-email" className="setup-form-label">Email Address</label>
+                  <label htmlFor="admin-email" className="setup-form-label"><Trans ns="setup" i18nKey="setupWizard.fields.emailAddress" /></label>
                   <input
                     id="admin-email"
+                    ref={adminEmailInput}
                     type="email"
                     value={adminEmail}
-                    onChange={(e) => setAdminEmail(e.target.value)}
-                    disabled={adminSubmitting || adminSuccess}
+                    onChange={(e) => {
+                      setAdminEmail(e.target.value);
+                      if (e.currentTarget.validity.valid) setAdminEmailError(null);
+                    }}
+                    onInvalid={handleAdminEmailInvalid}
+                    disabled={adminSubmitting}
                     className="setup-form-input"
-                    placeholder="admin@example.com"
+                    placeholder={i18n.t('setup:setupWizard.placeholders.adminExampleCom')}
                     autoFocus
                     autoComplete="email"
+                    aria-invalid={adminEmailError ? true : undefined}
+                    aria-describedby={adminEmailError ? 'admin-email-error' : undefined}
                   />
+                  {adminEmailError && (
+                    <p id="admin-email-error" className="setup-form-error" role="alert">
+                      {adminEmailError}
+                    </p>
+                  )}
                 </div>
 
                 <div className="setup-form-field">
-                  <label htmlFor="admin-password" className="setup-form-label">Password</label>
+                  <label htmlFor="admin-password" className="setup-form-label"><Trans ns="common" i18nKey="fields.password" /></label>
                   <PasswordInput
                     id="admin-password"
                     value={adminPassword}
                     onChange={(e) => setAdminPassword(e.target.value)}
-                    disabled={adminSubmitting || adminSuccess}
-                    placeholder="Create a strong password"
+                    disabled={adminSubmitting}
+                    placeholder={i18n.t('setup:setupWizard.placeholders.createStrongPassword')}
                     autoComplete="new-password"
                   />
                   
@@ -415,13 +601,13 @@ export default function SetupWizard({ onSetupComplete }: SetupWizardProps) {
                 </div>
 
                 <div className="setup-form-field">
-                  <label htmlFor="admin-confirm-password" className="setup-form-label">Confirm Password</label>
+                  <label htmlFor="admin-confirm-password" className="setup-form-label"><Trans ns="setup" i18nKey="setupWizard.fields.confirmPassword" /></label>
                   <PasswordInput
                     id="admin-confirm-password"
                     value={adminConfirmPassword}
                     onChange={(e) => setAdminConfirmPassword(e.target.value)}
-                    disabled={adminSubmitting || adminSuccess}
-                    placeholder="Re-enter password"
+                    disabled={adminSubmitting}
+                    placeholder={i18n.t('setup:setupWizard.placeholders.reEnterPassword')}
                     autoComplete="new-password"
                   />
                 </div>
@@ -429,10 +615,10 @@ export default function SetupWizard({ onSetupComplete }: SetupWizardProps) {
                 <div className="setup-form-actions">
                   <button
                     type="submit"
-                    disabled={adminSubmitting || adminSuccess}
+                    disabled={adminSubmitting}
                     className="setup-btn setup-btn-primary"
                   >
-                    {adminSubmitting ? 'Creating Account...' : 'Create Admin Account'}
+                    {adminSubmitting ? i18n.t('setup:setupWizard.actions.creatingAccount') : i18n.t('setup:setupWizard.actions.createAdminAccount')}
                   </button>
                 </div>
               </form>
@@ -440,134 +626,150 @@ export default function SetupWizard({ onSetupComplete }: SetupWizardProps) {
           )}
 
           
+          {currentStep === 'secure' && (
+            <div className="setup-step">
+              <h2 className="setup-step-title">{i18n.t('setup:passkey.title')}</h2>
+              <p className="setup-step-description">{i18n.t('setup:passkey.description')}</p>
+              <div className="setup-info-banner">{i18n.t('setup:passkey.supporting')}</div>
+              {passkeyMessage && (
+                <div className="setup-alert setup-alert-error" role="alert">
+                  {i18n.t(`setup:passkey.${passkeyMessage}`)}
+                </div>
+              )}
+              <div className="setup-form">
+                <p className="setup-form-hint">{i18n.t('setup:passkey.note')}</p>
+                <div className="setup-form-actions-row">
+                  <button type="button" className="setup-btn setup-btn-primary"
+                    disabled={passkeyBusy} onClick={() => void handleCreatePasskey()}>
+                    {i18n.t(passkeyBusy ? 'setup:passkey.creating' : 'setup:passkey.create')}
+                  </button>
+                </div>
+                <div className="setup-form-actions setup-form-actions-row">
+                  <button type="button" className="setup-btn setup-btn-secondary" onClick={continueAfterPasskey}>
+                    {i18n.t('setup:passkey.skip')}
+                  </button>
+                </div>
+              </div>
+            </div>
+          )}
+
           {currentStep === 'datasource' && (
             <div className="setup-step">
-              <h2 className="setup-step-title">Configure Data Source</h2>
+              <h2 className="setup-step-title"><Trans ns="setup" i18nKey="setupWizard.headings.configureDataSource" /></h2>
               <p className="setup-step-description">
-                Optionally configure an external data source to start importing air quality measurements.
-              </p>
+                <Trans ns="setup" i18nKey="setupWizard.text.optionallyConfigureExternalDataSourceStart" /></p>
 
               <div className="setup-info-banner">
-                <strong>Note:</strong> No measurement data will be available until at least one data source is configured.
-                You can also configure data sources later from the Admin section.
-              </div>
+                <strong><Trans ns="setup" i18nKey="setupWizard.text.note" /></strong> <Trans ns="setup" i18nKey="setupWizard.text.noMeasurementDataWillAvailableUntil" /></div>
 
+              {sourceLoading && <div className="setup-info-banner" role="status"><Trans ns="common" i18nKey="states.loading" /></div>}
               {sourceError && (
-                <div className="setup-alert setup-alert-error">
+                <div className="setup-alert setup-alert-error" role="alert">
                   {sourceError}
                 </div>
               )}
 
-              {sourceSuccess && (
-                <div className="setup-alert setup-alert-success">
-                  {sourceSuccess}
-                </div>
-              )}
-
               <div className="setup-form">
-                
-                <div className="setup-form-field">
-                  <label className="setup-form-label">Select Data Source</label>
-                  <div className="setup-source-options">
-                    {dataSources.map((source) => (
-                      <button
-                        key={source.external_api_id}
-                        type="button"
-                        className={`setup-source-card ${selectedSourceId === source.external_api_id ? 'selected' : ''}`}
-                        onClick={() => {
-                          setSelectedSourceId(source.external_api_id);
-                          setSourceApiKey('');
-                          setSourceConfirmApiKey('');
-                          setSourceError(null);
-                          setSourceSuccess(null);
-                          setSourceVerified(false);
-                        }}
-                      >
-                        <div className="setup-source-icon">
-                          {source.name === 'OpenAQ' && '🌍'}
-                          {source.name === 'PurpleAir' && '🟣'}
-                          {source.name === 'AirGradient' && '🌿'}
-                          {!['OpenAQ', 'PurpleAir', 'AirGradient'].includes(source.name) && '📡'}
-                        </div>
+                <div className="setup-source-options">
+                  {dataSources.map((source) => {
+                    const draft = sourceDrafts[source.external_api_id] ?? { apiKey: '' };
+                    return (
+                      <section key={source.external_api_id} className="setup-source-card selected">
                         <div className="setup-source-info">
                           <strong>{source.name}</strong>
-                          {source.description && <span className="setup-source-desc">{source.description}</span>}
+                          {source.description && !source.provider_code && (
+                            <span className="setup-source-desc">
+                              {source.description}
+                            </span>
+                          )}
                         </div>
-                        {source.has_api_key && <span className="setup-source-badge">Configured</span>}
-                      </button>
-                    ))}
-                  </div>
+                        {source.requires_credential === false && source.provider_code !== 'airgradient' ? (
+                          <div className="setup-form-field">
+                            {source.provider_code === 'demo' && <>
+                              <p className="setup-form-hint"><Trans ns="dataSources" i18nKey="demo.description" /></p>
+                              <p className="setup-form-hint"><Trans ns="dataSources" i18nKey="demo.setupHelp" /></p>
+                            </>}
+                            <p className="setup-form-hint"><Trans ns="dataSources" i18nKey="credentialFree" /></p>
+                            <label className="setup-source-toggle">
+                              <input type="checkbox" checked={source.enabled} disabled={sourceSaving}
+                                onChange={event => void handleSourceEnabled(source, event.target.checked)} />
+                              {i18n.t('dataSources:enableSource', { name: source.name })}
+                            </label>
+                            <span role="status">{i18n.t(source.enabled ? 'admin:workspace.enabled' : 'admin:workspace.disabled')}</span>
+                            {source.provider_code === 'demo' && <p className="setup-form-hint"><Trans ns="dataSources" i18nKey="demo.disableHelp" /></p>}
+                          </div>
+                        ) : <div className="setup-form-field">
+                          {source.provider_code === 'airgradient' && <>
+                            <p className="setup-form-hint">{i18n.t('dataSources:airgradientPublicHelp')}</p>
+                            <label className="setup-source-toggle">
+                              <input type="checkbox" checked={source.enabled} disabled={sourceSaving}
+                                onChange={event => void handleSourceEnabled(source, event.target.checked)} />
+                              {i18n.t('dataSources:enableSource', { name: source.name })}
+                            </label>
+                          </>}
+                          <label htmlFor={`source-api-key-${source.external_api_id}`} className="setup-form-label">
+                            <Trans ns="setup" i18nKey="setupWizard.fields.apiKey" />
+                          </label>
+                          <input
+                            id={`source-api-key-${source.external_api_id}`}
+                            type="text"
+                            value={draft.apiKey}
+                            onChange={(event) => setSourceDrafts((current) => ({
+                              ...current,
+                              [source.external_api_id]: { ...draft, apiKey: event.target.value },
+                            }))}
+                            disabled={sourceSaving}
+                            className="setup-form-input setup-source-api-key-input"
+                            placeholder={i18n.t(source.provider_code === 'airgradient'
+                              ? 'dataSources:adminSourceForm.placeholders.airGradientApiKey'
+                              : 'setup:setupWizard.placeholders.optionalApiKey')}
+                          />
+                          {source.provider_code === 'airgradient' && <>
+                            <label className="setup-source-toggle">
+                              <input type="checkbox" checked={importAuthenticatedLocations} disabled={sourceSaving}
+                                aria-describedby="setup-airgradient-owned-locations-help"
+                                onChange={event => setImportAuthenticatedLocations(event.target.checked)} />
+                              {i18n.t('dataSources:adminSourceForm.text.importAuthenticatedLocations')}
+                            </label>
+                            <p id="setup-airgradient-owned-locations-help" className="setup-form-hint">
+                              {i18n.t('dataSources:adminSourceForm.text.authenticatedLocationsHelp')}
+                            </p>
+                          </>}
+                        </div>}
+                      </section>
+                    );
+                  })}
                 </div>
 
-                
-                {selectedSourceId && (
-                  <>
-                    <div className="setup-form-field">
-                      <label htmlFor="source-api-key" className="setup-form-label">
-                        {selectedSource?.name} API Key
-                      </label>
-                      <PasswordInput
-                        id="source-api-key"
-                        value={sourceApiKey}
-                        onChange={(e) => {
-                          setSourceApiKey(e.target.value);
-                          setSourceVerified(false);
-                          setSourceSuccess(null);
-                        }}
-                        disabled={sourceSaving}
-                        placeholder="Enter your API key"
-                      />
-                    </div>
-
-                    <div className="setup-form-field">
-                      <label htmlFor="source-confirm-api-key" className="setup-form-label">
-                        Confirm API Key
-                      </label>
-                      <PasswordInput
-                        id="source-confirm-api-key"
-                        value={sourceConfirmApiKey}
-                        onChange={(e) => setSourceConfirmApiKey(e.target.value)}
-                        disabled={sourceSaving}
-                        placeholder="Re-enter API key"
-                      />
-                    </div>
-
-                    <div className="setup-form-actions-row">
-                      <button
-                        type="button"
-                        onClick={handleVerifyDataSource}
-                        disabled={!sourceApiKey.trim() || sourceVerifying || sourceSaving}
-                        className="setup-btn setup-btn-secondary"
-                      >
-                        {sourceVerifying ? 'Verifying...' : sourceVerified ? '✓ Verified' : 'Verify Key'}
-                      </button>
-                      <button
-                        type="button"
-                        onClick={handleSaveDataSource}
-                        disabled={!sourceApiKey.trim() || !sourceConfirmApiKey.trim() || sourceSaving}
-                        className="setup-btn setup-btn-primary"
-                      >
-                        {sourceSaving ? 'Saving...' : 'Save & Continue'}
-                      </button>
-                    </div>
-                  </>
-                )}
-
-                <div className="setup-form-actions">
+                <div className="setup-form-actions-row">
                   <button
                     type="button"
-                    onClick={() => setCurrentStep('admin')}
-                    className="setup-btn setup-btn-text"
+                    onClick={handleSaveDataSources}
+                    disabled={sourceSaving || sourceLoading}
+                    className="setup-btn setup-btn-primary"
                   >
-                    ← Back
+                    {sourceSaving ? i18n.t('setup:setupWizard.actions.saving') : i18n.t('setup:setupWizard.actions.saveSourcesContinue')}
                   </button>
+                </div>
+
+                <div className="setup-form-actions">
+                  {!initialAdminCreated && (
+                    <button
+                      type="button"
+                      onClick={() => setCurrentStep('admin')}
+                      disabled={sourceSaving}
+                      className="setup-btn setup-btn-text"
+                    >
+                      <Trans ns="setup" i18nKey="setupWizard.actions.back" />
+                    </button>
+                  )}
                   <button
                     type="button"
                     onClick={handleSkipDataSource}
+                    disabled={sourceSaving || sourceLoading}
                     className="setup-btn setup-btn-secondary"
                   >
-                    Skip for Now →
-                  </button>
+                    <Trans ns="setup" i18nKey="setupWizard.actions.skipNow" /></button>
                 </div>
               </div>
             </div>
@@ -576,15 +778,12 @@ export default function SetupWizard({ onSetupComplete }: SetupWizardProps) {
           
           {currentStep === 'geoapify' && (
             <div className="setup-step">
-              <h2 className="setup-step-title">Configure Location Search</h2>
+              <h2 className="setup-step-title"><Trans ns="setup" i18nKey="setupWizard.headings.configureLocationSearch" /></h2>
               <p className="setup-step-description">
-                Optionally configure a Geoapify API key to enable location search on the map.
-              </p>
+                <Trans ns="setup" i18nKey="setupWizard.text.optionallyConfigureGeoapifyApiKeyEnable" /></p>
 
               <div className="setup-info-banner">
-                <strong>Note:</strong> Without a Geoapify API key, the map location search feature will not work.
-                You can configure this later from the Admin section.
-              </div>
+                <strong><Trans ns="setup" i18nKey="setupWizard.text.note2" /></strong> <Trans ns="setup" i18nKey="setupWizard.text.withoutGeoapifyApiKeyMapLocation" /></div>
 
               {geoapifyError && (
                 <div className="setup-alert setup-alert-error">
@@ -592,48 +791,32 @@ export default function SetupWizard({ onSetupComplete }: SetupWizardProps) {
                 </div>
               )}
 
-              {geoapifySuccess && (
-                <div className="setup-alert setup-alert-success">
-                  {geoapifySuccess}
-                </div>
-              )}
-
               <div className="setup-form">
                 <div className="setup-form-field">
-                  <label htmlFor="geoapify-key" className="setup-form-label">Geoapify API Key</label>
+                  <label htmlFor="geoapify-key" className="setup-form-label"><Trans ns="setup" i18nKey="setupWizard.fields.geoapifyApiKey" /></label>
                   <PasswordInput
                     id="geoapify-key"
                     value={geoapifyKey}
                     onChange={(e) => {
                       setGeoapifyKey(e.target.value);
-                      setGeoapifyVerified(false);
-                      setGeoapifySuccess(null);
                     }}
                     disabled={geoapifySaving}
-                    placeholder="Enter your Geoapify API key"
+                    placeholder={i18n.t('setup:setupWizard.placeholders.enterGeoapifyApiKey')}
                     autoComplete="off"
                   />
                   <p className="setup-form-hint">
-                    Get a free API key at <a href="https://www.geoapify.com/" target="_blank" rel="noopener noreferrer">geoapify.com</a>
+                    <Trans ns="setup" i18nKey="setupWizard.text.getFreeApiKey" /> <a href="https://www.geoapify.com/" target="_blank" rel="noopener noreferrer">geoapify.com</a>
                   </p>
                 </div>
 
                 <div className="setup-form-actions-row">
                   <button
                     type="button"
-                    onClick={handleVerifyGeoapify}
-                    disabled={!geoapifyKey.trim() || geoapifyVerifying || geoapifySaving}
-                    className="setup-btn setup-btn-secondary"
-                  >
-                    {geoapifyVerifying ? 'Verifying...' : geoapifyVerified ? '✓ Verified' : 'Verify Key'}
-                  </button>
-                  <button
-                    type="button"
                     onClick={handleSaveGeoapify}
                     disabled={!geoapifyKey.trim() || geoapifySaving}
                     className="setup-btn setup-btn-primary"
                   >
-                    {geoapifySaving ? 'Saving...' : 'Save & Continue'}
+                    {geoapifySaving ? i18n.t('setup:setupWizard.actions.saving2') : i18n.t('setup:setupWizard.actions.saveContinue2')}
                   </button>
                 </div>
 
@@ -643,15 +826,13 @@ export default function SetupWizard({ onSetupComplete }: SetupWizardProps) {
                     onClick={() => setCurrentStep('datasource')}
                     className="setup-btn setup-btn-text"
                   >
-                    ← Back
-                  </button>
+                    <Trans ns="setup" i18nKey="setupWizard.actions.back2" /></button>
                   <button
                     type="button"
                     onClick={handleSkipGeoapify}
                     className="setup-btn setup-btn-secondary"
                   >
-                    Skip for Now →
-                  </button>
+                    <Trans ns="setup" i18nKey="setupWizard.actions.skipNow2" /></button>
                 </div>
               </div>
             </div>
@@ -660,31 +841,36 @@ export default function SetupWizard({ onSetupComplete }: SetupWizardProps) {
           
           {currentStep === 'complete' && (
             <div className="setup-step">
-              <h2 className="setup-step-title">Setup Complete!</h2>
+              <h2 className="setup-step-title"><Trans ns="setup" i18nKey="setupWizard.headings.setupComplete" /></h2>
               <p className="setup-step-description">
-                You're all set! Click the button below to finish setup and start using the platform.
-              </p>
+                <Trans ns="setup" i18nKey="setupWizard.text.youReAllSetClickButton" /></p>
 
               <div className="setup-summary">
                 <div className="setup-summary-item">
                   <span className="setup-summary-icon">✓</span>
-                  <span>Admin account created</span>
+                  <span><Trans ns="setup" i18nKey="setupWizard.text.adminAccountCreated" /></span>
                 </div>
                 <div className="setup-summary-item">
-                  <span className="setup-summary-icon">{selectedSourceId ? '✓' : '○'}</span>
+                  <span className="setup-summary-icon">{sourceConfiguredAndEnabled ? '✓' : '○'}</span>
                   <span>
-                    {selectedSourceId 
-                      ? `${selectedSource?.name} configured` 
-                      : 'Data source not configured (can be done in Admin)'
+                    {sourceConfiguredAndEnabled
+                      ? i18n.t('setup:setupWizard.text.dataSourceConfiguredAndEnabled')
+                      : i18n.t('setup:setupWizard.text.dataSourceNotConfiguredCanDone')
                     }
                   </span>
                 </div>
+                {dataSources.filter(source => source.provider_code === 'demo').map(source => (
+                  <div className="setup-summary-item" key={source.external_api_id}>
+                    <span className="setup-summary-icon">{source.enabled ? '✓' : '○'}</span>
+                    <span>{source.name}: {i18n.t(source.enabled ? 'admin:workspace.enabled' : 'admin:workspace.disabled')}</span>
+                  </div>
+                ))}
                 <div className="setup-summary-item">
-                  <span className="setup-summary-icon">{geoapifyVerified ? '✓' : '○'}</span>
+                  <span className="setup-summary-icon">{geoapifyConfigured ? '✓' : '○'}</span>
                   <span>
-                    {geoapifyVerified 
-                      ? 'Location search configured' 
-                      : 'Location search not configured (can be done in Admin)'
+                    {geoapifyConfigured
+                      ? i18n.t('setup:setupWizard.text.locationSearchConfigured')
+                      : i18n.t('setup:setupWizard.text.locationSearchNotConfiguredCanDone')
                     }
                   </span>
                 </div>
@@ -702,15 +888,14 @@ export default function SetupWizard({ onSetupComplete }: SetupWizardProps) {
                   onClick={() => setCurrentStep('geoapify')}
                   className="setup-btn setup-btn-text"
                 >
-                  ← Back
-                </button>
+                  <Trans ns="setup" i18nKey="setupWizard.actions.back3" /></button>
                 <button
                   type="button"
                   onClick={handleCompleteSetup}
                   disabled={completing}
                   className="setup-btn setup-btn-primary setup-btn-large"
                 >
-                  {completing ? 'Completing Setup...' : 'Complete Setup & Start Using Platform'}
+                  {completing ? i18n.t('setup:setupWizard.actions.completingSetup') : i18n.t('setup:setupWizard.actions.completeSetupStartUsingPlatform')}
                 </button>
               </div>
             </div>

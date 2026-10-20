@@ -1,0 +1,79 @@
+.data-stream-dialog {
+  position: fixed;
+  inset: 0;
+  margin: auto;
+  width: min(42rem, calc(100% - 24px));
+  max-width: none;
+  max-height: calc(100dvh - 24px);
+  padding: 0;
+  border: 0;
+  border-radius: 10px;
+  background: white;
+  color: #1e293b;
+  box-shadow: 0 24px 64px #0f172a33;
+  overflow: hidden;
+}
+
+.data-stream-dialog[open] {
+  display: flex;
+  flex-direction: column;
+}
+
+.data-stream-dialog::backdrop { background: #0006; }
+
+.data-stream-dialog > :not(.data-stream-dialog-content) { flex-shrink: 0; }
+
+.data-stream-dialog-content {
+  min-height: 0;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  overflow-wrap: anywhere;
+}
+
+.data-stream-dialog-content input,
+.data-stream-dialog-content select { min-width: 0; max-width: 100%; }
+
+.data-stream-dialog :focus-visible {
+  outline: 2px solid #064789;
+  outline-offset: 2px;
+}
+
+/* Match the application's light surfaces regardless of the browser preference. */
+.data-stream-dialog input[type="radio"] {
+  color-scheme: light;
+  accent-color: #064789;
+  width: 16px;
+  height: 16px;
+  flex-shrink: 0;
+}
+
+.data-stream-dialog input[type="radio"]:hover {
+  box-shadow: 0 0 0 3px rgb(6 71 137 / 10%);
+}
+
+.data-type-selector {
+  display: inline-flex;
+  padding: 4px;
+  gap: 4px;
+  border: 1px solid #cbd5e1;
+  border-radius: 6px;
+  background: #f8fafc;
+}
+
+.data-type-selector button {
+  border: 0;
+  border-radius: 4px;
+  padding: 6px 12px;
+  font-size: 14px;
+  background: transparent;
+  color: #475569;
+}
+
+.data-type-selector button[aria-pressed="true"] {
+  background: white;
+  color: #064789;
+  box-shadow: 0 1px 3px #0f172a26;
+}
+
+.data-type-selector button:hover { background: #e2e8f0; }
+.data-type-selector button:focus:not(:focus-visible) { outline: none; }

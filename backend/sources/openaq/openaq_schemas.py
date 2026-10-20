@@ -29,6 +29,7 @@ class SensorModel(BaseModel):
     latest: Optional[LatestObj] = None
     locationId: Optional[Union[int, str]] = None
     locationsId: Optional[List[Union[int, str]]] = None
+    coverage: Optional["Coverage"] = None
 
 
 class SensorResponse(BaseModel):
@@ -132,4 +133,3 @@ class MetaInfo(BaseModel):
 class OpenAQMeasurementsResponse(BaseModel):
     meta: Optional[MetaInfo] = None
     results: List[MeasurementResult] = []
-

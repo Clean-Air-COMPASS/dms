@@ -1,0 +1,120 @@
+{
+  "actions": {
+    "add": "Add",
+    "back": "Back",
+    "cancel": "Cancel",
+    "close": "Close",
+    "continue": "Continue",
+    "copy": "Copy",
+    "create": "Create",
+    "delete": "Delete",
+    "edit": "Edit",
+    "finish": "Finish",
+    "loadMore": "Load more",
+    "next": "Next",
+    "previous": "Previous",
+    "refresh": "Refresh",
+    "remove": "Remove",
+    "reset": "Reset",
+    "retry": "Retry",
+    "save": "Save",
+    "saveChanges": "Save changes",
+    "search": "Search",
+    "select": "Select",
+    "signIn": "Sign in",
+    "signOut": "Sign Out",
+    "skip": "Skip",
+    "upload": "Upload",
+    "savingChanges": "Saving…"
+  },
+  "fields": {
+    "email": "Email",
+    "name": "Name",
+    "password": "Password",
+    "status": "Status"
+  },
+  "parameters": {
+    "pm1": "PM1",
+    "pm25": "PM2.5",
+    "pm10": "PM10",
+    "co2": "CO₂",
+    "temperature": "Temperature",
+    "relative_humidity": "Relative humidity",
+    "pressure": "Pressure",
+    "tvoc": "TVOC",
+    "tvoc_index": "VOC Index",
+    "nox_index": "NOx Index"
+  },
+  "language": {
+    "label": "Language",
+    "systemDefault": "Use system default",
+    "names": {
+      "en": "English",
+      "es": "Español"
+    }
+  },
+  "dynamic": {
+    "dataSource": "Data source: {{source}}"
+  },
+  "dataAttribution": {
+    "label": "Data attribution",
+    "providedBy": "Data provided by <providerLink>{{provider}}</providerLink>.",
+    "airGradientViaOpenAQ": "Data provided by <airGradient>AirGradient</airGradient> via <openAQ>OpenAQ</openAQ>.",
+    "contributor": "Data contributed by <contributorLink>{{contributor}}</contributorLink>.",
+    "license": "Licensed under <licenseLink>{{license}}</licenseLink>.",
+    "authenticatedOwnerControlled": "Authenticated user-owned data; no public-data license is inferred."
+  },
+  "states": {
+    "loading": "Loading…",
+    "never": "Never",
+    "notAvailable": "Not available",
+    "notAvailableShort": "N/A",
+    "unknown": "Unknown",
+    "valid": "Valid",
+    "invalid": "Invalid",
+    "available": "Available",
+    "unavailable": "Unavailable"
+  },
+  "errors": {
+    "requestFailed": "The request could not be completed. Please try again.",
+    "loadDevice": "Failed to load device",
+    "loadDevices": "Failed to load devices",
+    "loadParameters": "Failed to load parameters",
+    "loadTimeResolutions": "Failed to load time resolutions",
+    "loadDataSources": "Failed to load data sources",
+    "loadSensors": "Failed to load sensors",
+    "addSensor": "Failed to add sensor",
+    "updateSensor": "Failed to update sensor",
+    "deleteSensor": "Failed to delete sensor",
+    "saveDevice": "Failed to save device",
+    "deleteDevice": "Failed to delete device",
+    "upload": "Upload failed",
+    "loadRules": "Failed to load rules",
+    "toggleRule": "Failed to toggle rule",
+    "createRule": "Failed to create rule",
+    "deleteRule": "Failed to delete rule",
+    "resolveRule": "Failed to resolve effective rule",
+    "loadUsers": "Failed to load users",
+    "loadUser": "Failed to load user",
+    "updateRoles": "Failed to update roles",
+    "updateStatus": "Failed to update status",
+    "deleteUser": "Failed to delete user",
+    "unlockAccount": "Failed to unlock account",
+    "createUser": "Failed to create user",
+    "update": "Failed to update",
+    "create": "Failed to create",
+    "deleteDataSource": "Failed to delete data source",
+    "updateSchedule": "Failed to update schedule",
+    "save": "Failed to save",
+    "search": "Search error",
+    "loadDataStreams": "Failed to load data streams",
+    "saveDraft": "Failed to save draft",
+    "preview": "Preview failed",
+    "activation": "Activation failed",
+    "download": "Download failed"
+  },
+  "counts": {
+    "item_one": "{{count}} item",
+    "item_other": "{{count}} items"
+  }
+}

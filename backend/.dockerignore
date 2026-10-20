@@ -1,0 +1,14 @@
+# Production images do not need test suites or local tool output. In particular,
+# tests/plugins contains intentionally test-only QC packages that must never be
+# mistaken for deployment-installed extensions.
+tests/
+__pycache__/
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+htmlcov/
+*.pyc
+*.pyo
+*.sqlite3
+*.db
+*.log

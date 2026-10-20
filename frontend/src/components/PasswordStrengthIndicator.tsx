@@ -1,3 +1,4 @@
+import i18n from '../i18n';
 
 
 import { useMemo } from 'react';
@@ -50,7 +51,7 @@ export default function PasswordStrengthIndicator({
               aria-valuenow={score}
               aria-valuemin={0}
               aria-valuemax={100}
-              aria-label={`Password strength: ${strengthLabel}`}
+              aria-label={i18n.t('auth:passwordStrengthIndicator.accessibility.strength', { strength: strengthLabel })}
             />
           </div>
           <span className={`password-strength-label ${strengthColor}`}>
@@ -61,7 +62,7 @@ export default function PasswordStrengthIndicator({
 
       
       {showChecklist && (
-        <ul className="password-strength-checklist" aria-label="Password requirements">
+        <ul className="password-strength-checklist" aria-label={i18n.t('auth:passwordStrengthIndicator.accessibility.passwordRequirements')}>
           {result.checks.map((check) => (
             <li
               key={check.key}

@@ -1,0 +1,1106 @@
+{
+  "coverage_matrix": {
+    "metro_manila": {
+      "co": false,
+      "no2": false,
+      "o3": false,
+      "pm10": false,
+      "pm25": true,
+      "so2": false
+    },
+    "new_york": {
+      "co": true,
+      "no2": true,
+      "o3": true,
+      "pm10": true,
+      "pm25": true,
+      "so2": true
+    },
+    "rio_de_janeiro": {
+      "co": true,
+      "no2": true,
+      "o3": true,
+      "pm10": true,
+      "pm25": true,
+      "so2": true
+    }
+  },
+  "measurement_capture_performed": false,
+  "phase_2i4_request_estimate": {
+    "conservative_cadence_seconds": 60,
+    "conservative_expected_request_count": 143,
+    "expected_pages_per_sensor_ceiling": 11,
+    "expected_rows_per_sensor_ceiling": 10080,
+    "measurement_page_size": 1000,
+    "native_temporal_metadata_qualified": false,
+    "rationale": "Location discovery does not expose native sensor cadence. One-minute cadence is a conservative planning ceiling until Phase 2I.4 qualifies each selected sensor's temporal metadata.",
+    "requires_separate_phase_2i4_approval": true,
+    "selected_sensor_count": 13
+  },
+  "proposed_capture_window": {
+    "duration_days": 7,
+    "window_end": "2026-08-08T00:00:00Z",
+    "window_start": "2026-08-01T00:00:00Z"
+  },
+  "provider": "OpenAQ",
+  "reference_areas": [
+    {
+      "airgradient_matches": [
+        {
+          "location_name": "Franklin Avenue",
+          "metadata_evidence": [
+            "instrument:Unknown AirGradient Sensor",
+            "provider:AirGradient"
+          ],
+          "openaq_location_id": 1236043
+        },
+        {
+          "location_name": "Bayside, NY",
+          "metadata_evidence": [
+            "instrument:Unknown AirGradient Sensor",
+            "provider:AirGradient"
+          ],
+          "openaq_location_id": 1738519
+        },
+        {
+          "location_name": "State Dept of Environmental Conservation",
+          "metadata_evidence": [
+            "instrument:Unknown AirGradient Sensor",
+            "provider:AirGradient"
+          ],
+          "openaq_location_id": 1775647
+        },
+        {
+          "location_name": "Bayside, NY",
+          "metadata_evidence": [
+            "instrument:Unknown AirGradient Sensor",
+            "provider:AirGradient"
+          ],
+          "openaq_location_id": 1824516
+        },
+        {
+          "location_name": "Jersey City Heights",
+          "metadata_evidence": [
+            "instrument:Unknown AirGradient Sensor",
+            "provider:AirGradient"
+          ],
+          "openaq_location_id": 2153518
+        },
+        {
+          "location_name": "Carteret, NJ",
+          "metadata_evidence": [
+            "instrument:Unknown AirGradient Sensor",
+            "provider:AirGradient"
+          ],
+          "openaq_location_id": 2386747
+        },
+        {
+          "location_name": "State Dept of Environmental Conservation",
+          "metadata_evidence": [
+            "instrument:Unknown AirGradient Sensor",
+            "provider:AirGradient"
+          ],
+          "openaq_location_id": 2453305
+        },
+        {
+          "location_name": "State Dept of Environmental Conservation",
+          "metadata_evidence": [
+            "instrument:Unknown AirGradient Sensor",
+            "provider:AirGradient"
+          ],
+          "openaq_location_id": 2453313
+        },
+        {
+          "location_name": "7th Ave and W 16th St",
+          "metadata_evidence": [
+            "instrument:Unknown AirGradient Sensor",
+            "provider:AirGradient"
+          ],
+          "openaq_location_id": 2616564
+        },
+        {
+          "location_name": "Win Son",
+          "metadata_evidence": [
+            "instrument:Unknown AirGradient Sensor",
+            "provider:AirGradient"
+          ],
+          "openaq_location_id": 2903996
+        },
+        {
+          "location_name": "Near Bay 50 St",
+          "metadata_evidence": [
+            "instrument:Unknown AirGradient Sensor",
+            "provider:AirGradient"
+          ],
+          "openaq_location_id": 3041962
+        },
+        {
+          "location_name": "Montclair, NJ",
+          "metadata_evidence": [
+            "instrument:AirGradient Open Air Generation 1 (O-1PST)",
+            "provider:AirGradient"
+          ],
+          "openaq_location_id": 3103622
+        },
+        {
+          "location_name": "Hillcrest, NY",
+          "metadata_evidence": [
+            "instrument:AirGradient Open Air Generation 1 (O-1PST)",
+            "provider:AirGradient"
+          ],
+          "openaq_location_id": 3181018
+        },
+        {
+          "location_name": "Downtown Montclair",
+          "metadata_evidence": [
+            "instrument:AirGradient Open Air Generation 1 (O-1PST)",
+            "provider:AirGradient"
+          ],
+          "openaq_location_id": 3305066
+        },
+        {
+          "location_name": "DropHome",
+          "metadata_evidence": [
+            "instrument:AirGradient Open Air Generation 1 (O-1PST)",
+            "provider:AirGradient"
+          ],
+          "openaq_location_id": 3400913
+        },
+        {
+          "location_name": "Bayside, NY 11361",
+          "metadata_evidence": [
+            "instrument:Unknown AirGradient Sensor",
+            "provider:AirGradient"
+          ],
+          "openaq_location_id": 3406357
+        },
+        {
+          "location_name": "NJBAM Test Weehawken",
+          "metadata_evidence": [
+            "instrument:AirGradient ONE Generation 9 (I-9PSL-DE)",
+            "provider:AirGradient"
+          ],
+          "openaq_location_id": 4419380
+        },
+        {
+          "location_name": "West Clinton Avenue Tenafly New Jersey",
+          "metadata_evidence": [
+            "instrument:Unknown AirGradient Sensor",
+            "owner:AirGradient",
+            "provider:AirGradient"
+          ],
+          "openaq_location_id": 4569917
+        },
+        {
+          "location_name": "West Clinton Avenue, Tenafly, NJ",
+          "metadata_evidence": [
+            "instrument:Unknown AirGradient Sensor",
+            "owner:AirGradient",
+            "provider:AirGradient"
+          ],
+          "openaq_location_id": 4569918
+        },
+        {
+          "location_name": "E Houston St between Clinton St & Attorney St",
+          "metadata_evidence": [
+            "instrument:Unknown AirGradient Sensor",
+            "owner:AirGradient",
+            "provider:AirGradient"
+          ],
+          "openaq_location_id": 4727343
+        },
+        {
+          "location_name": "Caton Ave and Ocean Pkwy, Brooklyn",
+          "metadata_evidence": [
+            "instrument:AirGradient Open Air Generation 1 (O-1PST)",
+            "provider:AirGradient"
+          ],
+          "openaq_location_id": 4811604
+        },
+        {
+          "location_name": "Hamilton Park, Jersey City",
+          "metadata_evidence": [
+            "instrument:AirGradient Open Air Generation 1 (O-1PST)",
+            "owner:AirGradient",
+            "provider:AirGradient"
+          ],
+          "openaq_location_id": 5066205
+        },
+        {
+          "location_name": "Bayonne, NJ",
+          "metadata_evidence": [
+            "instrument:Unknown AirGradient Sensor",
+            "owner:AirGradient",
+            "provider:AirGradient"
+          ],
+          "openaq_location_id": 5238263
+        },
+        {
+          "location_name": "Brooklyn ",
+          "metadata_evidence": [
+            "instrument:AirGradient Open Air Generation 1 (O-1PST)",
+            "owner:AirGradient",
+            "provider:AirGradient"
+          ],
+          "openaq_location_id": 6091551
+        },
+        {
+          "location_name": "Downtown Manhattan \u2013 FiDi/Seaport",
+          "metadata_evidence": [
+            "instrument:AirGradient Open Air Generation 1 (O-1PST)",
+            "owner:AirGradient",
+            "provider:AirGradient"
+          ],
+          "openaq_location_id": 6166696
+        },
+        {
+          "location_name": "Brooklyn 11218",
+          "metadata_evidence": [
+            "instrument:AirGradient Open Air Generation 1 (O-1PST)",
+            "owner:AirGradient",
+            "provider:AirGradient"
+          ],
+          "openaq_location_id": 6180184
+        },
+        {
+          "location_name": "Nyc",
+          "metadata_evidence": [
+            "instrument:Unknown AirGradient Sensor",
+            "owner:AirGradient",
+            "provider:AirGradient"
+          ],
+          "openaq_location_id": 6193130
+        },
+        {
+          "location_name": "Astoria, NY",
+          "metadata_evidence": [
+            "instrument:Unknown AirGradient Sensor",
+            "owner:AirGradient",
+            "provider:AirGradient"
+          ],
+          "openaq_location_id": 6236873
+        },
+        {
+          "location_name": "Fort Lee",
+          "metadata_evidence": [
+            "instrument:Unknown AirGradient Sensor",
+            "owner:AirGradient",
+            "provider:AirGradient"
+          ],
+          "openaq_location_id": 6268383
+        },
+        {
+          "location_name": "Eckford & Meserole st",
+          "metadata_evidence": [
+            "instrument:Unknown AirGradient Sensor",
+            "owner:AirGradient",
+            "provider:AirGradient"
+          ],
+          "openaq_location_id": 6303070
+        },
+        {
+          "location_name": "Teachers College, Columbia University",
+          "metadata_evidence": [
+            "instrument:Unknown AirGradient Sensor",
+            "owner:AirGradient",
+            "provider:AirGradient"
+          ],
+          "openaq_location_id": 6325481
+        },
+        {
+          "location_name": "AA",
+          "metadata_evidence": [
+            "instrument:Unknown AirGradient Sensor",
+            "owner:AirGradient",
+            "provider:AirGradient"
+          ],
+          "openaq_location_id": 6382354
+        },
+        {
+          "location_name": "Forest Park North",
+          "metadata_evidence": [
+            "instrument:Unknown AirGradient Sensor",
+            "owner:AirGradient",
+            "provider:AirGradient"
+          ],
+          "openaq_location_id": 6382562
+        },
+        {
+          "location_name": "Vanderbilt & St Marks, Brooklyn",
+          "metadata_evidence": [
+            "instrument:Unknown AirGradient Sensor",
+            "owner:AirGradient",
+            "provider:AirGradient"
+          ],
+          "openaq_location_id": 6392729
+        },
+        {
+          "location_name": "Sunnyside",
+          "metadata_evidence": [
+            "instrument:Unknown AirGradient Sensor",
+            "owner:AirGradient",
+            "provider:AirGradient"
+          ],
+          "openaq_location_id": 6448735
+        },
+        {
+          "location_name": "Long Island City",
+          "metadata_evidence": [
+            "instrument:Unknown AirGradient Sensor",
+            "owner:AirGradient",
+            "provider:AirGradient"
+          ],
+          "openaq_location_id": 6456061
+        },
+        {
+          "location_name": "Lausanne Condominium, New York, NY",
+          "metadata_evidence": [
+            "instrument:Unknown AirGradient Sensor",
+            "owner:AirGradient",
+            "provider:AirGradient"
+          ],
+          "openaq_location_id": 6459331
+        },
+        {
+          "location_name": "Ocean Parkway and Foster Ave",
+          "metadata_evidence": [
+            "instrument:Unknown AirGradient Sensor",
+            "owner:AirGradient",
+            "provider:AirGradient"
+          ],
+          "openaq_location_id": 6460735
+        },
+        {
+          "location_name": "CoHabs Crown Heights",
+          "metadata_evidence": [
+            "instrument:Unknown AirGradient Sensor",
+            "owner:AirGradient",
+            "provider:AirGradient"
+          ],
+          "openaq_location_id": 6463203
+        }
+      ],
+      "airgradient_status": "confirmed_airgradient_hardware_via_openaq_metadata",
+      "coverage": {
+        "co": true,
+        "no2": true,
+        "o3": true,
+        "pm10": true,
+        "pm25": true,
+        "so2": true
+      },
+      "gaps": {},
+      "reference_area_code": "new_york",
+      "reference_area_name": "New York City / New York metropolitan area",
+      "selected_locations": [
+        {
+          "airgradient_metadata_evidence": [],
+          "compatible_parameter_codes": [
+            "co",
+            "no2",
+            "pm25",
+            "so2"
+          ],
+          "coordinates": {
+            "latitude": 40.64144099999999,
+            "longitude": -74.208366
+          },
+          "datetime_first": {
+            "local": "2016-03-06T15:00:00-05:00",
+            "utc": "2016-03-06T20:00:00Z"
+          },
+          "datetime_last": {
+            "local": "2026-08-11T02:00:00-04:00",
+            "utc": "2026-08-11T06:00:00Z"
+          },
+          "hardware_provider": null,
+          "instruments": [
+            {
+              "id": 2,
+              "name": "Government Monitor"
+            }
+          ],
+          "is_mobile": false,
+          "is_reference_monitor": true,
+          "known_limitation": "The locations discovery response does not provide native sensor interval or aggregation metadata; Phase 2I.4 must qualify temporal semantics before measurement capture.",
+          "licenses": [
+            {
+              "attribution": {
+                "name": "Unknown Governmental Organization",
+                "url": null
+              },
+              "dateFrom": "2016-01-30",
+              "dateTo": null,
+              "id": 33,
+              "name": "US Public Domain"
+            }
+          ],
+          "locality": "New York-Northern New Jersey-Long Island",
+          "location_name": "Elizabeth Trailer",
+          "openaq_location_id": 971,
+          "owner": {
+            "id": 4,
+            "name": "Unknown Governmental Organization"
+          },
+          "provider": {
+            "id": 119,
+            "name": "AirNow"
+          },
+          "recent_data_status": "recent",
+          "selected_sensors": [
+            {
+              "compatibility_status": "compatible",
+              "exclusion_reason": null,
+              "hardware_provider": null,
+              "known_limitation": "Provider parameter identity and unit are preserved without conversion.",
+              "native_temporal_metadata": {
+                "aggregation_period": null,
+                "expected_frequency_seconds": null,
+                "status": "not_provided_by_location_discovery"
+              },
+              "openaq_parameter_display_name": "PM2.5",
+              "openaq_parameter_id": 2,
+              "openaq_parameter_name": "pm25",
+              "openaq_sensor_id": 1758,
+              "parameter_code": "pm25",
+              "provider_unit": "\u00b5g/m\u00b3",
+              "selection_reason": "Exact target parameter identity, compatible preserved unit, and deterministic preferred-unit/sensor-ID ranking.",
+              "sensor_name": "pm25 \u00b5g/m\u00b3",
+              "transport_provider": "OpenAQ",
+              "unit_code": "ug_m3"
+            },
+            {
+              "compatibility_status": "compatible",
+              "exclusion_reason": null,
+              "hardware_provider": null,
+              "known_limitation": "Provider parameter identity and unit are preserved without conversion.",
+              "native_temporal_metadata": {
+                "aggregation_period": null,
+                "expected_frequency_seconds": null,
+                "status": "not_provided_by_location_discovery"
+              },
+              "openaq_parameter_display_name": "NO\u2082",
+              "openaq_parameter_id": 7,
+              "openaq_parameter_name": "no2",
+              "openaq_sensor_id": 3951,
+              "parameter_code": "no2",
+              "provider_unit": "ppm",
+              "selection_reason": "Exact target parameter identity, compatible preserved unit, and deterministic preferred-unit/sensor-ID ranking.",
+              "sensor_name": "no2 ppm",
+              "transport_provider": "OpenAQ",
+              "unit_code": "ppm"
+            },
+            {
+              "compatibility_status": "compatible",
+              "exclusion_reason": null,
+              "hardware_provider": null,
+              "known_limitation": "Provider parameter identity and unit are preserved without conversion.",
+              "native_temporal_metadata": {
+                "aggregation_period": null,
+                "expected_frequency_seconds": null,
+                "status": "not_provided_by_location_discovery"
+              },
+              "openaq_parameter_display_name": "SO\u2082",
+              "openaq_parameter_id": 9,
+              "openaq_parameter_name": "so2",
+              "openaq_sensor_id": 3950,
+              "parameter_code": "so2",
+              "provider_unit": "ppm",
+              "selection_reason": "Exact target parameter identity, compatible preserved unit, and deterministic preferred-unit/sensor-ID ranking.",
+              "sensor_name": "so2 ppm",
+              "transport_provider": "OpenAQ",
+              "unit_code": "ppm"
+            },
+            {
+              "compatibility_status": "compatible",
+              "exclusion_reason": null,
+              "hardware_provider": null,
+              "known_limitation": "Provider parameter identity and unit are preserved without conversion.",
+              "native_temporal_metadata": {
+                "aggregation_period": null,
+                "expected_frequency_seconds": null,
+                "status": "not_provided_by_location_discovery"
+              },
+              "openaq_parameter_display_name": "CO",
+              "openaq_parameter_id": 8,
+              "openaq_parameter_name": "co",
+              "openaq_sensor_id": 3952,
+              "parameter_code": "co",
+              "provider_unit": "ppm",
+              "selection_reason": "Exact target parameter identity, compatible preserved unit, and deterministic preferred-unit/sensor-ID ranking.",
+              "sensor_name": "co ppm",
+              "transport_provider": "OpenAQ",
+              "unit_code": "ppm"
+            }
+          ],
+          "selection_eligible": true,
+          "selection_reason": "Deterministic ranking: stationary reference monitor, new compatible-parameter coverage, recent availability, then stable OpenAQ location ID.",
+          "timezone": "America/New_York",
+          "transport_provider": "OpenAQ"
+        },
+        {
+          "airgradient_metadata_evidence": [],
+          "compatible_parameter_codes": [
+            "o3",
+            "pm10",
+            "pm25"
+          ],
+          "coordinates": {
+            "latitude": 40.816101,
+            "longitude": -73.902199
+          },
+          "datetime_first": {
+            "local": "2016-03-10T03:00:00-05:00",
+            "utc": "2016-03-10T08:00:00Z"
+          },
+          "datetime_last": {
+            "local": "2026-08-11T02:00:00-04:00",
+            "utc": "2026-08-11T06:00:00Z"
+          },
+          "hardware_provider": null,
+          "instruments": [
+            {
+              "id": 2,
+              "name": "Government Monitor"
+            }
+          ],
+          "is_mobile": false,
+          "is_reference_monitor": true,
+          "known_limitation": "The locations discovery response does not provide native sensor interval or aggregation metadata; Phase 2I.4 must qualify temporal semantics before measurement capture.",
+          "licenses": [
+            {
+              "attribution": {
+                "name": "Unknown Governmental Organization",
+                "url": null
+              },
+              "dateFrom": "2016-01-30",
+              "dateTo": null,
+              "id": 33,
+              "name": "US Public Domain"
+            }
+          ],
+          "locality": "New York-Northern New Jersey-Long Island",
+          "location_name": "Bronx - IS52",
+          "openaq_location_id": 626,
+          "owner": {
+            "id": 4,
+            "name": "Unknown Governmental Organization"
+          },
+          "provider": {
+            "id": 119,
+            "name": "AirNow"
+          },
+          "recent_data_status": "recent",
+          "selected_sensors": [
+            {
+              "compatibility_status": "compatible",
+              "exclusion_reason": null,
+              "hardware_provider": null,
+              "known_limitation": "Provider parameter identity and unit are preserved without conversion.",
+              "native_temporal_metadata": {
+                "aggregation_period": null,
+                "expected_frequency_seconds": null,
+                "status": "not_provided_by_location_discovery"
+              },
+              "openaq_parameter_display_name": "PM10",
+              "openaq_parameter_id": 1,
+              "openaq_parameter_name": "pm10",
+              "openaq_sensor_id": 1099,
+              "parameter_code": "pm10",
+              "provider_unit": "\u00b5g/m\u00b3",
+              "selection_reason": "Exact target parameter identity, compatible preserved unit, and deterministic preferred-unit/sensor-ID ranking.",
+              "sensor_name": "pm10 \u00b5g/m\u00b3",
+              "transport_provider": "OpenAQ",
+              "unit_code": "ug_m3"
+            },
+            {
+              "compatibility_status": "compatible",
+              "exclusion_reason": null,
+              "hardware_provider": null,
+              "known_limitation": "Provider parameter identity and unit are preserved without conversion.",
+              "native_temporal_metadata": {
+                "aggregation_period": null,
+                "expected_frequency_seconds": null,
+                "status": "not_provided_by_location_discovery"
+              },
+              "openaq_parameter_display_name": "O\u2083",
+              "openaq_parameter_id": 10,
+              "openaq_parameter_name": "o3",
+              "openaq_sensor_id": 1098,
+              "parameter_code": "o3",
+              "provider_unit": "ppm",
+              "selection_reason": "Exact target parameter identity, compatible preserved unit, and deterministic preferred-unit/sensor-ID ranking.",
+              "sensor_name": "o3 ppm",
+              "transport_provider": "OpenAQ",
+              "unit_code": "ppm"
+            }
+          ],
+          "selection_eligible": true,
+          "selection_reason": "Deterministic ranking: stationary reference monitor, new compatible-parameter coverage, recent availability, then stable OpenAQ location ID.",
+          "timezone": "America/New_York",
+          "transport_provider": "OpenAQ"
+        }
+      ],
+      "timezone_reference": "America/New_York"
+    },
+    {
+      "airgradient_matches": [],
+      "airgradient_status": "no_confirmed_public_airgradient_device_in_reference_area",
+      "coverage": {
+        "co": true,
+        "no2": true,
+        "o3": true,
+        "pm10": true,
+        "pm25": true,
+        "so2": true
+      },
+      "gaps": {},
+      "reference_area_code": "rio_de_janeiro",
+      "reference_area_name": "Rio de Janeiro metropolitan area",
+      "selected_locations": [
+        {
+          "airgradient_metadata_evidence": [],
+          "compatible_parameter_codes": [
+            "co",
+            "no2",
+            "o3",
+            "pm10",
+            "pm25",
+            "so2"
+          ],
+          "coordinates": {
+            "latitude": -22.831600000000005,
+            "longitude": -43.32690000000001
+          },
+          "datetime_first": {
+            "local": "2023-04-06T13:00:00-03:00",
+            "utc": "2023-04-06T16:00:00Z"
+          },
+          "datetime_last": {
+            "local": "2026-08-11T03:00:00-03:00",
+            "utc": "2026-08-11T06:00:00Z"
+          },
+          "hardware_provider": null,
+          "instruments": [
+            {
+              "id": 2,
+              "name": "Government Monitor"
+            }
+          ],
+          "is_mobile": false,
+          "is_reference_monitor": true,
+          "known_limitation": "The locations discovery response does not provide native sensor interval or aggregation metadata; Phase 2I.4 must qualify temporal semantics before measurement capture.",
+          "licenses": [],
+          "locality": "Rio de Janeiro",
+          "location_name": "Iraj\u00e1",
+          "openaq_location_id": 820326,
+          "owner": {
+            "id": 4,
+            "name": "Unknown Governmental Organization"
+          },
+          "provider": {
+            "id": 62,
+            "name": "Rio City Hall"
+          },
+          "recent_data_status": "recent",
+          "selected_sensors": [
+            {
+              "compatibility_status": "compatible",
+              "exclusion_reason": null,
+              "hardware_provider": null,
+              "known_limitation": "Provider parameter identity and unit are preserved without conversion.",
+              "native_temporal_metadata": {
+                "aggregation_period": null,
+                "expected_frequency_seconds": null,
+                "status": "not_provided_by_location_discovery"
+              },
+              "openaq_parameter_display_name": "PM2.5",
+              "openaq_parameter_id": 2,
+              "openaq_parameter_name": "pm25",
+              "openaq_sensor_id": 6819305,
+              "parameter_code": "pm25",
+              "provider_unit": "\u00b5g/m\u00b3",
+              "selection_reason": "Exact target parameter identity, compatible preserved unit, and deterministic preferred-unit/sensor-ID ranking.",
+              "sensor_name": "pm25 \u00b5g/m\u00b3",
+              "transport_provider": "OpenAQ",
+              "unit_code": "ug_m3"
+            },
+            {
+              "compatibility_status": "compatible",
+              "exclusion_reason": null,
+              "hardware_provider": null,
+              "known_limitation": "Provider parameter identity and unit are preserved without conversion.",
+              "native_temporal_metadata": {
+                "aggregation_period": null,
+                "expected_frequency_seconds": null,
+                "status": "not_provided_by_location_discovery"
+              },
+              "openaq_parameter_display_name": "PM10",
+              "openaq_parameter_id": 1,
+              "openaq_parameter_name": "pm10",
+              "openaq_sensor_id": 4475454,
+              "parameter_code": "pm10",
+              "provider_unit": "\u00b5g/m\u00b3",
+              "selection_reason": "Exact target parameter identity, compatible preserved unit, and deterministic preferred-unit/sensor-ID ranking.",
+              "sensor_name": "pm10 \u00b5g/m\u00b3",
+              "transport_provider": "OpenAQ",
+              "unit_code": "ug_m3"
+            },
+            {
+              "compatibility_status": "compatible",
+              "exclusion_reason": null,
+              "hardware_provider": null,
+              "known_limitation": "Gas mass concentration is preserved exactly; no mass-to-mixing-ratio conversion is authorized during discovery or capture.",
+              "native_temporal_metadata": {
+                "aggregation_period": null,
+                "expected_frequency_seconds": null,
+                "status": "not_provided_by_location_discovery"
+              },
+              "openaq_parameter_display_name": "O\u2083 mass",
+              "openaq_parameter_id": 3,
+              "openaq_parameter_name": "o3",
+              "openaq_sensor_id": 6459542,
+              "parameter_code": "o3",
+              "provider_unit": "\u00b5g/m\u00b3",
+              "selection_reason": "Exact target parameter identity, compatible preserved unit, and deterministic preferred-unit/sensor-ID ranking.",
+              "sensor_name": "o3 \u00b5g/m\u00b3",
+              "transport_provider": "OpenAQ",
+              "unit_code": "ug_m3"
+            },
+            {
+              "compatibility_status": "compatible",
+              "exclusion_reason": null,
+              "hardware_provider": null,
+              "known_limitation": "Gas mass concentration is preserved exactly; no mass-to-mixing-ratio conversion is authorized during discovery or capture.",
+              "native_temporal_metadata": {
+                "aggregation_period": null,
+                "expected_frequency_seconds": null,
+                "status": "not_provided_by_location_discovery"
+              },
+              "openaq_parameter_display_name": "NO\u2082 mass",
+              "openaq_parameter_id": 5,
+              "openaq_parameter_name": "no2",
+              "openaq_sensor_id": 4475455,
+              "parameter_code": "no2",
+              "provider_unit": "\u00b5g/m\u00b3",
+              "selection_reason": "Exact target parameter identity, compatible preserved unit, and deterministic preferred-unit/sensor-ID ranking.",
+              "sensor_name": "no2 \u00b5g/m\u00b3",
+              "transport_provider": "OpenAQ",
+              "unit_code": "ug_m3"
+            },
+            {
+              "compatibility_status": "compatible",
+              "exclusion_reason": null,
+              "hardware_provider": null,
+              "known_limitation": "Gas mass concentration is preserved exactly; no mass-to-mixing-ratio conversion is authorized during discovery or capture.",
+              "native_temporal_metadata": {
+                "aggregation_period": null,
+                "expected_frequency_seconds": null,
+                "status": "not_provided_by_location_discovery"
+              },
+              "openaq_parameter_display_name": "SO\u2082 mass",
+              "openaq_parameter_id": 6,
+              "openaq_parameter_name": "so2",
+              "openaq_sensor_id": 11268993,
+              "parameter_code": "so2",
+              "provider_unit": "\u00b5g/m\u00b3",
+              "selection_reason": "Exact target parameter identity, compatible preserved unit, and deterministic preferred-unit/sensor-ID ranking.",
+              "sensor_name": "so2 \u00b5g/m\u00b3",
+              "transport_provider": "OpenAQ",
+              "unit_code": "ug_m3"
+            },
+            {
+              "compatibility_status": "compatible",
+              "exclusion_reason": null,
+              "hardware_provider": null,
+              "known_limitation": "Provider parameter identity and unit are preserved without conversion.",
+              "native_temporal_metadata": {
+                "aggregation_period": null,
+                "expected_frequency_seconds": null,
+                "status": "not_provided_by_location_discovery"
+              },
+              "openaq_parameter_display_name": "CO",
+              "openaq_parameter_id": 8,
+              "openaq_parameter_name": "co",
+              "openaq_sensor_id": 4475449,
+              "parameter_code": "co",
+              "provider_unit": "ppm",
+              "selection_reason": "Exact target parameter identity, compatible preserved unit, and deterministic preferred-unit/sensor-ID ranking.",
+              "sensor_name": "co ppm",
+              "transport_provider": "OpenAQ",
+              "unit_code": "ppm"
+            }
+          ],
+          "selection_eligible": true,
+          "selection_reason": "Deterministic ranking: stationary reference monitor, new compatible-parameter coverage, recent availability, then stable OpenAQ location ID.",
+          "timezone": "America/Sao_Paulo",
+          "transport_provider": "OpenAQ"
+        }
+      ],
+      "timezone_reference": "America/Sao_Paulo"
+    },
+    {
+      "airgradient_matches": [
+        {
+          "location_name": "Mall of Asia Sensor",
+          "metadata_evidence": [
+            "instrument:Unknown AirGradient Sensor",
+            "provider:AirGradient"
+          ],
+          "openaq_location_id": 1845518
+        },
+        {
+          "location_name": "South Triangle, Quezon City",
+          "metadata_evidence": [
+            "instrument:Unknown AirGradient Sensor",
+            "provider:AirGradient"
+          ],
+          "openaq_location_id": 1846215
+        },
+        {
+          "location_name": "Binangonan",
+          "metadata_evidence": [
+            "instrument:Unknown AirGradient Sensor",
+            "provider:AirGradient"
+          ],
+          "openaq_location_id": 3364093
+        },
+        {
+          "location_name": "STRC",
+          "metadata_evidence": [
+            "instrument:AirGradient Open Air Generation 1 (O-1PST)",
+            "provider:AirGradient"
+          ],
+          "openaq_location_id": 4049149
+        },
+        {
+          "location_name": "Manila Observatory",
+          "metadata_evidence": [
+            "instrument:AirGradient ONE Generation 9 (I-9PSL-DE)",
+            "provider:AirGradient"
+          ],
+          "openaq_location_id": 4565934
+        },
+        {
+          "location_name": "313_Cubao",
+          "metadata_evidence": [
+            "instrument:Unknown AirGradient Sensor",
+            "owner:AirGradient",
+            "provider:AirGradient"
+          ],
+          "openaq_location_id": 5963700
+        },
+        {
+          "location_name": "Ayala MRT",
+          "metadata_evidence": [
+            "instrument:Unknown AirGradient Sensor",
+            "owner:AirGradient",
+            "provider:AirGradient"
+          ],
+          "openaq_location_id": 5974688
+        },
+        {
+          "location_name": "Valenzuela",
+          "metadata_evidence": [
+            "instrument:AirGradient Open Air Generation 1 (O-1PST)",
+            "provider:AirGradient"
+          ],
+          "openaq_location_id": 5975180
+        },
+        {
+          "location_name": "Las Pinas",
+          "metadata_evidence": [
+            "instrument:AirGradient Open Air Generation 1 (O-1PST)",
+            "provider:AirGradient"
+          ],
+          "openaq_location_id": 5976206
+        },
+        {
+          "location_name": "Pasay Rotonda",
+          "metadata_evidence": [
+            "instrument:Unknown AirGradient Sensor",
+            "owner:AirGradient",
+            "provider:AirGradient"
+          ],
+          "openaq_location_id": 5995084
+        },
+        {
+          "location_name": "Ramon Avancena High School",
+          "metadata_evidence": [
+            "instrument:Unknown AirGradient Sensor",
+            "owner:AirGradient",
+            "provider:AirGradient"
+          ],
+          "openaq_location_id": 6209259
+        },
+        {
+          "location_name": "North Caloocan Nova Romania - Alora (download airgradient mobile app for realtime data)",
+          "metadata_evidence": [
+            "instrument:Unknown AirGradient Sensor",
+            "owner:AirGradient",
+            "provider:AirGradient"
+          ],
+          "openaq_location_id": 6230501
+        },
+        {
+          "location_name": "Marikina",
+          "metadata_evidence": [
+            "instrument:Unknown AirGradient Sensor",
+            "owner:AirGradient",
+            "provider:AirGradient"
+          ],
+          "openaq_location_id": 6265529
+        },
+        {
+          "location_name": "pasay city",
+          "metadata_evidence": [
+            "instrument:Unknown AirGradient Sensor",
+            "owner:AirGradient",
+            "provider:AirGradient"
+          ],
+          "openaq_location_id": 6275863
+        },
+        {
+          "location_name": "Timoteo Paez Integrated High School",
+          "metadata_evidence": [
+            "instrument:Unknown AirGradient Sensor",
+            "owner:AirGradient",
+            "provider:AirGradient"
+          ],
+          "openaq_location_id": 6284033
+        },
+        {
+          "location_name": "Tivoli",
+          "metadata_evidence": [
+            "instrument:Unknown AirGradient Sensor",
+            "owner:AirGradient",
+            "provider:AirGradient"
+          ],
+          "openaq_location_id": 6340868
+        },
+        {
+          "location_name": "Valle1",
+          "metadata_evidence": [
+            "instrument:Unknown AirGradient Sensor",
+            "owner:AirGradient",
+            "provider:AirGradient"
+          ],
+          "openaq_location_id": 6391974
+        }
+      ],
+      "airgradient_status": "confirmed_airgradient_hardware_via_openaq_metadata",
+      "coverage": {
+        "co": false,
+        "no2": false,
+        "o3": false,
+        "pm10": false,
+        "pm25": true,
+        "so2": false
+      },
+      "gaps": {
+        "co": "no_compatible_openaq_sensor_in_approved_radius",
+        "no2": "no_compatible_openaq_sensor_in_approved_radius",
+        "o3": "no_compatible_openaq_sensor_in_approved_radius",
+        "pm10": "no_recent_compatible_openaq_sensor_in_approved_radius",
+        "so2": "no_compatible_openaq_sensor_in_approved_radius"
+      },
+      "reference_area_code": "metro_manila",
+      "reference_area_name": "Metro Manila / Philippines",
+      "selected_locations": [
+        {
+          "airgradient_metadata_evidence": [
+            "instrument:AirGradient ONE Generation 9 (I-9PSL-DE)",
+            "provider:AirGradient"
+          ],
+          "compatible_parameter_codes": [
+            "pm25"
+          ],
+          "coordinates": {
+            "latitude": 14.6354,
+            "longitude": 121.0779
+          },
+          "datetime_first": {
+            "local": "2025-05-30T15:00:00+08:00",
+            "utc": "2025-05-30T07:00:00Z"
+          },
+          "datetime_last": {
+            "local": "2026-08-11T14:00:00+08:00",
+            "utc": "2026-08-11T06:00:00Z"
+          },
+          "hardware_provider": "AirGradient",
+          "instruments": [
+            {
+              "id": 22,
+              "name": "AirGradient ONE Generation 9 (I-9PSL-DE)"
+            }
+          ],
+          "is_mobile": false,
+          "is_reference_monitor": false,
+          "known_limitation": "The locations discovery response does not provide native sensor interval or aggregation metadata; Phase 2I.4 must qualify temporal semantics before measurement capture.",
+          "licenses": [
+            {
+              "attribution": {
+                "name": "Manila Observatory",
+                "url": null
+              },
+              "dateFrom": "2023-07-15",
+              "dateTo": null,
+              "id": 41,
+              "name": "CC BY 4.0"
+            }
+          ],
+          "locality": null,
+          "location_name": "Manila Observatory",
+          "openaq_location_id": 4565934,
+          "owner": {
+            "id": 16824,
+            "name": "Manila Observatory"
+          },
+          "provider": {
+            "id": 66,
+            "name": "AirGradient"
+          },
+          "recent_data_status": "recent",
+          "selected_sensors": [
+            {
+              "compatibility_status": "compatible",
+              "exclusion_reason": null,
+              "hardware_provider": "AirGradient",
+              "known_limitation": "Provider parameter identity and unit are preserved without conversion.",
+              "native_temporal_metadata": {
+                "aggregation_period": null,
+                "expected_frequency_seconds": null,
+                "status": "not_provided_by_location_discovery"
+              },
+              "openaq_parameter_display_name": "PM2.5",
+              "openaq_parameter_id": 2,
+              "openaq_parameter_name": "pm25",
+              "openaq_sensor_id": 13191003,
+              "parameter_code": "pm25",
+              "provider_unit": "\u00b5g/m\u00b3",
+              "selection_reason": "Exact target parameter identity, compatible preserved unit, and deterministic preferred-unit/sensor-ID ranking.",
+              "sensor_name": "pm25 \u00b5g/m\u00b3",
+              "transport_provider": "OpenAQ",
+              "unit_code": "ug_m3"
+            }
+          ],
+          "selection_eligible": true,
+          "selection_reason": "Deterministic ranking: stationary reference monitor, new compatible-parameter coverage, recent availability, then stable OpenAQ location ID.",
+          "timezone": "Asia/Manila",
+          "transport_provider": "OpenAQ"
+        }
+      ],
+      "timezone_reference": "Asia/Manila"
+    }
+  ],
+  "schema_version": "2i.3",
+  "target_parameter_codes": [
+    "pm25",
+    "pm10",
+    "o3",
+    "no2",
+    "so2",
+    "co"
+  ],
+  "transport_provider": "OpenAQ"
+}

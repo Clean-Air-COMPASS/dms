@@ -1,0 +1,55 @@
+{
+  "schema_version": "2i.1",
+  "dataset_id": "synthetic-purpleair-profile-two-minute-v1",
+  "provider": "Synthetic Reference Data",
+  "provider_profile": "purpleair_2m",
+  "access_classification": "synthetic_public",
+  "origin": {
+    "origin_kind": "synthetic",
+    "captured_at": null,
+    "description": "Impossible identifiers and constant non-boundary concentrations created solely for offline conformance tests."
+  },
+  "reference_area": {
+    "name": "Synthetic UTC reference area",
+    "description": "No real geographic area or monitoring site.",
+    "timezone": "UTC"
+  },
+  "license": {
+    "status": "repository_owned_synthetic_test_data",
+    "attribution": "CompassAQ synthetic reference data",
+    "redistribution_approved": true
+  },
+  "provider_chain": [
+    {"provider": "Synthetic Reference Data", "role": "origin"},
+    {"provider": "PurpleAir two-minute profile", "role": "fixture"}
+  ],
+  "provenance": {
+    "created_by": "CompassAQ maintainers",
+    "methodology": "Deterministic constant streams and explicit completeness edge cases for Phase 2I offline conformance.",
+    "source_reference": "docs/reference-data-safety.md"
+  },
+  "devices": [
+    {
+      "fixture_ref": "synthetic_device",
+      "external_id": "synthetic://not-a-provider-device/2i-1",
+      "name": "Synthetic two-minute reference device",
+      "friendly_name": "Synthetic 2m conformance",
+      "latitude": 0.0,
+      "longitude": 0.0,
+      "timezone": "UTC"
+    }
+  ],
+  "sensors": [
+    {"fixture_ref":"complete_pm25","device_ref":"synthetic_device","external_sensor_id":"synthetic://complete-pm25","parameter_code":"pm25","unit_code":"ug_m3","aggregation_period_code":"2m","expected_frequency_seconds":120,"measurement_duration_seconds":120,"source_aggregation_duration_seconds":120,"measurement_timestamp_semantics":"provider_received_at","measurement_metadata_status":"provider_documented"},
+    {"fixture_ref":"threshold_pm25","device_ref":"synthetic_device","external_sensor_id":"synthetic://threshold-pm25","parameter_code":"pm25","unit_code":"ug_m3","aggregation_period_code":"2m","expected_frequency_seconds":120,"measurement_duration_seconds":120,"source_aggregation_duration_seconds":120,"measurement_timestamp_semantics":"provider_received_at","measurement_metadata_status":"provider_documented"},
+    {"fixture_ref":"insufficient_pm25","device_ref":"synthetic_device","external_sensor_id":"synthetic://insufficient-pm25","parameter_code":"pm25","unit_code":"ug_m3","aggregation_period_code":"2m","expected_frequency_seconds":120,"measurement_duration_seconds":120,"source_aggregation_duration_seconds":120,"measurement_timestamp_semantics":"provider_received_at","measurement_metadata_status":"provider_documented"},
+    {"fixture_ref":"missing_pm25","device_ref":"synthetic_device","external_sensor_id":"synthetic://missing-pm25","parameter_code":"pm25","unit_code":"ug_m3","aggregation_period_code":"2m","expected_frequency_seconds":120,"measurement_duration_seconds":120,"source_aggregation_duration_seconds":120,"measurement_timestamp_semantics":"provider_received_at","measurement_metadata_status":"provider_documented"},
+    {"fixture_ref":"duplicate_pm25","device_ref":"synthetic_device","external_sensor_id":"synthetic://duplicate-pm25","parameter_code":"pm25","unit_code":"ug_m3","aggregation_period_code":"2m","expected_frequency_seconds":120,"measurement_duration_seconds":120,"source_aggregation_duration_seconds":120,"measurement_timestamp_semantics":"provider_received_at","measurement_metadata_status":"provider_documented"},
+    {"fixture_ref":"invalid_pm25","device_ref":"synthetic_device","external_sensor_id":"synthetic://invalid-pm25","parameter_code":"pm25","unit_code":"ug_m3","aggregation_period_code":"2m","expected_frequency_seconds":120,"measurement_duration_seconds":120,"source_aggregation_duration_seconds":120,"measurement_timestamp_semantics":"provider_received_at","measurement_metadata_status":"provider_documented"},
+    {"fixture_ref":"off_frequency_pm25","device_ref":"synthetic_device","external_sensor_id":"synthetic://off-frequency-pm25","parameter_code":"pm25","unit_code":"ug_m3","aggregation_period_code":"2m","expected_frequency_seconds":120,"measurement_duration_seconds":120,"source_aggregation_duration_seconds":120,"measurement_timestamp_semantics":"provider_received_at","measurement_metadata_status":"provider_documented"},
+    {"fixture_ref":"unknown_native_pm25","device_ref":"synthetic_device","external_sensor_id":"synthetic://unknown-native-pm25","parameter_code":"pm25","unit_code":"ug_m3","aggregation_period_code":null,"expected_frequency_seconds":120,"measurement_duration_seconds":120,"source_aggregation_duration_seconds":120,"measurement_timestamp_semantics":"provider_received_at","measurement_metadata_status":"unknown_native"},
+    {"fixture_ref":"aggregation_pm25","device_ref":"synthetic_device","external_sensor_id":"synthetic://aggregation-pm25","parameter_code":"pm25","unit_code":"ug_m3","aggregation_period_code":"2m","expected_frequency_seconds":120,"measurement_duration_seconds":120,"source_aggregation_duration_seconds":120,"measurement_timestamp_semantics":"interval_start","measurement_metadata_status":"provider_documented"}
+  ],
+  "measurements_file": "measurements.jsonl",
+  "measurements_sha256": "7a8f4c791d72d357c629a47f27902ce99d3c3a390c712cd67886ba0934933514"
+}

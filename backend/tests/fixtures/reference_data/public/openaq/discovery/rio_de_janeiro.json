@@ -1,0 +1,2764 @@
+{
+  "airgradient_matches": [],
+  "airgradient_status": "no_confirmed_public_airgradient_device_in_reference_area",
+  "candidate_locations": [
+    {
+      "airgradient_metadata_evidence": [],
+      "compatible_parameter_codes": [
+        "co",
+        "o3",
+        "pm10",
+        "pm25"
+      ],
+      "compatible_sensors": [
+        {
+          "compatibility_status": "compatible",
+          "exclusion_reason": null,
+          "native_temporal_metadata": {
+            "aggregation_period": null,
+            "expected_frequency_seconds": null,
+            "status": "not_provided_by_location_discovery"
+          },
+          "openaq_parameter_display_name": "PM2.5",
+          "openaq_parameter_id": 2,
+          "openaq_parameter_name": "pm25",
+          "openaq_sensor_id": 14798912,
+          "parameter_code": "pm25",
+          "provider_unit": "\u00b5g/m\u00b3",
+          "sensor_name": "pm25 \u00b5g/m\u00b3",
+          "unit_code": "ug_m3"
+        },
+        {
+          "compatibility_status": "compatible",
+          "exclusion_reason": null,
+          "native_temporal_metadata": {
+            "aggregation_period": null,
+            "expected_frequency_seconds": null,
+            "status": "not_provided_by_location_discovery"
+          },
+          "openaq_parameter_display_name": "CO",
+          "openaq_parameter_id": 8,
+          "openaq_parameter_name": "co",
+          "openaq_sensor_id": 4475452,
+          "parameter_code": "co",
+          "provider_unit": "ppm",
+          "sensor_name": "co ppm",
+          "unit_code": "ppm"
+        },
+        {
+          "compatibility_status": "compatible",
+          "exclusion_reason": null,
+          "native_temporal_metadata": {
+            "aggregation_period": null,
+            "expected_frequency_seconds": null,
+            "status": "not_provided_by_location_discovery"
+          },
+          "openaq_parameter_display_name": "O\u2083 mass",
+          "openaq_parameter_id": 3,
+          "openaq_parameter_name": "o3",
+          "openaq_sensor_id": 4475460,
+          "parameter_code": "o3",
+          "provider_unit": "\u00b5g/m\u00b3",
+          "sensor_name": "o3 \u00b5g/m\u00b3",
+          "unit_code": "ug_m3"
+        },
+        {
+          "compatibility_status": "compatible",
+          "exclusion_reason": null,
+          "native_temporal_metadata": {
+            "aggregation_period": null,
+            "expected_frequency_seconds": null,
+            "status": "not_provided_by_location_discovery"
+          },
+          "openaq_parameter_display_name": "PM10",
+          "openaq_parameter_id": 1,
+          "openaq_parameter_name": "pm10",
+          "openaq_sensor_id": 6344694,
+          "parameter_code": "pm10",
+          "provider_unit": "\u00b5g/m\u00b3",
+          "sensor_name": "pm10 \u00b5g/m\u00b3",
+          "unit_code": "ug_m3"
+        }
+      ],
+      "coordinates": {
+        "latitude": -22.9084,
+        "longitude": -43.1795
+      },
+      "datetime_first": {
+        "local": "2023-04-06T13:00:00-03:00",
+        "utc": "2023-04-06T16:00:00Z"
+      },
+      "datetime_last": {
+        "local": "2026-08-11T03:00:00-03:00",
+        "utc": "2026-08-11T06:00:00Z"
+      },
+      "hardware_provider": null,
+      "instruments": [
+        {
+          "id": 2,
+          "name": "Government Monitor"
+        }
+      ],
+      "is_mobile": false,
+      "is_reference_monitor": true,
+      "licenses": [],
+      "locality": "Rio de Janeiro",
+      "location_name": "Centro Kunak ",
+      "openaq_location_id": 820323,
+      "owner": {
+        "id": 4,
+        "name": "Unknown Governmental Organization"
+      },
+      "provider": {
+        "id": 62,
+        "name": "Rio City Hall"
+      },
+      "recent_data_status": "recent",
+      "selection_eligible": true,
+      "timezone": "America/Sao_Paulo",
+      "transport_provider": "OpenAQ",
+      "unsuitable_sensors": []
+    },
+    {
+      "airgradient_metadata_evidence": [],
+      "compatible_parameter_codes": [
+        "o3",
+        "pm10"
+      ],
+      "compatible_sensors": [
+        {
+          "compatibility_status": "compatible",
+          "exclusion_reason": null,
+          "native_temporal_metadata": {
+            "aggregation_period": null,
+            "expected_frequency_seconds": null,
+            "status": "not_provided_by_location_discovery"
+          },
+          "openaq_parameter_display_name": "O\u2083 mass",
+          "openaq_parameter_id": 3,
+          "openaq_parameter_name": "o3",
+          "openaq_sensor_id": 4475465,
+          "parameter_code": "o3",
+          "provider_unit": "\u00b5g/m\u00b3",
+          "sensor_name": "o3 \u00b5g/m\u00b3",
+          "unit_code": "ug_m3"
+        },
+        {
+          "compatibility_status": "compatible",
+          "exclusion_reason": null,
+          "native_temporal_metadata": {
+            "aggregation_period": null,
+            "expected_frequency_seconds": null,
+            "status": "not_provided_by_location_discovery"
+          },
+          "openaq_parameter_display_name": "PM10",
+          "openaq_parameter_id": 1,
+          "openaq_parameter_name": "pm10",
+          "openaq_sensor_id": 4475471,
+          "parameter_code": "pm10",
+          "provider_unit": "\u00b5g/m\u00b3",
+          "sensor_name": "pm10 \u00b5g/m\u00b3",
+          "unit_code": "ug_m3"
+        }
+      ],
+      "coordinates": {
+        "latitude": -22.9649,
+        "longitude": -43.1807
+      },
+      "datetime_first": {
+        "local": "2023-04-06T13:00:00-03:00",
+        "utc": "2023-04-06T16:00:00Z"
+      },
+      "datetime_last": {
+        "local": "2026-08-11T03:00:00-03:00",
+        "utc": "2026-08-11T06:00:00Z"
+      },
+      "hardware_provider": null,
+      "instruments": [
+        {
+          "id": 2,
+          "name": "Government Monitor"
+        }
+      ],
+      "is_mobile": false,
+      "is_reference_monitor": true,
+      "licenses": [],
+      "locality": "Rio de Janeiro",
+      "location_name": "Copacabana",
+      "openaq_location_id": 820324,
+      "owner": {
+        "id": 4,
+        "name": "Unknown Governmental Organization"
+      },
+      "provider": {
+        "id": 62,
+        "name": "Rio City Hall"
+      },
+      "recent_data_status": "recent",
+      "selection_eligible": true,
+      "timezone": "America/Sao_Paulo",
+      "transport_provider": "OpenAQ",
+      "unsuitable_sensors": []
+    },
+    {
+      "airgradient_metadata_evidence": [],
+      "compatible_parameter_codes": [
+        "co",
+        "no2",
+        "o3",
+        "pm10",
+        "pm25",
+        "so2"
+      ],
+      "compatible_sensors": [
+        {
+          "compatibility_status": "compatible",
+          "exclusion_reason": null,
+          "native_temporal_metadata": {
+            "aggregation_period": null,
+            "expected_frequency_seconds": null,
+            "status": "not_provided_by_location_discovery"
+          },
+          "openaq_parameter_display_name": "SO\u2082 mass",
+          "openaq_parameter_id": 6,
+          "openaq_parameter_name": "so2",
+          "openaq_sensor_id": 11268993,
+          "parameter_code": "so2",
+          "provider_unit": "\u00b5g/m\u00b3",
+          "sensor_name": "so2 \u00b5g/m\u00b3",
+          "unit_code": "ug_m3"
+        },
+        {
+          "compatibility_status": "compatible",
+          "exclusion_reason": null,
+          "native_temporal_metadata": {
+            "aggregation_period": null,
+            "expected_frequency_seconds": null,
+            "status": "not_provided_by_location_discovery"
+          },
+          "openaq_parameter_display_name": "CO",
+          "openaq_parameter_id": 8,
+          "openaq_parameter_name": "co",
+          "openaq_sensor_id": 4475449,
+          "parameter_code": "co",
+          "provider_unit": "ppm",
+          "sensor_name": "co ppm",
+          "unit_code": "ppm"
+        },
+        {
+          "compatibility_status": "compatible",
+          "exclusion_reason": null,
+          "native_temporal_metadata": {
+            "aggregation_period": null,
+            "expected_frequency_seconds": null,
+            "status": "not_provided_by_location_discovery"
+          },
+          "openaq_parameter_display_name": "PM10",
+          "openaq_parameter_id": 1,
+          "openaq_parameter_name": "pm10",
+          "openaq_sensor_id": 4475454,
+          "parameter_code": "pm10",
+          "provider_unit": "\u00b5g/m\u00b3",
+          "sensor_name": "pm10 \u00b5g/m\u00b3",
+          "unit_code": "ug_m3"
+        },
+        {
+          "compatibility_status": "compatible",
+          "exclusion_reason": null,
+          "native_temporal_metadata": {
+            "aggregation_period": null,
+            "expected_frequency_seconds": null,
+            "status": "not_provided_by_location_discovery"
+          },
+          "openaq_parameter_display_name": "NO\u2082 mass",
+          "openaq_parameter_id": 5,
+          "openaq_parameter_name": "no2",
+          "openaq_sensor_id": 4475455,
+          "parameter_code": "no2",
+          "provider_unit": "\u00b5g/m\u00b3",
+          "sensor_name": "no2 \u00b5g/m\u00b3",
+          "unit_code": "ug_m3"
+        },
+        {
+          "compatibility_status": "compatible",
+          "exclusion_reason": null,
+          "native_temporal_metadata": {
+            "aggregation_period": null,
+            "expected_frequency_seconds": null,
+            "status": "not_provided_by_location_discovery"
+          },
+          "openaq_parameter_display_name": "O\u2083 mass",
+          "openaq_parameter_id": 3,
+          "openaq_parameter_name": "o3",
+          "openaq_sensor_id": 6459542,
+          "parameter_code": "o3",
+          "provider_unit": "\u00b5g/m\u00b3",
+          "sensor_name": "o3 \u00b5g/m\u00b3",
+          "unit_code": "ug_m3"
+        },
+        {
+          "compatibility_status": "compatible",
+          "exclusion_reason": null,
+          "native_temporal_metadata": {
+            "aggregation_period": null,
+            "expected_frequency_seconds": null,
+            "status": "not_provided_by_location_discovery"
+          },
+          "openaq_parameter_display_name": "PM2.5",
+          "openaq_parameter_id": 2,
+          "openaq_parameter_name": "pm25",
+          "openaq_sensor_id": 6819305,
+          "parameter_code": "pm25",
+          "provider_unit": "\u00b5g/m\u00b3",
+          "sensor_name": "pm25 \u00b5g/m\u00b3",
+          "unit_code": "ug_m3"
+        }
+      ],
+      "coordinates": {
+        "latitude": -22.831600000000005,
+        "longitude": -43.32690000000001
+      },
+      "datetime_first": {
+        "local": "2023-04-06T13:00:00-03:00",
+        "utc": "2023-04-06T16:00:00Z"
+      },
+      "datetime_last": {
+        "local": "2026-08-11T03:00:00-03:00",
+        "utc": "2026-08-11T06:00:00Z"
+      },
+      "hardware_provider": null,
+      "instruments": [
+        {
+          "id": 2,
+          "name": "Government Monitor"
+        }
+      ],
+      "is_mobile": false,
+      "is_reference_monitor": true,
+      "licenses": [],
+      "locality": "Rio de Janeiro",
+      "location_name": "Iraj\u00e1",
+      "openaq_location_id": 820326,
+      "owner": {
+        "id": 4,
+        "name": "Unknown Governmental Organization"
+      },
+      "provider": {
+        "id": 62,
+        "name": "Rio City Hall"
+      },
+      "recent_data_status": "recent",
+      "selection_eligible": true,
+      "timezone": "America/Sao_Paulo",
+      "transport_provider": "OpenAQ",
+      "unsuitable_sensors": [
+        {
+          "compatibility_status": "unsuitable",
+          "exclusion_reason": "unsupported_parameter",
+          "native_temporal_metadata": {
+            "aggregation_period": null,
+            "expected_frequency_seconds": null,
+            "status": "not_provided_by_location_discovery"
+          },
+          "openaq_parameter_display_name": "NO mass",
+          "openaq_parameter_id": 19843,
+          "openaq_parameter_name": "no",
+          "openaq_sensor_id": 4475462,
+          "parameter_code": null,
+          "provider_unit": "\u00b5g/m\u00b3",
+          "sensor_name": "no \u00b5g/m\u00b3",
+          "unit_code": "ug_m3"
+        },
+        {
+          "compatibility_status": "unsuitable",
+          "exclusion_reason": "unsupported_parameter",
+          "native_temporal_metadata": {
+            "aggregation_period": null,
+            "expected_frequency_seconds": null,
+            "status": "not_provided_by_location_discovery"
+          },
+          "openaq_parameter_display_name": "NOx mass",
+          "openaq_parameter_id": 27,
+          "openaq_parameter_name": "nox",
+          "openaq_sensor_id": 4475466,
+          "parameter_code": null,
+          "provider_unit": "\u00b5g/m\u00b3",
+          "sensor_name": "nox \u00b5g/m\u00b3",
+          "unit_code": "ug_m3"
+        }
+      ]
+    },
+    {
+      "airgradient_metadata_evidence": [],
+      "compatible_parameter_codes": [
+        "o3",
+        "pm10"
+      ],
+      "compatible_sensors": [
+        {
+          "compatibility_status": "compatible",
+          "exclusion_reason": null,
+          "native_temporal_metadata": {
+            "aggregation_period": null,
+            "expected_frequency_seconds": null,
+            "status": "not_provided_by_location_discovery"
+          },
+          "openaq_parameter_display_name": "PM10",
+          "openaq_parameter_id": 1,
+          "openaq_parameter_name": "pm10",
+          "openaq_sensor_id": 4475456,
+          "parameter_code": "pm10",
+          "provider_unit": "\u00b5g/m\u00b3",
+          "sensor_name": "pm10 \u00b5g/m\u00b3",
+          "unit_code": "ug_m3"
+        },
+        {
+          "compatibility_status": "compatible",
+          "exclusion_reason": null,
+          "native_temporal_metadata": {
+            "aggregation_period": null,
+            "expected_frequency_seconds": null,
+            "status": "not_provided_by_location_discovery"
+          },
+          "openaq_parameter_display_name": "O\u2083 mass",
+          "openaq_parameter_id": 3,
+          "openaq_parameter_name": "o3",
+          "openaq_sensor_id": 4475463,
+          "parameter_code": "o3",
+          "provider_unit": "\u00b5g/m\u00b3",
+          "sensor_name": "o3 \u00b5g/m\u00b3",
+          "unit_code": "ug_m3"
+        }
+      ],
+      "coordinates": {
+        "latitude": -22.8961,
+        "longitude": -43.2212
+      },
+      "datetime_first": {
+        "local": "2023-04-06T13:00:00-03:00",
+        "utc": "2023-04-06T16:00:00Z"
+      },
+      "datetime_last": {
+        "local": "2024-12-09T08:00:00-03:00",
+        "utc": "2024-12-09T11:00:00Z"
+      },
+      "hardware_provider": null,
+      "instruments": [
+        {
+          "id": 2,
+          "name": "Government Monitor"
+        }
+      ],
+      "is_mobile": false,
+      "is_reference_monitor": true,
+      "licenses": [],
+      "locality": "Rio de Janeiro",
+      "location_name": "S\u00e3o Crist\u00f3v\u00e3o",
+      "openaq_location_id": 820328,
+      "owner": {
+        "id": 4,
+        "name": "Unknown Governmental Organization"
+      },
+      "provider": {
+        "id": 62,
+        "name": "Rio City Hall"
+      },
+      "recent_data_status": "stale",
+      "selection_eligible": false,
+      "timezone": "America/Sao_Paulo",
+      "transport_provider": "OpenAQ",
+      "unsuitable_sensors": []
+    },
+    {
+      "airgradient_metadata_evidence": [],
+      "compatible_parameter_codes": [
+        "no2",
+        "o3",
+        "pm10"
+      ],
+      "compatible_sensors": [
+        {
+          "compatibility_status": "compatible",
+          "exclusion_reason": null,
+          "native_temporal_metadata": {
+            "aggregation_period": null,
+            "expected_frequency_seconds": null,
+            "status": "not_provided_by_location_discovery"
+          },
+          "openaq_parameter_display_name": "PM10",
+          "openaq_parameter_id": 1,
+          "openaq_parameter_name": "pm10",
+          "openaq_sensor_id": 4475445,
+          "parameter_code": "pm10",
+          "provider_unit": "\u00b5g/m\u00b3",
+          "sensor_name": "pm10 \u00b5g/m\u00b3",
+          "unit_code": "ug_m3"
+        },
+        {
+          "compatibility_status": "compatible",
+          "exclusion_reason": null,
+          "native_temporal_metadata": {
+            "aggregation_period": null,
+            "expected_frequency_seconds": null,
+            "status": "not_provided_by_location_discovery"
+          },
+          "openaq_parameter_display_name": "O\u2083 mass",
+          "openaq_parameter_id": 3,
+          "openaq_parameter_name": "o3",
+          "openaq_sensor_id": 4475447,
+          "parameter_code": "o3",
+          "provider_unit": "\u00b5g/m\u00b3",
+          "sensor_name": "o3 \u00b5g/m\u00b3",
+          "unit_code": "ug_m3"
+        },
+        {
+          "compatibility_status": "compatible",
+          "exclusion_reason": null,
+          "native_temporal_metadata": {
+            "aggregation_period": null,
+            "expected_frequency_seconds": null,
+            "status": "not_provided_by_location_discovery"
+          },
+          "openaq_parameter_display_name": "NO\u2082 mass",
+          "openaq_parameter_id": 5,
+          "openaq_parameter_name": "no2",
+          "openaq_sensor_id": 4475448,
+          "parameter_code": "no2",
+          "provider_unit": "\u00b5g/m\u00b3",
+          "sensor_name": "no2 \u00b5g/m\u00b3",
+          "unit_code": "ug_m3"
+        }
+      ],
+      "coordinates": {
+        "latitude": -22.9244,
+        "longitude": -43.2326
+      },
+      "datetime_first": {
+        "local": "2023-04-06T13:00:00-03:00",
+        "utc": "2023-04-06T16:00:00Z"
+      },
+      "datetime_last": {
+        "local": "2026-08-11T03:00:00-03:00",
+        "utc": "2026-08-11T06:00:00Z"
+      },
+      "hardware_provider": null,
+      "instruments": [
+        {
+          "id": 2,
+          "name": "Government Monitor"
+        }
+      ],
+      "is_mobile": false,
+      "is_reference_monitor": true,
+      "licenses": [],
+      "locality": "Rio de Janeiro",
+      "location_name": "Tijuca",
+      "openaq_location_id": 820329,
+      "owner": {
+        "id": 4,
+        "name": "Unknown Governmental Organization"
+      },
+      "provider": {
+        "id": 62,
+        "name": "Rio City Hall"
+      },
+      "recent_data_status": "recent",
+      "selection_eligible": true,
+      "timezone": "America/Sao_Paulo",
+      "transport_provider": "OpenAQ",
+      "unsuitable_sensors": [
+        {
+          "compatibility_status": "unsuitable",
+          "exclusion_reason": "unsupported_parameter",
+          "native_temporal_metadata": {
+            "aggregation_period": null,
+            "expected_frequency_seconds": null,
+            "status": "not_provided_by_location_discovery"
+          },
+          "openaq_parameter_display_name": "NO mass",
+          "openaq_parameter_id": 19843,
+          "openaq_parameter_name": "no",
+          "openaq_sensor_id": 4475446,
+          "parameter_code": null,
+          "provider_unit": "\u00b5g/m\u00b3",
+          "sensor_name": "no \u00b5g/m\u00b3",
+          "unit_code": "ug_m3"
+        },
+        {
+          "compatibility_status": "unsuitable",
+          "exclusion_reason": "unsupported_parameter",
+          "native_temporal_metadata": {
+            "aggregation_period": null,
+            "expected_frequency_seconds": null,
+            "status": "not_provided_by_location_discovery"
+          },
+          "openaq_parameter_display_name": "NOx mass",
+          "openaq_parameter_id": 27,
+          "openaq_parameter_name": "nox",
+          "openaq_sensor_id": 4475458,
+          "parameter_code": null,
+          "provider_unit": "\u00b5g/m\u00b3",
+          "sensor_name": "nox \u00b5g/m\u00b3",
+          "unit_code": "ug_m3"
+        }
+      ]
+    },
+    {
+      "airgradient_metadata_evidence": [],
+      "compatible_parameter_codes": [
+        "pm10",
+        "pm25"
+      ],
+      "compatible_sensors": [
+        {
+          "compatibility_status": "compatible",
+          "exclusion_reason": null,
+          "native_temporal_metadata": {
+            "aggregation_period": null,
+            "expected_frequency_seconds": null,
+            "status": "not_provided_by_location_discovery"
+          },
+          "openaq_parameter_display_name": "PM2.5",
+          "openaq_parameter_id": 2,
+          "openaq_parameter_name": "pm25",
+          "openaq_sensor_id": 13626663,
+          "parameter_code": "pm25",
+          "provider_unit": "\u00b5g/m\u00b3",
+          "sensor_name": "pm25 \u00b5g/m\u00b3",
+          "unit_code": "ug_m3"
+        },
+        {
+          "compatibility_status": "compatible",
+          "exclusion_reason": null,
+          "native_temporal_metadata": {
+            "aggregation_period": null,
+            "expected_frequency_seconds": null,
+            "status": "not_provided_by_location_discovery"
+          },
+          "openaq_parameter_display_name": "PM10",
+          "openaq_parameter_id": 1,
+          "openaq_parameter_name": "pm10",
+          "openaq_sensor_id": 13626666,
+          "parameter_code": "pm10",
+          "provider_unit": "\u00b5g/m\u00b3",
+          "sensor_name": "pm10 \u00b5g/m\u00b3",
+          "unit_code": "ug_m3"
+        }
+      ],
+      "coordinates": {
+        "latitude": -22.8834,
+        "longitude": -43.3546
+      },
+      "datetime_first": {
+        "local": "2025-07-17T15:00:00-03:00",
+        "utc": "2025-07-17T18:00:00Z"
+      },
+      "datetime_last": {
+        "local": "2026-08-11T03:00:00-03:00",
+        "utc": "2026-08-11T06:00:00Z"
+      },
+      "hardware_provider": null,
+      "instruments": [
+        {
+          "id": 2,
+          "name": "Government Monitor"
+        }
+      ],
+      "is_mobile": false,
+      "is_reference_monitor": true,
+      "licenses": [],
+      "locality": "Rio de Janeiro",
+      "location_name": "Campinho",
+      "openaq_location_id": 5110472,
+      "owner": {
+        "id": 4,
+        "name": "Unknown Governmental Organization"
+      },
+      "provider": {
+        "id": 62,
+        "name": "Rio City Hall"
+      },
+      "recent_data_status": "recent",
+      "selection_eligible": true,
+      "timezone": "America/Sao_Paulo",
+      "transport_provider": "OpenAQ",
+      "unsuitable_sensors": []
+    },
+    {
+      "airgradient_metadata_evidence": [],
+      "compatible_parameter_codes": [
+        "pm10",
+        "pm25"
+      ],
+      "compatible_sensors": [
+        {
+          "compatibility_status": "compatible",
+          "exclusion_reason": null,
+          "native_temporal_metadata": {
+            "aggregation_period": null,
+            "expected_frequency_seconds": null,
+            "status": "not_provided_by_location_discovery"
+          },
+          "openaq_parameter_display_name": "PM10",
+          "openaq_parameter_id": 1,
+          "openaq_parameter_name": "pm10",
+          "openaq_sensor_id": 13626665,
+          "parameter_code": "pm10",
+          "provider_unit": "\u00b5g/m\u00b3",
+          "sensor_name": "pm10 \u00b5g/m\u00b3",
+          "unit_code": "ug_m3"
+        },
+        {
+          "compatibility_status": "compatible",
+          "exclusion_reason": null,
+          "native_temporal_metadata": {
+            "aggregation_period": null,
+            "expected_frequency_seconds": null,
+            "status": "not_provided_by_location_discovery"
+          },
+          "openaq_parameter_display_name": "PM2.5",
+          "openaq_parameter_id": 2,
+          "openaq_parameter_name": "pm25",
+          "openaq_sensor_id": 13668682,
+          "parameter_code": "pm25",
+          "provider_unit": "\u00b5g/m\u00b3",
+          "sensor_name": "pm25 \u00b5g/m\u00b3",
+          "unit_code": "ug_m3"
+        }
+      ],
+      "coordinates": {
+        "latitude": -22.8769,
+        "longitude": -43.323
+      },
+      "datetime_first": {
+        "local": "2025-07-17T15:00:00-03:00",
+        "utc": "2025-07-17T18:00:00Z"
+      },
+      "datetime_last": {
+        "local": "2026-08-11T03:00:00-03:00",
+        "utc": "2026-08-11T06:00:00Z"
+      },
+      "hardware_provider": null,
+      "instruments": [
+        {
+          "id": 2,
+          "name": "Government Monitor"
+        }
+      ],
+      "is_mobile": false,
+      "is_reference_monitor": true,
+      "licenses": [],
+      "locality": "Rio de Janeiro",
+      "location_name": "Engenheiro Leal",
+      "openaq_location_id": 5110473,
+      "owner": {
+        "id": 4,
+        "name": "Unknown Governmental Organization"
+      },
+      "provider": {
+        "id": 62,
+        "name": "Rio City Hall"
+      },
+      "recent_data_status": "recent",
+      "selection_eligible": true,
+      "timezone": "America/Sao_Paulo",
+      "transport_provider": "OpenAQ",
+      "unsuitable_sensors": []
+    },
+    {
+      "airgradient_metadata_evidence": [],
+      "compatible_parameter_codes": [
+        "pm10",
+        "pm25"
+      ],
+      "compatible_sensors": [
+        {
+          "compatibility_status": "compatible",
+          "exclusion_reason": null,
+          "native_temporal_metadata": {
+            "aggregation_period": null,
+            "expected_frequency_seconds": null,
+            "status": "not_provided_by_location_discovery"
+          },
+          "openaq_parameter_display_name": "PM2.5",
+          "openaq_parameter_id": 2,
+          "openaq_parameter_name": "pm25",
+          "openaq_sensor_id": 13626662,
+          "parameter_code": "pm25",
+          "provider_unit": "\u00b5g/m\u00b3",
+          "sensor_name": "pm25 \u00b5g/m\u00b3",
+          "unit_code": "ug_m3"
+        },
+        {
+          "compatibility_status": "compatible",
+          "exclusion_reason": null,
+          "native_temporal_metadata": {
+            "aggregation_period": null,
+            "expected_frequency_seconds": null,
+            "status": "not_provided_by_location_discovery"
+          },
+          "openaq_parameter_display_name": "PM10",
+          "openaq_parameter_id": 1,
+          "openaq_parameter_name": "pm10",
+          "openaq_sensor_id": 13626664,
+          "parameter_code": "pm10",
+          "provider_unit": "\u00b5g/m\u00b3",
+          "sensor_name": "pm10 \u00b5g/m\u00b3",
+          "unit_code": "ug_m3"
+        }
+      ],
+      "coordinates": {
+        "latitude": -22.9035,
+        "longitude": -43.1879
+      },
+      "datetime_first": {
+        "local": "2025-07-17T15:00:00-03:00",
+        "utc": "2025-07-17T18:00:00Z"
+      },
+      "datetime_last": {
+        "local": "2026-08-11T03:00:00-03:00",
+        "utc": "2026-08-11T06:00:00Z"
+      },
+      "hardware_provider": null,
+      "instruments": [
+        {
+          "id": 2,
+          "name": "Government Monitor"
+        }
+      ],
+      "is_mobile": false,
+      "is_reference_monitor": true,
+      "licenses": [],
+      "locality": "Rio de Janeiro",
+      "location_name": "Presidente Vargas",
+      "openaq_location_id": 5110474,
+      "owner": {
+        "id": 4,
+        "name": "Unknown Governmental Organization"
+      },
+      "provider": {
+        "id": 62,
+        "name": "Rio City Hall"
+      },
+      "recent_data_status": "recent",
+      "selection_eligible": true,
+      "timezone": "America/Sao_Paulo",
+      "transport_provider": "OpenAQ",
+      "unsuitable_sensors": []
+    },
+    {
+      "airgradient_metadata_evidence": [],
+      "compatible_parameter_codes": [
+        "pm10",
+        "pm25"
+      ],
+      "compatible_sensors": [
+        {
+          "compatibility_status": "compatible",
+          "exclusion_reason": null,
+          "native_temporal_metadata": {
+            "aggregation_period": null,
+            "expected_frequency_seconds": null,
+            "status": "not_provided_by_location_discovery"
+          },
+          "openaq_parameter_display_name": "PM2.5",
+          "openaq_parameter_id": 2,
+          "openaq_parameter_name": "pm25",
+          "openaq_sensor_id": 13626932,
+          "parameter_code": "pm25",
+          "provider_unit": "\u00b5g/m\u00b3",
+          "sensor_name": "pm25 \u00b5g/m\u00b3",
+          "unit_code": "ug_m3"
+        },
+        {
+          "compatibility_status": "compatible",
+          "exclusion_reason": null,
+          "native_temporal_metadata": {
+            "aggregation_period": null,
+            "expected_frequency_seconds": null,
+            "status": "not_provided_by_location_discovery"
+          },
+          "openaq_parameter_display_name": "PM10",
+          "openaq_parameter_id": 1,
+          "openaq_parameter_name": "pm10",
+          "openaq_sensor_id": 13626934,
+          "parameter_code": "pm10",
+          "provider_unit": "\u00b5g/m\u00b3",
+          "sensor_name": "pm10 \u00b5g/m\u00b3",
+          "unit_code": "ug_m3"
+        }
+      ],
+      "coordinates": {
+        "latitude": -22.9081,
+        "longitude": -43.1865
+      },
+      "datetime_first": {
+        "local": "2025-07-17T15:00:00-03:00",
+        "utc": "2025-07-17T18:00:00Z"
+      },
+      "datetime_last": {
+        "local": "2026-08-11T03:00:00-03:00",
+        "utc": "2026-08-11T06:00:00Z"
+      },
+      "hardware_provider": null,
+      "instruments": [
+        {
+          "id": 2,
+          "name": "Government Monitor"
+        }
+      ],
+      "is_mobile": false,
+      "is_reference_monitor": true,
+      "licenses": [],
+      "locality": "Rio de Janeiro",
+      "location_name": "Campo de Santana",
+      "openaq_location_id": 5110511,
+      "owner": {
+        "id": 4,
+        "name": "Unknown Governmental Organization"
+      },
+      "provider": {
+        "id": 62,
+        "name": "Rio City Hall"
+      },
+      "recent_data_status": "recent",
+      "selection_eligible": true,
+      "timezone": "America/Sao_Paulo",
+      "transport_provider": "OpenAQ",
+      "unsuitable_sensors": []
+    },
+    {
+      "airgradient_metadata_evidence": [],
+      "compatible_parameter_codes": [
+        "pm10",
+        "pm25"
+      ],
+      "compatible_sensors": [
+        {
+          "compatibility_status": "compatible",
+          "exclusion_reason": null,
+          "native_temporal_metadata": {
+            "aggregation_period": null,
+            "expected_frequency_seconds": null,
+            "status": "not_provided_by_location_discovery"
+          },
+          "openaq_parameter_display_name": "PM2.5",
+          "openaq_parameter_id": 2,
+          "openaq_parameter_name": "pm25",
+          "openaq_sensor_id": 13626931,
+          "parameter_code": "pm25",
+          "provider_unit": "\u00b5g/m\u00b3",
+          "sensor_name": "pm25 \u00b5g/m\u00b3",
+          "unit_code": "ug_m3"
+        },
+        {
+          "compatibility_status": "compatible",
+          "exclusion_reason": null,
+          "native_temporal_metadata": {
+            "aggregation_period": null,
+            "expected_frequency_seconds": null,
+            "status": "not_provided_by_location_discovery"
+          },
+          "openaq_parameter_display_name": "PM10",
+          "openaq_parameter_id": 1,
+          "openaq_parameter_name": "pm10",
+          "openaq_sensor_id": 13626933,
+          "parameter_code": "pm10",
+          "provider_unit": "\u00b5g/m\u00b3",
+          "sensor_name": "pm10 \u00b5g/m\u00b3",
+          "unit_code": "ug_m3"
+        }
+      ],
+      "coordinates": {
+        "latitude": -22.8915,
+        "longitude": -43.3248
+      },
+      "datetime_first": {
+        "local": "2025-07-17T15:00:00-03:00",
+        "utc": "2025-07-17T18:00:00Z"
+      },
+      "datetime_last": {
+        "local": "2026-08-11T03:00:00-03:00",
+        "utc": "2026-08-11T06:00:00Z"
+      },
+      "hardware_provider": null,
+      "instruments": [
+        {
+          "id": 2,
+          "name": "Government Monitor"
+        }
+      ],
+      "is_mobile": false,
+      "is_reference_monitor": true,
+      "licenses": [],
+      "locality": "Rio de Janeiro",
+      "location_name": "Quintino",
+      "openaq_location_id": 5110512,
+      "owner": {
+        "id": 4,
+        "name": "Unknown Governmental Organization"
+      },
+      "provider": {
+        "id": 62,
+        "name": "Rio City Hall"
+      },
+      "recent_data_status": "recent",
+      "selection_eligible": true,
+      "timezone": "America/Sao_Paulo",
+      "transport_provider": "OpenAQ",
+      "unsuitable_sensors": []
+    },
+    {
+      "airgradient_metadata_evidence": [],
+      "compatible_parameter_codes": [
+        "pm10",
+        "pm25"
+      ],
+      "compatible_sensors": [
+        {
+          "compatibility_status": "compatible",
+          "exclusion_reason": null,
+          "native_temporal_metadata": {
+            "aggregation_period": null,
+            "expected_frequency_seconds": null,
+            "status": "not_provided_by_location_discovery"
+          },
+          "openaq_parameter_display_name": "PM2.5",
+          "openaq_parameter_id": 2,
+          "openaq_parameter_name": "pm25",
+          "openaq_sensor_id": 13626936,
+          "parameter_code": "pm25",
+          "provider_unit": "\u00b5g/m\u00b3",
+          "sensor_name": "pm25 \u00b5g/m\u00b3",
+          "unit_code": "ug_m3"
+        },
+        {
+          "compatibility_status": "compatible",
+          "exclusion_reason": null,
+          "native_temporal_metadata": {
+            "aggregation_period": null,
+            "expected_frequency_seconds": null,
+            "status": "not_provided_by_location_discovery"
+          },
+          "openaq_parameter_display_name": "PM10",
+          "openaq_parameter_id": 1,
+          "openaq_parameter_name": "pm10",
+          "openaq_sensor_id": 13675687,
+          "parameter_code": "pm10",
+          "provider_unit": "\u00b5g/m\u00b3",
+          "sensor_name": "pm10 \u00b5g/m\u00b3",
+          "unit_code": "ug_m3"
+        }
+      ],
+      "coordinates": {
+        "latitude": -22.8849,
+        "longitude": -43.3276
+      },
+      "datetime_first": {
+        "local": "2025-07-17T15:00:00-03:00",
+        "utc": "2025-07-17T18:00:00Z"
+      },
+      "datetime_last": {
+        "local": "2026-08-11T03:00:00-03:00",
+        "utc": "2026-08-11T06:00:00Z"
+      },
+      "hardware_provider": null,
+      "instruments": [
+        {
+          "id": 2,
+          "name": "Government Monitor"
+        }
+      ],
+      "is_mobile": false,
+      "is_reference_monitor": true,
+      "licenses": [],
+      "locality": "Rio de Janeiro",
+      "location_name": "Cascadura ",
+      "openaq_location_id": 5110513,
+      "owner": {
+        "id": 4,
+        "name": "Unknown Governmental Organization"
+      },
+      "provider": {
+        "id": 62,
+        "name": "Rio City Hall"
+      },
+      "recent_data_status": "recent",
+      "selection_eligible": true,
+      "timezone": "America/Sao_Paulo",
+      "transport_provider": "OpenAQ",
+      "unsuitable_sensors": []
+    },
+    {
+      "airgradient_metadata_evidence": [],
+      "compatible_parameter_codes": [
+        "pm10",
+        "pm25"
+      ],
+      "compatible_sensors": [
+        {
+          "compatibility_status": "compatible",
+          "exclusion_reason": null,
+          "native_temporal_metadata": {
+            "aggregation_period": null,
+            "expected_frequency_seconds": null,
+            "status": "not_provided_by_location_discovery"
+          },
+          "openaq_parameter_display_name": "PM10",
+          "openaq_parameter_id": 1,
+          "openaq_parameter_name": "pm10",
+          "openaq_sensor_id": 13626935,
+          "parameter_code": "pm10",
+          "provider_unit": "\u00b5g/m\u00b3",
+          "sensor_name": "pm10 \u00b5g/m\u00b3",
+          "unit_code": "ug_m3"
+        },
+        {
+          "compatibility_status": "compatible",
+          "exclusion_reason": null,
+          "native_temporal_metadata": {
+            "aggregation_period": null,
+            "expected_frequency_seconds": null,
+            "status": "not_provided_by_location_discovery"
+          },
+          "openaq_parameter_display_name": "PM2.5",
+          "openaq_parameter_id": 2,
+          "openaq_parameter_name": "pm25",
+          "openaq_sensor_id": 13668937,
+          "parameter_code": "pm25",
+          "provider_unit": "\u00b5g/m\u00b3",
+          "sensor_name": "pm25 \u00b5g/m\u00b3",
+          "unit_code": "ug_m3"
+        }
+      ],
+      "coordinates": {
+        "latitude": -22.8776,
+        "longitude": -43.3374
+      },
+      "datetime_first": {
+        "local": "2025-07-17T15:00:00-03:00",
+        "utc": "2025-07-17T18:00:00Z"
+      },
+      "datetime_last": {
+        "local": "2026-08-11T03:00:00-03:00",
+        "utc": "2026-08-11T06:00:00Z"
+      },
+      "hardware_provider": null,
+      "instruments": [
+        {
+          "id": 2,
+          "name": "Government Monitor"
+        }
+      ],
+      "is_mobile": false,
+      "is_reference_monitor": true,
+      "licenses": [],
+      "locality": "Rio de Janeiro",
+      "location_name": "Madureira",
+      "openaq_location_id": 5110514,
+      "owner": {
+        "id": 4,
+        "name": "Unknown Governmental Organization"
+      },
+      "provider": {
+        "id": 62,
+        "name": "Rio City Hall"
+      },
+      "recent_data_status": "recent",
+      "selection_eligible": true,
+      "timezone": "America/Sao_Paulo",
+      "transport_provider": "OpenAQ",
+      "unsuitable_sensors": []
+    },
+    {
+      "airgradient_metadata_evidence": [],
+      "compatible_parameter_codes": [
+        "pm10",
+        "pm25"
+      ],
+      "compatible_sensors": [
+        {
+          "compatibility_status": "compatible",
+          "exclusion_reason": null,
+          "native_temporal_metadata": {
+            "aggregation_period": null,
+            "expected_frequency_seconds": null,
+            "status": "not_provided_by_location_discovery"
+          },
+          "openaq_parameter_display_name": "PM10",
+          "openaq_parameter_id": 1,
+          "openaq_parameter_name": "pm10",
+          "openaq_sensor_id": 14012772,
+          "parameter_code": "pm10",
+          "provider_unit": "\u00b5g/m\u00b3",
+          "sensor_name": "pm10 \u00b5g/m\u00b3",
+          "unit_code": "ug_m3"
+        },
+        {
+          "compatibility_status": "compatible",
+          "exclusion_reason": null,
+          "native_temporal_metadata": {
+            "aggregation_period": null,
+            "expected_frequency_seconds": null,
+            "status": "not_provided_by_location_discovery"
+          },
+          "openaq_parameter_display_name": "PM2.5",
+          "openaq_parameter_id": 2,
+          "openaq_parameter_name": "pm25",
+          "openaq_sensor_id": 14021533,
+          "parameter_code": "pm25",
+          "provider_unit": "\u00b5g/m\u00b3",
+          "sensor_name": "pm25 \u00b5g/m\u00b3",
+          "unit_code": "ug_m3"
+        }
+      ],
+      "coordinates": {
+        "latitude": -22.913,
+        "longitude": -43.1702
+      },
+      "datetime_first": {
+        "local": "2025-09-01T12:00:00-03:00",
+        "utc": "2025-09-01T15:00:00Z"
+      },
+      "datetime_last": {
+        "local": "2026-08-11T03:00:00-03:00",
+        "utc": "2026-08-11T06:00:00Z"
+      },
+      "hardware_provider": null,
+      "instruments": [
+        {
+          "id": 2,
+          "name": "Government Monitor"
+        }
+      ],
+      "is_mobile": false,
+      "is_reference_monitor": true,
+      "licenses": [],
+      "locality": "Rio de Janeiro",
+      "location_name": "MAM",
+      "openaq_location_id": 5636852,
+      "owner": {
+        "id": 4,
+        "name": "Unknown Governmental Organization"
+      },
+      "provider": {
+        "id": 62,
+        "name": "Rio City Hall"
+      },
+      "recent_data_status": "recent",
+      "selection_eligible": true,
+      "timezone": "America/Sao_Paulo",
+      "transport_provider": "OpenAQ",
+      "unsuitable_sensors": []
+    },
+    {
+      "airgradient_metadata_evidence": [],
+      "compatible_parameter_codes": [
+        "pm10",
+        "pm25"
+      ],
+      "compatible_sensors": [
+        {
+          "compatibility_status": "compatible",
+          "exclusion_reason": null,
+          "native_temporal_metadata": {
+            "aggregation_period": null,
+            "expected_frequency_seconds": null,
+            "status": "not_provided_by_location_discovery"
+          },
+          "openaq_parameter_display_name": "PM2.5",
+          "openaq_parameter_id": 2,
+          "openaq_parameter_name": "pm25",
+          "openaq_sensor_id": 14013033,
+          "parameter_code": "pm25",
+          "provider_unit": "\u00b5g/m\u00b3",
+          "sensor_name": "pm25 \u00b5g/m\u00b3",
+          "unit_code": "ug_m3"
+        },
+        {
+          "compatibility_status": "compatible",
+          "exclusion_reason": null,
+          "native_temporal_metadata": {
+            "aggregation_period": null,
+            "expected_frequency_seconds": null,
+            "status": "not_provided_by_location_discovery"
+          },
+          "openaq_parameter_display_name": "PM10",
+          "openaq_parameter_id": 1,
+          "openaq_parameter_name": "pm10",
+          "openaq_sensor_id": 14013034,
+          "parameter_code": "pm10",
+          "provider_unit": "\u00b5g/m\u00b3",
+          "sensor_name": "pm10 \u00b5g/m\u00b3",
+          "unit_code": "ug_m3"
+        }
+      ],
+      "coordinates": {
+        "latitude": -22.9014,
+        "longitude": -43.173
+      },
+      "datetime_first": {
+        "local": "2025-09-01T13:00:00-03:00",
+        "utc": "2025-09-01T16:00:00Z"
+      },
+      "datetime_last": {
+        "local": "2026-08-11T03:00:00-03:00",
+        "utc": "2026-08-11T06:00:00Z"
+      },
+      "hardware_provider": null,
+      "instruments": [
+        {
+          "id": 2,
+          "name": "Government Monitor"
+        }
+      ],
+      "is_mobile": false,
+      "is_reference_monitor": true,
+      "licenses": [],
+      "locality": "Rio de Janeiro",
+      "location_name": "Pra\u00e7a XV",
+      "openaq_location_id": 5636888,
+      "owner": {
+        "id": 4,
+        "name": "Unknown Governmental Organization"
+      },
+      "provider": {
+        "id": 62,
+        "name": "Rio City Hall"
+      },
+      "recent_data_status": "recent",
+      "selection_eligible": true,
+      "timezone": "America/Sao_Paulo",
+      "transport_provider": "OpenAQ",
+      "unsuitable_sensors": []
+    },
+    {
+      "airgradient_metadata_evidence": [],
+      "compatible_parameter_codes": [
+        "pm10",
+        "pm25"
+      ],
+      "compatible_sensors": [
+        {
+          "compatibility_status": "compatible",
+          "exclusion_reason": null,
+          "native_temporal_metadata": {
+            "aggregation_period": null,
+            "expected_frequency_seconds": null,
+            "status": "not_provided_by_location_discovery"
+          },
+          "openaq_parameter_display_name": "PM10",
+          "openaq_parameter_id": 1,
+          "openaq_parameter_name": "pm10",
+          "openaq_sensor_id": 14021288,
+          "parameter_code": "pm10",
+          "provider_unit": "\u00b5g/m\u00b3",
+          "sensor_name": "pm10 \u00b5g/m\u00b3",
+          "unit_code": "ug_m3"
+        },
+        {
+          "compatibility_status": "compatible",
+          "exclusion_reason": null,
+          "native_temporal_metadata": {
+            "aggregation_period": null,
+            "expected_frequency_seconds": null,
+            "status": "not_provided_by_location_discovery"
+          },
+          "openaq_parameter_display_name": "PM2.5",
+          "openaq_parameter_id": 2,
+          "openaq_parameter_name": "pm25",
+          "openaq_sensor_id": 14035548,
+          "parameter_code": "pm25",
+          "provider_unit": "\u00b5g/m\u00b3",
+          "sensor_name": "pm25 \u00b5g/m\u00b3",
+          "unit_code": "ug_m3"
+        }
+      ],
+      "coordinates": {
+        "latitude": -22.866,
+        "longitude": -43.3403
+      },
+      "datetime_first": {
+        "local": "2025-09-02T15:00:00-03:00",
+        "utc": "2025-09-02T18:00:00Z"
+      },
+      "datetime_last": {
+        "local": "2026-08-11T03:00:00-03:00",
+        "utc": "2026-08-11T06:00:00Z"
+      },
+      "hardware_provider": null,
+      "instruments": [
+        {
+          "id": 2,
+          "name": "Government Monitor"
+        }
+      ],
+      "is_mobile": false,
+      "is_reference_monitor": true,
+      "licenses": [],
+      "locality": "Rio de Janeiro",
+      "location_name": "Parque Madureira",
+      "openaq_location_id": 5648811,
+      "owner": {
+        "id": 4,
+        "name": "Unknown Governmental Organization"
+      },
+      "provider": {
+        "id": 62,
+        "name": "Rio City Hall"
+      },
+      "recent_data_status": "recent",
+      "selection_eligible": true,
+      "timezone": "America/Sao_Paulo",
+      "transport_provider": "OpenAQ",
+      "unsuitable_sensors": []
+    },
+    {
+      "airgradient_metadata_evidence": [],
+      "compatible_parameter_codes": [
+        "pm10",
+        "pm25"
+      ],
+      "compatible_sensors": [
+        {
+          "compatibility_status": "compatible",
+          "exclusion_reason": null,
+          "native_temporal_metadata": {
+            "aggregation_period": null,
+            "expected_frequency_seconds": null,
+            "status": "not_provided_by_location_discovery"
+          },
+          "openaq_parameter_display_name": "PM10",
+          "openaq_parameter_id": 1,
+          "openaq_parameter_name": "pm10",
+          "openaq_sensor_id": 14798913,
+          "parameter_code": "pm10",
+          "provider_unit": "\u00b5g/m\u00b3",
+          "sensor_name": "pm10 \u00b5g/m\u00b3",
+          "unit_code": "ug_m3"
+        },
+        {
+          "compatibility_status": "compatible",
+          "exclusion_reason": null,
+          "native_temporal_metadata": {
+            "aggregation_period": null,
+            "expected_frequency_seconds": null,
+            "status": "not_provided_by_location_discovery"
+          },
+          "openaq_parameter_display_name": "PM2.5",
+          "openaq_parameter_id": 2,
+          "openaq_parameter_name": "pm25",
+          "openaq_sensor_id": 14798920,
+          "parameter_code": "pm25",
+          "provider_unit": "\u00b5g/m\u00b3",
+          "sensor_name": "pm25 \u00b5g/m\u00b3",
+          "unit_code": "ug_m3"
+        }
+      ],
+      "coordinates": {
+        "latitude": -22.8881,
+        "longitude": -43.2962
+      },
+      "datetime_first": {
+        "local": "2025-12-04T17:00:00-03:00",
+        "utc": "2025-12-04T20:00:00Z"
+      },
+      "datetime_last": {
+        "local": "2026-08-11T03:00:00-03:00",
+        "utc": "2026-08-11T06:00:00Z"
+      },
+      "hardware_provider": null,
+      "instruments": [
+        {
+          "id": 2,
+          "name": "Government Monitor"
+        }
+      ],
+      "is_mobile": false,
+      "is_reference_monitor": true,
+      "licenses": [],
+      "locality": "Rio de Janeiro",
+      "location_name": "Aboli\u00e7\u00e3o ",
+      "openaq_location_id": 6152580,
+      "owner": {
+        "id": 4,
+        "name": "Unknown Governmental Organization"
+      },
+      "provider": {
+        "id": 62,
+        "name": "Rio City Hall"
+      },
+      "recent_data_status": "recent",
+      "selection_eligible": true,
+      "timezone": "America/Sao_Paulo",
+      "transport_provider": "OpenAQ",
+      "unsuitable_sensors": []
+    },
+    {
+      "airgradient_metadata_evidence": [],
+      "compatible_parameter_codes": [
+        "pm10",
+        "pm25"
+      ],
+      "compatible_sensors": [
+        {
+          "compatibility_status": "compatible",
+          "exclusion_reason": null,
+          "native_temporal_metadata": {
+            "aggregation_period": null,
+            "expected_frequency_seconds": null,
+            "status": "not_provided_by_location_discovery"
+          },
+          "openaq_parameter_display_name": "PM2.5",
+          "openaq_parameter_id": 2,
+          "openaq_parameter_name": "pm25",
+          "openaq_sensor_id": 14798896,
+          "parameter_code": "pm25",
+          "provider_unit": "\u00b5g/m\u00b3",
+          "sensor_name": "pm25 \u00b5g/m\u00b3",
+          "unit_code": "ug_m3"
+        },
+        {
+          "compatibility_status": "compatible",
+          "exclusion_reason": null,
+          "native_temporal_metadata": {
+            "aggregation_period": null,
+            "expected_frequency_seconds": null,
+            "status": "not_provided_by_location_discovery"
+          },
+          "openaq_parameter_display_name": "PM10",
+          "openaq_parameter_id": 1,
+          "openaq_parameter_name": "pm10",
+          "openaq_sensor_id": 14798927,
+          "parameter_code": "pm10",
+          "provider_unit": "\u00b5g/m\u00b3",
+          "sensor_name": "pm10 \u00b5g/m\u00b3",
+          "unit_code": "ug_m3"
+        }
+      ],
+      "coordinates": {
+        "latitude": -22.9923,
+        "longitude": -43.3669
+      },
+      "datetime_first": {
+        "local": "2025-12-04T17:00:00-03:00",
+        "utc": "2025-12-04T20:00:00Z"
+      },
+      "datetime_last": {
+        "local": "2026-08-11T03:00:00-03:00",
+        "utc": "2026-08-11T06:00:00Z"
+      },
+      "hardware_provider": null,
+      "instruments": [
+        {
+          "id": 2,
+          "name": "Government Monitor"
+        }
+      ],
+      "is_mobile": false,
+      "is_reference_monitor": true,
+      "licenses": [],
+      "locality": "Rio de Janeiro",
+      "location_name": "Barra da Tijuca",
+      "openaq_location_id": 6152581,
+      "owner": {
+        "id": 4,
+        "name": "Unknown Governmental Organization"
+      },
+      "provider": {
+        "id": 62,
+        "name": "Rio City Hall"
+      },
+      "recent_data_status": "recent",
+      "selection_eligible": true,
+      "timezone": "America/Sao_Paulo",
+      "transport_provider": "OpenAQ",
+      "unsuitable_sensors": []
+    },
+    {
+      "airgradient_metadata_evidence": [],
+      "compatible_parameter_codes": [
+        "pm10",
+        "pm25"
+      ],
+      "compatible_sensors": [
+        {
+          "compatibility_status": "compatible",
+          "exclusion_reason": null,
+          "native_temporal_metadata": {
+            "aggregation_period": null,
+            "expected_frequency_seconds": null,
+            "status": "not_provided_by_location_discovery"
+          },
+          "openaq_parameter_display_name": "PM10",
+          "openaq_parameter_id": 1,
+          "openaq_parameter_name": "pm10",
+          "openaq_sensor_id": 14798938,
+          "parameter_code": "pm10",
+          "provider_unit": "\u00b5g/m\u00b3",
+          "sensor_name": "pm10 \u00b5g/m\u00b3",
+          "unit_code": "ug_m3"
+        },
+        {
+          "compatibility_status": "compatible",
+          "exclusion_reason": null,
+          "native_temporal_metadata": {
+            "aggregation_period": null,
+            "expected_frequency_seconds": null,
+            "status": "not_provided_by_location_discovery"
+          },
+          "openaq_parameter_display_name": "PM2.5",
+          "openaq_parameter_id": 2,
+          "openaq_parameter_name": "pm25",
+          "openaq_sensor_id": 14798940,
+          "parameter_code": "pm25",
+          "provider_unit": "\u00b5g/m\u00b3",
+          "sensor_name": "pm25 \u00b5g/m\u00b3",
+          "unit_code": "ug_m3"
+        }
+      ],
+      "coordinates": {
+        "latitude": -22.8802,
+        "longitude": -43.2268
+      },
+      "datetime_first": {
+        "local": "2025-12-04T17:00:00-03:00",
+        "utc": "2025-12-04T20:00:00Z"
+      },
+      "datetime_last": {
+        "local": "2026-08-01T12:00:00-03:00",
+        "utc": "2026-08-01T15:00:00Z"
+      },
+      "hardware_provider": null,
+      "instruments": [
+        {
+          "id": 2,
+          "name": "Government Monitor"
+        }
+      ],
+      "is_mobile": false,
+      "is_reference_monitor": true,
+      "licenses": [],
+      "locality": "Rio de Janeiro",
+      "location_name": "Caju",
+      "openaq_location_id": 6152582,
+      "owner": {
+        "id": 4,
+        "name": "Unknown Governmental Organization"
+      },
+      "provider": {
+        "id": 62,
+        "name": "Rio City Hall"
+      },
+      "recent_data_status": "recent",
+      "selection_eligible": true,
+      "timezone": "America/Sao_Paulo",
+      "transport_provider": "OpenAQ",
+      "unsuitable_sensors": []
+    },
+    {
+      "airgradient_metadata_evidence": [],
+      "compatible_parameter_codes": [
+        "no2",
+        "o3",
+        "pm10",
+        "pm25"
+      ],
+      "compatible_sensors": [
+        {
+          "compatibility_status": "compatible",
+          "exclusion_reason": null,
+          "native_temporal_metadata": {
+            "aggregation_period": null,
+            "expected_frequency_seconds": null,
+            "status": "not_provided_by_location_discovery"
+          },
+          "openaq_parameter_display_name": "O\u2083 mass",
+          "openaq_parameter_id": 3,
+          "openaq_parameter_name": "o3",
+          "openaq_sensor_id": 14798898,
+          "parameter_code": "o3",
+          "provider_unit": "\u00b5g/m\u00b3",
+          "sensor_name": "o3 \u00b5g/m\u00b3",
+          "unit_code": "ug_m3"
+        },
+        {
+          "compatibility_status": "compatible",
+          "exclusion_reason": null,
+          "native_temporal_metadata": {
+            "aggregation_period": null,
+            "expected_frequency_seconds": null,
+            "status": "not_provided_by_location_discovery"
+          },
+          "openaq_parameter_display_name": "PM2.5",
+          "openaq_parameter_id": 2,
+          "openaq_parameter_name": "pm25",
+          "openaq_sensor_id": 14798909,
+          "parameter_code": "pm25",
+          "provider_unit": "\u00b5g/m\u00b3",
+          "sensor_name": "pm25 \u00b5g/m\u00b3",
+          "unit_code": "ug_m3"
+        },
+        {
+          "compatibility_status": "compatible",
+          "exclusion_reason": null,
+          "native_temporal_metadata": {
+            "aggregation_period": null,
+            "expected_frequency_seconds": null,
+            "status": "not_provided_by_location_discovery"
+          },
+          "openaq_parameter_display_name": "PM10",
+          "openaq_parameter_id": 1,
+          "openaq_parameter_name": "pm10",
+          "openaq_sensor_id": 14798926,
+          "parameter_code": "pm10",
+          "provider_unit": "\u00b5g/m\u00b3",
+          "sensor_name": "pm10 \u00b5g/m\u00b3",
+          "unit_code": "ug_m3"
+        },
+        {
+          "compatibility_status": "compatible",
+          "exclusion_reason": null,
+          "native_temporal_metadata": {
+            "aggregation_period": null,
+            "expected_frequency_seconds": null,
+            "status": "not_provided_by_location_discovery"
+          },
+          "openaq_parameter_display_name": "NO\u2082 mass",
+          "openaq_parameter_id": 5,
+          "openaq_parameter_name": "no2",
+          "openaq_sensor_id": 14798934,
+          "parameter_code": "no2",
+          "provider_unit": "\u00b5g/m\u00b3",
+          "sensor_name": "no2 \u00b5g/m\u00b3",
+          "unit_code": "ug_m3"
+        }
+      ],
+      "coordinates": {
+        "latitude": -22.8316,
+        "longitude": -43.3267
+      },
+      "datetime_first": {
+        "local": "2025-12-04T17:00:00-03:00",
+        "utc": "2025-12-04T20:00:00Z"
+      },
+      "datetime_last": {
+        "local": "2026-08-11T03:00:00-03:00",
+        "utc": "2026-08-11T06:00:00Z"
+      },
+      "hardware_provider": null,
+      "instruments": [
+        {
+          "id": 2,
+          "name": "Government Monitor"
+        }
+      ],
+      "is_mobile": false,
+      "is_reference_monitor": true,
+      "licenses": [],
+      "locality": "Rio de Janeiro",
+      "location_name": "Iraj\u00e1 Aurassure",
+      "openaq_location_id": 6152586,
+      "owner": {
+        "id": 4,
+        "name": "Unknown Governmental Organization"
+      },
+      "provider": {
+        "id": 62,
+        "name": "Rio City Hall"
+      },
+      "recent_data_status": "recent",
+      "selection_eligible": true,
+      "timezone": "America/Sao_Paulo",
+      "transport_provider": "OpenAQ",
+      "unsuitable_sensors": []
+    },
+    {
+      "airgradient_metadata_evidence": [],
+      "compatible_parameter_codes": [
+        "no2",
+        "o3",
+        "pm10",
+        "pm25"
+      ],
+      "compatible_sensors": [
+        {
+          "compatibility_status": "compatible",
+          "exclusion_reason": null,
+          "native_temporal_metadata": {
+            "aggregation_period": null,
+            "expected_frequency_seconds": null,
+            "status": "not_provided_by_location_discovery"
+          },
+          "openaq_parameter_display_name": "PM10",
+          "openaq_parameter_id": 1,
+          "openaq_parameter_name": "pm10",
+          "openaq_sensor_id": 14798907,
+          "parameter_code": "pm10",
+          "provider_unit": "\u00b5g/m\u00b3",
+          "sensor_name": "pm10 \u00b5g/m\u00b3",
+          "unit_code": "ug_m3"
+        },
+        {
+          "compatibility_status": "compatible",
+          "exclusion_reason": null,
+          "native_temporal_metadata": {
+            "aggregation_period": null,
+            "expected_frequency_seconds": null,
+            "status": "not_provided_by_location_discovery"
+          },
+          "openaq_parameter_display_name": "NO\u2082 mass",
+          "openaq_parameter_id": 5,
+          "openaq_parameter_name": "no2",
+          "openaq_sensor_id": 14798915,
+          "parameter_code": "no2",
+          "provider_unit": "\u00b5g/m\u00b3",
+          "sensor_name": "no2 \u00b5g/m\u00b3",
+          "unit_code": "ug_m3"
+        },
+        {
+          "compatibility_status": "compatible",
+          "exclusion_reason": null,
+          "native_temporal_metadata": {
+            "aggregation_period": null,
+            "expected_frequency_seconds": null,
+            "status": "not_provided_by_location_discovery"
+          },
+          "openaq_parameter_display_name": "PM2.5",
+          "openaq_parameter_id": 2,
+          "openaq_parameter_name": "pm25",
+          "openaq_sensor_id": 14798916,
+          "parameter_code": "pm25",
+          "provider_unit": "\u00b5g/m\u00b3",
+          "sensor_name": "pm25 \u00b5g/m\u00b3",
+          "unit_code": "ug_m3"
+        },
+        {
+          "compatibility_status": "compatible",
+          "exclusion_reason": null,
+          "native_temporal_metadata": {
+            "aggregation_period": null,
+            "expected_frequency_seconds": null,
+            "status": "not_provided_by_location_discovery"
+          },
+          "openaq_parameter_display_name": "O\u2083 mass",
+          "openaq_parameter_id": 3,
+          "openaq_parameter_name": "o3",
+          "openaq_sensor_id": 14798928,
+          "parameter_code": "o3",
+          "provider_unit": "\u00b5g/m\u00b3",
+          "sensor_name": "o3 \u00b5g/m\u00b3",
+          "unit_code": "ug_m3"
+        }
+      ],
+      "coordinates": {
+        "latitude": -22.9614,
+        "longitude": -43.2035
+      },
+      "datetime_first": {
+        "local": "2025-12-04T17:00:00-03:00",
+        "utc": "2025-12-04T20:00:00Z"
+      },
+      "datetime_last": {
+        "local": "2026-08-11T03:00:00-03:00",
+        "utc": "2026-08-11T06:00:00Z"
+      },
+      "hardware_provider": null,
+      "instruments": [
+        {
+          "id": 2,
+          "name": "Government Monitor"
+        }
+      ],
+      "is_mobile": false,
+      "is_reference_monitor": true,
+      "licenses": [],
+      "locality": "Rio de Janeiro",
+      "location_name": "Lagoa",
+      "openaq_location_id": 6152587,
+      "owner": {
+        "id": 4,
+        "name": "Unknown Governmental Organization"
+      },
+      "provider": {
+        "id": 62,
+        "name": "Rio City Hall"
+      },
+      "recent_data_status": "recent",
+      "selection_eligible": true,
+      "timezone": "America/Sao_Paulo",
+      "transport_provider": "OpenAQ",
+      "unsuitable_sensors": []
+    },
+    {
+      "airgradient_metadata_evidence": [],
+      "compatible_parameter_codes": [
+        "pm10",
+        "pm25"
+      ],
+      "compatible_sensors": [
+        {
+          "compatibility_status": "compatible",
+          "exclusion_reason": null,
+          "native_temporal_metadata": {
+            "aggregation_period": null,
+            "expected_frequency_seconds": null,
+            "status": "not_provided_by_location_discovery"
+          },
+          "openaq_parameter_display_name": "PM10",
+          "openaq_parameter_id": 1,
+          "openaq_parameter_name": "pm10",
+          "openaq_sensor_id": 14798918,
+          "parameter_code": "pm10",
+          "provider_unit": "\u00b5g/m\u00b3",
+          "sensor_name": "pm10 \u00b5g/m\u00b3",
+          "unit_code": "ug_m3"
+        },
+        {
+          "compatibility_status": "compatible",
+          "exclusion_reason": null,
+          "native_temporal_metadata": {
+            "aggregation_period": null,
+            "expected_frequency_seconds": null,
+            "status": "not_provided_by_location_discovery"
+          },
+          "openaq_parameter_display_name": "PM2.5",
+          "openaq_parameter_id": 2,
+          "openaq_parameter_name": "pm25",
+          "openaq_sensor_id": 14798936,
+          "parameter_code": "pm25",
+          "provider_unit": "\u00b5g/m\u00b3",
+          "sensor_name": "pm25 \u00b5g/m\u00b3",
+          "unit_code": "ug_m3"
+        }
+      ],
+      "coordinates": {
+        "latitude": -22.8161,
+        "longitude": -43.3608
+      },
+      "datetime_first": {
+        "local": "2025-12-04T17:00:00-03:00",
+        "utc": "2025-12-04T20:00:00Z"
+      },
+      "datetime_last": {
+        "local": "2026-08-11T03:00:00-03:00",
+        "utc": "2026-08-11T06:00:00Z"
+      },
+      "hardware_provider": null,
+      "instruments": [
+        {
+          "id": 2,
+          "name": "Government Monitor"
+        }
+      ],
+      "is_mobile": false,
+      "is_reference_monitor": true,
+      "licenses": [],
+      "locality": "Rio de Janeiro",
+      "location_name": "Pavuna",
+      "openaq_location_id": 6152588,
+      "owner": {
+        "id": 4,
+        "name": "Unknown Governmental Organization"
+      },
+      "provider": {
+        "id": 62,
+        "name": "Rio City Hall"
+      },
+      "recent_data_status": "recent",
+      "selection_eligible": true,
+      "timezone": "America/Sao_Paulo",
+      "transport_provider": "OpenAQ",
+      "unsuitable_sensors": []
+    },
+    {
+      "airgradient_metadata_evidence": [],
+      "compatible_parameter_codes": [
+        "pm10",
+        "pm25"
+      ],
+      "compatible_sensors": [
+        {
+          "compatibility_status": "compatible",
+          "exclusion_reason": null,
+          "native_temporal_metadata": {
+            "aggregation_period": null,
+            "expected_frequency_seconds": null,
+            "status": "not_provided_by_location_discovery"
+          },
+          "openaq_parameter_display_name": "PM2.5",
+          "openaq_parameter_id": 2,
+          "openaq_parameter_name": "pm25",
+          "openaq_sensor_id": 14798897,
+          "parameter_code": "pm25",
+          "provider_unit": "\u00b5g/m\u00b3",
+          "sensor_name": "pm25 \u00b5g/m\u00b3",
+          "unit_code": "ug_m3"
+        },
+        {
+          "compatibility_status": "compatible",
+          "exclusion_reason": null,
+          "native_temporal_metadata": {
+            "aggregation_period": null,
+            "expected_frequency_seconds": null,
+            "status": "not_provided_by_location_discovery"
+          },
+          "openaq_parameter_display_name": "PM10",
+          "openaq_parameter_id": 1,
+          "openaq_parameter_name": "pm10",
+          "openaq_sensor_id": 14798911,
+          "parameter_code": "pm10",
+          "provider_unit": "\u00b5g/m\u00b3",
+          "sensor_name": "pm10 \u00b5g/m\u00b3",
+          "unit_code": "ug_m3"
+        }
+      ],
+      "coordinates": {
+        "latitude": -22.842,
+        "longitude": -43.2708
+      },
+      "datetime_first": {
+        "local": "2025-12-04T17:00:00-03:00",
+        "utc": "2025-12-04T20:00:00Z"
+      },
+      "datetime_last": {
+        "local": "2026-06-21T03:00:00-03:00",
+        "utc": "2026-06-21T06:00:00Z"
+      },
+      "hardware_provider": null,
+      "instruments": [
+        {
+          "id": 2,
+          "name": "Government Monitor"
+        }
+      ],
+      "is_mobile": false,
+      "is_reference_monitor": true,
+      "licenses": [],
+      "locality": "Rio de Janeiro",
+      "location_name": "Penha",
+      "openaq_location_id": 6152590,
+      "owner": {
+        "id": 4,
+        "name": "Unknown Governmental Organization"
+      },
+      "provider": {
+        "id": 62,
+        "name": "Rio City Hall"
+      },
+      "recent_data_status": "stale",
+      "selection_eligible": false,
+      "timezone": "America/Sao_Paulo",
+      "transport_provider": "OpenAQ",
+      "unsuitable_sensors": []
+    },
+    {
+      "airgradient_metadata_evidence": [],
+      "compatible_parameter_codes": [
+        "pm10",
+        "pm25"
+      ],
+      "compatible_sensors": [
+        {
+          "compatibility_status": "compatible",
+          "exclusion_reason": null,
+          "native_temporal_metadata": {
+            "aggregation_period": null,
+            "expected_frequency_seconds": null,
+            "status": "not_provided_by_location_discovery"
+          },
+          "openaq_parameter_display_name": "PM2.5",
+          "openaq_parameter_id": 2,
+          "openaq_parameter_name": "pm25",
+          "openaq_sensor_id": 14798925,
+          "parameter_code": "pm25",
+          "provider_unit": "\u00b5g/m\u00b3",
+          "sensor_name": "pm25 \u00b5g/m\u00b3",
+          "unit_code": "ug_m3"
+        },
+        {
+          "compatibility_status": "compatible",
+          "exclusion_reason": null,
+          "native_temporal_metadata": {
+            "aggregation_period": null,
+            "expected_frequency_seconds": null,
+            "status": "not_provided_by_location_discovery"
+          },
+          "openaq_parameter_display_name": "PM10",
+          "openaq_parameter_id": 1,
+          "openaq_parameter_name": "pm10",
+          "openaq_sensor_id": 14798939,
+          "parameter_code": "pm10",
+          "provider_unit": "\u00b5g/m\u00b3",
+          "sensor_name": "pm10 \u00b5g/m\u00b3",
+          "unit_code": "ug_m3"
+        }
+      ],
+      "coordinates": {
+        "latitude": -22.8601,
+        "longitude": -43.2685
+      },
+      "datetime_first": {
+        "local": "2025-12-04T17:00:00-03:00",
+        "utc": "2025-12-04T20:00:00Z"
+      },
+      "datetime_last": {
+        "local": "2026-08-11T03:00:00-03:00",
+        "utc": "2026-08-11T06:00:00Z"
+      },
+      "hardware_provider": null,
+      "instruments": [
+        {
+          "id": 2,
+          "name": "Government Monitor"
+        }
+      ],
+      "is_mobile": false,
+      "is_reference_monitor": true,
+      "licenses": [],
+      "locality": "Rio de Janeiro",
+      "location_name": "Ramos",
+      "openaq_location_id": 6152591,
+      "owner": {
+        "id": 4,
+        "name": "Unknown Governmental Organization"
+      },
+      "provider": {
+        "id": 62,
+        "name": "Rio City Hall"
+      },
+      "recent_data_status": "recent",
+      "selection_eligible": true,
+      "timezone": "America/Sao_Paulo",
+      "transport_provider": "OpenAQ",
+      "unsuitable_sensors": []
+    },
+    {
+      "airgradient_metadata_evidence": [],
+      "compatible_parameter_codes": [
+        "pm10",
+        "pm25"
+      ],
+      "compatible_sensors": [
+        {
+          "compatibility_status": "compatible",
+          "exclusion_reason": null,
+          "native_temporal_metadata": {
+            "aggregation_period": null,
+            "expected_frequency_seconds": null,
+            "status": "not_provided_by_location_discovery"
+          },
+          "openaq_parameter_display_name": "PM10",
+          "openaq_parameter_id": 1,
+          "openaq_parameter_name": "pm10",
+          "openaq_sensor_id": 14798906,
+          "parameter_code": "pm10",
+          "provider_unit": "\u00b5g/m\u00b3",
+          "sensor_name": "pm10 \u00b5g/m\u00b3",
+          "unit_code": "ug_m3"
+        },
+        {
+          "compatibility_status": "compatible",
+          "exclusion_reason": null,
+          "native_temporal_metadata": {
+            "aggregation_period": null,
+            "expected_frequency_seconds": null,
+            "status": "not_provided_by_location_discovery"
+          },
+          "openaq_parameter_display_name": "PM2.5",
+          "openaq_parameter_id": 2,
+          "openaq_parameter_name": "pm25",
+          "openaq_sensor_id": 14798910,
+          "parameter_code": "pm25",
+          "provider_unit": "\u00b5g/m\u00b3",
+          "sensor_name": "pm25 \u00b5g/m\u00b3",
+          "unit_code": "ug_m3"
+        }
+      ],
+      "coordinates": {
+        "latitude": -22.9009,
+        "longitude": -43.2522
+      },
+      "datetime_first": {
+        "local": "2025-12-04T17:00:00-03:00",
+        "utc": "2025-12-04T20:00:00Z"
+      },
+      "datetime_last": {
+        "local": "2026-07-29T15:00:00-03:00",
+        "utc": "2026-07-29T18:00:00Z"
+      },
+      "hardware_provider": null,
+      "instruments": [
+        {
+          "id": 2,
+          "name": "Government Monitor"
+        }
+      ],
+      "is_mobile": false,
+      "is_reference_monitor": true,
+      "licenses": [],
+      "locality": "Rio de Janeiro",
+      "location_name": "Rocha",
+      "openaq_location_id": 6152594,
+      "owner": {
+        "id": 4,
+        "name": "Unknown Governmental Organization"
+      },
+      "provider": {
+        "id": 62,
+        "name": "Rio City Hall"
+      },
+      "recent_data_status": "recent",
+      "selection_eligible": true,
+      "timezone": "America/Sao_Paulo",
+      "transport_provider": "OpenAQ",
+      "unsuitable_sensors": []
+    },
+    {
+      "airgradient_metadata_evidence": [],
+      "compatible_parameter_codes": [
+        "pm10",
+        "pm25"
+      ],
+      "compatible_sensors": [
+        {
+          "compatibility_status": "compatible",
+          "exclusion_reason": null,
+          "native_temporal_metadata": {
+            "aggregation_period": null,
+            "expected_frequency_seconds": null,
+            "status": "not_provided_by_location_discovery"
+          },
+          "openaq_parameter_display_name": "PM2.5",
+          "openaq_parameter_id": 2,
+          "openaq_parameter_name": "pm25",
+          "openaq_sensor_id": 14798899,
+          "parameter_code": "pm25",
+          "provider_unit": "\u00b5g/m\u00b3",
+          "sensor_name": "pm25 \u00b5g/m\u00b3",
+          "unit_code": "ug_m3"
+        },
+        {
+          "compatibility_status": "compatible",
+          "exclusion_reason": null,
+          "native_temporal_metadata": {
+            "aggregation_period": null,
+            "expected_frequency_seconds": null,
+            "status": "not_provided_by_location_discovery"
+          },
+          "openaq_parameter_display_name": "PM10",
+          "openaq_parameter_id": 1,
+          "openaq_parameter_name": "pm10",
+          "openaq_sensor_id": 14798937,
+          "parameter_code": "pm10",
+          "provider_unit": "\u00b5g/m\u00b3",
+          "sensor_name": "pm10 \u00b5g/m\u00b3",
+          "unit_code": "ug_m3"
+        }
+      ],
+      "coordinates": {
+        "latitude": -22.9896,
+        "longitude": -43.2527
+      },
+      "datetime_first": {
+        "local": "2025-12-04T17:00:00-03:00",
+        "utc": "2025-12-04T20:00:00Z"
+      },
+      "datetime_last": {
+        "local": "2026-08-11T03:00:00-03:00",
+        "utc": "2026-08-11T06:00:00Z"
+      },
+      "hardware_provider": null,
+      "instruments": [
+        {
+          "id": 2,
+          "name": "Government Monitor"
+        }
+      ],
+      "is_mobile": false,
+      "is_reference_monitor": true,
+      "licenses": [],
+      "locality": "Rio de Janeiro",
+      "location_name": "Rocinha",
+      "openaq_location_id": 6152595,
+      "owner": {
+        "id": 4,
+        "name": "Unknown Governmental Organization"
+      },
+      "provider": {
+        "id": 62,
+        "name": "Rio City Hall"
+      },
+      "recent_data_status": "recent",
+      "selection_eligible": true,
+      "timezone": "America/Sao_Paulo",
+      "transport_provider": "OpenAQ",
+      "unsuitable_sensors": []
+    },
+    {
+      "airgradient_metadata_evidence": [],
+      "compatible_parameter_codes": [
+        "pm10",
+        "pm25"
+      ],
+      "compatible_sensors": [
+        {
+          "compatibility_status": "compatible",
+          "exclusion_reason": null,
+          "native_temporal_metadata": {
+            "aggregation_period": null,
+            "expected_frequency_seconds": null,
+            "status": "not_provided_by_location_discovery"
+          },
+          "openaq_parameter_display_name": "PM2.5",
+          "openaq_parameter_id": 2,
+          "openaq_parameter_name": "pm25",
+          "openaq_sensor_id": 14798908,
+          "parameter_code": "pm25",
+          "provider_unit": "\u00b5g/m\u00b3",
+          "sensor_name": "pm25 \u00b5g/m\u00b3",
+          "unit_code": "ug_m3"
+        },
+        {
+          "compatibility_status": "compatible",
+          "exclusion_reason": null,
+          "native_temporal_metadata": {
+            "aggregation_period": null,
+            "expected_frequency_seconds": null,
+            "status": "not_provided_by_location_discovery"
+          },
+          "openaq_parameter_display_name": "PM10",
+          "openaq_parameter_id": 1,
+          "openaq_parameter_name": "pm10",
+          "openaq_sensor_id": 14798919,
+          "parameter_code": "pm10",
+          "provider_unit": "\u00b5g/m\u00b3",
+          "sensor_name": "pm10 \u00b5g/m\u00b3",
+          "unit_code": "ug_m3"
+        }
+      ],
+      "coordinates": {
+        "latitude": -22.9196,
+        "longitude": -43.3594
+      },
+      "datetime_first": {
+        "local": "2025-12-04T17:00:00-03:00",
+        "utc": "2025-12-04T20:00:00Z"
+      },
+      "datetime_last": {
+        "local": "2026-08-11T03:00:00-03:00",
+        "utc": "2026-08-11T06:00:00Z"
+      },
+      "hardware_provider": null,
+      "instruments": [
+        {
+          "id": 2,
+          "name": "Government Monitor"
+        }
+      ],
+      "is_mobile": false,
+      "is_reference_monitor": true,
+      "licenses": [],
+      "locality": "Rio de Janeiro",
+      "location_name": "Tanque",
+      "openaq_location_id": 6152598,
+      "owner": {
+        "id": 4,
+        "name": "Unknown Governmental Organization"
+      },
+      "provider": {
+        "id": 62,
+        "name": "Rio City Hall"
+      },
+      "recent_data_status": "recent",
+      "selection_eligible": true,
+      "timezone": "America/Sao_Paulo",
+      "transport_provider": "OpenAQ",
+      "unsuitable_sensors": []
+    },
+    {
+      "airgradient_metadata_evidence": [],
+      "compatible_parameter_codes": [
+        "pm10",
+        "pm25"
+      ],
+      "compatible_sensors": [
+        {
+          "compatibility_status": "compatible",
+          "exclusion_reason": null,
+          "native_temporal_metadata": {
+            "aggregation_period": null,
+            "expected_frequency_seconds": null,
+            "status": "not_provided_by_location_discovery"
+          },
+          "openaq_parameter_display_name": "PM10",
+          "openaq_parameter_id": 1,
+          "openaq_parameter_name": "pm10",
+          "openaq_sensor_id": 14990321,
+          "parameter_code": "pm10",
+          "provider_unit": "\u00b5g/m\u00b3",
+          "sensor_name": "pm10 \u00b5g/m\u00b3",
+          "unit_code": "ug_m3"
+        },
+        {
+          "compatibility_status": "compatible",
+          "exclusion_reason": null,
+          "native_temporal_metadata": {
+            "aggregation_period": null,
+            "expected_frequency_seconds": null,
+            "status": "not_provided_by_location_discovery"
+          },
+          "openaq_parameter_display_name": "PM2.5",
+          "openaq_parameter_id": 2,
+          "openaq_parameter_name": "pm25",
+          "openaq_sensor_id": 14990322,
+          "parameter_code": "pm25",
+          "provider_unit": "\u00b5g/m\u00b3",
+          "sensor_name": "pm25 \u00b5g/m\u00b3",
+          "unit_code": "ug_m3"
+        }
+      ],
+      "coordinates": {
+        "latitude": -22.9244,
+        "longitude": -43.2322
+      },
+      "datetime_first": {
+        "local": "2025-12-26T02:00:00-03:00",
+        "utc": "2025-12-26T05:00:00Z"
+      },
+      "datetime_last": {
+        "local": "2026-08-11T03:00:00-03:00",
+        "utc": "2026-08-11T06:00:00Z"
+      },
+      "hardware_provider": null,
+      "instruments": [
+        {
+          "id": 2,
+          "name": "Government Monitor"
+        }
+      ],
+      "is_mobile": false,
+      "is_reference_monitor": true,
+      "licenses": [],
+      "locality": "Rio de Janeiro",
+      "location_name": "Tijuca Aurassure",
+      "openaq_location_id": 6178275,
+      "owner": {
+        "id": 4,
+        "name": "Unknown Governmental Organization"
+      },
+      "provider": {
+        "id": 62,
+        "name": "Rio City Hall"
+      },
+      "recent_data_status": "recent",
+      "selection_eligible": true,
+      "timezone": "America/Sao_Paulo",
+      "transport_provider": "OpenAQ",
+      "unsuitable_sensors": []
+    },
+    {
+      "airgradient_metadata_evidence": [],
+      "compatible_parameter_codes": [
+        "pm10",
+        "pm25"
+      ],
+      "compatible_sensors": [
+        {
+          "compatibility_status": "compatible",
+          "exclusion_reason": null,
+          "native_temporal_metadata": {
+            "aggregation_period": null,
+            "expected_frequency_seconds": null,
+            "status": "not_provided_by_location_discovery"
+          },
+          "openaq_parameter_display_name": "PM2.5",
+          "openaq_parameter_id": 2,
+          "openaq_parameter_name": "pm25",
+          "openaq_sensor_id": 15149559,
+          "parameter_code": "pm25",
+          "provider_unit": "\u00b5g/m\u00b3",
+          "sensor_name": "pm25 \u00b5g/m\u00b3",
+          "unit_code": "ug_m3"
+        },
+        {
+          "compatibility_status": "compatible",
+          "exclusion_reason": null,
+          "native_temporal_metadata": {
+            "aggregation_period": null,
+            "expected_frequency_seconds": null,
+            "status": "not_provided_by_location_discovery"
+          },
+          "openaq_parameter_display_name": "PM10",
+          "openaq_parameter_id": 1,
+          "openaq_parameter_name": "pm10",
+          "openaq_sensor_id": 15149560,
+          "parameter_code": "pm10",
+          "provider_unit": "\u00b5g/m\u00b3",
+          "sensor_name": "pm10 \u00b5g/m\u00b3",
+          "unit_code": "ug_m3"
+        }
+      ],
+      "coordinates": {
+        "latitude": -22.9663,
+        "longitude": -43.3956
+      },
+      "datetime_first": {
+        "local": "2026-01-13T08:00:00-03:00",
+        "utc": "2026-01-13T11:00:00Z"
+      },
+      "datetime_last": {
+        "local": "2026-07-20T04:00:00-03:00",
+        "utc": "2026-07-20T07:00:00Z"
+      },
+      "hardware_provider": null,
+      "instruments": [
+        {
+          "id": 2,
+          "name": "Government Monitor"
+        }
+      ],
+      "is_mobile": false,
+      "is_reference_monitor": true,
+      "licenses": [],
+      "locality": "Rio de Janeiro",
+      "location_name": "Jacarepagu\u00e1",
+      "openaq_location_id": 6199572,
+      "owner": {
+        "id": 4,
+        "name": "Unknown Governmental Organization"
+      },
+      "provider": {
+        "id": 62,
+        "name": "Rio City Hall"
+      },
+      "recent_data_status": "recent",
+      "selection_eligible": true,
+      "timezone": "America/Sao_Paulo",
+      "transport_provider": "OpenAQ",
+      "unsuitable_sensors": []
+    }
+  ],
+  "coverage": {
+    "co": true,
+    "no2": true,
+    "o3": true,
+    "pm10": true,
+    "pm25": true,
+    "so2": true
+  },
+  "gaps": {},
+  "provider": "OpenAQ",
+  "recent_data_max_age_days": 30,
+  "reference_area_code": "rio_de_janeiro",
+  "reference_area_name": "Rio de Janeiro metropolitan area",
+  "response_meta": {
+    "found": 28,
+    "limit": 1000,
+    "page": 1,
+    "result_truncated_by_request_ceiling": false,
+    "returned": 28
+  },
+  "schema_version": "2i.3",
+  "selected_locations": [
+    {
+      "airgradient_metadata_evidence": [],
+      "compatible_parameter_codes": [
+        "co",
+        "no2",
+        "o3",
+        "pm10",
+        "pm25",
+        "so2"
+      ],
+      "coordinates": {
+        "latitude": -22.831600000000005,
+        "longitude": -43.32690000000001
+      },
+      "datetime_first": {
+        "local": "2023-04-06T13:00:00-03:00",
+        "utc": "2023-04-06T16:00:00Z"
+      },
+      "datetime_last": {
+        "local": "2026-08-11T03:00:00-03:00",
+        "utc": "2026-08-11T06:00:00Z"
+      },
+      "hardware_provider": null,
+      "instruments": [
+        {
+          "id": 2,
+          "name": "Government Monitor"
+        }
+      ],
+      "is_mobile": false,
+      "is_reference_monitor": true,
+      "known_limitation": "The locations discovery response does not provide native sensor interval or aggregation metadata; Phase 2I.4 must qualify temporal semantics before measurement capture.",
+      "licenses": [],
+      "locality": "Rio de Janeiro",
+      "location_name": "Iraj\u00e1",
+      "openaq_location_id": 820326,
+      "owner": {
+        "id": 4,
+        "name": "Unknown Governmental Organization"
+      },
+      "provider": {
+        "id": 62,
+        "name": "Rio City Hall"
+      },
+      "recent_data_status": "recent",
+      "selected_sensors": [
+        {
+          "compatibility_status": "compatible",
+          "exclusion_reason": null,
+          "hardware_provider": null,
+          "known_limitation": "Provider parameter identity and unit are preserved without conversion.",
+          "native_temporal_metadata": {
+            "aggregation_period": null,
+            "expected_frequency_seconds": null,
+            "status": "not_provided_by_location_discovery"
+          },
+          "openaq_parameter_display_name": "PM2.5",
+          "openaq_parameter_id": 2,
+          "openaq_parameter_name": "pm25",
+          "openaq_sensor_id": 6819305,
+          "parameter_code": "pm25",
+          "provider_unit": "\u00b5g/m\u00b3",
+          "selection_reason": "Exact target parameter identity, compatible preserved unit, and deterministic preferred-unit/sensor-ID ranking.",
+          "sensor_name": "pm25 \u00b5g/m\u00b3",
+          "transport_provider": "OpenAQ",
+          "unit_code": "ug_m3"
+        },
+        {
+          "compatibility_status": "compatible",
+          "exclusion_reason": null,
+          "hardware_provider": null,
+          "known_limitation": "Provider parameter identity and unit are preserved without conversion.",
+          "native_temporal_metadata": {
+            "aggregation_period": null,
+            "expected_frequency_seconds": null,
+            "status": "not_provided_by_location_discovery"
+          },
+          "openaq_parameter_display_name": "PM10",
+          "openaq_parameter_id": 1,
+          "openaq_parameter_name": "pm10",
+          "openaq_sensor_id": 4475454,
+          "parameter_code": "pm10",
+          "provider_unit": "\u00b5g/m\u00b3",
+          "selection_reason": "Exact target parameter identity, compatible preserved unit, and deterministic preferred-unit/sensor-ID ranking.",
+          "sensor_name": "pm10 \u00b5g/m\u00b3",
+          "transport_provider": "OpenAQ",
+          "unit_code": "ug_m3"
+        },
+        {
+          "compatibility_status": "compatible",
+          "exclusion_reason": null,
+          "hardware_provider": null,
+          "known_limitation": "Gas mass concentration is preserved exactly; no mass-to-mixing-ratio conversion is authorized during discovery or capture.",
+          "native_temporal_metadata": {
+            "aggregation_period": null,
+            "expected_frequency_seconds": null,
+            "status": "not_provided_by_location_discovery"
+          },
+          "openaq_parameter_display_name": "O\u2083 mass",
+          "openaq_parameter_id": 3,
+          "openaq_parameter_name": "o3",
+          "openaq_sensor_id": 6459542,
+          "parameter_code": "o3",
+          "provider_unit": "\u00b5g/m\u00b3",
+          "selection_reason": "Exact target parameter identity, compatible preserved unit, and deterministic preferred-unit/sensor-ID ranking.",
+          "sensor_name": "o3 \u00b5g/m\u00b3",
+          "transport_provider": "OpenAQ",
+          "unit_code": "ug_m3"
+        },
+        {
+          "compatibility_status": "compatible",
+          "exclusion_reason": null,
+          "hardware_provider": null,
+          "known_limitation": "Gas mass concentration is preserved exactly; no mass-to-mixing-ratio conversion is authorized during discovery or capture.",
+          "native_temporal_metadata": {
+            "aggregation_period": null,
+            "expected_frequency_seconds": null,
+            "status": "not_provided_by_location_discovery"
+          },
+          "openaq_parameter_display_name": "NO\u2082 mass",
+          "openaq_parameter_id": 5,
+          "openaq_parameter_name": "no2",
+          "openaq_sensor_id": 4475455,
+          "parameter_code": "no2",
+          "provider_unit": "\u00b5g/m\u00b3",
+          "selection_reason": "Exact target parameter identity, compatible preserved unit, and deterministic preferred-unit/sensor-ID ranking.",
+          "sensor_name": "no2 \u00b5g/m\u00b3",
+          "transport_provider": "OpenAQ",
+          "unit_code": "ug_m3"
+        },
+        {
+          "compatibility_status": "compatible",
+          "exclusion_reason": null,
+          "hardware_provider": null,
+          "known_limitation": "Gas mass concentration is preserved exactly; no mass-to-mixing-ratio conversion is authorized during discovery or capture.",
+          "native_temporal_metadata": {
+            "aggregation_period": null,
+            "expected_frequency_seconds": null,
+            "status": "not_provided_by_location_discovery"
+          },
+          "openaq_parameter_display_name": "SO\u2082 mass",
+          "openaq_parameter_id": 6,
+          "openaq_parameter_name": "so2",
+          "openaq_sensor_id": 11268993,
+          "parameter_code": "so2",
+          "provider_unit": "\u00b5g/m\u00b3",
+          "selection_reason": "Exact target parameter identity, compatible preserved unit, and deterministic preferred-unit/sensor-ID ranking.",
+          "sensor_name": "so2 \u00b5g/m\u00b3",
+          "transport_provider": "OpenAQ",
+          "unit_code": "ug_m3"
+        },
+        {
+          "compatibility_status": "compatible",
+          "exclusion_reason": null,
+          "hardware_provider": null,
+          "known_limitation": "Provider parameter identity and unit are preserved without conversion.",
+          "native_temporal_metadata": {
+            "aggregation_period": null,
+            "expected_frequency_seconds": null,
+            "status": "not_provided_by_location_discovery"
+          },
+          "openaq_parameter_display_name": "CO",
+          "openaq_parameter_id": 8,
+          "openaq_parameter_name": "co",
+          "openaq_sensor_id": 4475449,
+          "parameter_code": "co",
+          "provider_unit": "ppm",
+          "selection_reason": "Exact target parameter identity, compatible preserved unit, and deterministic preferred-unit/sensor-ID ranking.",
+          "sensor_name": "co ppm",
+          "transport_provider": "OpenAQ",
+          "unit_code": "ppm"
+        }
+      ],
+      "selection_eligible": true,
+      "selection_reason": "Deterministic ranking: stationary reference monitor, new compatible-parameter coverage, recent availability, then stable OpenAQ location ID.",
+      "timezone": "America/Sao_Paulo",
+      "transport_provider": "OpenAQ"
+    }
+  ],
+  "source_request": {
+    "endpoint": "https://api.openaq.org/v3/locations",
+    "executed_at": "2026-08-11T06:52:54.248334Z",
+    "query": {
+      "coordinates": "-22.9068,-43.1729",
+      "limit": 1000,
+      "order_by": "id",
+      "page": 1,
+      "radius": 25000,
+      "sort_order": "asc"
+    }
+  },
+  "target_parameter_codes": [
+    "pm25",
+    "pm10",
+    "o3",
+    "no2",
+    "so2",
+    "co"
+  ],
+  "timezone_reference": "America/Sao_Paulo"
+}

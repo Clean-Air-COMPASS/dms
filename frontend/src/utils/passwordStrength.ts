@@ -1,3 +1,5 @@
+import i18n from '../i18n';
+
 export interface PasswordCheck {
   
   key: string;
@@ -27,35 +29,35 @@ export function validatePasswordStrength(
   const minLength = 12;
   checks.push({
     key: 'length',
-    label: `At least ${minLength} characters`,
+    label: i18n.t('auth:passwordRequirements.minimumLength', { count: minLength }),
     passed: password.length >= minLength,
   });
 
   
   checks.push({
     key: 'uppercase',
-    label: 'At least one uppercase letter',
+    label: i18n.t('auth:passwordRequirements.uppercase'),
     passed: /[A-Z]/.test(password),
   });
 
   
   checks.push({
     key: 'lowercase',
-    label: 'At least one lowercase letter',
+    label: i18n.t('auth:passwordRequirements.lowercase'),
     passed: /[a-z]/.test(password),
   });
 
   
   checks.push({
     key: 'number',
-    label: 'At least one number',
+    label: i18n.t('auth:passwordRequirements.number'),
     passed: /[0-9]/.test(password),
   });
 
   
   checks.push({
     key: 'special',
-    label: 'At least one special character',
+    label: i18n.t('auth:passwordRequirements.specialCharacter'),
     passed: /[^A-Za-z0-9]/.test(password),
   });
   
@@ -71,7 +73,7 @@ export function validatePasswordStrength(
   }
   checks.push({
     key: 'noEmail',
-    label: 'Does not contain your email',
+    label: i18n.t('auth:passwordRequirements.excludesEmail'),
     passed: !containsEmail,
   });
 
@@ -80,7 +82,7 @@ export function validatePasswordStrength(
   
   let warning: string | undefined;
   if (isValid && password.length < 16) {
-    warning = 'Consider using a longer password for better security.';
+    warning = i18n.t('auth:passwordRequirements.longerPasswordSuggestion');
   }
 
   return { isValid, checks, warning };
@@ -111,11 +113,11 @@ export function getPasswordStrengthScore(password: string): number {
 
 
 export function getPasswordStrengthLabel(score: number): string {
-  if (score < 30) return 'Weak';
-  if (score < 50) return 'Fair';
-  if (score < 70) return 'Good';
-  if (score < 90) return 'Strong';
-  return 'Excellent';
+  if (score < 30) return i18n.t('auth:passwordStrength.weak');
+  if (score < 50) return i18n.t('auth:passwordStrength.fair');
+  if (score < 70) return i18n.t('auth:passwordStrength.good');
+  if (score < 90) return i18n.t('auth:passwordStrength.strong');
+  return i18n.t('auth:passwordStrength.excellent');
 }
 
 

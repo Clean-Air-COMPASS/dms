@@ -1,3 +1,5 @@
+import { Trans } from 'react-i18next';
+import i18n from './i18n';
 export default function LoadingSplash({ message }: { message?: string }) {
   return (
     <div className="min-h-screen flex items-center justify-center bg-[#f8fafc]">
@@ -17,10 +19,10 @@ export default function LoadingSplash({ message }: { message?: string }) {
             <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
             <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"></path>
           </svg>
-          <div className="text-sm text-slate-600">{message || 'Initializing widgets and fetching data…'}</div>
+          <div className="text-sm text-slate-600">{message || i18n.t('admin:loadingSplash.text.initializing')}</div>
         </div>
 
-        <div className="text-xs text-slate-400">Loading required services. This may take a few seconds.</div>
+        <div className="text-xs text-slate-400"><Trans ns="admin" i18nKey="loadingSplash.text.loadingRequiredServicesMayTakeFew" /></div>
       </div>
     </div>
   );

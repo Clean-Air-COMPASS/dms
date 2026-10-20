@@ -1,0 +1,101 @@
+{
+  "version": "2026-08-27-v2",
+  "devices": [
+    {
+      "provider_code": "openaq",
+      "external_id": "971",
+      "region_code": "new_york",
+      "name": "Elizabeth Trailer",
+      "timezone": "America/New_York",
+      "latitude": 40.641441,
+      "longitude": -74.208366,
+      "sensors": [
+        {"external_sensor_id": "1758", "parameter_code": "pm25", "unit_code": "ug_m3", "aggregation_period_code": "1h", "expected_frequency_seconds": 3600, "measurement_duration_seconds": 3600, "source_aggregation_duration_seconds": 3600, "measurement_timestamp_semantics": "interval_end", "measurement_metadata_status": "provider_documented"},
+        {"external_sensor_id": "3951", "parameter_code": "no2", "unit_code": "ppm", "aggregation_period_code": "1h", "expected_frequency_seconds": 3600, "measurement_duration_seconds": 3600, "source_aggregation_duration_seconds": 3600, "measurement_timestamp_semantics": "interval_end", "measurement_metadata_status": "provider_documented"},
+        {"external_sensor_id": "3950", "parameter_code": "so2", "unit_code": "ppm", "aggregation_period_code": "1h", "expected_frequency_seconds": 3600, "measurement_duration_seconds": 3600, "source_aggregation_duration_seconds": 3600, "measurement_timestamp_semantics": "interval_end", "measurement_metadata_status": "provider_documented"},
+        {"external_sensor_id": "3952", "parameter_code": "co", "unit_code": "ppm", "aggregation_period_code": "1h", "expected_frequency_seconds": 3600, "measurement_duration_seconds": 3600, "source_aggregation_duration_seconds": 3600, "measurement_timestamp_semantics": "interval_end", "measurement_metadata_status": "provider_documented"}
+      ]
+    },
+    {
+      "provider_code": "openaq",
+      "external_id": "626",
+      "region_code": "new_york",
+      "name": "Bronx - IS52",
+      "timezone": "America/New_York",
+      "latitude": 40.816101,
+      "longitude": -73.902199,
+      "sensors": [
+        {"external_sensor_id": "1099", "parameter_code": "pm10", "unit_code": "ug_m3", "aggregation_period_code": null, "expected_frequency_seconds": null, "measurement_duration_seconds": null, "source_aggregation_duration_seconds": null, "measurement_timestamp_semantics": "unknown", "measurement_metadata_status": "unknown_or_inconsistent"},
+        {"external_sensor_id": "1098", "parameter_code": "o3", "unit_code": "ppm", "aggregation_period_code": "1h", "expected_frequency_seconds": 3600, "measurement_duration_seconds": 3600, "source_aggregation_duration_seconds": 3600, "measurement_timestamp_semantics": "interval_end", "measurement_metadata_status": "provider_documented"}
+      ]
+    },
+    {
+      "provider_code": "openaq",
+      "external_id": "820326",
+      "region_code": "rio_de_janeiro",
+      "name": "Irajá",
+      "timezone": "America/Sao_Paulo",
+      "latitude": -22.8316,
+      "longitude": -43.3269,
+      "sensors": [
+        {"external_sensor_id": "6819305", "parameter_code": "pm25", "unit_code": "ug_m3", "aggregation_period_code": "1h", "expected_frequency_seconds": 3600, "measurement_duration_seconds": 3600, "source_aggregation_duration_seconds": 3600, "measurement_timestamp_semantics": "interval_end", "measurement_metadata_status": "provider_documented"},
+        {"external_sensor_id": "4475454", "parameter_code": "pm10", "unit_code": "ug_m3", "aggregation_period_code": "1h", "expected_frequency_seconds": 3600, "measurement_duration_seconds": 3600, "source_aggregation_duration_seconds": 3600, "measurement_timestamp_semantics": "interval_end", "measurement_metadata_status": "provider_documented"},
+        {"external_sensor_id": "6459542", "parameter_code": "o3", "unit_code": "ug_m3", "aggregation_period_code": "1h", "expected_frequency_seconds": 3600, "measurement_duration_seconds": 3600, "source_aggregation_duration_seconds": 3600, "measurement_timestamp_semantics": "interval_end", "measurement_metadata_status": "provider_documented"},
+        {"external_sensor_id": "4475455", "parameter_code": "no2", "unit_code": "ug_m3", "aggregation_period_code": "1h", "expected_frequency_seconds": 3600, "measurement_duration_seconds": 3600, "source_aggregation_duration_seconds": 3600, "measurement_timestamp_semantics": "interval_end", "measurement_metadata_status": "provider_documented"},
+        {"external_sensor_id": "11268993", "parameter_code": "so2", "unit_code": "ug_m3", "aggregation_period_code": "1h", "expected_frequency_seconds": 3600, "measurement_duration_seconds": 3600, "source_aggregation_duration_seconds": 3600, "measurement_timestamp_semantics": "interval_end", "measurement_metadata_status": "provider_documented"},
+        {"external_sensor_id": "4475449", "parameter_code": "co", "unit_code": "ppm", "aggregation_period_code": "1h", "expected_frequency_seconds": 3600, "measurement_duration_seconds": 3600, "source_aggregation_duration_seconds": 3600, "measurement_timestamp_semantics": "interval_end", "measurement_metadata_status": "provider_documented"}
+      ]
+    },
+    {
+      "provider_code": "openaq",
+      "external_id": "4565934",
+      "region_code": "metro_manila",
+      "name": "Manila Observatory",
+      "timezone": "Asia/Manila",
+      "latitude": 14.6354,
+      "longitude": 121.0779,
+      "sensors": [
+        {"external_sensor_id": "13191003", "parameter_code": "pm25", "unit_code": "ug_m3", "aggregation_period_code": "1h", "expected_frequency_seconds": 3600, "measurement_duration_seconds": 3600, "source_aggregation_duration_seconds": 3600, "measurement_timestamp_semantics": "interval_end", "measurement_metadata_status": "provider_documented"}
+      ]
+    },
+    {
+      "provider_code": "purpleair",
+      "external_id": "159361",
+      "region_code": "new_york",
+      "name": "UAlbany - Queens College(DEC)",
+      "timezone": "America/New_York",
+      "latitude": 40.736748,
+      "longitude": -73.82209,
+      "sensors": [
+        {"external_sensor_id": "159361:pm2.5_atm", "parameter_code": "pm25", "unit_code": "ug_m3", "aggregation_period_code": "2m", "expected_frequency_seconds": 120, "measurement_duration_seconds": 120, "source_aggregation_duration_seconds": 120, "measurement_timestamp_semantics": "provider_received_at", "measurement_metadata_status": "provider_documented", "enable_baseline_drift_screening_preset": true},
+        {"external_sensor_id": "159361:pm10.0_atm", "parameter_code": "pm10", "unit_code": "ug_m3", "aggregation_period_code": "2m", "expected_frequency_seconds": 120, "measurement_duration_seconds": 120, "source_aggregation_duration_seconds": 120, "measurement_timestamp_semantics": "provider_received_at", "measurement_metadata_status": "provider_documented"}
+      ]
+    },
+    {
+      "provider_code": "purpleair",
+      "external_id": "175407",
+      "region_code": "rio_de_janeiro",
+      "name": "LQA PUC RIO",
+      "timezone": "America/Sao_Paulo",
+      "latitude": -22.979204,
+      "longitude": -43.23326,
+      "sensors": [
+        {"external_sensor_id": "175407:pm2.5_atm", "parameter_code": "pm25", "unit_code": "ug_m3", "aggregation_period_code": "2m", "expected_frequency_seconds": 120, "measurement_duration_seconds": 120, "source_aggregation_duration_seconds": 120, "measurement_timestamp_semantics": "provider_received_at", "measurement_metadata_status": "provider_documented"},
+        {"external_sensor_id": "175407:pm10.0_atm", "parameter_code": "pm10", "unit_code": "ug_m3", "aggregation_period_code": "2m", "expected_frequency_seconds": 120, "measurement_duration_seconds": 120, "source_aggregation_duration_seconds": 120, "measurement_timestamp_semantics": "provider_received_at", "measurement_metadata_status": "provider_documented"}
+      ]
+    },
+    {
+      "provider_code": "purpleair",
+      "external_id": "99177",
+      "region_code": "metro_manila",
+      "name": "Calzada, Taguig",
+      "timezone": "Asia/Manila",
+      "latitude": 14.536089,
+      "longitude": 121.07563,
+      "sensors": [
+        {"external_sensor_id": "99177:pm2.5_atm", "parameter_code": "pm25", "unit_code": "ug_m3", "aggregation_period_code": "2m", "expected_frequency_seconds": 120, "measurement_duration_seconds": 120, "source_aggregation_duration_seconds": 120, "measurement_timestamp_semantics": "provider_received_at", "measurement_metadata_status": "provider_documented"},
+        {"external_sensor_id": "99177:pm10.0_atm", "parameter_code": "pm10", "unit_code": "ug_m3", "aggregation_period_code": "2m", "expected_frequency_seconds": 120, "measurement_duration_seconds": 120, "source_aggregation_duration_seconds": 120, "measurement_timestamp_semantics": "provider_received_at", "measurement_metadata_status": "provider_documented"}
+      ]
+    }
+  ]
+}

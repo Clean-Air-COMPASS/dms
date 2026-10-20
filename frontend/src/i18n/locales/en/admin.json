@@ -1,0 +1,334 @@
+{
+  "navigation": {
+    "admin": "Admin"
+  },
+  "systemPreferences": {
+    "title": "System Preferences",
+    "description": "Manage platform-wide settings used by administrative features and shared services.",
+    "states": {
+      "loading": "Loading system preferences…",
+      "saving": "Saving..."
+    },
+    "messages": {
+      "noChanges": "No changes to save.",
+      "saved": "System preferences updated."
+    },
+    "geocoding": {
+      "title": "Geocoding",
+      "description": " powers the location search proxy. Leave the field blank and save to clear the key.",
+      "apiKeyLabel": "Geoapify API Key",
+      "apiKeyPlaceholder": "Enter Geoapify API key",
+      "apiKeyHelp": "Server-side API key used by the geocoding proxy. Leave this blank and save to clear it."
+    },
+    "language": {
+      "help": "The default language used when a signed-in user has not selected an account override."
+    },
+    "systemTimezone": {
+      "label": "System timezone",
+      "help": "Used as the default timezone for scheduled reports and other system-generated activity."
+    },
+    "lastUpdated": {
+      "label": "Last updated:",
+      "byUser": " by {{email}}"
+    },
+    "storage": {
+      "title": "Storage",
+      "description": "Read-only capacity for the filesystem used by CompassAQ persistent runtime data.",
+      "free": "Free:",
+      "used": "Used:",
+      "total": "Total:",
+      "statusLabel": "Status:",
+      "status": {
+        "healthy": "Healthy",
+        "needs_attention": "Needs attention",
+        "critical": "Critical"
+      }
+    }
+  },
+  "adminCsvUpload": {
+    "tooltips": {
+      "csvUpload": "CSV Upload"
+    },
+    "text": {
+      "requiredCsvHeader": "Required CSV header:",
+      "internalsensoridDatetimeValue": "internalsensorid,datetime,value",
+      "csvIdentifier": "The internalsensorid column must contain the internal Sensor ID (a number). Do not use the Device ID, External Device ID, or External Sensor ID.",
+      "whereToFindCsvIdentifier": "Find this value in Administration → Devices → open the device → Sensors, under Internal Sensor ID. Each pollutant sensor has its own internal Sensor ID.",
+      "maximumFileSize": "CSV files can be up to 5 MB. For larger imports, split the data into multiple uploads.",
+      "datetimeMustIso8601IfNo": "Datetime must be ISO 8601. If no timezone is provided in the CSV, the sensor's device timezone from the database is applied.",
+      "fileMayIncludeMultipleDifferentSensor": "A file may include measurements for multiple pollutant sensors. Use one row per sensor measurement and the matching internal Sensor ID for each row.",
+      "exampleLabel": "Example (replace the IDs with the internal Sensor IDs shown for your sensors):",
+      "noFileSelected": "No file selected",
+      "total": "Total:",
+      "inserted": "| Inserted:",
+      "failed": "| Failed:",
+      "rowErrors": "File line errors:",
+      "unitRequirement": "CSV value must already be in the destination sensor’s configured unit. Confirm the sensor’s unit before uploading.",
+      "noConversion": "The CSV format has no unit-conversion instruction. CompassAQ does not infer a different unit from the numeric value or convert the uploaded value.",
+      "updated": "| Updated:",
+      "skipped": "| Skipped:",
+      "updatePolicy": "Duplicates follow the sensor’s Measurement Update Policy, then the device’s policy. Inherit with no Replace setting keeps existing values.",
+      "skippedExplanation": "Skipped duplicates intentionally keep the existing value; they are not import failures.",
+      "timestampSemantics": "Datetime follows the destination sensor’s configured timestamp meaning. If the meaning is unknown, confirm with the data owner whether the timestamp means interval start, interval end, or observation time before interpreting the data. Import preserves the sensor’s time basis and AQI requirements.",
+      "futureTolerance": "Timestamps more than 5 minutes after CSV processing starts are rejected. Historical backfill is allowed.",
+      "qcExplanation": "QC runs on inserted and updated values. Flag for review keeps a measurement valid; Mark invalid excludes it from valid-only calculations. Baseline Drift must be enabled and have sufficient valid history.",
+      "aqiMetadata": "CSV uploads do not establish AQI eligibility. AQI also requires verified timing metadata supplied by an importer. Manually added sensors with unknown timing metadata can store measurements but may remain ineligible even with enough rows. Ask your administrator about a supported importer."
+    },
+    "actions": {
+      "chooseCsvFile": "Choose CSV File",
+      "uploading": "Uploading…",
+      "uploadCsv": "Upload CSV",
+      "reviewQc": "Review QC failures",
+      "reviewActivity": "View upload activity"
+    },
+    "accessibility": {
+      "uploadMeasurementsCsvFile": "Upload measurements from a CSV file.",
+      "chooseCsvFile": "CSV file"
+    },
+    "messages": {
+      "pleaseChooseCsvFileFirst": "Please choose a CSV file first.",
+      "fileTooLarge": "File is too large. CSV files can be up to 5 MB. Choose a smaller file or split the data into multiple uploads.",
+      "lineError": "Line {{line}}: {{reason}}",
+      "processing": "Uploading and checking measurements. Baseline Drift checks can take a minute or more. Keep this page open until the result appears.",
+      "elapsed": "Elapsed: {{seconds}} seconds",
+      "uploadUnconfirmed": "The upload result could not be confirmed. Check your connection and review Activity for this import before retrying: some rows may already have been saved. Your selected file is still available to retry.",
+      "headerRequiredColumnNames": "The CSV header must use these required column names: {{columns}}.",
+      "headerUseSupportedFormat": "Use the supported header:",
+      "headerRejectedBeforeImport": "The file was rejected before any measurements were imported. Correct the header and upload again."
+    },
+    "content": {
+      "admin": "Admin",
+      "csvUpload": "CSV Upload"
+    },
+    "reference": {
+      "title": "Find the destination sensor",
+      "help": "Search by device name, Device ID, External Device ID, Sensor ID, external sensor identifier, or parameter name. Choose a device to confirm the destination sensor and metadata.",
+      "search": "Device name or identifier",
+      "deviceId": "Device ID: {{id}}",
+      "externalDeviceId": "External Device ID: {{id}}",
+      "dataSource": "Data source: {{source}}",
+      "timezone": "Device timezone: {{timezone}}",
+      "parameter": "Parameter: {{parameter}}",
+      "sensor": "Sensor ID: {{id}} · Unit: {{unit}}",
+      "externalSensor": "External Sensor ID: {{id}}",
+      "aggregation": "Aggregation: {{aggregation}}",
+      "error": "Sensor reference could not be loaded. Try again.",
+      "noSensors": "No sensors are configured for this device.",
+      "noDevices": "No devices or sensors match this search.",
+      "changeDevice": "Choose another device",
+      "viewDevice": "View device",
+      "limit": "Up to 20 devices are shown per page. Refine the search to find your destination.",
+      "paginationLabel": "Device reference pages",
+      "page": "Page {{page}}",
+      "timestamp": "Timestamp meaning: {{semantics}}",
+      "duration": "Measurement duration (seconds): {{seconds}}",
+      "frequency": "Expected sample interval (seconds): {{seconds}}",
+      "semantics": {
+        "interval_start": "Interval start",
+        "interval_end": "Interval end",
+        "observation_instant": "Observation instant",
+        "provider_received_at": "Provider receipt time",
+        "hour_start": "Hour start",
+        "hour_end": "Hour end",
+        "unknown": "Unknown — confirm the sensor metadata"
+      }
+    },
+    "summary": {
+      "success": "CSV processing completed.",
+      "partial": "Some rows were processed; others failed. Review the counts and file line errors.",
+      "failed": "No rows were processed. Review the counts and file line errors.",
+      "qc": "QC: {{evaluated}} evaluated · {{passed}} passed · {{flagged}} failed screening · {{indeterminate}} unable to evaluate"
+    },
+    "rowReasons": {
+      "sensor_required": "Internal Sensor ID is required.",
+      "sensor_invalid": "Internal Sensor ID must be a number.",
+      "sensor_not_found": "Sensor was not found. Confirm its internal Sensor ID.",
+      "value_required": "Measurement value is required.",
+      "value_invalid": "Measurement value must be a finite number.",
+      "datetime_required": "Datetime is required.",
+      "datetime_invalid": "Datetime must be ISO 8601.",
+      "timezone_missing": "Include a timezone offset or configure the device timezone.",
+      "timezone_invalid": "Correct the device timezone or include a timezone offset.",
+      "timestamp_future": "Timestamp is later than the allowed future tolerance (5 minutes). Check the date, timezone, and device clock.",
+      "extra_columns": "Record has more fields than the CSV header. Check the delimiters.",
+      "write_conflict": "Measurement changed during import. Retry this line.",
+      "import_failed": "Measurement could not be saved. Contact an administrator."
+    }
+  },
+  "adminHome": {
+    "tooltips": {
+      "admin": "Admin"
+    },
+    "accessibility": {
+      "chooseAreaManage": "Choose an area to manage."
+    },
+    "content": {
+      "devices": "Devices",
+      "manageDevicesMetadataStatus": "Manage devices, metadata, and status.",
+      "dataSources": "Data Sources",
+      "configureExternalDataSourcesSchedules": "Configure external data sources and schedules.",
+      "qcRules": "Quality control",
+      "reviewManageQaQcRuleSets": "Review recommended QC ranges, custom settings, and exceptions.",
+      "emailNotifications": "Email & notifications",
+      "configureEmailNotifications": "Configure email delivery, administrator recipients, and test delivery.",
+      "csvUpload": "CSV Upload",
+      "uploadCsvFileDeviceMeasurements": "Upload a CSV file with device measurements.",
+      "events": "Events",
+      "inspectImporterSystemEventLogs": "Inspect importer and system event logs.",
+      "users": "Users",
+      "manageUserAccountsRoleAssignments": "Manage user accounts and role assignments.",
+      "systemPreferences": "System Preferences",
+      "managePlatformWideSettingsSharedService": "Manage platform-wide settings and shared service keys."
+    }
+  },
+  "guards": {
+    "text": {
+      "checkingAuthentication": "Checking authentication...",
+      "checkingPermissions": "Checking permissions...",
+      "pleaseLogAccessPage": "Please log in to access this page.",
+      "youDonTHavePermissionAccess": "You don't have permission to access this page.",
+      "requiredPermission": "Required permission",
+      "permissions": "Your permissions:",
+      "none": "none"
+    },
+    "headings": {
+      "authenticationRequired": "Authentication Required",
+      "notAuthorized": "Not Authorized"
+    },
+    "actions": {
+      "goLogin": "Go to Login"
+    }
+  },
+  "adminPageLayout": {
+    "actions": {
+      "map": "Map",
+      "analytics": "Analytics"
+    }
+  },
+  "asyncSensorSearch": {
+    "dynamic": {
+      "selectSensor": "Select sensor {{id}}"
+    },
+    "placeholders": {
+      "searchSensors": "Search sensors…"
+    },
+    "accessibility": {
+      "searchSensors": "Search sensors"
+    },
+    "text": {
+      "searching": "Searching…",
+      "noMatches": "No matches",
+      "sensor": "Sensor"
+    }
+  },
+  "languageSelector": {
+    "text": {
+      "system": "system"
+    }
+  },
+  "loadingSplash": {
+    "text": {
+      "loadingRequiredServicesMayTakeFew": "Loading required services. This may take a few seconds.",
+      "initializing": "Initializing widgets and fetching data…"
+    }
+  },
+  "testImportTab": {
+    "dynamic": {
+      "status": "Status {{status}}"
+    },
+    "headings": {
+      "testImportRun": "Run import now",
+      "result": "Result"
+    },
+    "text": {
+      "importer": "Importer",
+      "linked": "Linked to \"",
+      "sensorIdOptional": "Sensor ID (optional)",
+      "apiKey": "API Key",
+      "purpleAirApiKey": "PurpleAir API Key",
+      "openAqApiKey": "OpenAQ API Key",
+      "scheduledRunAppearsProgress": "A scheduled run appears to be in progress.",
+      "dataSource": "Data Source",
+      "liveImportExplanation": "Starts a real import for this data source. It may retrieve provider data and add measurements; this is not a configuration test.",
+      "unsupportedImporter": "This data source does not support manual imports."
+    },
+    "tooltips": {
+      "importSource": "Import source"
+    },
+    "accessibility": {
+      "importSourceSelector": "Import source selector"
+    },
+    "options": {
+      "openAqImporter": "OpenAQ importer",
+      "purpleAirImporter": "PurpleAir importer",
+      "airGradientImporter": "AirGradient importer"
+    },
+    "actions": {
+      "saveScheduler": "Save to Scheduler",
+      "running": "Running...",
+      "testRun": "Run import now",
+      "clear": "Clear",
+      "cancelRunningRun": "Cancel running and run"
+    },
+    "notifications": {
+      "savedApiKeyScheduler": "Saved API key to scheduler"
+    },
+    "dialogs": {
+      "purpleAirImportMayConsumePaid": "This PurpleAir import may consume paid API points. Continue?",
+      "cancelRunningJobRunImporterNow": "Cancel running job and run importer now?",
+      "purpleAirImportMayConsumePaid2": "This PurpleAir import may consume paid API points. Continue?"
+    }
+  },
+  "workspace": {
+    "operations": "Data & operations",
+    "platform": "People & platform",
+    "identifierFilters": "Find by device or sensor identifier",
+    "enabled": "Enabled",
+    "disabled": "Disabled",
+    "credentialStored": "Credential stored",
+    "credentialMissing": "No credential stored",
+    "credentialUnknown": "Credential status unavailable",
+    "regional": "Language & time",
+    "unsaved": "Unsaved changes",
+    "saved": "All changes saved",
+    "chooseFile": "Choose a file",
+    "format": "Expected format",
+    "result": "Upload result",
+    "sourceState": {
+      "ready": "Ready to import",
+      "disabled": "Imports disabled",
+      "configuration_required": "Configuration required",
+      "paid_provider_requests_disabled": "Paid requests blocked",
+      "unsupported_provider": "Provider not supported",
+      "unknown": "Readiness unavailable"
+    },
+    "loadSchedules": "Unable to load schedules. Reload this page to try again."
+  },
+  "buildInformation": {
+    "title": "Build Information",
+    "applicationVersion": "Application version",
+    "applicationVersionValue": "CompassAQ v{{version}}",
+    "frontendCommit": "Frontend commit",
+    "backendCommit": "Backend commit",
+    "frontendBuilt": "Frontend built",
+    "backendBuilt": "Backend built",
+    "environment": "Environment",
+    "unknown": "Unknown",
+    "unavailable": "Unavailable",
+    "loading": "Loading…",
+    "retry": "Retry",
+    "loadError": "Backend build information could not be loaded.",
+    "backendVersion": "Backend application version: {{version}}",
+    "comparison": {
+      "matching": "Frontend and backend builds match",
+      "different": "Frontend and backend builds differ",
+      "unknown": "Build comparison unavailable"
+    },
+    "environments": {
+      "development": "Development",
+      "test": "Test",
+      "staging": "Staging",
+      "production": "Production"
+    }
+  }
+}

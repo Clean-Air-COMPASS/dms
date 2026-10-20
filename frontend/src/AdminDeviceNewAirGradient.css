@@ -1,0 +1,39 @@
+.airgradient-add .airgradient-locations {
+  border: 0;
+  padding: 0;
+  margin: 20px 0 0;
+  display: grid;
+  gap: 12px;
+  max-height: 480px;
+  overflow-y: auto;
+}
+.airgradient-add .airgradient-location {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 16px;
+  border: 1px solid #dce3eb;
+  border-radius: 8px;
+  cursor: pointer;
+}
+.airgradient-add .airgradient-location.selected {
+  border-color: #9fb9d4;
+  background: #f5f9fd;
+}
+.airgradient-add .airgradient-location input {
+  flex: 0 0 auto;
+  margin-top: 4px;
+}
+.airgradient-add .airgradient-location-text {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  overflow-wrap: anywhere;
+}
+.airgradient-add .actions { display: flex; flex-wrap: wrap; align-items: center; margin-top: 8px; }
+.airgradient-add .airgradient-preview-summary { margin-bottom: 16px; }
+.airgradient-add .info-banner { margin-top: 12px; }
+.airgradient-add .error-banner { margin-top: 12px; }
+.airgradient-add input[type=radio] { width: 18px; height: 18px; color-scheme: light; }
+.airgradient-add input[type=radio]:focus-visible { outline: 3px solid #064789; outline-offset: 3px; }

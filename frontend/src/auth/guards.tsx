@@ -1,3 +1,5 @@
+import { Trans } from 'react-i18next';
+import i18n from '../i18n';
 
 
 import React from 'react';
@@ -22,7 +24,7 @@ export function RequireAuth({ children, redirectTo = '/login' }: RequireAuthProp
       <div className="min-h-screen flex items-center justify-center">
         <div className="text-center">
           <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600 mx-auto mb-4"></div>
-          <p className="text-slate-600">Checking authentication...</p>
+          <p className="text-slate-600"><Trans ns="admin" i18nKey="guards.text.checkingAuthentication" /></p>
         </div>
       </div>
     );
@@ -59,7 +61,7 @@ export function RequireScope({ children, scopes, requireAll = false, fallback }:
       <div className="min-h-screen flex items-center justify-center">
         <div className="text-center">
           <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600 mx-auto mb-4"></div>
-          <p className="text-slate-600">Checking permissions...</p>
+          <p className="text-slate-600"><Trans ns="admin" i18nKey="guards.text.checkingPermissions" /></p>
         </div>
       </div>
     );
@@ -71,11 +73,10 @@ export function RequireScope({ children, scopes, requireAll = false, fallback }:
       <div className="min-h-screen flex items-center justify-center">
         <div className="text-center max-w-md mx-auto p-6">
           <div className="text-red-500 text-5xl mb-4">🔒</div>
-          <h1 className="text-xl font-semibold text-slate-800 mb-2">Authentication Required</h1>
-          <p className="text-slate-600 mb-4">Please log in to access this page.</p>
+          <h1 className="text-xl font-semibold text-slate-800 mb-2"><Trans ns="admin" i18nKey="guards.headings.authenticationRequired" /></h1>
+          <p className="text-slate-600 mb-4"><Trans ns="admin" i18nKey="guards.text.pleaseLogAccessPage" /></p>
           <a href="/login" className="btn bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">
-            Go to Login
-          </a>
+            <Trans ns="admin" i18nKey="guards.actions.goLogin" /></a>
         </div>
       </div>
     );
@@ -94,16 +95,15 @@ export function RequireScope({ children, scopes, requireAll = false, fallback }:
       <div className="min-h-screen flex items-center justify-center">
         <div className="text-center max-w-md mx-auto p-6">
           <div className="text-amber-500 text-5xl mb-4">⚠️</div>
-          <h1 className="text-xl font-semibold text-slate-800 mb-2">Not Authorized</h1>
+          <h1 className="text-xl font-semibold text-slate-800 mb-2"><Trans ns="admin" i18nKey="guards.headings.notAuthorized" /></h1>
           <p className="text-slate-600 mb-4">
-            You don't have permission to access this page.
-          </p>
+            <Trans ns="admin" i18nKey="guards.text.youDonTHavePermissionAccess" /></p>
           <p className="text-sm text-slate-500 mb-4">
-            Required permission{scopes.length > 1 ? 's' : ''}: {scopes.join(', ')}
+            <Trans ns="admin" i18nKey="guards.text.requiredPermission" />{scopes.length > 1 ? 's' : ''}: {scopes.join(', ')}
           </p>
           {user && (
             <p className="text-xs text-slate-400">
-              Your permissions: {user.scopes.length > 0 ? user.scopes.join(', ') : 'none'}
+              <Trans ns="admin" i18nKey="guards.text.permissions" />{user.scopes.length > 0 ? user.scopes.join(', ') : i18n.t('admin:guards.text.none')}
             </p>
           )}
         </div>

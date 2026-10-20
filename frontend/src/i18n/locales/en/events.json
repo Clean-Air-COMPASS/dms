@@ -1,0 +1,241 @@
+{
+  "adminEventLog": {
+    "tooltips": {
+      "events": "Events"
+    },
+    "text": {
+      "autoRefresh": "Auto-refresh",
+      "last": "Last:",
+      "results": "results",
+      "loadingJobRuns": "Loading job runs…",
+      "noJobRunsFound": "No job runs match this period and these filters. Try other dates or clear a filter.",
+      "results2": "results",
+      "loadingEvents": "Loading events…",
+      "noEventsFound": "No events match this period and these filters. Try other dates or clear a filter.",
+      "running": "Running…",
+      "notAvailable": "Not available",
+      "refreshInterval": "Refresh interval"
+    },
+    "actions": {
+      "refresh": "↻ Refresh",
+      "jobRuns": "Job Runs",
+      "events": "Events",
+      "systemEvents": "System events",
+      "qcFailures": "QC failures"
+    },
+    "fields": {
+      "status": "Status:",
+      "task": "Task:",
+      "type": "Type:",
+      "source": "Source:",
+      "severity": "Severity:",
+      "search": "Search:",
+      "parameter": "Parameter:",
+      "effect": "Effect:",
+      "dataSource": "Data source:"
+    },
+    "options": {
+      "all": "All",
+      "all2": "All",
+      "all3": "All",
+      "all4": "All",
+      "all5": "All",
+      "allEffects": "All effects"
+    },
+    "columns": {
+      "id": "ID",
+      "task": "Task",
+      "started": "Started",
+      "duration": "Duration",
+      "summary": "Summary",
+      "error": "Error",
+      "time": "Time",
+      "severity": "Severity",
+      "type": "Type",
+      "source": "Source",
+      "actor": "Actor",
+      "message": "Message",
+      "device": "Device",
+      "sensor": "Sensor"
+    },
+    "accessibility": {
+      "inspectImporterJobRunsSystemEvent": "Inspect importer job runs, system events, and measurement quality-control failures.",
+      "eventViews": "Event views"
+    },
+    "content": {
+      "admin": "Admin",
+      "events": "Events"
+    },
+    "qcFailures": {
+      "loading": "Loading QC issues…",
+      "empty": "No QC issues were found. QC may still be running and passing measurements.",
+      "resultCount_one": "{{count}} QC issue",
+      "resultCount_other": "{{count}} QC issues",
+      "range": "Showing {{first}}–{{last}} of {{total}}",
+      "previous": "Previous",
+      "next": "Next",
+      "status": {
+        "allIssues": "All issues",
+        "failed": "Failed",
+        "markedInvalid": "Marked invalid",
+        "unableToEvaluate": "Unable to evaluate"
+      },
+      "indeterminateFallback": "CompassAQ could not make a pass/fail decision for this QC check.",
+      "indeterminateReasons": {
+        "conversionNotSupported": "This measurement is reported in µg/m³, but this QC rule is defined in ppm. CompassAQ cannot safely convert between these units without temperature and pressure information, so no pass/fail decision was made.",
+        "invalidMeasurementValue": "The measurement value is missing or not a finite number, so CompassAQ could not make a pass/fail decision.",
+        "invalidPluginResult": "The QC check returned a malformed result, so CompassAQ could not make a pass/fail decision.",
+        "missingEffectivePolicy": "The QC check did not receive its resolved policy, so CompassAQ could not make a pass/fail decision.",
+        "missingRequiredSetting": "A required QC setting is missing, so CompassAQ could not make a pass/fail decision.",
+        "insufficientHistory": "The sensor has not yet accumulated enough valid history in both halves of the lookback window. Baseline drift was not evaluated and the measurement was not marked invalid.",
+        "pluginError": "The QC check encountered an evaluation error, so CompassAQ could not make a pass/fail decision.",
+        "pluginResultMissing": "The QC check did not return a result for this measurement, so CompassAQ could not make a pass/fail decision.",
+        "pluginUnavailable": "The QC check plugin was unavailable, so CompassAQ could not make a pass/fail decision."
+      },
+      "placeholders": {
+        "search": "Device, sensor, check, or reason",
+        "parameter": "For example, pm25",
+        "dataSource": "Name or provider code"
+      },
+      "columns": {
+        "resultTime": "QC result time",
+        "dataSource": "Data source",
+        "parameter": "Parameter",
+        "measurement": "Measurement",
+        "check": "Check",
+        "statusEffect": "Status / effect",
+        "reason": "Explanation"
+      },
+      "provenance": {
+        "show": "View QC provenance",
+        "policySource": "Policy source",
+        "reasonCode": "Reason code",
+        "policyStatus": "Policy status",
+        "persistedMessage": "Persisted message",
+        "pluginVersion": "Plugin version",
+        "policyVersion": "Policy version",
+        "measurementId": "Measurement ID",
+        "observedDrift": "Baseline shift indicator",
+        "maximumDrift": "Configured maximum indicator",
+        "direction": "Direction",
+        "perDayValue": "{{value}} {{unit}}/day"
+      },
+      "ruleSources": {
+        "compassAQDefault": "CompassAQ default",
+        "parameterOverride": "Parameter override",
+        "parameterAggregateOverride": "Parameter aggregation override",
+        "sourceOverride": "Data-source override",
+        "sourceAggregateOverride": "Data-source aggregation override",
+        "sensorOverride": "Sensor override",
+        "sensorAggregateOverride": "Sensor aggregation override"
+      }
+    }
+  },
+  "jobRunStatus": {
+    "success": "Success",
+    "failed": "Failed",
+    "running": "Running",
+    "skipped": "Skipped",
+    "timeout": "Timed out",
+    "interrupted": "Interrupted",
+    "neverRun": "Never run"
+  },
+  "jobRunSummary": {
+    "zeroDevices": "0 devices configured · no measurements requested",
+    "devicesAndImported": "{{devices}} devices · {{measurements}} measurements imported",
+    "noNewMeasurements": "{{devices}} devices checked · no new measurements",
+    "noNewMeasurementsOnly": "no new measurements",
+    "devices_one": "{{count}} device",
+    "devices_other": "{{count}} devices",
+    "devicesChecked_one": "{{count}} device checked",
+    "devicesChecked_other": "{{count}} devices checked",
+    "devicesCreated_one": "{{count}} device created",
+    "devicesCreated_other": "{{count}} devices created",
+    "sensorsCreated_one": "{{count}} sensor created",
+    "sensorsCreated_other": "{{count}} sensors created",
+    "received_one": "{{count}} received",
+    "received_other": "{{count}} received",
+    "inserted_one": "{{count}} inserted",
+    "inserted_other": "{{count}} inserted",
+    "updated_one": "{{count}} updated",
+    "updated_other": "{{count}} updated",
+    "skipped_one": "{{count}} skipped",
+    "skipped_other": "{{count}} skipped",
+    "qc": "QC: {{outcomes}}",
+    "qcPassed_one": "{{count}} passed",
+    "qcPassed_other": "{{count}} passed",
+    "qcFlagged_one": "{{count}} flagged",
+    "qcFlagged_other": "{{count}} flagged",
+    "qcIndeterminate_one": "{{count}} indeterminate",
+    "qcIndeterminate_other": "{{count}} indeterminate",
+    "unavailable": "Summary unavailable for this earlier run",
+    "referenceLocationFailed": "AirGradient reference location {{locationId}} ({{region}}) could not be loaded"
+  },
+  "referenceLocations": {
+    "newYork": "New York",
+    "saoPaulo": "São Paulo",
+    "metroManila": "Metro Manila"
+  },
+  "history": {
+    "title": "History period",
+    "scope": "Search all retained history, newest first. Dates use UTC; job dates refer to run start time. Deleted records are not available.",
+    "from": "From date (UTC)",
+    "to": "Through date (UTC)",
+    "apply": "Apply dates",
+    "clear": "All dates",
+    "invalid": "The end date must be on or after the start date.",
+    "period": "Viewing: {{from}} to {{to}}",
+    "beginning": "earliest retained record",
+    "range": "Showing {{first}}–{{last}} of {{total}} matching records",
+    "previous": "Previous",
+    "next": "Next",
+    "pagePeriod": "This page: {{from}} to {{to}}",
+    "refreshPaused": "Auto-refresh is paused while you investigate history. Refresh returns to the first page.",
+    "technicalCode": "Technical code",
+    "unknown": "Other activity",
+    "severity": {
+      "info": "Information",
+      "warning": "Warning",
+      "warn": "Warning",
+      "error": "Error"
+    },
+    "labels": {
+      "task": {
+        "openaq_import": "OpenAQ import",
+        "purpleair_import": "PurpleAir import",
+        "airgradient_import": "AirGradient import",
+        "demo_data_import": "Demo data import",
+        "demo_import": "Demo data import"
+      },
+      "event": {
+        "scheduler_job_run_interrupted": "Job run interrupted",
+        "email_configuration_updated": "Email configuration updated",
+        "email_test_failed": "Test email failed",
+        "email_test_sent": "Test email sent",
+        "profile_updated": "Profile updated",
+        "admin_account_recovered": "Administrator account recovered",
+        "openaq_missing_api_key": "OpenAQ API key missing",
+        "openaq_measurements_validation_failed": "OpenAQ measurement validation failed",
+        "auth_login_failed": "Sign-in failed",
+        "auth_login_locked": "Sign-in locked",
+        "auth_login_disabled": "Sign-in disabled",
+        "auth_login_rate_limited": "Sign-in rate limited",
+        "auth_account_locked": "Account locked",
+        "csv_upload": "CSV upload"
+      }
+    },
+    "loadError": "History could not be loaded. Use Refresh to try again.",
+    "errorDetails": "Error details"
+  },
+  "csvUpload": {
+    "source": "CSV upload",
+    "outcomes": {
+      "running": "CSV upload in progress",
+      "success": "CSV upload completed",
+      "partial": "CSV upload completed with rejected lines",
+      "failed": "CSV upload failed or file was rejected"
+    },
+    "counts": "Inserted: {{inserted_records}} · Updated: {{updated_records}} · Skipped: {{skipped_records}} · Failed: {{failed_records}}",
+    "completed": "Completed: {{time}}"
+  }
+}

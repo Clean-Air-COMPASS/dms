@@ -1,0 +1,169 @@
+{
+  "access_classification": "restricted_private_not_approved_for_public_redistribution",
+  "authorization_manifest_sha256": "c3a2a23290958b7818c497315f1b157ece44ce8b2c60d1f53e2f4809d7392d4f",
+  "automatic_refresh": false,
+  "average": 0,
+  "capture_code_baseline_commit": "8b881cc10b8b8c84d7e62639eba121d7d0d4cd6c",
+  "expected_provider_rows_at_full_two_minute_cadence": 6480,
+  "fields": [
+    "pm2.5_atm",
+    "pm10.0_atm"
+  ],
+  "fixture_validation_status": "passed_before_publication",
+  "measurement_rows_preserved": 8618,
+  "measurements_sha256": "1db1a48b34ec8b2ea3752d26c5fb39a7e6c657d7d1550c410ad03d8caad28d40",
+  "network_requests_executed": 3,
+  "pm10_measurement_rows": 4309,
+  "pm25_measurement_rows": 4309,
+  "pricing": {
+    "history_endpoint_base_points": 2,
+    "history_field_points": {
+      "pm10.0_atm": 2,
+      "pm2.5_atm": 2
+    },
+    "metadata_endpoint_base_points": null,
+    "metadata_field_points": {},
+    "safety_margin_percent": 10,
+    "safety_margin_status": "approved",
+    "verified_at": "2026-08-11T21:25:00-07:00"
+  },
+  "point_accounting": {
+    "approved_expected_points": 25926,
+    "approved_hard_ceiling": 28519,
+    "calculated_from_returned_rows": 17242,
+    "formula": "requests * 2 + provider_rows * (2 + 2)",
+    "provider_headers_by_sensor": {
+      "175407": {},
+      "198733": {},
+      "99177": {}
+    },
+    "within_approved_hard_ceiling": true
+  },
+  "provider": "PurpleAir",
+  "provider_rows_returned": 4309,
+  "request_ceiling": 3,
+  "request_counts": {
+    "AirGradient": 0,
+    "OpenAQ": 0,
+    "PurpleAir history": 3,
+    "PurpleAir metadata": 0
+  },
+  "retry_count": 0,
+  "scheduled_capture": false,
+  "sensor_results": [
+    {
+      "calculated_points_for_returned_rows": 2,
+      "completion_status": "complete_single_request",
+      "end_boundary_rows_excluded": 0,
+      "exact_timestamp_duplicate_count": 0,
+      "failure_reason": null,
+      "http_status_code": 200,
+      "measurement_rows_preserved": 0,
+      "observed_timestamp_gap_values_seconds": [],
+      "outside_window_rows_excluded": 0,
+      "per_field_measurement_rows": {
+        "pm10.0_atm": 0,
+        "pm2.5_atm": 0
+      },
+      "provider_point_headers": {},
+      "provider_rows_preserved": 0,
+      "provider_rows_returned": 0,
+      "provider_sensor_id": "198733",
+      "reference_area_code": "new_york",
+      "requests_executed": 1
+    },
+    {
+      "calculated_points_for_returned_rows": 8614,
+      "completion_status": "complete_single_request",
+      "end_boundary_rows_excluded": 0,
+      "exact_timestamp_duplicate_count": 0,
+      "failure_reason": null,
+      "http_status_code": 200,
+      "measurement_rows_preserved": 4306,
+      "observed_timestamp_gap_values_seconds": [
+        110,
+        111,
+        113,
+        114,
+        117,
+        118,
+        119,
+        120,
+        121,
+        122,
+        123,
+        126,
+        133,
+        134,
+        235,
+        239,
+        240,
+        359,
+        366
+      ],
+      "outside_window_rows_excluded": 0,
+      "per_field_measurement_rows": {
+        "pm10.0_atm": 2153,
+        "pm2.5_atm": 2153
+      },
+      "provider_point_headers": {},
+      "provider_rows_preserved": 2153,
+      "provider_rows_returned": 2153,
+      "provider_sensor_id": "175407",
+      "reference_area_code": "rio_de_janeiro",
+      "requests_executed": 1
+    },
+    {
+      "calculated_points_for_returned_rows": 8626,
+      "completion_status": "complete_single_request",
+      "end_boundary_rows_excluded": 0,
+      "exact_timestamp_duplicate_count": 0,
+      "failure_reason": null,
+      "http_status_code": 200,
+      "measurement_rows_preserved": 4312,
+      "observed_timestamp_gap_values_seconds": [
+        109,
+        110,
+        113,
+        114,
+        116,
+        117,
+        118,
+        119,
+        120,
+        121,
+        122,
+        123,
+        124,
+        126,
+        127,
+        128,
+        130,
+        131,
+        135,
+        138,
+        164,
+        237,
+        240
+      ],
+      "outside_window_rows_excluded": 0,
+      "per_field_measurement_rows": {
+        "pm10.0_atm": 2156,
+        "pm2.5_atm": 2156
+      },
+      "provider_point_headers": {},
+      "provider_rows_preserved": 2156,
+      "provider_rows_returned": 2156,
+      "provider_sensor_id": "99177",
+      "reference_area_code": "metro_manila",
+      "requests_executed": 1
+    }
+  ],
+  "staged_responses": [
+    "/app/tests/fixtures/reference_data/restricted/purpleair/capture_staging/sensor-198733.json",
+    "/app/tests/fixtures/reference_data/restricted/purpleair/capture_staging/sensor-175407.json",
+    "/app/tests/fixtures/reference_data/restricted/purpleair/capture_staging/sensor-99177.json"
+  ],
+  "window_end_exclusive": "2026-08-11T00:00:00Z",
+  "window_start": "2026-08-08T00:00:00Z"
+}

@@ -1,0 +1,398 @@
+{
+  "timezones": {
+    "rangeInUtc": "Device timezone unavailable. Start and End use UTC; data retains its original timestamps.",
+    "userLocal": "User Local Time",
+    "utc": "UTC",
+    "device": "Device Timezone",
+    "deviceShort": "Device TZ",
+    "localShort": "Local",
+    "unavailable": "Display timezone unavailable; original timestamps shown. Select UTC to edit the range.",
+    "browser": "Browser time ({{timezone}})",
+    "displayedIn": "Displayed in {{timezone}}",
+    "offsetMissing": "timezone offset missing",
+    "invalidInput": "This clock time is invalid or occurs twice during a daylight-saving change. Choose another time, or select UTC to specify the exact instant.",
+    "originalTimestamps": "Original timestamps"
+  },
+  "analytics": {
+    "csv": {
+      "parameterCode": "Parameter Code",
+      "parameterName": "Parameter Name",
+      "parameterOrProductCode": "Parameter or Product Code",
+      "parameterOrProductName": "Parameter or Product Name",
+      "acquisitionPath": "Acquisition Path",
+      "dataProvider": "Data Provider",
+      "hardwareProvider": "Hardware Provider",
+      "contributor": "Contributor",
+      "contributorUrl": "Contributor URL",
+      "providerUrl": "Provider URL",
+      "license": "License",
+      "licenseUrl": "License URL",
+      "shareAlike": "Share Alike",
+      "yes": "Yes",
+      "no": "No"
+    },
+    "actions": {
+      "viewPrimarySeriesMapComparisonSeries": "View the primary series on Map; comparison series are not transferred.",
+      "backMap": "Back to Map",
+      "map": "Map",
+      "admin": "Admin",
+      "selectDataStream": "Select Data Stream",
+      "selectDataStream2": "Select Data Stream",
+      "done": "Done",
+      "downloadCsv": "Download CSV",
+      "showAll": "Show all"
+    },
+    "text": {
+      "viewPrimaryMap": "View primary on Map",
+      "map": "Map",
+      "dataStream_one": "data stream",
+      "dataStream_other": "data streams",
+      "includeInvalidMeasurements": "Include invalid measurements",
+      "selectionRequiresMoreThan": "This selection requires more than",
+      "incompatibleChartScalesRemoveSeriesContinue": "incompatible chart scales. Remove a series to continue.",
+      "loadingSelectedSeries": "Loading selected series…",
+      "selectMeasurementAqiDataViewAnalytics": "Select measurement or AQI data to view analytics.",
+      "noSelectedSeriesCouldLoadedWindow": "No selected series could be loaded in this window. Review the messages above or change the range.",
+      "allSeries": "All Series",
+      "showing": "Showing",
+      "of": "of",
+      "page": "Page",
+      "of2": "of",
+      "noResultsWindow": "No results in this window.",
+      "noResultsMatchCurrentFilter": "No results match the current filter.",
+      "chartUnavailable": "AQI history is unavailable for this series in the selected time range.",
+      "flaggedValid": "Flagged for review · valid"
+    },
+    "headings": {
+      "analytics": "Analytics",
+      "noDataStreamSelected": "No Data Stream Selected",
+      "analysisResults": "Analysis Results",
+      "measurements": "Measurements"
+    },
+    "fields": {
+      "start": "Start:",
+      "end": "End:",
+      "timezone": "Timezone:"
+    },
+    "accessibility": {
+      "openDateRangePicker": "Open date range picker"
+    },
+    "columns": {
+      "site": "Site",
+      "source": "Source",
+      "parameterProduct": "Parameter / Product",
+      "stream": "Stream",
+      "time": "Time (",
+      "value": "Value",
+      "unit": "Unit",
+      "details": "Details"
+    },
+    "messages": {
+      "invalidDateRange": "Enter valid Start and End dates and times. Start must be before End.",
+      "analyticsLinkWasNormalizedUnifiedSeries": "The Analytics link was normalized to the unified series format.",
+      "aqiStandardsDevicesCouldNotLoaded": "AQI standards and devices could not be loaded. Measurement selection remains available.",
+      "unsupportedUnavailableAqiSeriesWereRemoved": "Unsupported or unavailable AQI series were removed from the Analytics link.",
+      "aqiHistoryLoadFailed": "AQI history could not be loaded. Please retry; unavailable periods are shown as gaps when the request succeeds.",
+      "measurementSeriesLoadFailed_one": "{{count}} measurement series could not be loaded; available series remain visible.",
+      "measurementSeriesLoadFailed_other": "{{count}} measurement series could not be loaded; available series remain visible.",
+      "aqiHistoryRangeExceeded": "Choose an AQI history range of at most {{count}} days."
+    },
+    "states": {
+      "unknownUnit": "Unknown unit",
+      "unknownSource": "Unknown Source",
+      "unknownSourceLower": "Unknown source",
+      "unnamedSensor": "Unnamed Sensor",
+      "timezoneUnavailable": "Timezone unavailable",
+      "overall": "Overall",
+      "category": "Category"
+    },
+    "dynamic": {
+      "sensor": "Sensor {{id}}",
+      "device": "Device {{id}}",
+      "chartLineColorFor": "Chart line color for {{sensor}}",
+      "chartLineColor": "Chart line color: {{color}}",
+      "allSeries": "All Series ({{count}})",
+      "selectedSeries_one": "{{count}} selected",
+      "streamId": " · Stream {{id}}",
+      "selectedSeries_other": "{{count}} selected",
+      "rowsPerPage": "{{count}} / page",
+      "localDate": "Local date: {{date}}"
+    },
+    "summary": {
+      "latest": "Latest",
+      "average": "Average",
+      "minimumMaximum": "Min / Max",
+      "completeness": "Completeness",
+      "coverage": "Coverage",
+      "worstCategory": "Worst category",
+      "availability": "Availability",
+      "percentValid": "{{value}}% valid",
+      "percentCalculated": "{{value}}% calculated",
+      "returnedReadings": "Returned readings"
+    }
+  },
+  "dataStreamSelectionModal": {
+    "states": {
+      "primary": "Primary",
+      "overlay": "Overlay"
+    },
+    "text": {
+      "dataType": "Data Type",
+      "selectionMode": "Selection Mode",
+      "productWouldRequireFourthIncompatibleY": "This product would require a fourth incompatible Y-axis. Analytics supports up to",
+      "readableScaleGroups": "readable scale groups.",
+      "loadingAqiStandardsDevices": "Loading AQI standards and devices…",
+      "noAqiCapableDevicesMatchThese": "No AQI-capable devices match these filters.",
+      "device": "· Device",
+      "alreadyChart": "Already in chart",
+      "sixSeriesMaximumReached": "Six-series maximum reached",
+      "loadingDataStreams": "Loading data streams…",
+      "configureFiltersAboveThenClickLoad": "Configure your filters above, then click \"Load Sensors\"",
+      "sensorsWillLoadedBasedSelectedParameter": "Sensors will be loaded based on your selected parameter, source, and date range.",
+      "noDataStreamsFoundMatchingFilters": "No data streams found matching your filters. Try adjusting the filters and clicking \"Load Sensors\" again.",
+      "id": "ID:",
+      "alreadyChartSelectDifferentTimeResolution": "Already in chart. Select a different time resolution ➜ to add again.",
+      "sixSeriesMaximumReached2": "Six-series maximum reached.",
+      "unitWouldRequireFourthIncompatibleY": "This unit would require a fourth incompatible Y-axis.",
+      "plotTimeResolution": "Plot time resolution",
+      "measurementDiscovery": "Choose a parameter, then load sensors with observations in this date range.",
+      "aqiDiscovery": "Devices are listed automatically. Choose a product and device to request AQI history.",
+      "filtersUnavailable": "Could not load parameters and supported resolutions. Please retry.",
+      "noAqiProducts": "No AQI products with history are available for this standard."
+    },
+    "accessibility": {
+      "selectDataType": "Select data type",
+      "selectDataStream": "Select Data Stream",
+      "closeModal": "Close modal",
+      "selectAqiStandard": "Select AQI standard",
+      "selectAqiProduct": "Select AQI product",
+      "selectAqiDataSource": "Select AQI data source",
+      "searchAqiDevices": "Search AQI devices",
+      "selectDataStream2": "Select Data Stream",
+      "closeModal2": "Close modal",
+      "selectParameter": "Select parameter",
+      "filterSensorTimeResolution": "Filter by sensor time resolution",
+      "selectDataSource": "Select data source",
+      "startDateTime": "Start date and time",
+      "endDateTime": "End date and time",
+      "searchDataStreams": "Search data streams",
+      "selectAggregationDatastream": "Select aggregation for this datastream"
+    },
+    "actions": {
+      "measurement": "Measurement",
+      "aqi": "AQI",
+      "retryAqiCatalog": "Retry AQI catalog",
+      "loadSensors": "Load Sensors",
+      "datastreamTimeResolutionAlreadyChartSelect": "This datastream with this time resolution is already in your chart. Select a different time resolution to add the same sensor again.",
+      "analyticsSupportsUpSixSeries": "Analytics supports up to six series.",
+      "measurementUnitWouldRequireFourthIncompatible": "This measurement unit would require a fourth incompatible Y-axis."
+    },
+    "headings": {
+      "selectDataStream": "Select Data Stream",
+      "selectDataStream2": "Select Data Stream"
+    },
+    "fields": {
+      "standard": "Standard",
+      "aqiProduct": "AQI Product",
+      "calculationTimeResolution": "Calculation / Time Resolution",
+      "dataSource": "Data Source",
+      "startDateTime": "Start Date/Time",
+      "endDateTime": "End Date/Time",
+      "searchDevices": "Search Devices",
+      "setPrimary": "Set as Primary",
+      "addOverlay": "Add as Overlay",
+      "parameter": "Parameter",
+      "nativeStreamResolution": "Native Stream Resolution",
+      "dataSource2": "Data Source",
+      "startDateTime2": "Start Date/Time",
+      "endDateTime2": "End Date/Time",
+      "searchDevicesSensors": "Search Devices/Sensors",
+      "selectionMode": "Selection Mode",
+      "setPrimary2": "Set as Primary",
+      "addOverlay2": "Add as Overlay"
+    },
+    "options": {
+      "allSources": "All Sources",
+      "selectParameter": "Select a parameter",
+      "allResolutions": "All Resolutions",
+      "allSources2": "All Sources"
+    },
+    "placeholders": {
+      "searchDeviceSourceId": "Search by device, source, or ID…",
+      "searchDeviceNameSensorIdExternal": "Search by device name, sensor ID, or external ID…"
+    },
+    "tooltips": {
+      "chartLineColorWillAssignedWhen": "Chart line color will be assigned when added",
+      "addAs": "Click to add as {{role}}"
+    }
+  },
+  "dataStreamSummaryPanel": {
+    "accessibility": {
+      "removeDataStream": "Remove {{sensor}} data stream"
+    },
+    "headings": {
+      "activeDataStreams": "Active Data Streams ("
+    },
+    "text": {
+      "showing": "Showing",
+      "primary": "primary +",
+      "overlay": "overlay",
+      "primary2": "Primary",
+      "completedLocalDay": "Completed local day",
+      "id": "ID:"
+    },
+    "tooltips": {
+      "removeDataStream": "Remove this data stream"
+    }
+  },
+  "dateTimeRangePicker": {
+    "accessibility": {
+      "customDateRange": "Custom date range",
+      "clearRange": "Clear range",
+      "applyRange": "Apply range",
+      "startTime": "Start time:",
+      "endTime": "End time:"
+    },
+    "actions": {
+      "clear": "Clear",
+      "apply": "Apply"
+    },
+    "calendar": {
+      "previousMonth": "Previous month",
+      "nextMonth": "Next month",
+      "chooseDay": "Choose",
+      "disabledDay": "Unavailable",
+      "week": "Week",
+      "month": "Month"
+    }
+  },
+  "quickDownload": {
+    "csvHeaders": {
+      "parameterName": "Parameter Name",
+      "acquisitionPath": "Acquisition Path",
+      "dataProvider": "Data Provider",
+      "hardwareProvider": "Hardware Provider",
+      "contributor": "Contributor",
+      "contributorUrl": "Contributor URL",
+      "providerUrl": "Provider URL",
+      "license": "License",
+      "licenseUrl": "License URL"
+    },
+    "text": {
+      "downloading": "Downloading...",
+      "downloadCsv": "Download CSV",
+      "downloadingCsv": "Downloading CSV"
+    }
+  },
+  "sensorChart": {
+    "states": {
+      "unitUnavailable": "Unit unavailable",
+      "categoryUnavailable": "Category unavailable",
+      "invalidSuffix": " · Invalid"
+    },
+    "axes": {
+      "aqi": "AQI",
+      "concentration": "Concentration"
+    },
+    "counts": {
+      "lastHours_one": "Last {{count}} Hour",
+      "lastHours_other": "Last {{count}} Hours",
+      "lastDays_one": "Last {{count}} Day",
+      "lastDays_other": "Last {{count}} Days"
+    },
+    "dynamic": {
+      "standardCategory": "{{standard}} category",
+      "representedLocalDate": "Represented local date: {{date}}",
+      "unavailableReason": "Unavailable · {{reason}}",
+      "aqi": "AQI {{value}}",
+      "aqiCategory": "AQI {{value}} · {{category}}",
+      "product": "Product: {{product}}",
+      "coverage": "Coverage: {{status}}",
+      "dominant": "Dominant: {{pollutants}}",
+      "available": "Available: {{pollutants}}",
+      "missing": "Missing: {{pollutants}}",
+      "ineligible": "Ineligible: {{pollutants}}",
+      "processedConcentration": "Processed concentration: {{concentration}} {{unit}}",
+      "interval": "Interval: {{start}} – {{end}}",
+      "timestampRole": "Timestamp role: {{role}}",
+      "streamIdentifierSuffix": " · Stream {{id}}",
+      "seriesLabel": "{{site}} · {{descriptor}}{{stream}} · {{product}}{{daily}}{{primary}}",
+      "dailySuffix": " · Daily",
+      "timeAxis": "Time ({{timezone}})",
+      "measurementAxis": "{{parameter}} ({{unit}})"
+    },
+    "timestampRoles": {
+      "observation_instant": "observation instant",
+      "interval_start": "interval start",
+      "interval_end": "interval end",
+      "provider_received_at": "provider receipt time"
+    },
+    "text": {
+      "noDataAvailableSelectedWindow": "No data available for the selected window",
+      "selectionRequires": "This selection requires",
+      "incompatibleYAxisGroupsRemoveSeries": "incompatible Y-axis groups. Remove a series to return to the",
+      "axisReadabilityLimit": "-axis readability limit."
+    },
+    "tooltips": {
+      "resetZoom": "Reset zoom"
+    },
+    "actions": {
+      "resetZoom": "Reset Zoom"
+    },
+    "fields": {
+      "showInvalidPoints": "Show invalid points"
+    }
+  },
+  "qc": {
+    "inspect": "View QC details",
+    "inspectLabel": "View QC details for {{timestamp}}",
+    "flaggedValid": "Flagged for review · Valid",
+    "indeterminate": "Unable to evaluate",
+    "failed": "Failed",
+    "filterLabel": "QC filter · results table",
+    "filters": {
+      "all": "All returned measurements",
+      "flagged": "Flagged for review",
+      "invalid": "Invalid",
+      "indeterminate": "Unable to evaluate"
+    },
+    "inclusionHelp": "Includes invalid observations in results. For averages, invalid source observations can change the value and validity.",
+    "eligible": "Stored as valid; eligible for valid-only analysis. Other completeness requirements still apply.",
+    "ineligible": "Stored as invalid; excluded from valid-only analysis.",
+    "aggregateValid": "Average of valid source observations.",
+    "aggregateInvalid": "Average includes invalid source observations.",
+    "sourceCounts": "Included sources: {{valid}} valid · {{invalid}} invalid.",
+    "aggregateUnavailable": "Individual source QC cannot be attributed to this average. Select the same stream at its native resolution to inspect recorded observations.",
+    "loading": "Loading recorded QC…",
+    "error": "Recorded QC details could not be loaded.",
+    "retry": "Retry",
+    "notRecorded": "Detailed QC history was not recorded or is unavailable. This does not establish that all checks passed.",
+    "reasonUnavailable": "No reason was recorded.",
+    "action": "Failure action",
+    "configuredAction": "Configured action if this check fails",
+    "unavailable": "Not recorded",
+    "indeterminateHelp": "This check could not determine pass or fail. This outcome alone does not invalidate the observation.",
+    "source": "Rule source",
+    "provenance": "Recorded policy and technical details",
+    "historicalOnly": "Historical record from evaluation time; current settings are not substituted.",
+    "policyVersion": "Policy version",
+    "pluginVersion": "Plugin version",
+    "provenanceUnavailable": "Historical policy snapshot is unavailable.",
+    "settingsUnavailable": "Settings for this extension are not available through the public history API.",
+    "technicalCodes": "Check / reason codes",
+    "chartHelp": "Chart only; results retain all retrieved observations.",
+    "markerLegend": "△ Flagged for review · × Invalid",
+    "denseMarkers": "Some QC markers overlap at this scale. Use the results-table QC filter to inspect every recorded outcome.",
+    "sources": {
+      "unavailable": "Not recorded",
+      "compassaq_default": "CompassAQ default",
+      "parameter_override": "Parameter setting",
+      "parameter_aggregate_override": "Parameter and averaging-period setting",
+      "source_override": "Data source setting",
+      "source_aggregate_override": "Data source and averaging-period setting",
+      "sensor_override": "Sensor setting",
+      "sensor_aggregate_override": "Sensor and averaging-period setting"
+    },
+    "noEligible": "Observations exist in this range, but none are eligible for the selected history. Include invalid measurements to inspect excluded data; averages may change."
+  }
+}

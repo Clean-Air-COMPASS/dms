@@ -1,5 +1,8 @@
+import { formatMeasurementValue } from './measurementFormatting';
+import { Trans } from 'react-i18next';
+import i18n from './i18n';
 import { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import {
   listExternalAPIs,
   lookupPurpleAirSensor,
@@ -9,6 +12,7 @@ import {
   type PurpleAirLookupSensor,
 } from './api';
 import AdminPageLayout from './components/AdminPageLayout';
+import AdminDialog from './admin/AdminDialog';
 
 type DataSource = 'none' | 'purpleair' | 'openaq' | 'manual';
 
@@ -21,6 +25,7 @@ export default function AdminDeviceNew() {
   
   const [sources, setSources] = useState<ExternalAPI[]>([]);
   const [sourcesLoading, setSourcesLoading] = useState(true);
+  const [sourcesError, setSourcesError] = useState(false);
 
   
   const [sensorIndex, setSensorIndex] = useState('');
@@ -45,7 +50,7 @@ export default function AdminDeviceNew() {
         const list = await listExternalAPIs({ skipCache: true });
         if (!cancelled) setSources(list || []);
       } catch {
-        // Non-critical; show empty list
+        if (!cancelled) setSourcesError(true);
       } finally {
         if (!cancelled) setSourcesLoading(false);
       }
@@ -53,14 +58,17 @@ export default function AdminDeviceNew() {
     return () => { cancelled = true; };
   }, []);
 
-  const activeSources = sources.filter((s) => s.is_active !== false);
+  const activeSources = sources.filter((s) => s.enabled);
 
   const hasPurpleAir = sources.some(
-    (s) => s.is_active !== false && s.name.toLowerCase() === 'purpleair'
+    (s) => s.enabled && s.provider_code === 'purpleair'
   );
 
   const hasOpenAQ = sources.some(
-    (s) => s.is_active !== false && s.name.toLowerCase() === 'openaq'
+    (s) => s.enabled && s.provider_code === 'openaq'
+  );
+  const hasAirGradient = sources.some(
+    (s) => s.provider_code === 'airgradient' && s.has_api_key
   );
 
   const handleSourceSelect = (source: DataSource) => {
@@ -76,7 +84,7 @@ export default function AdminDeviceNew() {
 
   const handleLookupClick = () => {
     if (!sensorIndex.trim()) {
-      setLookupError('Please enter a Sensor Index');
+      setLookupError(i18n.t('devices:adminDeviceNew.messages.pleaseEnterSensorIndex'));
       return;
     }
     
@@ -90,7 +98,7 @@ export default function AdminDeviceNew() {
     setLookupData(null);
 
     try {
-      const result = await lookupPurpleAirSensor(sensorIndex.trim());
+      const result = await lookupPurpleAirSensor(sensorIndex.trim(), true);
       setLookupData(result);
     } catch (e: unknown) {
       const message = e instanceof Error ? e.message : String(e);
@@ -128,21 +136,28 @@ export default function AdminDeviceNew() {
   
   const renderSourceSelection = () => (
     <div className="card">
-      <h3>Select Data Source</h3>
+      <h2><Trans ns="devices" i18nKey="adminDeviceNew.headings.selectDataSource" /></h2>
       <p className="muted" style={{ marginBottom: 16 }}>
-        Choose how you want to add the new device.
-      </p>
+        <Trans ns="devices" i18nKey="adminDeviceNew.text.chooseHowYouWantAddNew" /></p>
       <div className="source-options">
+        {hasAirGradient && (
+          <button type="button" className="source-option-card"
+            onClick={() => navigate('/admin/devices/new/airgradient')}>
+            <div className="source-option-content">
+              <strong>AirGradient</strong>
+              <span className="muted"><Trans ns="devices" i18nKey="airgradient.choose" /></span>
+            </div>
+          </button>
+        )}
         {hasPurpleAir && (
           <button
             type="button"
             className={`source-option-card ${dataSource === 'purpleair' ? 'selected' : ''}`}
             onClick={() => handleSourceSelect('purpleair')}
           >
-            <div className="source-option-icon">🟣</div>
             <div className="source-option-content">
               <strong>PurpleAir</strong>
-              <span className="muted">Import from PurpleAir sensor index</span>
+              <span className="muted"><Trans ns="devices" i18nKey="adminDeviceNew.text.importPurpleAirSensorIndex" /></span>
             </div>
           </button>
         )}
@@ -152,10 +167,9 @@ export default function AdminDeviceNew() {
             className={`source-option-card ${dataSource === 'openaq' ? 'selected' : ''}`}
             onClick={() => handleSourceSelect('openaq')}
           >
-            <div className="source-option-icon">🌐</div>
             <div className="source-option-content">
               <strong>OpenAQ</strong>
-              <span className="muted">Import from OpenAQ locations</span>
+              <span className="muted"><Trans ns="devices" i18nKey="adminDeviceNew.text.importOpenAqLocations" /></span>
             </div>
           </button>
         )}
@@ -164,22 +178,28 @@ export default function AdminDeviceNew() {
           className={`source-option-card ${dataSource === 'manual' ? 'selected' : ''}`}
           onClick={() => handleSourceSelect('manual')}
         >
-          <div className="source-option-icon">✏️</div>
           <div className="source-option-content">
-            <strong>Manual Entry</strong>
-            <span className="muted">Enter device details manually</span>
+            <strong><Trans ns="devices" i18nKey="adminDeviceNew.text.manualEntry" /></strong>
+            <span className="muted"><Trans ns="devices" i18nKey="adminDeviceNew.text.enterDeviceDetailsManually" /></span>
           </div>
         </button>
       </div>
+      {sourcesError && <p className="error-banner" role="alert" style={{ marginTop: 12 }}>
+        <Trans ns="common" i18nKey="errors.requestFailed" />
+      </p>}
+      {!sourcesLoading && !sourcesError && !hasAirGradient && (
+        <p className="info-banner" style={{ marginTop: 12 }}>
+          <Trans ns="devices" i18nKey="airgradient.errors.configuration_required" />{' '}
+          <Link to="/admin/sources"><Trans ns="devices" i18nKey="airgradient.configure" /></Link>
+        </p>
+      )}
       {sourcesLoading && (
         <div className="info-banner" style={{ marginTop: 12 }}>
-          Loading data sources…
-        </div>
+          <Trans ns="devices" i18nKey="adminDeviceNew.text.loadingDataSources" /></div>
       )}
-      {!sourcesLoading && !activeSources.length && (
+      {!sourcesLoading && !sourcesError && !activeSources.length && (
         <div className="warning-banner" style={{ marginTop: 12 }}>
-          No active data sources are currently available for new devices.
-        </div>
+          <Trans ns="devices" i18nKey="adminDeviceNew.text.noActiveDataSourcesCurrentlyAvailable" /></div>
       )}
     </div>
   );
@@ -187,33 +207,27 @@ export default function AdminDeviceNew() {
   
   const renderPurpleAirForm = () => (
     <div className="card">
-      <h3>PurpleAir Sensor Lookup</h3>
+      <h2><Trans ns="devices" i18nKey="adminDeviceNew.headings.purpleAirSensorLookup" /></h2>
       <div className="purpleair-instructions">
         <p>
-          Enter the <strong>Sensor Index</strong> from the PurpleAir Map to look
-          up device metadata.
-        </p>
+          <Trans ns="devices" i18nKey="adminDeviceNew.text.enter" /><strong><Trans ns="devices" i18nKey="adminDeviceNew.text.sensorIndex" /></strong> <Trans ns="devices" i18nKey="adminDeviceNew.text.purpleAirMapLookUpDevice" /></p>
         <details>
-          <summary>How to find the Sensor Index</summary>
+          <summary><Trans ns="devices" i18nKey="adminDeviceNew.text.howFindSensorIndex" /></summary>
           <ol>
             <li>
-              Go to the{' '}
+              <Trans ns="devices" i18nKey="adminDeviceNew.text.go" />{' '}
               <a
                 href="https://map.purpleair.com/"
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                PurpleAir Map
-              </a>
+                <Trans ns="devices" i18nKey="adminDeviceNew.actions.purpleAirMap" /></a>
             </li>
-            <li>Click on the sensor you want to add</li>
+            <li><Trans ns="devices" i18nKey="adminDeviceNew.text.clickSensorYouWantAdd" /></li>
             <li>
-              Look at the URL — the number after <code>/sensor/</code> is the
-              Sensor Index
-            </li>
+              <Trans ns="devices" i18nKey="adminDeviceNew.text.lookUrlNumberAfter" /><code>/sensor/</code> <Trans ns="devices" i18nKey="adminDeviceNew.text.sensorIndex2" /></li>
             <li>
-              Example: In <code>map.purpleair.com/sensor/12345</code>, the
-              Sensor Index is <strong>12345</strong>
+              <Trans ns="devices" i18nKey="adminDeviceNew.text.example" /><code>map.purpleair.com/sensor/12345</code><Trans ns="devices" i18nKey="adminDeviceNew.text.sensorIndex3" /><strong>12345</strong>
             </li>
           </ol>
         </details>
@@ -221,7 +235,7 @@ export default function AdminDeviceNew() {
 
       <div className="form-row" style={{ marginTop: 16 }}>
         <label className="field" style={{ flex: 1, maxWidth: 300 }}>
-          <span>Sensor Index</span>
+          <span><Trans ns="devices" i18nKey="adminDeviceNew.text.sensorIndex4" /></span>
           <input
             type="text"
             className="text-input"
@@ -238,7 +252,7 @@ export default function AdminDeviceNew() {
             onClick={handleLookupClick}
             disabled={lookupLoading || !sensorIndex.trim()}
           >
-            {lookupLoading ? 'Looking up…' : 'Lookup'}
+            {lookupLoading ? i18n.t('devices:adminDeviceNew.actions.lookingUp') : i18n.t('devices:adminDeviceNew.actions.lookup')}
           </button>
         </div>
       </div>
@@ -259,61 +273,60 @@ export default function AdminDeviceNew() {
 
     return (
       <div className="card">
-        <h3>Device Preview</h3>
+        <h2><Trans ns="devices" i18nKey="adminDeviceNew.headings.devicePreview" /></h2>
         <p className="muted" style={{ marginBottom: 16 }}>
-          Review the information below. Click Save to create the device.
-        </p>
+          <Trans ns="devices" i18nKey="adminDeviceNew.text.reviewInformationBelowClickSaveCreate" /></p>
 
         <div className="preview-section">
-          <h4>Device Information</h4>
+          <h4><Trans ns="devices" i18nKey="adminDeviceNew.headings.deviceInformation" /></h4>
           <div className="preview-grid">
             <div className="preview-field">
-              <span className="label">Name</span>
+              <span className="label"><Trans ns="common" i18nKey="fields.name" /></span>
               <span className="value">{device.name}</span>
             </div>
             <div className="preview-field">
-              <span className="label">External ID</span>
+              <span className="label"><Trans ns="devices" i18nKey="adminDeviceNew.text.externalId" /></span>
               <span className="value mono">{device.external_id}</span>
             </div>
             <div className="preview-field">
-              <span className="label">Latitude</span>
+              <span className="label"><Trans ns="devices" i18nKey="adminDeviceNew.text.latitude" /></span>
               <span className="value">
                 {device.latitude?.toFixed(6) ?? '—'}
               </span>
             </div>
             <div className="preview-field">
-              <span className="label">Longitude</span>
+              <span className="label"><Trans ns="devices" i18nKey="adminDeviceNew.text.longitude" /></span>
               <span className="value">
                 {device.longitude?.toFixed(6) ?? '—'}
               </span>
             </div>
             <div className="preview-field">
-              <span className="label">Timezone</span>
+              <span className="label"><Trans ns="devices" i18nKey="adminDeviceNew.text.timezone" /></span>
               <span className="value">{device.timezone ?? '—'}</span>
             </div>
           </div>
         </div>
 
         <div className="preview-section" style={{ marginTop: 20 }}>
-          <h4>Sensors</h4>
+          <h4><Trans ns="devices" i18nKey="adminDeviceNew.headings.sensors" /></h4>
           <table className="admin-table">
             <thead>
               <tr>
-                <th>Parameter</th>
-                <th>External Sensor ID</th>
-                <th>Latest Value</th>
-                <th>Unit</th>
+                <th><Trans ns="devices" i18nKey="adminDeviceNew.columns.parameter" /></th>
+                <th><Trans ns="devices" i18nKey="adminDeviceNew.columns.externalSensorId" /></th>
+                <th><Trans ns="devices" i18nKey="adminDeviceNew.columns.latestValue" /></th>
+                <th><Trans ns="devices" i18nKey="adminDeviceNew.columns.unit" /></th>
               </tr>
             </thead>
             <tbody>
               {sensors.map((s) => (
                 <tr key={s.external_sensor_id}>
-                  <td>
+                  <td data-label={i18n.t('devices:adminDeviceNew.columns.parameter')}>
                     <strong>{s.parameter_code.toUpperCase()}</strong>
                   </td>
-                  <td className="mono">{s.external_sensor_id}</td>
-                  <td>{s.latest_value?.toFixed(2) ?? '—'}</td>
-                  <td>{s.unit_code === 'ug_m3' ? 'µg/m³' : s.unit_code}</td>
+                  <td data-label={i18n.t('devices:adminDeviceNew.columns.externalSensorId')} className="mono">{s.external_sensor_id}</td>
+                  <td data-label={i18n.t('devices:adminDeviceNew.columns.latestValue')}>{formatMeasurementValue(s.latest_value)}</td>
+                  <td data-label={i18n.t('devices:adminDeviceNew.columns.unit')}>{s.unit_code === 'ug_m3' ? 'µg/m³' : s.unit_code}</td>
                 </tr>
               ))}
             </tbody>
@@ -334,15 +347,14 @@ export default function AdminDeviceNew() {
               onClick={handleCancel}
               disabled={saving}
             >
-              Cancel
-            </button>
+              <Trans ns="common" i18nKey="actions.cancel" /></button>
             <button
               type="button"
               className="btn btn-primary"
               onClick={handleSave}
               disabled={saving}
             >
-              {saving ? 'Saving…' : 'Save'}
+              {saving ? i18n.t('devices:adminDeviceNew.actions.saving') : i18n.t('common:actions.save')}
             </button>
           </div>
         </div>
@@ -355,41 +367,28 @@ export default function AdminDeviceNew() {
     if (!showConfirm) return null;
 
     return (
-      <div className="modal-overlay" onClick={() => setShowConfirm(false)}>
-        <div
-          className="modal-dialog"
-          onClick={(e) => e.stopPropagation()}
-          role="dialog"
-          aria-modal="true"
-          aria-labelledby="confirm-title"
-        >
-          <h3 id="confirm-title">Confirm API Request</h3>
+      <AdminDialog title={i18n.t('devices:adminDeviceNew.headings.confirmApiRequest')} onClose={() => setShowConfirm(false)}>
           <p>
-            This will make a request to the PurpleAir API, which{' '}
-            <strong>consumes API points</strong>.
+            <Trans ns="devices" i18nKey="adminDeviceNew.text.willMakeRequestPurpleAirApi" />{' '}
+            <strong><Trans ns="devices" i18nKey="adminDeviceNew.text.consumesApiPoints" /></strong>.
           </p>
           <p className="muted" style={{ marginTop: 8 }}>
-            PurpleAir API usage is limited. Only proceed if you intend to add
-            this device.
-          </p>
+            <Trans ns="devices" i18nKey="adminDeviceNew.text.purpleAirApiUsageLimitedOnly" /></p>
           <div className="modal-actions">
             <button
               type="button"
               className="btn btn-secondary"
               onClick={() => setShowConfirm(false)}
             >
-              Cancel
-            </button>
+              <Trans ns="common" i18nKey="actions.cancel" /></button>
             <button
               type="button"
               className="btn btn-primary"
               onClick={handleConfirmLookup}
             >
-              Proceed with Lookup
-            </button>
+              <Trans ns="devices" i18nKey="adminDeviceNew.actions.proceedLookup" /></button>
           </div>
-        </div>
-      </div>
+      </AdminDialog>
     );
   };
 
@@ -402,11 +401,11 @@ export default function AdminDeviceNew() {
 
   return (
     <AdminPageLayout
-      title="Add New Device"
+      title={i18n.t('devices:adminDeviceNew.tooltips.addNewDevice')}
       breadcrumbs={[
-        { label: 'Admin', to: '/admin' },
-        { label: 'Devices', to: '/admin/devices' },
-        { label: 'New Device' },
+        { label: i18n.t('devices:adminDeviceNew.content.admin'), to: '/admin' },
+        { label: i18n.t('devices:adminDeviceNew.content.devices'), to: '/admin/devices' },
+        { label: i18n.t('devices:adminDeviceNew.content.newDevice') },
       ]}
       actions={
         <button
@@ -414,10 +413,9 @@ export default function AdminDeviceNew() {
           className="btn btn-secondary"
           onClick={handleCancel}
         >
-          Cancel
-        </button>
+          <Trans ns="common" i18nKey="actions.cancel" /></button>
       }
-      contentClassName="device-editor-page"
+      contentClassName="admin-workspace device-editor-page"
     >
       <div className="device-new-flow">
         {renderSourceSelection()}

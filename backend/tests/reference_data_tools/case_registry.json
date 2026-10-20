@@ -1,0 +1,225 @@
+{
+  "schema_version": "2i.5-case-registry-1",
+  "datasets": {
+    "openaq": {
+      "fixture_relative_path": "public/openaq",
+      "expected_dataset_id": "openaq_phase_2i4a_2026-08-01_2026-08-08"
+    },
+    "purpleair": {
+      "fixture_relative_path": "restricted/purpleair",
+      "expected_dataset_id": "purpleair_phase_2i4c2_2026-08-08_2026-08-11"
+    }
+  },
+  "cases": [
+    {
+      "case_id": "fixture_openaq_2i4a",
+      "case_type": "fixture_summary",
+      "dataset": "openaq"
+    },
+    {
+      "case_id": "fixture_purpleair_2i4c2",
+      "case_type": "fixture_summary",
+      "dataset": "purpleair"
+    },
+    {
+      "case_id": "provenance_manila_airgradient_via_openaq",
+      "case_type": "device_provenance",
+      "dataset": "openaq",
+      "device_ref": "openaq-location-4565934"
+    },
+    {
+      "case_id": "pa_ny_pm25_ordinary_boundary",
+      "case_type": "ordinary_aggregation",
+      "dataset": "purpleair",
+      "sensor_refs": ["purpleair-159361-pm25"],
+      "interval_started_at": "2026-08-08T01:00:00Z",
+      "interval_ended_at": "2026-08-08T02:00:00Z",
+      "boundary_semantics": "start_inclusive_end_exclusive",
+      "operation": "arithmetic_mean",
+      "formatting": "truncate_toward_zero_1_decimal"
+    },
+    {
+      "case_id": "pa_ny_pm_boundary_assignment",
+      "case_type": "anchored_hour",
+      "dataset": "purpleair",
+      "sensor_refs": ["purpleair-159361-pm25", "purpleair-159361-pm10"],
+      "interval_started_at": "2026-08-08T01:00:00Z",
+      "expected_frequency_seconds": 120,
+      "required_completeness": "0.75",
+      "timestamp_semantics": "provider_received_at"
+    },
+    {
+      "case_id": "pa_ny_pm_full",
+      "case_type": "anchored_hour",
+      "dataset": "purpleair",
+      "sensor_refs": ["purpleair-159361-pm25", "purpleair-159361-pm10"],
+      "interval_started_at": "2026-08-10T05:00:00Z",
+      "expected_frequency_seconds": 120,
+      "required_completeness": "0.75",
+      "timestamp_semantics": "provider_received_at"
+    },
+    {
+      "case_id": "pa_ny_pm_duplicate_positions",
+      "case_type": "anchored_hour",
+      "dataset": "purpleair",
+      "sensor_refs": ["purpleair-159361-pm25", "purpleair-159361-pm10"],
+      "interval_started_at": "2026-08-10T03:00:00Z",
+      "expected_frequency_seconds": 120,
+      "required_completeness": "0.75",
+      "timestamp_semantics": "provider_received_at"
+    },
+    {
+      "case_id": "pa_rio_pm_minor_gaps",
+      "case_type": "anchored_hour",
+      "dataset": "purpleair",
+      "sensor_refs": ["purpleair-175407-pm25", "purpleair-175407-pm10"],
+      "interval_started_at": "2026-08-10T16:00:00Z",
+      "expected_frequency_seconds": 120,
+      "required_completeness": "0.75",
+      "timestamp_semantics": "provider_received_at"
+    },
+    {
+      "case_id": "pa_manila_pm_irregular",
+      "case_type": "anchored_hour",
+      "dataset": "purpleair",
+      "sensor_refs": ["purpleair-99177-pm25", "purpleair-99177-pm10"],
+      "interval_started_at": "2026-08-08T03:00:00Z",
+      "expected_frequency_seconds": 120,
+      "required_completeness": "0.75",
+      "timestamp_semantics": "provider_received_at"
+    },
+    {
+      "case_id": "eea_pa_manila_2026_08_08T03",
+      "case_type": "anchored_hour",
+      "dataset": "purpleair",
+      "sensor_refs": ["purpleair-99177-pm25", "purpleair-99177-pm10"],
+      "interval_started_at": "2026-08-08T03:00:00Z",
+      "expected_frequency_seconds": 120,
+      "required_completeness": "0.75",
+      "timestamp_semantics": "provider_received_at"
+    },
+    {
+      "case_id": "pa_ny_pm_nowcast_inputs",
+      "case_type": "anchored_window",
+      "dataset": "purpleair",
+      "sensor_refs": ["purpleair-159361-pm25", "purpleair-159361-pm10"],
+      "window_ended_at": "2026-08-10T12:00:00Z",
+      "hour_count": 12,
+      "expected_frequency_seconds": 120,
+      "required_completeness": "0.75",
+      "timestamp_semantics": "provider_received_at"
+    },
+    {
+      "case_id": "pa_rio_pm_nowcast_inputs",
+      "case_type": "anchored_window",
+      "dataset": "purpleair",
+      "sensor_refs": ["purpleair-175407-pm25", "purpleair-175407-pm10"],
+      "window_ended_at": "2026-08-10T18:00:00Z",
+      "hour_count": 12,
+      "expected_frequency_seconds": 120,
+      "required_completeness": "0.75",
+      "timestamp_semantics": "provider_received_at"
+    },
+    {
+      "case_id": "pa_manila_pm_nowcast_inputs",
+      "case_type": "anchored_window",
+      "dataset": "purpleair",
+      "sensor_refs": ["purpleair-99177-pm25", "purpleair-99177-pm10"],
+      "window_ended_at": "2026-08-08T12:00:00Z",
+      "hour_count": 12,
+      "expected_frequency_seconds": 120,
+      "required_completeness": "0.75",
+      "timestamp_semantics": "provider_received_at"
+    },
+    {
+      "case_id": "pa_ny_pm25_completed_2026_08_09",
+      "case_type": "anchored_local_day",
+      "dataset": "purpleair",
+      "sensor_refs": ["purpleair-159361-pm25"],
+      "represented_local_date": "2026-08-09",
+      "timezone": "America/New_York",
+      "expected_frequency_seconds": 120,
+      "required_completeness": "0.75",
+      "timestamp_semantics": "provider_received_at"
+    },
+    {
+      "case_id": "openaq_rio_pm10_completed_2026_08_02",
+      "case_type": "provider_local_day",
+      "dataset": "openaq",
+      "sensor_refs": ["openaq-sensor-4475454"],
+      "represented_local_date": "2026-08-02",
+      "timezone": "America/Sao_Paulo",
+      "timestamp_semantics": "hour_end"
+    },
+    {
+      "case_id": "openaq_ny_o3_window_2026_08_02T12",
+      "case_type": "provider_hour_window",
+      "dataset": "openaq",
+      "sensor_refs": ["openaq-sensor-1098"],
+      "window_ended_at": "2026-08-02T12:00:00Z",
+      "hour_count": 8,
+      "timestamp_semantics": "hour_end"
+    },
+    {
+      "case_id": "openaq_ny_co_window_2026_08_02T12",
+      "case_type": "provider_hour_window",
+      "dataset": "openaq",
+      "sensor_refs": ["openaq-sensor-3952"],
+      "window_ended_at": "2026-08-02T12:00:00Z",
+      "hour_count": 8,
+      "timestamp_semantics": "hour_end"
+    },
+    {
+      "case_id": "openaq_ny_no2_hour_2026_08_02T11",
+      "case_type": "provider_hour_window",
+      "dataset": "openaq",
+      "sensor_refs": ["openaq-sensor-3951"],
+      "window_ended_at": "2026-08-02T12:00:00Z",
+      "hour_count": 1,
+      "timestamp_semantics": "hour_end"
+    },
+    {
+      "case_id": "openaq_ny_so2_window_2026_08_02T12",
+      "case_type": "provider_hour_window",
+      "dataset": "openaq",
+      "sensor_refs": ["openaq-sensor-3950"],
+      "window_ended_at": "2026-08-02T12:00:00Z",
+      "hour_count": 24,
+      "timestamp_semantics": "hour_end"
+    },
+    {
+      "case_id": "openaq_rio_epa_mass_units_unavailable",
+      "case_type": "source_rows_at_timestamp",
+      "dataset": "openaq",
+      "sensor_refs": ["openaq-sensor-6459542", "openaq-sensor-4475455", "openaq-sensor-11268993"],
+      "observed_at": "2026-08-02T12:00:00Z",
+      "expected_reason": "conversion_not_supported"
+    },
+    {
+      "case_id": "eea_rio_2026_08_02T11",
+      "case_type": "represented_hour",
+      "dataset": "openaq",
+      "sensor_refs": ["openaq-sensor-6819305", "openaq-sensor-4475454", "openaq-sensor-6459542", "openaq-sensor-4475455", "openaq-sensor-11268993"],
+      "interval_started_at": "2026-08-02T11:00:00Z",
+      "interval_ended_at": "2026-08-02T12:00:00Z",
+      "timestamp_semantics": "hour_end"
+    },
+    {
+      "case_id": "eea_openaq_manila_2026_08_02T11",
+      "case_type": "represented_hour",
+      "dataset": "openaq",
+      "sensor_refs": ["openaq-sensor-13191003"],
+      "interval_started_at": "2026-08-02T11:00:00Z",
+      "interval_ended_at": "2026-08-02T12:00:00Z",
+      "timestamp_semantics": "hour_end"
+    },
+    {
+      "case_id": "unavailable_zero_row_sensors",
+      "case_type": "zero_row_sensors",
+      "datasets_and_sensor_refs": {
+        "openaq": ["openaq-sensor-1099"],
+        "purpleair": ["purpleair-198733-pm25", "purpleair-198733-pm10"]
+      }
+    }
+  ]
+}

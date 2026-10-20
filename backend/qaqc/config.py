@@ -4,12 +4,12 @@ from typing import Dict, List
 
 
 def default_config() -> Dict[str, List[str]]:
-    """Return the default plugin order per stage.
+    """Return non-policy plugin stages retained for SDK compatibility.
 
-    Ingest pipeline now runs min_value and max_value checks (order: min then max).
-    Post-ingest left empty for future aggregation or anomaly checks.
+    Ingest checks are selected exclusively by the effective policy resolver.
+    Keeping a default ingest list here would make disabled checks execute.
     """
     return {
-        "ingest": ["min_value", "max_value"],
+        "ingest": [],
         "post_ingest": [],
     }

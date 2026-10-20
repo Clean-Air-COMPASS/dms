@@ -1,0 +1,6524 @@
+{
+  "airgradient_matches": [
+    {
+      "location_name": "Mall of Asia Sensor",
+      "metadata_evidence": [
+        "instrument:Unknown AirGradient Sensor",
+        "provider:AirGradient"
+      ],
+      "openaq_location_id": 1845518
+    },
+    {
+      "location_name": "South Triangle, Quezon City",
+      "metadata_evidence": [
+        "instrument:Unknown AirGradient Sensor",
+        "provider:AirGradient"
+      ],
+      "openaq_location_id": 1846215
+    },
+    {
+      "location_name": "Binangonan",
+      "metadata_evidence": [
+        "instrument:Unknown AirGradient Sensor",
+        "provider:AirGradient"
+      ],
+      "openaq_location_id": 3364093
+    },
+    {
+      "location_name": "STRC",
+      "metadata_evidence": [
+        "instrument:AirGradient Open Air Generation 1 (O-1PST)",
+        "provider:AirGradient"
+      ],
+      "openaq_location_id": 4049149
+    },
+    {
+      "location_name": "Manila Observatory",
+      "metadata_evidence": [
+        "instrument:AirGradient ONE Generation 9 (I-9PSL-DE)",
+        "provider:AirGradient"
+      ],
+      "openaq_location_id": 4565934
+    },
+    {
+      "location_name": "313_Cubao",
+      "metadata_evidence": [
+        "instrument:Unknown AirGradient Sensor",
+        "owner:AirGradient",
+        "provider:AirGradient"
+      ],
+      "openaq_location_id": 5963700
+    },
+    {
+      "location_name": "Ayala MRT",
+      "metadata_evidence": [
+        "instrument:Unknown AirGradient Sensor",
+        "owner:AirGradient",
+        "provider:AirGradient"
+      ],
+      "openaq_location_id": 5974688
+    },
+    {
+      "location_name": "Valenzuela",
+      "metadata_evidence": [
+        "instrument:AirGradient Open Air Generation 1 (O-1PST)",
+        "provider:AirGradient"
+      ],
+      "openaq_location_id": 5975180
+    },
+    {
+      "location_name": "Las Pinas",
+      "metadata_evidence": [
+        "instrument:AirGradient Open Air Generation 1 (O-1PST)",
+        "provider:AirGradient"
+      ],
+      "openaq_location_id": 5976206
+    },
+    {
+      "location_name": "Pasay Rotonda",
+      "metadata_evidence": [
+        "instrument:Unknown AirGradient Sensor",
+        "owner:AirGradient",
+        "provider:AirGradient"
+      ],
+      "openaq_location_id": 5995084
+    },
+    {
+      "location_name": "Ramon Avancena High School",
+      "metadata_evidence": [
+        "instrument:Unknown AirGradient Sensor",
+        "owner:AirGradient",
+        "provider:AirGradient"
+      ],
+      "openaq_location_id": 6209259
+    },
+    {
+      "location_name": "North Caloocan Nova Romania - Alora (download airgradient mobile app for realtime data)",
+      "metadata_evidence": [
+        "instrument:Unknown AirGradient Sensor",
+        "owner:AirGradient",
+        "provider:AirGradient"
+      ],
+      "openaq_location_id": 6230501
+    },
+    {
+      "location_name": "Marikina",
+      "metadata_evidence": [
+        "instrument:Unknown AirGradient Sensor",
+        "owner:AirGradient",
+        "provider:AirGradient"
+      ],
+      "openaq_location_id": 6265529
+    },
+    {
+      "location_name": "pasay city",
+      "metadata_evidence": [
+        "instrument:Unknown AirGradient Sensor",
+        "owner:AirGradient",
+        "provider:AirGradient"
+      ],
+      "openaq_location_id": 6275863
+    },
+    {
+      "location_name": "Timoteo Paez Integrated High School",
+      "metadata_evidence": [
+        "instrument:Unknown AirGradient Sensor",
+        "owner:AirGradient",
+        "provider:AirGradient"
+      ],
+      "openaq_location_id": 6284033
+    },
+    {
+      "location_name": "Tivoli",
+      "metadata_evidence": [
+        "instrument:Unknown AirGradient Sensor",
+        "owner:AirGradient",
+        "provider:AirGradient"
+      ],
+      "openaq_location_id": 6340868
+    },
+    {
+      "location_name": "Valle1",
+      "metadata_evidence": [
+        "instrument:Unknown AirGradient Sensor",
+        "owner:AirGradient",
+        "provider:AirGradient"
+      ],
+      "openaq_location_id": 6391974
+    }
+  ],
+  "airgradient_status": "confirmed_airgradient_hardware_via_openaq_metadata",
+  "candidate_locations": [
+    {
+      "airgradient_metadata_evidence": [],
+      "compatible_parameter_codes": [
+        "pm25"
+      ],
+      "compatible_sensors": [
+        {
+          "compatibility_status": "compatible",
+          "exclusion_reason": null,
+          "native_temporal_metadata": {
+            "aggregation_period": null,
+            "expected_frequency_seconds": null,
+            "status": "not_provided_by_location_discovery"
+          },
+          "openaq_parameter_display_name": "PM2.5",
+          "openaq_parameter_id": 2,
+          "openaq_parameter_name": "pm25",
+          "openaq_sensor_id": 39285,
+          "parameter_code": "pm25",
+          "provider_unit": "\u00b5g/m\u00b3",
+          "sensor_name": "pm25 \u00b5g/m\u00b3",
+          "unit_code": "ug_m3"
+        }
+      ],
+      "coordinates": {
+        "latitude": 14.635,
+        "longitude": 121.08
+      },
+      "datetime_first": null,
+      "datetime_last": null,
+      "hardware_provider": null,
+      "instruments": [
+        {
+          "id": 2,
+          "name": "Government Monitor"
+        }
+      ],
+      "is_mobile": false,
+      "is_reference_monitor": true,
+      "licenses": [],
+      "locality": null,
+      "location_name": "SPARTAN - Manila Observatory",
+      "openaq_location_id": 11568,
+      "owner": {
+        "id": 4,
+        "name": "Unknown Governmental Organization"
+      },
+      "provider": {
+        "id": 226,
+        "name": "Spartan"
+      },
+      "recent_data_status": "unknown",
+      "selection_eligible": false,
+      "timezone": "Asia/Manila",
+      "transport_provider": "OpenAQ",
+      "unsuitable_sensors": []
+    },
+    {
+      "airgradient_metadata_evidence": [],
+      "compatible_parameter_codes": [
+        "pm25"
+      ],
+      "compatible_sensors": [
+        {
+          "compatibility_status": "compatible",
+          "exclusion_reason": null,
+          "native_temporal_metadata": {
+            "aggregation_period": null,
+            "expected_frequency_seconds": null,
+            "status": "not_provided_by_location_discovery"
+          },
+          "openaq_parameter_display_name": "PM2.5",
+          "openaq_parameter_id": 2,
+          "openaq_parameter_name": "pm25",
+          "openaq_sensor_id": 6909373,
+          "parameter_code": "pm25",
+          "provider_unit": "\u00b5g/m\u00b3",
+          "sensor_name": "pm25 \u00b5g/m\u00b3",
+          "unit_code": "ug_m3"
+        }
+      ],
+      "coordinates": {
+        "latitude": 14.57711,
+        "longitude": 120.9778
+      },
+      "datetime_first": {
+        "local": "2023-09-07T05:00:00+08:00",
+        "utc": "2023-09-06T21:00:00Z"
+      },
+      "datetime_last": {
+        "local": "2026-02-06T02:00:00+08:00",
+        "utc": "2026-02-05T18:00:00Z"
+      },
+      "hardware_provider": null,
+      "instruments": [
+        {
+          "id": 2,
+          "name": "Government Monitor"
+        }
+      ],
+      "is_mobile": false,
+      "is_reference_monitor": true,
+      "licenses": [
+        {
+          "attribution": {
+            "name": "Unknown Governmental Organization",
+            "url": null
+          },
+          "dateFrom": "2016-01-30",
+          "dateTo": null,
+          "id": 33,
+          "name": "US Public Domain"
+        }
+      ],
+      "locality": "N/A",
+      "location_name": "Manila",
+      "openaq_location_id": 1543132,
+      "owner": {
+        "id": 4,
+        "name": "Unknown Governmental Organization"
+      },
+      "provider": {
+        "id": 119,
+        "name": "AirNow"
+      },
+      "recent_data_status": "stale",
+      "selection_eligible": false,
+      "timezone": "Asia/Manila",
+      "transport_provider": "OpenAQ",
+      "unsuitable_sensors": []
+    },
+    {
+      "airgradient_metadata_evidence": [
+        "instrument:Unknown AirGradient Sensor",
+        "provider:AirGradient"
+      ],
+      "compatible_parameter_codes": [
+        "pm25"
+      ],
+      "compatible_sensors": [
+        {
+          "compatibility_status": "compatible",
+          "exclusion_reason": null,
+          "native_temporal_metadata": {
+            "aggregation_period": null,
+            "expected_frequency_seconds": null,
+            "status": "not_provided_by_location_discovery"
+          },
+          "openaq_parameter_display_name": "PM2.5",
+          "openaq_parameter_id": 2,
+          "openaq_parameter_name": "pm25",
+          "openaq_sensor_id": 7411741,
+          "parameter_code": "pm25",
+          "provider_unit": "\u00b5g/m\u00b3",
+          "sensor_name": "pm25 \u00b5g/m\u00b3",
+          "unit_code": "ug_m3"
+        }
+      ],
+      "coordinates": {
+        "latitude": 14.536036,
+        "longitude": 120.985543
+      },
+      "datetime_first": {
+        "local": "2023-11-16T18:00:00+08:00",
+        "utc": "2023-11-16T10:00:00Z"
+      },
+      "datetime_last": {
+        "local": "2023-12-29T22:00:00+08:00",
+        "utc": "2023-12-29T14:00:00Z"
+      },
+      "hardware_provider": "AirGradient",
+      "instruments": [
+        {
+          "id": 7,
+          "name": "Unknown AirGradient Sensor"
+        }
+      ],
+      "is_mobile": false,
+      "is_reference_monitor": false,
+      "licenses": [
+        {
+          "attribution": {
+            "name": "Unknown Person",
+            "url": null
+          },
+          "dateFrom": "2023-07-15",
+          "dateTo": null,
+          "id": 41,
+          "name": "CC BY 4.0"
+        }
+      ],
+      "locality": null,
+      "location_name": "Mall of Asia Sensor",
+      "openaq_location_id": 1845518,
+      "owner": {
+        "id": 11509,
+        "name": "Unknown Person"
+      },
+      "provider": {
+        "id": 66,
+        "name": "AirGradient"
+      },
+      "recent_data_status": "stale",
+      "selection_eligible": false,
+      "timezone": "Asia/Manila",
+      "transport_provider": "OpenAQ",
+      "unsuitable_sensors": [
+        {
+          "compatibility_status": "unsuitable",
+          "exclusion_reason": "unsupported_parameter",
+          "native_temporal_metadata": {
+            "aggregation_period": null,
+            "expected_frequency_seconds": null,
+            "status": "not_provided_by_location_discovery"
+          },
+          "openaq_parameter_display_name": "Temperature (C)",
+          "openaq_parameter_id": 100,
+          "openaq_parameter_name": "temperature",
+          "openaq_sensor_id": 7411742,
+          "parameter_code": null,
+          "provider_unit": "c",
+          "sensor_name": "temperature c",
+          "unit_code": null
+        }
+      ]
+    },
+    {
+      "airgradient_metadata_evidence": [
+        "instrument:Unknown AirGradient Sensor",
+        "provider:AirGradient"
+      ],
+      "compatible_parameter_codes": [
+        "pm25"
+      ],
+      "compatible_sensors": [
+        {
+          "compatibility_status": "compatible",
+          "exclusion_reason": null,
+          "native_temporal_metadata": {
+            "aggregation_period": null,
+            "expected_frequency_seconds": null,
+            "status": "not_provided_by_location_discovery"
+          },
+          "openaq_parameter_display_name": "PM2.5",
+          "openaq_parameter_id": 2,
+          "openaq_parameter_name": "pm25",
+          "openaq_sensor_id": 7412720,
+          "parameter_code": "pm25",
+          "provider_unit": "\u00b5g/m\u00b3",
+          "sensor_name": "pm25 \u00b5g/m\u00b3",
+          "unit_code": "ug_m3"
+        }
+      ],
+      "coordinates": {
+        "latitude": 14.639479,
+        "longitude": 121.032469
+      },
+      "datetime_first": {
+        "local": "2023-11-16T22:00:00+08:00",
+        "utc": "2023-11-16T14:00:00Z"
+      },
+      "datetime_last": {
+        "local": "2024-01-31T16:00:00+08:00",
+        "utc": "2024-01-31T08:00:00Z"
+      },
+      "hardware_provider": "AirGradient",
+      "instruments": [
+        {
+          "id": 7,
+          "name": "Unknown AirGradient Sensor"
+        }
+      ],
+      "is_mobile": false,
+      "is_reference_monitor": false,
+      "licenses": [
+        {
+          "attribution": {
+            "name": "Unknown Person",
+            "url": null
+          },
+          "dateFrom": "2023-07-15",
+          "dateTo": null,
+          "id": 41,
+          "name": "CC BY 4.0"
+        }
+      ],
+      "locality": null,
+      "location_name": "South Triangle, Quezon City",
+      "openaq_location_id": 1846215,
+      "owner": {
+        "id": 11509,
+        "name": "Unknown Person"
+      },
+      "provider": {
+        "id": 66,
+        "name": "AirGradient"
+      },
+      "recent_data_status": "stale",
+      "selection_eligible": false,
+      "timezone": "Asia/Manila",
+      "transport_provider": "OpenAQ",
+      "unsuitable_sensors": [
+        {
+          "compatibility_status": "unsuitable",
+          "exclusion_reason": "unsupported_parameter",
+          "native_temporal_metadata": {
+            "aggregation_period": null,
+            "expected_frequency_seconds": null,
+            "status": "not_provided_by_location_discovery"
+          },
+          "openaq_parameter_display_name": "Temperature (C)",
+          "openaq_parameter_id": 100,
+          "openaq_parameter_name": "temperature",
+          "openaq_sensor_id": 7412719,
+          "parameter_code": null,
+          "provider_unit": "c",
+          "sensor_name": "temperature c",
+          "unit_code": null
+        }
+      ]
+    },
+    {
+      "airgradient_metadata_evidence": [],
+      "compatible_parameter_codes": [
+        "pm25"
+      ],
+      "compatible_sensors": [
+        {
+          "compatibility_status": "compatible",
+          "exclusion_reason": null,
+          "native_temporal_metadata": {
+            "aggregation_period": null,
+            "expected_frequency_seconds": null,
+            "status": "not_provided_by_location_discovery"
+          },
+          "openaq_parameter_display_name": "PM2.5",
+          "openaq_parameter_id": 2,
+          "openaq_parameter_name": "pm25",
+          "openaq_sensor_id": 8967443,
+          "parameter_code": "pm25",
+          "provider_unit": "\u00b5g/m\u00b3",
+          "sensor_name": "pm25 \u00b5g/m\u00b3",
+          "unit_code": "ug_m3"
+        }
+      ],
+      "coordinates": {
+        "latitude": 14.58594,
+        "longitude": 121.02932
+      },
+      "datetime_first": {
+        "local": "2024-04-25T00:00:00+08:00",
+        "utc": "2024-04-24T16:00:00Z"
+      },
+      "datetime_last": {
+        "local": "2024-09-18T21:06:00+08:00",
+        "utc": "2024-09-18T13:06:00Z"
+      },
+      "hardware_provider": null,
+      "instruments": [
+        {
+          "id": 4,
+          "name": "Clarity Sensor"
+        }
+      ],
+      "is_mobile": false,
+      "is_reference_monitor": false,
+      "licenses": [
+        {
+          "attribution": {
+            "name": "Clarity",
+            "url": null
+          },
+          "dateFrom": "2021-10-20",
+          "dateTo": null,
+          "id": 38,
+          "name": "CC0 1.0"
+        }
+      ],
+      "locality": null,
+      "location_name": "Demo Unit 1",
+      "openaq_location_id": 2812750,
+      "owner": {
+        "id": 9,
+        "name": "Clarity"
+      },
+      "provider": {
+        "id": 166,
+        "name": "Clarity"
+      },
+      "recent_data_status": "stale",
+      "selection_eligible": false,
+      "timezone": "Asia/Manila",
+      "transport_provider": "OpenAQ",
+      "unsuitable_sensors": []
+    },
+    {
+      "airgradient_metadata_evidence": [],
+      "compatible_parameter_codes": [
+        "pm25"
+      ],
+      "compatible_sensors": [
+        {
+          "compatibility_status": "compatible",
+          "exclusion_reason": null,
+          "native_temporal_metadata": {
+            "aggregation_period": null,
+            "expected_frequency_seconds": null,
+            "status": "not_provided_by_location_discovery"
+          },
+          "openaq_parameter_display_name": "PM2.5",
+          "openaq_parameter_id": 2,
+          "openaq_parameter_name": "pm25",
+          "openaq_sensor_id": 10253230,
+          "parameter_code": "pm25",
+          "provider_unit": "\u00b5g/m\u00b3",
+          "sensor_name": "pm25 \u00b5g/m\u00b3",
+          "unit_code": "ug_m3"
+        }
+      ],
+      "coordinates": {
+        "latitude": 14.58853,
+        "longitude": 121.05822
+      },
+      "datetime_first": {
+        "local": "2024-08-13T11:05:59+08:00",
+        "utc": "2024-08-13T03:05:59Z"
+      },
+      "datetime_last": {
+        "local": "2026-08-11T06:58:21+08:00",
+        "utc": "2026-08-10T22:58:21Z"
+      },
+      "hardware_provider": null,
+      "instruments": [
+        {
+          "id": 4,
+          "name": "Clarity Sensor"
+        }
+      ],
+      "is_mobile": false,
+      "is_reference_monitor": false,
+      "licenses": [
+        {
+          "attribution": {
+            "name": "Clarity",
+            "url": null
+          },
+          "dateFrom": "2021-10-20",
+          "dateTo": null,
+          "id": 38,
+          "name": "CC0 1.0"
+        }
+      ],
+      "locality": null,
+      "location_name": "Ortigas",
+      "openaq_location_id": 3015285,
+      "owner": {
+        "id": 9,
+        "name": "Clarity"
+      },
+      "provider": {
+        "id": 166,
+        "name": "Clarity"
+      },
+      "recent_data_status": "recent",
+      "selection_eligible": true,
+      "timezone": "Asia/Manila",
+      "transport_provider": "OpenAQ",
+      "unsuitable_sensors": []
+    },
+    {
+      "airgradient_metadata_evidence": [],
+      "compatible_parameter_codes": [
+        "pm25"
+      ],
+      "compatible_sensors": [
+        {
+          "compatibility_status": "compatible",
+          "exclusion_reason": null,
+          "native_temporal_metadata": {
+            "aggregation_period": null,
+            "expected_frequency_seconds": null,
+            "status": "not_provided_by_location_discovery"
+          },
+          "openaq_parameter_display_name": "PM2.5",
+          "openaq_parameter_id": 2,
+          "openaq_parameter_name": "pm25",
+          "openaq_sensor_id": 10346948,
+          "parameter_code": "pm25",
+          "provider_unit": "\u00b5g/m\u00b3",
+          "sensor_name": "pm25 \u00b5g/m\u00b3",
+          "unit_code": "ug_m3"
+        }
+      ],
+      "coordinates": {
+        "latitude": 14.63525,
+        "longitude": 121.07784
+      },
+      "datetime_first": {
+        "local": "2024-08-22T12:16:37+08:00",
+        "utc": "2024-08-22T04:16:37Z"
+      },
+      "datetime_last": {
+        "local": "2026-08-11T07:01:47+08:00",
+        "utc": "2026-08-10T23:01:47Z"
+      },
+      "hardware_provider": null,
+      "instruments": [
+        {
+          "id": 4,
+          "name": "Clarity Sensor"
+        }
+      ],
+      "is_mobile": false,
+      "is_reference_monitor": false,
+      "licenses": [
+        {
+          "attribution": {
+            "name": "Clarity",
+            "url": null
+          },
+          "dateFrom": "2021-10-20",
+          "dateTo": null,
+          "id": 38,
+          "name": "CC0 1.0"
+        }
+      ],
+      "locality": null,
+      "location_name": "NASA GSFC Rutgers Calib. N12",
+      "openaq_location_id": 3027756,
+      "owner": {
+        "id": 9,
+        "name": "Clarity"
+      },
+      "provider": {
+        "id": 166,
+        "name": "Clarity"
+      },
+      "recent_data_status": "recent",
+      "selection_eligible": true,
+      "timezone": "Asia/Manila",
+      "transport_provider": "OpenAQ",
+      "unsuitable_sensors": []
+    },
+    {
+      "airgradient_metadata_evidence": [
+        "instrument:Unknown AirGradient Sensor",
+        "provider:AirGradient"
+      ],
+      "compatible_parameter_codes": [
+        "pm10",
+        "pm25"
+      ],
+      "compatible_sensors": [
+        {
+          "compatibility_status": "compatible",
+          "exclusion_reason": null,
+          "native_temporal_metadata": {
+            "aggregation_period": null,
+            "expected_frequency_seconds": null,
+            "status": "not_provided_by_location_discovery"
+          },
+          "openaq_parameter_display_name": "PM2.5",
+          "openaq_parameter_id": 2,
+          "openaq_parameter_name": "pm25",
+          "openaq_sensor_id": 11990315,
+          "parameter_code": "pm25",
+          "provider_unit": "\u00b5g/m\u00b3",
+          "sensor_name": "pm25 \u00b5g/m\u00b3",
+          "unit_code": "ug_m3"
+        },
+        {
+          "compatibility_status": "compatible",
+          "exclusion_reason": null,
+          "native_temporal_metadata": {
+            "aggregation_period": null,
+            "expected_frequency_seconds": null,
+            "status": "not_provided_by_location_discovery"
+          },
+          "openaq_parameter_display_name": "PM10",
+          "openaq_parameter_id": 1,
+          "openaq_parameter_name": "pm10",
+          "openaq_sensor_id": 11990335,
+          "parameter_code": "pm10",
+          "provider_unit": "\u00b5g/m\u00b3",
+          "sensor_name": "pm10 \u00b5g/m\u00b3",
+          "unit_code": "ug_m3"
+        }
+      ],
+      "coordinates": {
+        "latitude": 14.5235999,
+        "longitude": 121.1645249
+      },
+      "datetime_first": {
+        "local": "2025-01-11T15:00:00+08:00",
+        "utc": "2025-01-11T07:00:00Z"
+      },
+      "datetime_last": {
+        "local": "2025-07-13T08:00:00+08:00",
+        "utc": "2025-07-13T00:00:00Z"
+      },
+      "hardware_provider": "AirGradient",
+      "instruments": [
+        {
+          "id": 7,
+          "name": "Unknown AirGradient Sensor"
+        }
+      ],
+      "is_mobile": false,
+      "is_reference_monitor": false,
+      "licenses": [
+        {
+          "attribution": {
+            "name": "Unknown Person",
+            "url": null
+          },
+          "dateFrom": "2023-07-15",
+          "dateTo": null,
+          "id": 41,
+          "name": "CC BY 4.0"
+        }
+      ],
+      "locality": null,
+      "location_name": "Binangonan",
+      "openaq_location_id": 3364093,
+      "owner": {
+        "id": 11509,
+        "name": "Unknown Person"
+      },
+      "provider": {
+        "id": 66,
+        "name": "AirGradient"
+      },
+      "recent_data_status": "stale",
+      "selection_eligible": false,
+      "timezone": "Asia/Manila",
+      "transport_provider": "OpenAQ",
+      "unsuitable_sensors": [
+        {
+          "compatibility_status": "unsuitable",
+          "exclusion_reason": "unsupported_parameter",
+          "native_temporal_metadata": {
+            "aggregation_period": null,
+            "expected_frequency_seconds": null,
+            "status": "not_provided_by_location_discovery"
+          },
+          "openaq_parameter_display_name": "PM1",
+          "openaq_parameter_id": 19,
+          "openaq_parameter_name": "pm1",
+          "openaq_sensor_id": 11990313,
+          "parameter_code": null,
+          "provider_unit": "\u00b5g/m\u00b3",
+          "sensor_name": "pm1 \u00b5g/m\u00b3",
+          "unit_code": "ug_m3"
+        },
+        {
+          "compatibility_status": "unsuitable",
+          "exclusion_reason": "unsupported_parameter",
+          "native_temporal_metadata": {
+            "aggregation_period": null,
+            "expected_frequency_seconds": null,
+            "status": "not_provided_by_location_discovery"
+          },
+          "openaq_parameter_display_name": "RH",
+          "openaq_parameter_id": 98,
+          "openaq_parameter_name": "relativehumidity",
+          "openaq_sensor_id": 11990319,
+          "parameter_code": null,
+          "provider_unit": "%",
+          "sensor_name": "relativehumidity %",
+          "unit_code": null
+        },
+        {
+          "compatibility_status": "unsuitable",
+          "exclusion_reason": "unsupported_parameter",
+          "native_temporal_metadata": {
+            "aggregation_period": null,
+            "expected_frequency_seconds": null,
+            "status": "not_provided_by_location_discovery"
+          },
+          "openaq_parameter_display_name": "PM0.3 count",
+          "openaq_parameter_id": 125,
+          "openaq_parameter_name": "um003",
+          "openaq_sensor_id": 11990343,
+          "parameter_code": null,
+          "provider_unit": "particles/cm\u00b3",
+          "sensor_name": "um003 particles/cm\u00b3",
+          "unit_code": null
+        },
+        {
+          "compatibility_status": "unsuitable",
+          "exclusion_reason": "unsupported_parameter",
+          "native_temporal_metadata": {
+            "aggregation_period": null,
+            "expected_frequency_seconds": null,
+            "status": "not_provided_by_location_discovery"
+          },
+          "openaq_parameter_display_name": "Temperature (C)",
+          "openaq_parameter_id": 100,
+          "openaq_parameter_name": "temperature",
+          "openaq_sensor_id": 11990345,
+          "parameter_code": null,
+          "provider_unit": "c",
+          "sensor_name": "temperature c",
+          "unit_code": null
+        }
+      ]
+    },
+    {
+      "airgradient_metadata_evidence": [],
+      "compatible_parameter_codes": [
+        "pm25"
+      ],
+      "compatible_sensors": [
+        {
+          "compatibility_status": "compatible",
+          "exclusion_reason": null,
+          "native_temporal_metadata": {
+            "aggregation_period": null,
+            "expected_frequency_seconds": null,
+            "status": "not_provided_by_location_discovery"
+          },
+          "openaq_parameter_display_name": "PM2.5",
+          "openaq_parameter_id": 2,
+          "openaq_parameter_name": "pm25",
+          "openaq_sensor_id": 12034965,
+          "parameter_code": "pm25",
+          "provider_unit": "\u00b5g/m\u00b3",
+          "sensor_name": "pm25 \u00b5g/m\u00b3",
+          "unit_code": "ug_m3"
+        }
+      ],
+      "coordinates": {
+        "latitude": 14.5377,
+        "longitude": 121.00094
+      },
+      "datetime_first": {
+        "local": "2025-01-16T07:06:43+08:00",
+        "utc": "2025-01-15T23:06:43Z"
+      },
+      "datetime_last": {
+        "local": "2026-05-01T13:04:55+08:00",
+        "utc": "2026-05-01T05:04:55Z"
+      },
+      "hardware_provider": null,
+      "instruments": [
+        {
+          "id": 4,
+          "name": "Clarity Sensor"
+        }
+      ],
+      "is_mobile": false,
+      "is_reference_monitor": false,
+      "licenses": [
+        {
+          "attribution": {
+            "name": "Clarity",
+            "url": null
+          },
+          "dateFrom": "2021-10-20",
+          "dateTo": null,
+          "id": 38,
+          "name": "CC0 1.0"
+        }
+      ],
+      "locality": null,
+      "location_name": "Pasay-Taft",
+      "openaq_location_id": 3370071,
+      "owner": {
+        "id": 9,
+        "name": "Clarity"
+      },
+      "provider": {
+        "id": 166,
+        "name": "Clarity"
+      },
+      "recent_data_status": "stale",
+      "selection_eligible": false,
+      "timezone": "Asia/Manila",
+      "transport_provider": "OpenAQ",
+      "unsuitable_sensors": []
+    },
+    {
+      "airgradient_metadata_evidence": [],
+      "compatible_parameter_codes": [
+        "pm25"
+      ],
+      "compatible_sensors": [
+        {
+          "compatibility_status": "compatible",
+          "exclusion_reason": null,
+          "native_temporal_metadata": {
+            "aggregation_period": null,
+            "expected_frequency_seconds": null,
+            "status": "not_provided_by_location_discovery"
+          },
+          "openaq_parameter_display_name": "PM2.5",
+          "openaq_parameter_id": 2,
+          "openaq_parameter_name": "pm25",
+          "openaq_sensor_id": 12034966,
+          "parameter_code": "pm25",
+          "provider_unit": "\u00b5g/m\u00b3",
+          "sensor_name": "pm25 \u00b5g/m\u00b3",
+          "unit_code": "ug_m3"
+        }
+      ],
+      "coordinates": {
+        "latitude": 14.61071,
+        "longitude": 121.05484
+      },
+      "datetime_first": {
+        "local": "2025-01-16T07:04:42+08:00",
+        "utc": "2025-01-15T23:04:42Z"
+      },
+      "datetime_last": {
+        "local": "2025-05-22T11:37:30+08:00",
+        "utc": "2025-05-22T03:37:30Z"
+      },
+      "hardware_provider": null,
+      "instruments": [
+        {
+          "id": 4,
+          "name": "Clarity Sensor"
+        }
+      ],
+      "is_mobile": false,
+      "is_reference_monitor": false,
+      "licenses": [
+        {
+          "attribution": {
+            "name": "Clarity",
+            "url": null
+          },
+          "dateFrom": "2021-10-20",
+          "dateTo": null,
+          "id": 38,
+          "name": "CC0 1.0"
+        }
+      ],
+      "locality": null,
+      "location_name": "Boni Serrano",
+      "openaq_location_id": 3370072,
+      "owner": {
+        "id": 9,
+        "name": "Clarity"
+      },
+      "provider": {
+        "id": 166,
+        "name": "Clarity"
+      },
+      "recent_data_status": "stale",
+      "selection_eligible": false,
+      "timezone": "Asia/Manila",
+      "transport_provider": "OpenAQ",
+      "unsuitable_sensors": []
+    },
+    {
+      "airgradient_metadata_evidence": [],
+      "compatible_parameter_codes": [
+        "pm25"
+      ],
+      "compatible_sensors": [
+        {
+          "compatibility_status": "compatible",
+          "exclusion_reason": null,
+          "native_temporal_metadata": {
+            "aggregation_period": null,
+            "expected_frequency_seconds": null,
+            "status": "not_provided_by_location_discovery"
+          },
+          "openaq_parameter_display_name": "PM2.5",
+          "openaq_parameter_id": 2,
+          "openaq_parameter_name": "pm25",
+          "openaq_sensor_id": 12035571,
+          "parameter_code": "pm25",
+          "provider_unit": "\u00b5g/m\u00b3",
+          "sensor_name": "pm25 \u00b5g/m\u00b3",
+          "unit_code": "ug_m3"
+        }
+      ],
+      "coordinates": {
+        "latitude": 14.58455,
+        "longitude": 121.01877
+      },
+      "datetime_first": {
+        "local": "2025-01-16T08:05:21+08:00",
+        "utc": "2025-01-16T00:05:21Z"
+      },
+      "datetime_last": {
+        "local": "2026-08-11T07:01:53+08:00",
+        "utc": "2026-08-10T23:01:53Z"
+      },
+      "hardware_provider": null,
+      "instruments": [
+        {
+          "id": 4,
+          "name": "Clarity Sensor"
+        }
+      ],
+      "is_mobile": false,
+      "is_reference_monitor": false,
+      "licenses": [
+        {
+          "attribution": {
+            "name": "Clarity",
+            "url": null
+          },
+          "dateFrom": "2021-10-20",
+          "dateTo": null,
+          "id": 38,
+          "name": "CC0 1.0"
+        }
+      ],
+      "locality": null,
+      "location_name": "Mandaluyong City",
+      "openaq_location_id": 3370151,
+      "owner": {
+        "id": 9,
+        "name": "Clarity"
+      },
+      "provider": {
+        "id": 166,
+        "name": "Clarity"
+      },
+      "recent_data_status": "recent",
+      "selection_eligible": true,
+      "timezone": "Asia/Manila",
+      "transport_provider": "OpenAQ",
+      "unsuitable_sensors": []
+    },
+    {
+      "airgradient_metadata_evidence": [],
+      "compatible_parameter_codes": [
+        "pm25"
+      ],
+      "compatible_sensors": [
+        {
+          "compatibility_status": "compatible",
+          "exclusion_reason": null,
+          "native_temporal_metadata": {
+            "aggregation_period": null,
+            "expected_frequency_seconds": null,
+            "status": "not_provided_by_location_discovery"
+          },
+          "openaq_parameter_display_name": "PM2.5",
+          "openaq_parameter_id": 2,
+          "openaq_parameter_name": "pm25",
+          "openaq_sensor_id": 12707935,
+          "parameter_code": "pm25",
+          "provider_unit": "\u00b5g/m\u00b3",
+          "sensor_name": "pm25 \u00b5g/m\u00b3",
+          "unit_code": "ug_m3"
+        }
+      ],
+      "coordinates": {
+        "latitude": 14.47822,
+        "longitude": 120.98664
+      },
+      "datetime_first": {
+        "local": "2025-04-07T21:04:13+08:00",
+        "utc": "2025-04-07T13:04:13Z"
+      },
+      "datetime_last": {
+        "local": "2026-05-19T02:06:54+08:00",
+        "utc": "2026-05-18T18:06:54Z"
+      },
+      "hardware_provider": null,
+      "instruments": [
+        {
+          "id": 4,
+          "name": "Clarity Sensor"
+        }
+      ],
+      "is_mobile": false,
+      "is_reference_monitor": false,
+      "licenses": [
+        {
+          "attribution": {
+            "name": "Clarity",
+            "url": null
+          },
+          "dateFrom": "2021-10-20",
+          "dateTo": null,
+          "id": 38,
+          "name": "CC0 1.0"
+        }
+      ],
+      "locality": null,
+      "location_name": "C5 Ext. Las Pinas",
+      "openaq_location_id": 3990424,
+      "owner": {
+        "id": 9,
+        "name": "Clarity"
+      },
+      "provider": {
+        "id": 166,
+        "name": "Clarity"
+      },
+      "recent_data_status": "stale",
+      "selection_eligible": false,
+      "timezone": "Asia/Manila",
+      "transport_provider": "OpenAQ",
+      "unsuitable_sensors": []
+    },
+    {
+      "airgradient_metadata_evidence": [],
+      "compatible_parameter_codes": [
+        "pm25"
+      ],
+      "compatible_sensors": [
+        {
+          "compatibility_status": "compatible",
+          "exclusion_reason": null,
+          "native_temporal_metadata": {
+            "aggregation_period": null,
+            "expected_frequency_seconds": null,
+            "status": "not_provided_by_location_discovery"
+          },
+          "openaq_parameter_display_name": "PM2.5",
+          "openaq_parameter_id": 2,
+          "openaq_parameter_name": "pm25",
+          "openaq_sensor_id": 12707934,
+          "parameter_code": "pm25",
+          "provider_unit": "\u00b5g/m\u00b3",
+          "sensor_name": "pm25 \u00b5g/m\u00b3",
+          "unit_code": "ug_m3"
+        }
+      ],
+      "coordinates": {
+        "latitude": 14.57863,
+        "longitude": 121.05675
+      },
+      "datetime_first": {
+        "local": "2025-04-07T21:03:35+08:00",
+        "utc": "2025-04-07T13:03:35Z"
+      },
+      "datetime_last": {
+        "local": "2026-08-11T07:05:31+08:00",
+        "utc": "2026-08-10T23:05:31Z"
+      },
+      "hardware_provider": null,
+      "instruments": [
+        {
+          "id": 4,
+          "name": "Clarity Sensor"
+        }
+      ],
+      "is_mobile": false,
+      "is_reference_monitor": false,
+      "licenses": [
+        {
+          "attribution": {
+            "name": "Clarity",
+            "url": null
+          },
+          "dateFrom": "2021-10-20",
+          "dateTo": null,
+          "id": 38,
+          "name": "CC0 1.0"
+        }
+      ],
+      "locality": null,
+      "location_name": "Along Shaw Blvd.",
+      "openaq_location_id": 3990425,
+      "owner": {
+        "id": 9,
+        "name": "Clarity"
+      },
+      "provider": {
+        "id": 166,
+        "name": "Clarity"
+      },
+      "recent_data_status": "recent",
+      "selection_eligible": true,
+      "timezone": "Asia/Manila",
+      "transport_provider": "OpenAQ",
+      "unsuitable_sensors": []
+    },
+    {
+      "airgradient_metadata_evidence": [],
+      "compatible_parameter_codes": [
+        "pm25"
+      ],
+      "compatible_sensors": [
+        {
+          "compatibility_status": "compatible",
+          "exclusion_reason": null,
+          "native_temporal_metadata": {
+            "aggregation_period": null,
+            "expected_frequency_seconds": null,
+            "status": "not_provided_by_location_discovery"
+          },
+          "openaq_parameter_display_name": "PM2.5",
+          "openaq_parameter_id": 2,
+          "openaq_parameter_name": "pm25",
+          "openaq_sensor_id": 12707936,
+          "parameter_code": "pm25",
+          "provider_unit": "\u00b5g/m\u00b3",
+          "sensor_name": "pm25 \u00b5g/m\u00b3",
+          "unit_code": "ug_m3"
+        }
+      ],
+      "coordinates": {
+        "latitude": 14.45627,
+        "longitude": 121.04569
+      },
+      "datetime_first": {
+        "local": "2025-04-07T21:02:15+08:00",
+        "utc": "2025-04-07T13:02:15Z"
+      },
+      "datetime_last": {
+        "local": "2026-08-11T07:02:32+08:00",
+        "utc": "2026-08-10T23:02:32Z"
+      },
+      "hardware_provider": null,
+      "instruments": [
+        {
+          "id": 4,
+          "name": "Clarity Sensor"
+        }
+      ],
+      "is_mobile": false,
+      "is_reference_monitor": false,
+      "licenses": [
+        {
+          "attribution": {
+            "name": "Clarity",
+            "url": null
+          },
+          "dateFrom": "2021-10-20",
+          "dateTo": null,
+          "id": 38,
+          "name": "CC0 1.0"
+        }
+      ],
+      "locality": null,
+      "location_name": "Near Sucat Interchange/Exit",
+      "openaq_location_id": 3990426,
+      "owner": {
+        "id": 9,
+        "name": "Clarity"
+      },
+      "provider": {
+        "id": 166,
+        "name": "Clarity"
+      },
+      "recent_data_status": "recent",
+      "selection_eligible": true,
+      "timezone": "Asia/Manila",
+      "transport_provider": "OpenAQ",
+      "unsuitable_sensors": []
+    },
+    {
+      "airgradient_metadata_evidence": [
+        "instrument:AirGradient Open Air Generation 1 (O-1PST)",
+        "provider:AirGradient"
+      ],
+      "compatible_parameter_codes": [
+        "pm25"
+      ],
+      "compatible_sensors": [
+        {
+          "compatibility_status": "compatible",
+          "exclusion_reason": null,
+          "native_temporal_metadata": {
+            "aggregation_period": null,
+            "expected_frequency_seconds": null,
+            "status": "not_provided_by_location_discovery"
+          },
+          "openaq_parameter_display_name": "PM2.5",
+          "openaq_parameter_id": 2,
+          "openaq_parameter_name": "pm25",
+          "openaq_sensor_id": 12775716,
+          "parameter_code": "pm25",
+          "provider_unit": "\u00b5g/m\u00b3",
+          "sensor_name": "pm25 \u00b5g/m\u00b3",
+          "unit_code": "ug_m3"
+        }
+      ],
+      "coordinates": {
+        "latitude": 14.56637517989103,
+        "longitude": 120.9922368328637
+      },
+      "datetime_first": {
+        "local": "2025-04-14T18:00:00+08:00",
+        "utc": "2025-04-14T10:00:00Z"
+      },
+      "datetime_last": {
+        "local": "2026-01-01T13:00:00+08:00",
+        "utc": "2026-01-01T05:00:00Z"
+      },
+      "hardware_provider": "AirGradient",
+      "instruments": [
+        {
+          "id": 24,
+          "name": "AirGradient Open Air Generation 1 (O-1PST)"
+        }
+      ],
+      "is_mobile": false,
+      "is_reference_monitor": false,
+      "licenses": [
+        {
+          "attribution": {
+            "name": "EarthLab",
+            "url": null
+          },
+          "dateFrom": "2023-07-15",
+          "dateTo": null,
+          "id": 41,
+          "name": "CC BY 4.0"
+        }
+      ],
+      "locality": null,
+      "location_name": "STRC",
+      "openaq_location_id": 4049149,
+      "owner": {
+        "id": 16757,
+        "name": "EarthLab"
+      },
+      "provider": {
+        "id": 66,
+        "name": "AirGradient"
+      },
+      "recent_data_status": "stale",
+      "selection_eligible": false,
+      "timezone": "Asia/Manila",
+      "transport_provider": "OpenAQ",
+      "unsuitable_sensors": [
+        {
+          "compatibility_status": "unsuitable",
+          "exclusion_reason": "unsupported_parameter",
+          "native_temporal_metadata": {
+            "aggregation_period": null,
+            "expected_frequency_seconds": null,
+            "status": "not_provided_by_location_discovery"
+          },
+          "openaq_parameter_display_name": "PM1",
+          "openaq_parameter_id": 19,
+          "openaq_parameter_name": "pm1",
+          "openaq_sensor_id": 12775715,
+          "parameter_code": null,
+          "provider_unit": "\u00b5g/m\u00b3",
+          "sensor_name": "pm1 \u00b5g/m\u00b3",
+          "unit_code": "ug_m3"
+        },
+        {
+          "compatibility_status": "unsuitable",
+          "exclusion_reason": "unsupported_parameter",
+          "native_temporal_metadata": {
+            "aggregation_period": null,
+            "expected_frequency_seconds": null,
+            "status": "not_provided_by_location_discovery"
+          },
+          "openaq_parameter_display_name": "RH",
+          "openaq_parameter_id": 98,
+          "openaq_parameter_name": "relativehumidity",
+          "openaq_sensor_id": 12775717,
+          "parameter_code": null,
+          "provider_unit": "%",
+          "sensor_name": "relativehumidity %",
+          "unit_code": null
+        },
+        {
+          "compatibility_status": "unsuitable",
+          "exclusion_reason": "unsupported_parameter",
+          "native_temporal_metadata": {
+            "aggregation_period": null,
+            "expected_frequency_seconds": null,
+            "status": "not_provided_by_location_discovery"
+          },
+          "openaq_parameter_display_name": "Temperature (C)",
+          "openaq_parameter_id": 100,
+          "openaq_parameter_name": "temperature",
+          "openaq_sensor_id": 12775718,
+          "parameter_code": null,
+          "provider_unit": "c",
+          "sensor_name": "temperature c",
+          "unit_code": null
+        },
+        {
+          "compatibility_status": "unsuitable",
+          "exclusion_reason": "unsupported_parameter",
+          "native_temporal_metadata": {
+            "aggregation_period": null,
+            "expected_frequency_seconds": null,
+            "status": "not_provided_by_location_discovery"
+          },
+          "openaq_parameter_display_name": "PM0.3 count",
+          "openaq_parameter_id": 125,
+          "openaq_parameter_name": "um003",
+          "openaq_sensor_id": 12775719,
+          "parameter_code": null,
+          "provider_unit": "particles/cm\u00b3",
+          "sensor_name": "um003 particles/cm\u00b3",
+          "unit_code": null
+        }
+      ]
+    },
+    {
+      "airgradient_metadata_evidence": [],
+      "compatible_parameter_codes": [
+        "pm25"
+      ],
+      "compatible_sensors": [
+        {
+          "compatibility_status": "compatible",
+          "exclusion_reason": null,
+          "native_temporal_metadata": {
+            "aggregation_period": null,
+            "expected_frequency_seconds": null,
+            "status": "not_provided_by_location_discovery"
+          },
+          "openaq_parameter_display_name": "PM2.5",
+          "openaq_parameter_id": 2,
+          "openaq_parameter_name": "pm25",
+          "openaq_sensor_id": 13153271,
+          "parameter_code": "pm25",
+          "provider_unit": "\u00b5g/m\u00b3",
+          "sensor_name": "pm25 \u00b5g/m\u00b3",
+          "unit_code": "ug_m3"
+        }
+      ],
+      "coordinates": {
+        "latitude": 14.65744,
+        "longitude": 120.98362
+      },
+      "datetime_first": {
+        "local": "2025-05-26T13:06:11+08:00",
+        "utc": "2025-05-26T05:06:11Z"
+      },
+      "datetime_last": {
+        "local": "2026-08-11T07:06:13+08:00",
+        "utc": "2026-08-10T23:06:13Z"
+      },
+      "hardware_provider": null,
+      "instruments": [
+        {
+          "id": 4,
+          "name": "Clarity Sensor"
+        }
+      ],
+      "is_mobile": false,
+      "is_reference_monitor": false,
+      "licenses": [
+        {
+          "attribution": {
+            "name": "Clarity",
+            "url": null
+          },
+          "dateFrom": "2021-10-20",
+          "dateTo": null,
+          "id": 38,
+          "name": "CC0 1.0"
+        }
+      ],
+      "locality": null,
+      "location_name": "Monumento, Caloocan",
+      "openaq_location_id": 4526987,
+      "owner": {
+        "id": 9,
+        "name": "Clarity"
+      },
+      "provider": {
+        "id": 166,
+        "name": "Clarity"
+      },
+      "recent_data_status": "recent",
+      "selection_eligible": true,
+      "timezone": "Asia/Manila",
+      "transport_provider": "OpenAQ",
+      "unsuitable_sensors": []
+    },
+    {
+      "airgradient_metadata_evidence": [],
+      "compatible_parameter_codes": [
+        "pm25"
+      ],
+      "compatible_sensors": [
+        {
+          "compatibility_status": "compatible",
+          "exclusion_reason": null,
+          "native_temporal_metadata": {
+            "aggregation_period": null,
+            "expected_frequency_seconds": null,
+            "status": "not_provided_by_location_discovery"
+          },
+          "openaq_parameter_display_name": "PM2.5",
+          "openaq_parameter_id": 2,
+          "openaq_parameter_name": "pm25",
+          "openaq_sensor_id": 13153272,
+          "parameter_code": "pm25",
+          "provider_unit": "\u00b5g/m\u00b3",
+          "sensor_name": "pm25 \u00b5g/m\u00b3",
+          "unit_code": "ug_m3"
+        }
+      ],
+      "coordinates": {
+        "latitude": 14.63842,
+        "longitude": 121.0767
+      },
+      "datetime_first": {
+        "local": "2025-05-26T13:01:40+08:00",
+        "utc": "2025-05-26T05:01:40Z"
+      },
+      "datetime_last": {
+        "local": "2026-08-11T06:18:52+08:00",
+        "utc": "2026-08-10T22:18:52Z"
+      },
+      "hardware_provider": null,
+      "instruments": [
+        {
+          "id": 4,
+          "name": "Clarity Sensor"
+        }
+      ],
+      "is_mobile": false,
+      "is_reference_monitor": false,
+      "licenses": [
+        {
+          "attribution": {
+            "name": "Clarity",
+            "url": null
+          },
+          "dateFrom": "2021-10-20",
+          "dateTo": null,
+          "id": 38,
+          "name": "CC0 1.0"
+        }
+      ],
+      "locality": null,
+      "location_name": "Near Katipunan Ave., Quezon City",
+      "openaq_location_id": 4526988,
+      "owner": {
+        "id": 9,
+        "name": "Clarity"
+      },
+      "provider": {
+        "id": 166,
+        "name": "Clarity"
+      },
+      "recent_data_status": "recent",
+      "selection_eligible": true,
+      "timezone": "Asia/Manila",
+      "transport_provider": "OpenAQ",
+      "unsuitable_sensors": []
+    },
+    {
+      "airgradient_metadata_evidence": [],
+      "compatible_parameter_codes": [
+        "pm25"
+      ],
+      "compatible_sensors": [
+        {
+          "compatibility_status": "compatible",
+          "exclusion_reason": null,
+          "native_temporal_metadata": {
+            "aggregation_period": null,
+            "expected_frequency_seconds": null,
+            "status": "not_provided_by_location_discovery"
+          },
+          "openaq_parameter_display_name": "PM2.5",
+          "openaq_parameter_id": 2,
+          "openaq_parameter_name": "pm25",
+          "openaq_sensor_id": 13153270,
+          "parameter_code": "pm25",
+          "provider_unit": "\u00b5g/m\u00b3",
+          "sensor_name": "pm25 \u00b5g/m\u00b3",
+          "unit_code": "ug_m3"
+        }
+      ],
+      "coordinates": {
+        "latitude": 14.52917,
+        "longitude": 120.98988
+      },
+      "datetime_first": {
+        "local": "2025-05-26T13:07:55+08:00",
+        "utc": "2025-05-26T05:07:55Z"
+      },
+      "datetime_last": {
+        "local": "2026-08-11T07:00:08+08:00",
+        "utc": "2026-08-10T23:00:08Z"
+      },
+      "hardware_provider": null,
+      "instruments": [
+        {
+          "id": 4,
+          "name": "Clarity Sensor"
+        }
+      ],
+      "is_mobile": false,
+      "is_reference_monitor": false,
+      "licenses": [
+        {
+          "attribution": {
+            "name": "Clarity",
+            "url": null
+          },
+          "dateFrom": "2021-10-20",
+          "dateTo": null,
+          "id": 38,
+          "name": "CC0 1.0"
+        }
+      ],
+      "locality": null,
+      "location_name": "Bradco Ave. cor Macapagal",
+      "openaq_location_id": 4526989,
+      "owner": {
+        "id": 9,
+        "name": "Clarity"
+      },
+      "provider": {
+        "id": 166,
+        "name": "Clarity"
+      },
+      "recent_data_status": "recent",
+      "selection_eligible": true,
+      "timezone": "Asia/Manila",
+      "transport_provider": "OpenAQ",
+      "unsuitable_sensors": []
+    },
+    {
+      "airgradient_metadata_evidence": [
+        "instrument:AirGradient ONE Generation 9 (I-9PSL-DE)",
+        "provider:AirGradient"
+      ],
+      "compatible_parameter_codes": [
+        "pm25"
+      ],
+      "compatible_sensors": [
+        {
+          "compatibility_status": "compatible",
+          "exclusion_reason": null,
+          "native_temporal_metadata": {
+            "aggregation_period": null,
+            "expected_frequency_seconds": null,
+            "status": "not_provided_by_location_discovery"
+          },
+          "openaq_parameter_display_name": "PM2.5",
+          "openaq_parameter_id": 2,
+          "openaq_parameter_name": "pm25",
+          "openaq_sensor_id": 13191003,
+          "parameter_code": "pm25",
+          "provider_unit": "\u00b5g/m\u00b3",
+          "sensor_name": "pm25 \u00b5g/m\u00b3",
+          "unit_code": "ug_m3"
+        }
+      ],
+      "coordinates": {
+        "latitude": 14.6354,
+        "longitude": 121.0779
+      },
+      "datetime_first": {
+        "local": "2025-05-30T15:00:00+08:00",
+        "utc": "2025-05-30T07:00:00Z"
+      },
+      "datetime_last": {
+        "local": "2026-08-11T14:00:00+08:00",
+        "utc": "2026-08-11T06:00:00Z"
+      },
+      "hardware_provider": "AirGradient",
+      "instruments": [
+        {
+          "id": 22,
+          "name": "AirGradient ONE Generation 9 (I-9PSL-DE)"
+        }
+      ],
+      "is_mobile": false,
+      "is_reference_monitor": false,
+      "licenses": [
+        {
+          "attribution": {
+            "name": "Manila Observatory",
+            "url": null
+          },
+          "dateFrom": "2023-07-15",
+          "dateTo": null,
+          "id": 41,
+          "name": "CC BY 4.0"
+        }
+      ],
+      "locality": null,
+      "location_name": "Manila Observatory",
+      "openaq_location_id": 4565934,
+      "owner": {
+        "id": 16824,
+        "name": "Manila Observatory"
+      },
+      "provider": {
+        "id": 66,
+        "name": "AirGradient"
+      },
+      "recent_data_status": "recent",
+      "selection_eligible": true,
+      "timezone": "Asia/Manila",
+      "transport_provider": "OpenAQ",
+      "unsuitable_sensors": [
+        {
+          "compatibility_status": "unsuitable",
+          "exclusion_reason": "unsupported_parameter",
+          "native_temporal_metadata": {
+            "aggregation_period": null,
+            "expected_frequency_seconds": null,
+            "status": "not_provided_by_location_discovery"
+          },
+          "openaq_parameter_display_name": "PM1",
+          "openaq_parameter_id": 19,
+          "openaq_parameter_name": "pm1",
+          "openaq_sensor_id": 13191002,
+          "parameter_code": null,
+          "provider_unit": "\u00b5g/m\u00b3",
+          "sensor_name": "pm1 \u00b5g/m\u00b3",
+          "unit_code": "ug_m3"
+        },
+        {
+          "compatibility_status": "unsuitable",
+          "exclusion_reason": "unsupported_parameter",
+          "native_temporal_metadata": {
+            "aggregation_period": null,
+            "expected_frequency_seconds": null,
+            "status": "not_provided_by_location_discovery"
+          },
+          "openaq_parameter_display_name": "RH",
+          "openaq_parameter_id": 98,
+          "openaq_parameter_name": "relativehumidity",
+          "openaq_sensor_id": 13191004,
+          "parameter_code": null,
+          "provider_unit": "%",
+          "sensor_name": "relativehumidity %",
+          "unit_code": null
+        },
+        {
+          "compatibility_status": "unsuitable",
+          "exclusion_reason": "unsupported_parameter",
+          "native_temporal_metadata": {
+            "aggregation_period": null,
+            "expected_frequency_seconds": null,
+            "status": "not_provided_by_location_discovery"
+          },
+          "openaq_parameter_display_name": "Temperature (C)",
+          "openaq_parameter_id": 100,
+          "openaq_parameter_name": "temperature",
+          "openaq_sensor_id": 13191005,
+          "parameter_code": null,
+          "provider_unit": "c",
+          "sensor_name": "temperature c",
+          "unit_code": null
+        },
+        {
+          "compatibility_status": "unsuitable",
+          "exclusion_reason": "unsupported_parameter",
+          "native_temporal_metadata": {
+            "aggregation_period": null,
+            "expected_frequency_seconds": null,
+            "status": "not_provided_by_location_discovery"
+          },
+          "openaq_parameter_display_name": "PM0.3 count",
+          "openaq_parameter_id": 125,
+          "openaq_parameter_name": "um003",
+          "openaq_sensor_id": 13191006,
+          "parameter_code": null,
+          "provider_unit": "particles/cm\u00b3",
+          "sensor_name": "um003 particles/cm\u00b3",
+          "unit_code": null
+        }
+      ]
+    },
+    {
+      "airgradient_metadata_evidence": [],
+      "compatible_parameter_codes": [
+        "pm25"
+      ],
+      "compatible_sensors": [
+        {
+          "compatibility_status": "compatible",
+          "exclusion_reason": null,
+          "native_temporal_metadata": {
+            "aggregation_period": null,
+            "expected_frequency_seconds": null,
+            "status": "not_provided_by_location_discovery"
+          },
+          "openaq_parameter_display_name": "PM2.5",
+          "openaq_parameter_id": 2,
+          "openaq_parameter_name": "pm25",
+          "openaq_sensor_id": 13370885,
+          "parameter_code": "pm25",
+          "provider_unit": "\u00b5g/m\u00b3",
+          "sensor_name": "pm25 \u00b5g/m\u00b3",
+          "unit_code": "ug_m3"
+        }
+      ],
+      "coordinates": {
+        "latitude": 14.63666,
+        "longitude": 120.96414
+      },
+      "datetime_first": {
+        "local": "2025-06-19T21:12:25+08:00",
+        "utc": "2025-06-19T13:12:25Z"
+      },
+      "datetime_last": {
+        "local": "2026-08-11T07:02:47+08:00",
+        "utc": "2026-08-10T23:02:47Z"
+      },
+      "hardware_provider": null,
+      "instruments": [
+        {
+          "id": 4,
+          "name": "Clarity Sensor"
+        }
+      ],
+      "is_mobile": false,
+      "is_reference_monitor": false,
+      "licenses": [
+        {
+          "attribution": {
+            "name": "Clarity",
+            "url": null
+          },
+          "dateFrom": "2021-10-20",
+          "dateTo": null,
+          "id": 38,
+          "name": "CC0 1.0"
+        }
+      ],
+      "locality": null,
+      "location_name": "Barangay San Rafael Hall",
+      "openaq_location_id": 4795495,
+      "owner": {
+        "id": 9,
+        "name": "Clarity"
+      },
+      "provider": {
+        "id": 166,
+        "name": "Clarity"
+      },
+      "recent_data_status": "recent",
+      "selection_eligible": true,
+      "timezone": "Asia/Manila",
+      "transport_provider": "OpenAQ",
+      "unsuitable_sensors": []
+    },
+    {
+      "airgradient_metadata_evidence": [],
+      "compatible_parameter_codes": [
+        "pm25"
+      ],
+      "compatible_sensors": [
+        {
+          "compatibility_status": "compatible",
+          "exclusion_reason": null,
+          "native_temporal_metadata": {
+            "aggregation_period": null,
+            "expected_frequency_seconds": null,
+            "status": "not_provided_by_location_discovery"
+          },
+          "openaq_parameter_display_name": "PM2.5",
+          "openaq_parameter_id": 2,
+          "openaq_parameter_name": "pm25",
+          "openaq_sensor_id": 13370884,
+          "parameter_code": "pm25",
+          "provider_unit": "\u00b5g/m\u00b3",
+          "sensor_name": "pm25 \u00b5g/m\u00b3",
+          "unit_code": "ug_m3"
+        }
+      ],
+      "coordinates": {
+        "latitude": 14.66963,
+        "longitude": 120.94676
+      },
+      "datetime_first": {
+        "local": "2025-06-19T21:10:40+08:00",
+        "utc": "2025-06-19T13:10:40Z"
+      },
+      "datetime_last": {
+        "local": "2026-08-11T06:57:40+08:00",
+        "utc": "2026-08-10T22:57:40Z"
+      },
+      "hardware_provider": null,
+      "instruments": [
+        {
+          "id": 4,
+          "name": "Clarity Sensor"
+        }
+      ],
+      "is_mobile": false,
+      "is_reference_monitor": false,
+      "licenses": [
+        {
+          "attribution": {
+            "name": "Clarity",
+            "url": null
+          },
+          "dateFrom": "2021-10-20",
+          "dateTo": null,
+          "id": 38,
+          "name": "CC0 1.0"
+        }
+      ],
+      "locality": null,
+      "location_name": "Gen. Luna St. corner Gov. Pascual Ave.",
+      "openaq_location_id": 4795496,
+      "owner": {
+        "id": 9,
+        "name": "Clarity"
+      },
+      "provider": {
+        "id": 166,
+        "name": "Clarity"
+      },
+      "recent_data_status": "recent",
+      "selection_eligible": true,
+      "timezone": "Asia/Manila",
+      "transport_provider": "OpenAQ",
+      "unsuitable_sensors": []
+    },
+    {
+      "airgradient_metadata_evidence": [],
+      "compatible_parameter_codes": [
+        "pm25"
+      ],
+      "compatible_sensors": [
+        {
+          "compatibility_status": "compatible",
+          "exclusion_reason": null,
+          "native_temporal_metadata": {
+            "aggregation_period": null,
+            "expected_frequency_seconds": null,
+            "status": "not_provided_by_location_discovery"
+          },
+          "openaq_parameter_display_name": "PM2.5",
+          "openaq_parameter_id": 2,
+          "openaq_parameter_name": "pm25",
+          "openaq_sensor_id": 13370886,
+          "parameter_code": "pm25",
+          "provider_unit": "\u00b5g/m\u00b3",
+          "sensor_name": "pm25 \u00b5g/m\u00b3",
+          "unit_code": "ug_m3"
+        }
+      ],
+      "coordinates": {
+        "latitude": 14.69397,
+        "longitude": 121.00919
+      },
+      "datetime_first": {
+        "local": "2025-06-19T21:09:31+08:00",
+        "utc": "2025-06-19T13:09:31Z"
+      },
+      "datetime_last": {
+        "local": "2026-08-11T07:05:35+08:00",
+        "utc": "2026-08-10T23:05:35Z"
+      },
+      "hardware_provider": null,
+      "instruments": [
+        {
+          "id": 4,
+          "name": "Clarity Sensor"
+        }
+      ],
+      "is_mobile": false,
+      "is_reference_monitor": false,
+      "licenses": [
+        {
+          "attribution": {
+            "name": "Clarity",
+            "url": null
+          },
+          "dateFrom": "2021-10-20",
+          "dateTo": null,
+          "id": 38,
+          "name": "CC0 1.0"
+        }
+      ],
+      "locality": null,
+      "location_name": "3S Center Ugong",
+      "openaq_location_id": 4795497,
+      "owner": {
+        "id": 9,
+        "name": "Clarity"
+      },
+      "provider": {
+        "id": 166,
+        "name": "Clarity"
+      },
+      "recent_data_status": "recent",
+      "selection_eligible": true,
+      "timezone": "Asia/Manila",
+      "transport_provider": "OpenAQ",
+      "unsuitable_sensors": []
+    },
+    {
+      "airgradient_metadata_evidence": [],
+      "compatible_parameter_codes": [
+        "pm25"
+      ],
+      "compatible_sensors": [
+        {
+          "compatibility_status": "compatible",
+          "exclusion_reason": null,
+          "native_temporal_metadata": {
+            "aggregation_period": null,
+            "expected_frequency_seconds": null,
+            "status": "not_provided_by_location_discovery"
+          },
+          "openaq_parameter_display_name": "PM2.5",
+          "openaq_parameter_id": 2,
+          "openaq_parameter_name": "pm25",
+          "openaq_sensor_id": 13370881,
+          "parameter_code": "pm25",
+          "provider_unit": "\u00b5g/m\u00b3",
+          "sensor_name": "pm25 \u00b5g/m\u00b3",
+          "unit_code": "ug_m3"
+        }
+      ],
+      "coordinates": {
+        "latitude": 14.69158,
+        "longitude": 120.97246
+      },
+      "datetime_first": {
+        "local": "2025-06-19T21:08:30+08:00",
+        "utc": "2025-06-19T13:08:30Z"
+      },
+      "datetime_last": {
+        "local": "2026-07-06T16:52:36+08:00",
+        "utc": "2026-07-06T08:52:36Z"
+      },
+      "hardware_provider": null,
+      "instruments": [
+        {
+          "id": 4,
+          "name": "Clarity Sensor"
+        }
+      ],
+      "is_mobile": false,
+      "is_reference_monitor": false,
+      "licenses": [
+        {
+          "attribution": {
+            "name": "Clarity",
+            "url": null
+          },
+          "dateFrom": "2021-10-20",
+          "dateTo": null,
+          "id": 38,
+          "name": "CC0 1.0"
+        }
+      ],
+      "locality": null,
+      "location_name": "Valenzuela CENRO (ARCA North)",
+      "openaq_location_id": 4795498,
+      "owner": {
+        "id": 9,
+        "name": "Clarity"
+      },
+      "provider": {
+        "id": 166,
+        "name": "Clarity"
+      },
+      "recent_data_status": "stale",
+      "selection_eligible": false,
+      "timezone": "Asia/Manila",
+      "transport_provider": "OpenAQ",
+      "unsuitable_sensors": []
+    },
+    {
+      "airgradient_metadata_evidence": [],
+      "compatible_parameter_codes": [
+        "pm25"
+      ],
+      "compatible_sensors": [
+        {
+          "compatibility_status": "compatible",
+          "exclusion_reason": null,
+          "native_temporal_metadata": {
+            "aggregation_period": null,
+            "expected_frequency_seconds": null,
+            "status": "not_provided_by_location_discovery"
+          },
+          "openaq_parameter_display_name": "PM2.5",
+          "openaq_parameter_id": 2,
+          "openaq_parameter_name": "pm25",
+          "openaq_sensor_id": 13370882,
+          "parameter_code": "pm25",
+          "provider_unit": "\u00b5g/m\u00b3",
+          "sensor_name": "pm25 \u00b5g/m\u00b3",
+          "unit_code": "ug_m3"
+        }
+      ],
+      "coordinates": {
+        "latitude": 14.66916,
+        "longitude": 120.97576
+      },
+      "datetime_first": {
+        "local": "2025-06-19T21:06:20+08:00",
+        "utc": "2025-06-19T13:06:20Z"
+      },
+      "datetime_last": {
+        "local": "2026-08-11T06:51:54+08:00",
+        "utc": "2026-08-10T22:51:54Z"
+      },
+      "hardware_provider": null,
+      "instruments": [
+        {
+          "id": 4,
+          "name": "Clarity Sensor"
+        }
+      ],
+      "is_mobile": false,
+      "is_reference_monitor": false,
+      "licenses": [
+        {
+          "attribution": {
+            "name": "Clarity",
+            "url": null
+          },
+          "dateFrom": "2021-10-20",
+          "dateTo": null,
+          "id": 38,
+          "name": "CC0 1.0"
+        }
+      ],
+      "locality": null,
+      "location_name": "Malabon Action Center",
+      "openaq_location_id": 4795499,
+      "owner": {
+        "id": 9,
+        "name": "Clarity"
+      },
+      "provider": {
+        "id": 166,
+        "name": "Clarity"
+      },
+      "recent_data_status": "recent",
+      "selection_eligible": true,
+      "timezone": "Asia/Manila",
+      "transport_provider": "OpenAQ",
+      "unsuitable_sensors": []
+    },
+    {
+      "airgradient_metadata_evidence": [],
+      "compatible_parameter_codes": [
+        "pm25"
+      ],
+      "compatible_sensors": [
+        {
+          "compatibility_status": "compatible",
+          "exclusion_reason": null,
+          "native_temporal_metadata": {
+            "aggregation_period": null,
+            "expected_frequency_seconds": null,
+            "status": "not_provided_by_location_discovery"
+          },
+          "openaq_parameter_display_name": "PM2.5",
+          "openaq_parameter_id": 2,
+          "openaq_parameter_name": "pm25",
+          "openaq_sensor_id": 13370883,
+          "parameter_code": "pm25",
+          "provider_unit": "\u00b5g/m\u00b3",
+          "sensor_name": "pm25 \u00b5g/m\u00b3",
+          "unit_code": "ug_m3"
+        }
+      ],
+      "coordinates": {
+        "latitude": 14.67508,
+        "longitude": 120.93989
+      },
+      "datetime_first": {
+        "local": "2025-06-19T21:03:48+08:00",
+        "utc": "2025-06-19T13:03:48Z"
+      },
+      "datetime_last": {
+        "local": "2026-08-11T06:53:16+08:00",
+        "utc": "2026-08-10T22:53:16Z"
+      },
+      "hardware_provider": null,
+      "instruments": [
+        {
+          "id": 4,
+          "name": "Clarity Sensor"
+        }
+      ],
+      "is_mobile": false,
+      "is_reference_monitor": false,
+      "licenses": [
+        {
+          "attribution": {
+            "name": "Clarity",
+            "url": null
+          },
+          "dateFrom": "2021-10-20",
+          "dateTo": null,
+          "id": 38,
+          "name": "CC0 1.0"
+        }
+      ],
+      "locality": null,
+      "location_name": "Barangay Tanza 2 Hall",
+      "openaq_location_id": 4795500,
+      "owner": {
+        "id": 9,
+        "name": "Clarity"
+      },
+      "provider": {
+        "id": 166,
+        "name": "Clarity"
+      },
+      "recent_data_status": "recent",
+      "selection_eligible": true,
+      "timezone": "Asia/Manila",
+      "transport_provider": "OpenAQ",
+      "unsuitable_sensors": []
+    },
+    {
+      "airgradient_metadata_evidence": [],
+      "compatible_parameter_codes": [
+        "pm25"
+      ],
+      "compatible_sensors": [
+        {
+          "compatibility_status": "compatible",
+          "exclusion_reason": null,
+          "native_temporal_metadata": {
+            "aggregation_period": null,
+            "expected_frequency_seconds": null,
+            "status": "not_provided_by_location_discovery"
+          },
+          "openaq_parameter_display_name": "PM2.5",
+          "openaq_parameter_id": 2,
+          "openaq_parameter_name": "pm25",
+          "openaq_sensor_id": 13372946,
+          "parameter_code": "pm25",
+          "provider_unit": "\u00b5g/m\u00b3",
+          "sensor_name": "pm25 \u00b5g/m\u00b3",
+          "unit_code": "ug_m3"
+        }
+      ],
+      "coordinates": {
+        "latitude": 14.56746,
+        "longitude": 121.03929
+      },
+      "datetime_first": {
+        "local": "2025-06-20T02:15:11+08:00",
+        "utc": "2025-06-19T18:15:11Z"
+      },
+      "datetime_last": {
+        "local": "2026-08-11T06:55:17+08:00",
+        "utc": "2026-08-10T22:55:17Z"
+      },
+      "hardware_provider": null,
+      "instruments": [
+        {
+          "id": 4,
+          "name": "Clarity Sensor"
+        }
+      ],
+      "is_mobile": false,
+      "is_reference_monitor": false,
+      "licenses": [
+        {
+          "attribution": {
+            "name": "Clarity",
+            "url": null
+          },
+          "dateFrom": "2021-10-20",
+          "dateTo": null,
+          "id": 38,
+          "name": "CC0 1.0"
+        }
+      ],
+      "locality": null,
+      "location_name": "J.P. Rizal Avenue corner Camia",
+      "openaq_location_id": 4797637,
+      "owner": {
+        "id": 9,
+        "name": "Clarity"
+      },
+      "provider": {
+        "id": 166,
+        "name": "Clarity"
+      },
+      "recent_data_status": "recent",
+      "selection_eligible": true,
+      "timezone": "Asia/Manila",
+      "transport_provider": "OpenAQ",
+      "unsuitable_sensors": []
+    },
+    {
+      "airgradient_metadata_evidence": [],
+      "compatible_parameter_codes": [
+        "pm25"
+      ],
+      "compatible_sensors": [
+        {
+          "compatibility_status": "compatible",
+          "exclusion_reason": null,
+          "native_temporal_metadata": {
+            "aggregation_period": null,
+            "expected_frequency_seconds": null,
+            "status": "not_provided_by_location_discovery"
+          },
+          "openaq_parameter_display_name": "PM2.5",
+          "openaq_parameter_id": 2,
+          "openaq_parameter_name": "pm25",
+          "openaq_sensor_id": 13372963,
+          "parameter_code": "pm25",
+          "provider_unit": "\u00b5g/m\u00b3",
+          "sensor_name": "pm25 \u00b5g/m\u00b3",
+          "unit_code": "ug_m3"
+        }
+      ],
+      "coordinates": {
+        "latitude": 14.58655,
+        "longitude": 121.02549
+      },
+      "datetime_first": {
+        "local": "2025-06-20T02:14:31+08:00",
+        "utc": "2025-06-19T18:14:31Z"
+      },
+      "datetime_last": {
+        "local": "2026-08-11T06:56:10+08:00",
+        "utc": "2026-08-10T22:56:10Z"
+      },
+      "hardware_provider": null,
+      "instruments": [
+        {
+          "id": 4,
+          "name": "Clarity Sensor"
+        }
+      ],
+      "is_mobile": false,
+      "is_reference_monitor": false,
+      "licenses": [
+        {
+          "attribution": {
+            "name": "Clarity",
+            "url": null
+          },
+          "dateFrom": "2021-10-20",
+          "dateTo": null,
+          "id": 38,
+          "name": "CC0 1.0"
+        }
+      ],
+      "locality": null,
+      "location_name": "Mandaluyong Elementary School",
+      "openaq_location_id": 4797638,
+      "owner": {
+        "id": 9,
+        "name": "Clarity"
+      },
+      "provider": {
+        "id": 166,
+        "name": "Clarity"
+      },
+      "recent_data_status": "recent",
+      "selection_eligible": true,
+      "timezone": "Asia/Manila",
+      "transport_provider": "OpenAQ",
+      "unsuitable_sensors": []
+    },
+    {
+      "airgradient_metadata_evidence": [],
+      "compatible_parameter_codes": [
+        "pm25"
+      ],
+      "compatible_sensors": [
+        {
+          "compatibility_status": "compatible",
+          "exclusion_reason": null,
+          "native_temporal_metadata": {
+            "aggregation_period": null,
+            "expected_frequency_seconds": null,
+            "status": "not_provided_by_location_discovery"
+          },
+          "openaq_parameter_display_name": "PM2.5",
+          "openaq_parameter_id": 2,
+          "openaq_parameter_name": "pm25",
+          "openaq_sensor_id": 13372956,
+          "parameter_code": "pm25",
+          "provider_unit": "\u00b5g/m\u00b3",
+          "sensor_name": "pm25 \u00b5g/m\u00b3",
+          "unit_code": "ug_m3"
+        }
+      ],
+      "coordinates": {
+        "latitude": 14.75097,
+        "longitude": 121.02042
+      },
+      "datetime_first": {
+        "local": "2025-06-20T02:14:16+08:00",
+        "utc": "2025-06-19T18:14:16Z"
+      },
+      "datetime_last": {
+        "local": "2026-08-11T07:00:09+08:00",
+        "utc": "2026-08-10T23:00:09Z"
+      },
+      "hardware_provider": null,
+      "instruments": [
+        {
+          "id": 4,
+          "name": "Clarity Sensor"
+        }
+      ],
+      "is_mobile": false,
+      "is_reference_monitor": false,
+      "licenses": [
+        {
+          "attribution": {
+            "name": "Clarity",
+            "url": null
+          },
+          "dateFrom": "2021-10-20",
+          "dateTo": null,
+          "id": 38,
+          "name": "CC0 1.0"
+        }
+      ],
+      "locality": null,
+      "location_name": "Caloocan Sports Complex",
+      "openaq_location_id": 4797639,
+      "owner": {
+        "id": 9,
+        "name": "Clarity"
+      },
+      "provider": {
+        "id": 166,
+        "name": "Clarity"
+      },
+      "recent_data_status": "recent",
+      "selection_eligible": true,
+      "timezone": "Asia/Manila",
+      "transport_provider": "OpenAQ",
+      "unsuitable_sensors": []
+    },
+    {
+      "airgradient_metadata_evidence": [],
+      "compatible_parameter_codes": [
+        "pm25"
+      ],
+      "compatible_sensors": [
+        {
+          "compatibility_status": "compatible",
+          "exclusion_reason": null,
+          "native_temporal_metadata": {
+            "aggregation_period": null,
+            "expected_frequency_seconds": null,
+            "status": "not_provided_by_location_discovery"
+          },
+          "openaq_parameter_display_name": "PM2.5",
+          "openaq_parameter_id": 2,
+          "openaq_parameter_name": "pm25",
+          "openaq_sensor_id": 13372965,
+          "parameter_code": "pm25",
+          "provider_unit": "\u00b5g/m\u00b3",
+          "sensor_name": "pm25 \u00b5g/m\u00b3",
+          "unit_code": "ug_m3"
+        }
+      ],
+      "coordinates": {
+        "latitude": 14.5688,
+        "longitude": 121.01795
+      },
+      "datetime_first": {
+        "local": "2025-06-20T02:10:51+08:00",
+        "utc": "2025-06-19T18:10:51Z"
+      },
+      "datetime_last": {
+        "local": "2026-08-11T07:02:53+08:00",
+        "utc": "2026-08-10T23:02:53Z"
+      },
+      "hardware_provider": null,
+      "instruments": [
+        {
+          "id": 4,
+          "name": "Clarity Sensor"
+        }
+      ],
+      "is_mobile": false,
+      "is_reference_monitor": false,
+      "licenses": [
+        {
+          "attribution": {
+            "name": "Clarity",
+            "url": null
+          },
+          "dateFrom": "2021-10-20",
+          "dateTo": null,
+          "id": 38,
+          "name": "CC0 1.0"
+        }
+      ],
+      "locality": null,
+      "location_name": "Kalayaan Avenue  - South Avenue Intersection",
+      "openaq_location_id": 4797640,
+      "owner": {
+        "id": 9,
+        "name": "Clarity"
+      },
+      "provider": {
+        "id": 166,
+        "name": "Clarity"
+      },
+      "recent_data_status": "recent",
+      "selection_eligible": true,
+      "timezone": "Asia/Manila",
+      "transport_provider": "OpenAQ",
+      "unsuitable_sensors": []
+    },
+    {
+      "airgradient_metadata_evidence": [],
+      "compatible_parameter_codes": [
+        "pm25"
+      ],
+      "compatible_sensors": [
+        {
+          "compatibility_status": "compatible",
+          "exclusion_reason": null,
+          "native_temporal_metadata": {
+            "aggregation_period": null,
+            "expected_frequency_seconds": null,
+            "status": "not_provided_by_location_discovery"
+          },
+          "openaq_parameter_display_name": "PM2.5",
+          "openaq_parameter_id": 2,
+          "openaq_parameter_name": "pm25",
+          "openaq_sensor_id": 13372958,
+          "parameter_code": "pm25",
+          "provider_unit": "\u00b5g/m\u00b3",
+          "sensor_name": "pm25 \u00b5g/m\u00b3",
+          "unit_code": "ug_m3"
+        }
+      ],
+      "coordinates": {
+        "latitude": 14.56383,
+        "longitude": 121.05797
+      },
+      "datetime_first": {
+        "local": "2025-06-20T02:11:27+08:00",
+        "utc": "2025-06-19T18:11:27Z"
+      },
+      "datetime_last": {
+        "local": "2026-08-11T07:04:51+08:00",
+        "utc": "2026-08-10T23:04:51Z"
+      },
+      "hardware_provider": null,
+      "instruments": [
+        {
+          "id": 4,
+          "name": "Clarity Sensor"
+        }
+      ],
+      "is_mobile": false,
+      "is_reference_monitor": false,
+      "licenses": [
+        {
+          "attribution": {
+            "name": "Clarity",
+            "url": null
+          },
+          "dateFrom": "2021-10-20",
+          "dateTo": null,
+          "id": 38,
+          "name": "CC0 1.0"
+        }
+      ],
+      "locality": null,
+      "location_name": "Unnamed (DNVBA1576 \u2192 AL739RG7)",
+      "openaq_location_id": 4797641,
+      "owner": {
+        "id": 9,
+        "name": "Clarity"
+      },
+      "provider": {
+        "id": 166,
+        "name": "Clarity"
+      },
+      "recent_data_status": "recent",
+      "selection_eligible": true,
+      "timezone": "Asia/Manila",
+      "transport_provider": "OpenAQ",
+      "unsuitable_sensors": []
+    },
+    {
+      "airgradient_metadata_evidence": [],
+      "compatible_parameter_codes": [
+        "pm25"
+      ],
+      "compatible_sensors": [
+        {
+          "compatibility_status": "compatible",
+          "exclusion_reason": null,
+          "native_temporal_metadata": {
+            "aggregation_period": null,
+            "expected_frequency_seconds": null,
+            "status": "not_provided_by_location_discovery"
+          },
+          "openaq_parameter_display_name": "PM2.5",
+          "openaq_parameter_id": 2,
+          "openaq_parameter_name": "pm25",
+          "openaq_sensor_id": 13372952,
+          "parameter_code": "pm25",
+          "provider_unit": "\u00b5g/m\u00b3",
+          "sensor_name": "pm25 \u00b5g/m\u00b3",
+          "unit_code": "ug_m3"
+        }
+      ],
+      "coordinates": {
+        "latitude": 14.54848,
+        "longitude": 121.00053
+      },
+      "datetime_first": {
+        "local": "2025-06-20T02:11:06+08:00",
+        "utc": "2025-06-19T18:11:06Z"
+      },
+      "datetime_last": {
+        "local": "2026-08-11T07:03:10+08:00",
+        "utc": "2026-08-10T23:03:10Z"
+      },
+      "hardware_provider": null,
+      "instruments": [
+        {
+          "id": 4,
+          "name": "Clarity Sensor"
+        }
+      ],
+      "is_mobile": false,
+      "is_reference_monitor": false,
+      "licenses": [
+        {
+          "attribution": {
+            "name": "Clarity",
+            "url": null
+          },
+          "dateFrom": "2021-10-20",
+          "dateTo": null,
+          "id": 38,
+          "name": "CC0 1.0"
+        }
+      ],
+      "locality": null,
+      "location_name": "Santa Clara - Pasay City General Hospital",
+      "openaq_location_id": 4797642,
+      "owner": {
+        "id": 9,
+        "name": "Clarity"
+      },
+      "provider": {
+        "id": 166,
+        "name": "Clarity"
+      },
+      "recent_data_status": "recent",
+      "selection_eligible": true,
+      "timezone": "Asia/Manila",
+      "transport_provider": "OpenAQ",
+      "unsuitable_sensors": []
+    },
+    {
+      "airgradient_metadata_evidence": [],
+      "compatible_parameter_codes": [
+        "pm25"
+      ],
+      "compatible_sensors": [
+        {
+          "compatibility_status": "compatible",
+          "exclusion_reason": null,
+          "native_temporal_metadata": {
+            "aggregation_period": null,
+            "expected_frequency_seconds": null,
+            "status": "not_provided_by_location_discovery"
+          },
+          "openaq_parameter_display_name": "PM2.5",
+          "openaq_parameter_id": 2,
+          "openaq_parameter_name": "pm25",
+          "openaq_sensor_id": 13372944,
+          "parameter_code": "pm25",
+          "provider_unit": "\u00b5g/m\u00b3",
+          "sensor_name": "pm25 \u00b5g/m\u00b3",
+          "unit_code": "ug_m3"
+        }
+      ],
+      "coordinates": {
+        "latitude": 14.54939,
+        "longitude": 121.07264
+      },
+      "datetime_first": {
+        "local": "2025-06-20T02:09:33+08:00",
+        "utc": "2025-06-19T18:09:33Z"
+      },
+      "datetime_last": {
+        "local": "2026-08-11T06:49:50+08:00",
+        "utc": "2026-08-10T22:49:50Z"
+      },
+      "hardware_provider": null,
+      "instruments": [
+        {
+          "id": 4,
+          "name": "Clarity Sensor"
+        }
+      ],
+      "is_mobile": false,
+      "is_reference_monitor": false,
+      "licenses": [
+        {
+          "attribution": {
+            "name": "Clarity",
+            "url": null
+          },
+          "dateFrom": "2021-10-20",
+          "dateTo": null,
+          "id": 38,
+          "name": "CC0 1.0"
+        }
+      ],
+      "locality": null,
+      "location_name": "Sto. Rosario Bridge",
+      "openaq_location_id": 4797643,
+      "owner": {
+        "id": 9,
+        "name": "Clarity"
+      },
+      "provider": {
+        "id": 166,
+        "name": "Clarity"
+      },
+      "recent_data_status": "recent",
+      "selection_eligible": true,
+      "timezone": "Asia/Manila",
+      "transport_provider": "OpenAQ",
+      "unsuitable_sensors": []
+    },
+    {
+      "airgradient_metadata_evidence": [],
+      "compatible_parameter_codes": [
+        "pm25"
+      ],
+      "compatible_sensors": [
+        {
+          "compatibility_status": "compatible",
+          "exclusion_reason": null,
+          "native_temporal_metadata": {
+            "aggregation_period": null,
+            "expected_frequency_seconds": null,
+            "status": "not_provided_by_location_discovery"
+          },
+          "openaq_parameter_display_name": "PM2.5",
+          "openaq_parameter_id": 2,
+          "openaq_parameter_name": "pm25",
+          "openaq_sensor_id": 13372968,
+          "parameter_code": "pm25",
+          "provider_unit": "\u00b5g/m\u00b3",
+          "sensor_name": "pm25 \u00b5g/m\u00b3",
+          "unit_code": "ug_m3"
+        }
+      ],
+      "coordinates": {
+        "latitude": 14.55157,
+        "longitude": 120.98649
+      },
+      "datetime_first": {
+        "local": "2025-06-20T02:06:31+08:00",
+        "utc": "2025-06-19T18:06:31Z"
+      },
+      "datetime_last": {
+        "local": "2026-08-11T07:05:49+08:00",
+        "utc": "2026-08-10T23:05:49Z"
+      },
+      "hardware_provider": null,
+      "instruments": [
+        {
+          "id": 4,
+          "name": "Clarity Sensor"
+        }
+      ],
+      "is_mobile": false,
+      "is_reference_monitor": false,
+      "licenses": [
+        {
+          "attribution": {
+            "name": "Clarity",
+            "url": null
+          },
+          "dateFrom": "2021-10-20",
+          "dateTo": null,
+          "id": 38,
+          "name": "CC0 1.0"
+        }
+      ],
+      "locality": null,
+      "location_name": "World Trade Center",
+      "openaq_location_id": 4797644,
+      "owner": {
+        "id": 9,
+        "name": "Clarity"
+      },
+      "provider": {
+        "id": 166,
+        "name": "Clarity"
+      },
+      "recent_data_status": "recent",
+      "selection_eligible": true,
+      "timezone": "Asia/Manila",
+      "transport_provider": "OpenAQ",
+      "unsuitable_sensors": []
+    },
+    {
+      "airgradient_metadata_evidence": [],
+      "compatible_parameter_codes": [
+        "pm25"
+      ],
+      "compatible_sensors": [
+        {
+          "compatibility_status": "compatible",
+          "exclusion_reason": null,
+          "native_temporal_metadata": {
+            "aggregation_period": null,
+            "expected_frequency_seconds": null,
+            "status": "not_provided_by_location_discovery"
+          },
+          "openaq_parameter_display_name": "PM2.5",
+          "openaq_parameter_id": 2,
+          "openaq_parameter_name": "pm25",
+          "openaq_sensor_id": 13372950,
+          "parameter_code": "pm25",
+          "provider_unit": "\u00b5g/m\u00b3",
+          "sensor_name": "pm25 \u00b5g/m\u00b3",
+          "unit_code": "ug_m3"
+        }
+      ],
+      "coordinates": {
+        "latitude": 14.56838,
+        "longitude": 121.02845
+      },
+      "datetime_first": {
+        "local": "2025-06-20T02:08:27+08:00",
+        "utc": "2025-06-19T18:08:27Z"
+      },
+      "datetime_last": {
+        "local": "2026-08-11T06:52:52+08:00",
+        "utc": "2026-08-10T22:52:52Z"
+      },
+      "hardware_provider": null,
+      "instruments": [
+        {
+          "id": 4,
+          "name": "Clarity Sensor"
+        }
+      ],
+      "is_mobile": false,
+      "is_reference_monitor": false,
+      "licenses": [
+        {
+          "attribution": {
+            "name": "Clarity",
+            "url": null
+          },
+          "dateFrom": "2021-10-20",
+          "dateTo": null,
+          "id": 38,
+          "name": "CC0 1.0"
+        }
+      ],
+      "locality": null,
+      "location_name": "J.P. Rizal Avenue corner Pertierra",
+      "openaq_location_id": 4797645,
+      "owner": {
+        "id": 9,
+        "name": "Clarity"
+      },
+      "provider": {
+        "id": 166,
+        "name": "Clarity"
+      },
+      "recent_data_status": "recent",
+      "selection_eligible": true,
+      "timezone": "Asia/Manila",
+      "transport_provider": "OpenAQ",
+      "unsuitable_sensors": []
+    },
+    {
+      "airgradient_metadata_evidence": [],
+      "compatible_parameter_codes": [
+        "pm25"
+      ],
+      "compatible_sensors": [
+        {
+          "compatibility_status": "compatible",
+          "exclusion_reason": null,
+          "native_temporal_metadata": {
+            "aggregation_period": null,
+            "expected_frequency_seconds": null,
+            "status": "not_provided_by_location_discovery"
+          },
+          "openaq_parameter_display_name": "PM2.5",
+          "openaq_parameter_id": 2,
+          "openaq_parameter_name": "pm25",
+          "openaq_sensor_id": 13372945,
+          "parameter_code": "pm25",
+          "provider_unit": "\u00b5g/m\u00b3",
+          "sensor_name": "pm25 \u00b5g/m\u00b3",
+          "unit_code": "ug_m3"
+        }
+      ],
+      "coordinates": {
+        "latitude": 14.60399,
+        "longitude": 121.02781
+      },
+      "datetime_first": {
+        "local": "2025-06-20T02:07:54+08:00",
+        "utc": "2025-06-19T18:07:54Z"
+      },
+      "datetime_last": {
+        "local": "2026-08-11T06:51:58+08:00",
+        "utc": "2026-08-10T22:51:58Z"
+      },
+      "hardware_provider": null,
+      "instruments": [
+        {
+          "id": 4,
+          "name": "Clarity Sensor"
+        }
+      ],
+      "is_mobile": false,
+      "is_reference_monitor": false,
+      "licenses": [
+        {
+          "attribution": {
+            "name": "Clarity",
+            "url": null
+          },
+          "dateFrom": "2021-10-20",
+          "dateTo": null,
+          "id": 38,
+          "name": "CC0 1.0"
+        }
+      ],
+      "locality": null,
+      "location_name": "San Juan Mini Park",
+      "openaq_location_id": 4797646,
+      "owner": {
+        "id": 9,
+        "name": "Clarity"
+      },
+      "provider": {
+        "id": 166,
+        "name": "Clarity"
+      },
+      "recent_data_status": "recent",
+      "selection_eligible": true,
+      "timezone": "Asia/Manila",
+      "transport_provider": "OpenAQ",
+      "unsuitable_sensors": []
+    },
+    {
+      "airgradient_metadata_evidence": [],
+      "compatible_parameter_codes": [
+        "pm25"
+      ],
+      "compatible_sensors": [
+        {
+          "compatibility_status": "compatible",
+          "exclusion_reason": null,
+          "native_temporal_metadata": {
+            "aggregation_period": null,
+            "expected_frequency_seconds": null,
+            "status": "not_provided_by_location_discovery"
+          },
+          "openaq_parameter_display_name": "PM2.5",
+          "openaq_parameter_id": 2,
+          "openaq_parameter_name": "pm25",
+          "openaq_sensor_id": 13372955,
+          "parameter_code": "pm25",
+          "provider_unit": "\u00b5g/m\u00b3",
+          "sensor_name": "pm25 \u00b5g/m\u00b3",
+          "unit_code": "ug_m3"
+        }
+      ],
+      "coordinates": {
+        "latitude": 14.6341,
+        "longitude": 121.09803
+      },
+      "datetime_first": {
+        "local": "2025-06-20T02:07:06+08:00",
+        "utc": "2025-06-19T18:07:06Z"
+      },
+      "datetime_last": {
+        "local": "2026-08-11T06:50:46+08:00",
+        "utc": "2026-08-10T22:50:46Z"
+      },
+      "hardware_provider": null,
+      "instruments": [
+        {
+          "id": 4,
+          "name": "Clarity Sensor"
+        }
+      ],
+      "is_mobile": false,
+      "is_reference_monitor": false,
+      "licenses": [
+        {
+          "attribution": {
+            "name": "Clarity",
+            "url": null
+          },
+          "dateFrom": "2021-10-20",
+          "dateTo": null,
+          "id": 38,
+          "name": "CC0 1.0"
+        }
+      ],
+      "locality": null,
+      "location_name": "Marikina Sports Complex",
+      "openaq_location_id": 4797647,
+      "owner": {
+        "id": 9,
+        "name": "Clarity"
+      },
+      "provider": {
+        "id": 166,
+        "name": "Clarity"
+      },
+      "recent_data_status": "recent",
+      "selection_eligible": true,
+      "timezone": "Asia/Manila",
+      "transport_provider": "OpenAQ",
+      "unsuitable_sensors": []
+    },
+    {
+      "airgradient_metadata_evidence": [],
+      "compatible_parameter_codes": [
+        "pm25"
+      ],
+      "compatible_sensors": [
+        {
+          "compatibility_status": "compatible",
+          "exclusion_reason": null,
+          "native_temporal_metadata": {
+            "aggregation_period": null,
+            "expected_frequency_seconds": null,
+            "status": "not_provided_by_location_discovery"
+          },
+          "openaq_parameter_display_name": "PM2.5",
+          "openaq_parameter_id": 2,
+          "openaq_parameter_name": "pm25",
+          "openaq_sensor_id": 13372947,
+          "parameter_code": "pm25",
+          "provider_unit": "\u00b5g/m\u00b3",
+          "sensor_name": "pm25 \u00b5g/m\u00b3",
+          "unit_code": "ug_m3"
+        }
+      ],
+      "coordinates": {
+        "latitude": 14.51769,
+        "longitude": 120.99638
+      },
+      "datetime_first": {
+        "local": "2025-06-20T02:08:18+08:00",
+        "utc": "2025-06-19T18:08:18Z"
+      },
+      "datetime_last": {
+        "local": "2026-08-11T06:58:55+08:00",
+        "utc": "2026-08-10T22:58:55Z"
+      },
+      "hardware_provider": null,
+      "instruments": [
+        {
+          "id": 4,
+          "name": "Clarity Sensor"
+        }
+      ],
+      "is_mobile": false,
+      "is_reference_monitor": false,
+      "licenses": [
+        {
+          "attribution": {
+            "name": "Clarity",
+            "url": null
+          },
+          "dateFrom": "2021-10-20",
+          "dateTo": null,
+          "id": 38,
+          "name": "CC0 1.0"
+        }
+      ],
+      "locality": null,
+      "location_name": "Barangay Tambo - Quirino Avenue",
+      "openaq_location_id": 4797648,
+      "owner": {
+        "id": 9,
+        "name": "Clarity"
+      },
+      "provider": {
+        "id": 166,
+        "name": "Clarity"
+      },
+      "recent_data_status": "recent",
+      "selection_eligible": true,
+      "timezone": "Asia/Manila",
+      "transport_provider": "OpenAQ",
+      "unsuitable_sensors": []
+    },
+    {
+      "airgradient_metadata_evidence": [],
+      "compatible_parameter_codes": [
+        "pm25"
+      ],
+      "compatible_sensors": [
+        {
+          "compatibility_status": "compatible",
+          "exclusion_reason": null,
+          "native_temporal_metadata": {
+            "aggregation_period": null,
+            "expected_frequency_seconds": null,
+            "status": "not_provided_by_location_discovery"
+          },
+          "openaq_parameter_display_name": "PM2.5",
+          "openaq_parameter_id": 2,
+          "openaq_parameter_name": "pm25",
+          "openaq_sensor_id": 13372961,
+          "parameter_code": "pm25",
+          "provider_unit": "\u00b5g/m\u00b3",
+          "sensor_name": "pm25 \u00b5g/m\u00b3",
+          "unit_code": "ug_m3"
+        }
+      ],
+      "coordinates": {
+        "latitude": 14.52904,
+        "longitude": 121.00472
+      },
+      "datetime_first": {
+        "local": "2025-06-20T02:07:53+08:00",
+        "utc": "2025-06-19T18:07:53Z"
+      },
+      "datetime_last": {
+        "local": "2026-08-11T06:55:24+08:00",
+        "utc": "2026-08-10T22:55:24Z"
+      },
+      "hardware_provider": null,
+      "instruments": [
+        {
+          "id": 4,
+          "name": "Clarity Sensor"
+        }
+      ],
+      "is_mobile": false,
+      "is_reference_monitor": false,
+      "licenses": [
+        {
+          "attribution": {
+            "name": "Clarity",
+            "url": null
+          },
+          "dateFrom": "2021-10-20",
+          "dateTo": null,
+          "id": 38,
+          "name": "CC0 1.0"
+        }
+      ],
+      "locality": null,
+      "location_name": "Aurora Boulevard (Tramo) - Andrews Avenue",
+      "openaq_location_id": 4797649,
+      "owner": {
+        "id": 9,
+        "name": "Clarity"
+      },
+      "provider": {
+        "id": 166,
+        "name": "Clarity"
+      },
+      "recent_data_status": "recent",
+      "selection_eligible": true,
+      "timezone": "Asia/Manila",
+      "transport_provider": "OpenAQ",
+      "unsuitable_sensors": []
+    },
+    {
+      "airgradient_metadata_evidence": [],
+      "compatible_parameter_codes": [
+        "pm25"
+      ],
+      "compatible_sensors": [
+        {
+          "compatibility_status": "compatible",
+          "exclusion_reason": null,
+          "native_temporal_metadata": {
+            "aggregation_period": null,
+            "expected_frequency_seconds": null,
+            "status": "not_provided_by_location_discovery"
+          },
+          "openaq_parameter_display_name": "PM2.5",
+          "openaq_parameter_id": 2,
+          "openaq_parameter_name": "pm25",
+          "openaq_sensor_id": 13372959,
+          "parameter_code": "pm25",
+          "provider_unit": "\u00b5g/m\u00b3",
+          "sensor_name": "pm25 \u00b5g/m\u00b3",
+          "unit_code": "ug_m3"
+        }
+      ],
+      "coordinates": {
+        "latitude": 14.5457,
+        "longitude": 121.06514
+      },
+      "datetime_first": {
+        "local": "2025-06-20T02:05:38+08:00",
+        "utc": "2025-06-19T18:05:38Z"
+      },
+      "datetime_last": {
+        "local": "2026-08-11T06:50:13+08:00",
+        "utc": "2026-08-10T22:50:13Z"
+      },
+      "hardware_provider": null,
+      "instruments": [
+        {
+          "id": 4,
+          "name": "Clarity Sensor"
+        }
+      ],
+      "is_mobile": false,
+      "is_reference_monitor": false,
+      "licenses": [
+        {
+          "attribution": {
+            "name": "Clarity",
+            "url": null
+          },
+          "dateFrom": "2021-10-20",
+          "dateTo": null,
+          "id": 38,
+          "name": "CC0 1.0"
+        }
+      ],
+      "locality": null,
+      "location_name": "Pateros Bridge",
+      "openaq_location_id": 4797650,
+      "owner": {
+        "id": 9,
+        "name": "Clarity"
+      },
+      "provider": {
+        "id": 166,
+        "name": "Clarity"
+      },
+      "recent_data_status": "recent",
+      "selection_eligible": true,
+      "timezone": "Asia/Manila",
+      "transport_provider": "OpenAQ",
+      "unsuitable_sensors": []
+    },
+    {
+      "airgradient_metadata_evidence": [],
+      "compatible_parameter_codes": [
+        "pm25"
+      ],
+      "compatible_sensors": [
+        {
+          "compatibility_status": "compatible",
+          "exclusion_reason": null,
+          "native_temporal_metadata": {
+            "aggregation_period": null,
+            "expected_frequency_seconds": null,
+            "status": "not_provided_by_location_discovery"
+          },
+          "openaq_parameter_display_name": "PM2.5",
+          "openaq_parameter_id": 2,
+          "openaq_parameter_name": "pm25",
+          "openaq_sensor_id": 13372951,
+          "parameter_code": "pm25",
+          "provider_unit": "\u00b5g/m\u00b3",
+          "sensor_name": "pm25 \u00b5g/m\u00b3",
+          "unit_code": "ug_m3"
+        }
+      ],
+      "coordinates": {
+        "latitude": 14.60346,
+        "longitude": 121.04448
+      },
+      "datetime_first": {
+        "local": "2025-06-20T02:06:07+08:00",
+        "utc": "2025-06-19T18:06:07Z"
+      },
+      "datetime_last": {
+        "local": "2026-08-11T06:56:16+08:00",
+        "utc": "2026-08-10T22:56:16Z"
+      },
+      "hardware_provider": null,
+      "instruments": [
+        {
+          "id": 4,
+          "name": "Clarity Sensor"
+        }
+      ],
+      "is_mobile": false,
+      "is_reference_monitor": false,
+      "licenses": [
+        {
+          "attribution": {
+            "name": "Clarity",
+            "url": null
+          },
+          "dateFrom": "2021-10-20",
+          "dateTo": null,
+          "id": 38,
+          "name": "CC0 1.0"
+        }
+      ],
+      "locality": null,
+      "location_name": "Ortigas Avenue-Roosevelt Intersection",
+      "openaq_location_id": 4797651,
+      "owner": {
+        "id": 9,
+        "name": "Clarity"
+      },
+      "provider": {
+        "id": 166,
+        "name": "Clarity"
+      },
+      "recent_data_status": "recent",
+      "selection_eligible": true,
+      "timezone": "Asia/Manila",
+      "transport_provider": "OpenAQ",
+      "unsuitable_sensors": []
+    },
+    {
+      "airgradient_metadata_evidence": [],
+      "compatible_parameter_codes": [
+        "pm25"
+      ],
+      "compatible_sensors": [
+        {
+          "compatibility_status": "compatible",
+          "exclusion_reason": null,
+          "native_temporal_metadata": {
+            "aggregation_period": null,
+            "expected_frequency_seconds": null,
+            "status": "not_provided_by_location_discovery"
+          },
+          "openaq_parameter_display_name": "PM2.5",
+          "openaq_parameter_id": 2,
+          "openaq_parameter_name": "pm25",
+          "openaq_sensor_id": 13372964,
+          "parameter_code": "pm25",
+          "provider_unit": "\u00b5g/m\u00b3",
+          "sensor_name": "pm25 \u00b5g/m\u00b3",
+          "unit_code": "ug_m3"
+        }
+      ],
+      "coordinates": {
+        "latitude": 14.71405,
+        "longitude": 121.00088
+      },
+      "datetime_first": {
+        "local": "2025-06-20T02:06:39+08:00",
+        "utc": "2025-06-19T18:06:39Z"
+      },
+      "datetime_last": {
+        "local": "2026-08-11T06:56:35+08:00",
+        "utc": "2026-08-10T22:56:35Z"
+      },
+      "hardware_provider": null,
+      "instruments": [
+        {
+          "id": 4,
+          "name": "Clarity Sensor"
+        }
+      ],
+      "is_mobile": false,
+      "is_reference_monitor": false,
+      "licenses": [
+        {
+          "attribution": {
+            "name": "Clarity",
+            "url": null
+          },
+          "dateFrom": "2021-10-20",
+          "dateTo": null,
+          "id": 38,
+          "name": "CC0 1.0"
+        }
+      ],
+      "locality": null,
+      "location_name": "3S Center Bagbaguin",
+      "openaq_location_id": 4797652,
+      "owner": {
+        "id": 9,
+        "name": "Clarity"
+      },
+      "provider": {
+        "id": 166,
+        "name": "Clarity"
+      },
+      "recent_data_status": "recent",
+      "selection_eligible": true,
+      "timezone": "Asia/Manila",
+      "transport_provider": "OpenAQ",
+      "unsuitable_sensors": []
+    },
+    {
+      "airgradient_metadata_evidence": [],
+      "compatible_parameter_codes": [
+        "pm25"
+      ],
+      "compatible_sensors": [
+        {
+          "compatibility_status": "compatible",
+          "exclusion_reason": null,
+          "native_temporal_metadata": {
+            "aggregation_period": null,
+            "expected_frequency_seconds": null,
+            "status": "not_provided_by_location_discovery"
+          },
+          "openaq_parameter_display_name": "PM2.5",
+          "openaq_parameter_id": 2,
+          "openaq_parameter_name": "pm25",
+          "openaq_sensor_id": 13372967,
+          "parameter_code": "pm25",
+          "provider_unit": "\u00b5g/m\u00b3",
+          "sensor_name": "pm25 \u00b5g/m\u00b3",
+          "unit_code": "ug_m3"
+        }
+      ],
+      "coordinates": {
+        "latitude": 14.44481,
+        "longitude": 121.04586
+      },
+      "datetime_first": {
+        "local": "2025-06-20T02:05:45+08:00",
+        "utc": "2025-06-19T18:05:45Z"
+      },
+      "datetime_last": {
+        "local": "2026-08-11T07:01:57+08:00",
+        "utc": "2026-08-10T23:01:57Z"
+      },
+      "hardware_provider": null,
+      "instruments": [
+        {
+          "id": 4,
+          "name": "Clarity Sensor"
+        }
+      ],
+      "is_mobile": false,
+      "is_reference_monitor": false,
+      "licenses": [
+        {
+          "attribution": {
+            "name": "Clarity",
+            "url": null
+          },
+          "dateFrom": "2021-10-20",
+          "dateTo": null,
+          "id": 38,
+          "name": "CC0 1.0"
+        }
+      ],
+      "locality": null,
+      "location_name": "Barangay Buli - Concepcion Street",
+      "openaq_location_id": 4797653,
+      "owner": {
+        "id": 9,
+        "name": "Clarity"
+      },
+      "provider": {
+        "id": 166,
+        "name": "Clarity"
+      },
+      "recent_data_status": "recent",
+      "selection_eligible": true,
+      "timezone": "Asia/Manila",
+      "transport_provider": "OpenAQ",
+      "unsuitable_sensors": []
+    },
+    {
+      "airgradient_metadata_evidence": [],
+      "compatible_parameter_codes": [
+        "pm25"
+      ],
+      "compatible_sensors": [
+        {
+          "compatibility_status": "compatible",
+          "exclusion_reason": null,
+          "native_temporal_metadata": {
+            "aggregation_period": null,
+            "expected_frequency_seconds": null,
+            "status": "not_provided_by_location_discovery"
+          },
+          "openaq_parameter_display_name": "PM2.5",
+          "openaq_parameter_id": 2,
+          "openaq_parameter_name": "pm25",
+          "openaq_sensor_id": 13372948,
+          "parameter_code": "pm25",
+          "provider_unit": "\u00b5g/m\u00b3",
+          "sensor_name": "pm25 \u00b5g/m\u00b3",
+          "unit_code": "ug_m3"
+        }
+      ],
+      "coordinates": {
+        "latitude": 14.45671,
+        "longitude": 121.03519
+      },
+      "datetime_first": {
+        "local": "2025-06-20T02:06:05+08:00",
+        "utc": "2025-06-19T18:06:05Z"
+      },
+      "datetime_last": {
+        "local": "2026-08-11T07:06:42+08:00",
+        "utc": "2026-08-10T23:06:42Z"
+      },
+      "hardware_provider": null,
+      "instruments": [
+        {
+          "id": 4,
+          "name": "Clarity Sensor"
+        }
+      ],
+      "is_mobile": false,
+      "is_reference_monitor": false,
+      "licenses": [
+        {
+          "attribution": {
+            "name": "Clarity",
+            "url": null
+          },
+          "dateFrom": "2021-10-20",
+          "dateTo": null,
+          "id": 38,
+          "name": "CC0 1.0"
+        }
+      ],
+      "locality": null,
+      "location_name": "Barangay San Antonio - Para\u00f1aque-Sucat Road (Shopwise)",
+      "openaq_location_id": 4797654,
+      "owner": {
+        "id": 9,
+        "name": "Clarity"
+      },
+      "provider": {
+        "id": 166,
+        "name": "Clarity"
+      },
+      "recent_data_status": "recent",
+      "selection_eligible": true,
+      "timezone": "Asia/Manila",
+      "transport_provider": "OpenAQ",
+      "unsuitable_sensors": []
+    },
+    {
+      "airgradient_metadata_evidence": [],
+      "compatible_parameter_codes": [
+        "pm25"
+      ],
+      "compatible_sensors": [
+        {
+          "compatibility_status": "compatible",
+          "exclusion_reason": null,
+          "native_temporal_metadata": {
+            "aggregation_period": null,
+            "expected_frequency_seconds": null,
+            "status": "not_provided_by_location_discovery"
+          },
+          "openaq_parameter_display_name": "PM2.5",
+          "openaq_parameter_id": 2,
+          "openaq_parameter_name": "pm25",
+          "openaq_sensor_id": 13372962,
+          "parameter_code": "pm25",
+          "provider_unit": "\u00b5g/m\u00b3",
+          "sensor_name": "pm25 \u00b5g/m\u00b3",
+          "unit_code": "ug_m3"
+        }
+      ],
+      "coordinates": {
+        "latitude": 14.5507,
+        "longitude": 121.02221
+      },
+      "datetime_first": {
+        "local": "2025-06-20T02:04:43+08:00",
+        "utc": "2025-06-19T18:04:43Z"
+      },
+      "datetime_last": {
+        "local": "2026-08-11T07:00:26+08:00",
+        "utc": "2026-08-10T23:00:26Z"
+      },
+      "hardware_provider": null,
+      "instruments": [
+        {
+          "id": 4,
+          "name": "Clarity Sensor"
+        }
+      ],
+      "is_mobile": false,
+      "is_reference_monitor": false,
+      "licenses": [
+        {
+          "attribution": {
+            "name": "Clarity",
+            "url": null
+          },
+          "dateFrom": "2021-10-20",
+          "dateTo": null,
+          "id": 38,
+          "name": "CC0 1.0"
+        }
+      ],
+      "locality": null,
+      "location_name": "Makati Avenue  - Antonio Arnaiz Avenue Intersection",
+      "openaq_location_id": 4797655,
+      "owner": {
+        "id": 9,
+        "name": "Clarity"
+      },
+      "provider": {
+        "id": 166,
+        "name": "Clarity"
+      },
+      "recent_data_status": "recent",
+      "selection_eligible": true,
+      "timezone": "Asia/Manila",
+      "transport_provider": "OpenAQ",
+      "unsuitable_sensors": []
+    },
+    {
+      "airgradient_metadata_evidence": [],
+      "compatible_parameter_codes": [
+        "pm25"
+      ],
+      "compatible_sensors": [
+        {
+          "compatibility_status": "compatible",
+          "exclusion_reason": null,
+          "native_temporal_metadata": {
+            "aggregation_period": null,
+            "expected_frequency_seconds": null,
+            "status": "not_provided_by_location_discovery"
+          },
+          "openaq_parameter_display_name": "PM2.5",
+          "openaq_parameter_id": 2,
+          "openaq_parameter_name": "pm25",
+          "openaq_sensor_id": 13372949,
+          "parameter_code": "pm25",
+          "provider_unit": "\u00b5g/m\u00b3",
+          "sensor_name": "pm25 \u00b5g/m\u00b3",
+          "unit_code": "ug_m3"
+        }
+      ],
+      "coordinates": {
+        "latitude": 14.56127,
+        "longitude": 121.02799
+      },
+      "datetime_first": {
+        "local": "2025-06-20T02:02:38+08:00",
+        "utc": "2025-06-19T18:02:38Z"
+      },
+      "datetime_last": {
+        "local": "2026-08-11T07:06:09+08:00",
+        "utc": "2026-08-10T23:06:09Z"
+      },
+      "hardware_provider": null,
+      "instruments": [
+        {
+          "id": 4,
+          "name": "Clarity Sensor"
+        }
+      ],
+      "is_mobile": false,
+      "is_reference_monitor": false,
+      "licenses": [
+        {
+          "attribution": {
+            "name": "Clarity",
+            "url": null
+          },
+          "dateFrom": "2021-10-20",
+          "dateTo": null,
+          "id": 38,
+          "name": "CC0 1.0"
+        }
+      ],
+      "locality": null,
+      "location_name": "Makati Avenue - Buendia Avenue Intersection",
+      "openaq_location_id": 4797657,
+      "owner": {
+        "id": 9,
+        "name": "Clarity"
+      },
+      "provider": {
+        "id": 166,
+        "name": "Clarity"
+      },
+      "recent_data_status": "recent",
+      "selection_eligible": true,
+      "timezone": "Asia/Manila",
+      "transport_provider": "OpenAQ",
+      "unsuitable_sensors": []
+    },
+    {
+      "airgradient_metadata_evidence": [],
+      "compatible_parameter_codes": [
+        "pm25"
+      ],
+      "compatible_sensors": [
+        {
+          "compatibility_status": "compatible",
+          "exclusion_reason": null,
+          "native_temporal_metadata": {
+            "aggregation_period": null,
+            "expected_frequency_seconds": null,
+            "status": "not_provided_by_location_discovery"
+          },
+          "openaq_parameter_display_name": "PM2.5",
+          "openaq_parameter_id": 2,
+          "openaq_parameter_name": "pm25",
+          "openaq_sensor_id": 13372953,
+          "parameter_code": "pm25",
+          "provider_unit": "\u00b5g/m\u00b3",
+          "sensor_name": "pm25 \u00b5g/m\u00b3",
+          "unit_code": "ug_m3"
+        }
+      ],
+      "coordinates": {
+        "latitude": 14.66115,
+        "longitude": 121.12476
+      },
+      "datetime_first": {
+        "local": "2025-06-20T02:02:20+08:00",
+        "utc": "2025-06-19T18:02:20Z"
+      },
+      "datetime_last": {
+        "local": "2026-08-11T06:53:53+08:00",
+        "utc": "2026-08-10T22:53:53Z"
+      },
+      "hardware_provider": null,
+      "instruments": [
+        {
+          "id": 4,
+          "name": "Clarity Sensor"
+        }
+      ],
+      "is_mobile": false,
+      "is_reference_monitor": false,
+      "licenses": [
+        {
+          "attribution": {
+            "name": "Clarity",
+            "url": null
+          },
+          "dateFrom": "2021-10-20",
+          "dateTo": null,
+          "id": 38,
+          "name": "CC0 1.0"
+        }
+      ],
+      "locality": null,
+      "location_name": "Barangay Fortune - Santan Street",
+      "openaq_location_id": 4797658,
+      "owner": {
+        "id": 9,
+        "name": "Clarity"
+      },
+      "provider": {
+        "id": 166,
+        "name": "Clarity"
+      },
+      "recent_data_status": "recent",
+      "selection_eligible": true,
+      "timezone": "Asia/Manila",
+      "transport_provider": "OpenAQ",
+      "unsuitable_sensors": []
+    },
+    {
+      "airgradient_metadata_evidence": [],
+      "compatible_parameter_codes": [
+        "pm25"
+      ],
+      "compatible_sensors": [
+        {
+          "compatibility_status": "compatible",
+          "exclusion_reason": null,
+          "native_temporal_metadata": {
+            "aggregation_period": null,
+            "expected_frequency_seconds": null,
+            "status": "not_provided_by_location_discovery"
+          },
+          "openaq_parameter_display_name": "PM2.5",
+          "openaq_parameter_id": 2,
+          "openaq_parameter_name": "pm25",
+          "openaq_sensor_id": 13372957,
+          "parameter_code": "pm25",
+          "provider_unit": "\u00b5g/m\u00b3",
+          "sensor_name": "pm25 \u00b5g/m\u00b3",
+          "unit_code": "ug_m3"
+        }
+      ],
+      "coordinates": {
+        "latitude": 14.64443,
+        "longitude": 120.98409
+      },
+      "datetime_first": {
+        "local": "2025-06-20T02:00:14+08:00",
+        "utc": "2025-06-19T18:00:14Z"
+      },
+      "datetime_last": {
+        "local": "2026-08-11T06:54:08+08:00",
+        "utc": "2026-08-10T22:54:08Z"
+      },
+      "hardware_provider": null,
+      "instruments": [
+        {
+          "id": 4,
+          "name": "Clarity Sensor"
+        }
+      ],
+      "is_mobile": false,
+      "is_reference_monitor": false,
+      "licenses": [
+        {
+          "attribution": {
+            "name": "Clarity",
+            "url": null
+          },
+          "dateFrom": "2021-10-20",
+          "dateTo": null,
+          "id": 38,
+          "name": "CC0 1.0"
+        }
+      ],
+      "locality": null,
+      "location_name": "C3 Road (5th Avenue) - Rizal Avenue Extension",
+      "openaq_location_id": 4797659,
+      "owner": {
+        "id": 9,
+        "name": "Clarity"
+      },
+      "provider": {
+        "id": 166,
+        "name": "Clarity"
+      },
+      "recent_data_status": "recent",
+      "selection_eligible": true,
+      "timezone": "Asia/Manila",
+      "transport_provider": "OpenAQ",
+      "unsuitable_sensors": []
+    },
+    {
+      "airgradient_metadata_evidence": [],
+      "compatible_parameter_codes": [
+        "pm25"
+      ],
+      "compatible_sensors": [
+        {
+          "compatibility_status": "compatible",
+          "exclusion_reason": null,
+          "native_temporal_metadata": {
+            "aggregation_period": null,
+            "expected_frequency_seconds": null,
+            "status": "not_provided_by_location_discovery"
+          },
+          "openaq_parameter_display_name": "PM2.5",
+          "openaq_parameter_id": 2,
+          "openaq_parameter_name": "pm25",
+          "openaq_sensor_id": 13372954,
+          "parameter_code": "pm25",
+          "provider_unit": "\u00b5g/m\u00b3",
+          "sensor_name": "pm25 \u00b5g/m\u00b3",
+          "unit_code": "ug_m3"
+        }
+      ],
+      "coordinates": {
+        "latitude": 14.71071,
+        "longitude": 120.99545
+      },
+      "datetime_first": {
+        "local": "2025-06-20T02:00:40+08:00",
+        "utc": "2025-06-19T18:00:40Z"
+      },
+      "datetime_last": {
+        "local": "2026-08-11T07:00:52+08:00",
+        "utc": "2026-08-10T23:00:52Z"
+      },
+      "hardware_provider": null,
+      "instruments": [
+        {
+          "id": 4,
+          "name": "Clarity Sensor"
+        }
+      ],
+      "is_mobile": false,
+      "is_reference_monitor": false,
+      "licenses": [
+        {
+          "attribution": {
+            "name": "Clarity",
+            "url": null
+          },
+          "dateFrom": "2021-10-20",
+          "dateTo": null,
+          "id": 38,
+          "name": "CC0 1.0"
+        }
+      ],
+      "locality": null,
+      "location_name": "3S Center Paso De Blas",
+      "openaq_location_id": 4797660,
+      "owner": {
+        "id": 9,
+        "name": "Clarity"
+      },
+      "provider": {
+        "id": 166,
+        "name": "Clarity"
+      },
+      "recent_data_status": "recent",
+      "selection_eligible": true,
+      "timezone": "Asia/Manila",
+      "transport_provider": "OpenAQ",
+      "unsuitable_sensors": []
+    },
+    {
+      "airgradient_metadata_evidence": [],
+      "compatible_parameter_codes": [
+        "pm25"
+      ],
+      "compatible_sensors": [
+        {
+          "compatibility_status": "compatible",
+          "exclusion_reason": null,
+          "native_temporal_metadata": {
+            "aggregation_period": null,
+            "expected_frequency_seconds": null,
+            "status": "not_provided_by_location_discovery"
+          },
+          "openaq_parameter_display_name": "PM2.5",
+          "openaq_parameter_id": 2,
+          "openaq_parameter_name": "pm25",
+          "openaq_sensor_id": 13372966,
+          "parameter_code": "pm25",
+          "provider_unit": "\u00b5g/m\u00b3",
+          "sensor_name": "pm25 \u00b5g/m\u00b3",
+          "unit_code": "ug_m3"
+        }
+      ],
+      "coordinates": {
+        "latitude": 14.58734,
+        "longitude": 121.04665
+      },
+      "datetime_first": {
+        "local": "2025-06-20T02:00:43+08:00",
+        "utc": "2025-06-19T18:00:43Z"
+      },
+      "datetime_last": {
+        "local": "2026-08-11T06:52:59+08:00",
+        "utc": "2026-08-10T22:52:59Z"
+      },
+      "hardware_provider": null,
+      "instruments": [
+        {
+          "id": 4,
+          "name": "Clarity Sensor"
+        }
+      ],
+      "is_mobile": false,
+      "is_reference_monitor": false,
+      "licenses": [
+        {
+          "attribution": {
+            "name": "Clarity",
+            "url": null
+          },
+          "dateFrom": "2021-10-20",
+          "dateTo": null,
+          "id": 38,
+          "name": "CC0 1.0"
+        }
+      ],
+      "locality": null,
+      "location_name": "Old Wack Wack Road corner Shaw Boulevard",
+      "openaq_location_id": 4797661,
+      "owner": {
+        "id": 9,
+        "name": "Clarity"
+      },
+      "provider": {
+        "id": 166,
+        "name": "Clarity"
+      },
+      "recent_data_status": "recent",
+      "selection_eligible": true,
+      "timezone": "Asia/Manila",
+      "transport_provider": "OpenAQ",
+      "unsuitable_sensors": []
+    },
+    {
+      "airgradient_metadata_evidence": [],
+      "compatible_parameter_codes": [
+        "pm25"
+      ],
+      "compatible_sensors": [
+        {
+          "compatibility_status": "compatible",
+          "exclusion_reason": null,
+          "native_temporal_metadata": {
+            "aggregation_period": null,
+            "expected_frequency_seconds": null,
+            "status": "not_provided_by_location_discovery"
+          },
+          "openaq_parameter_display_name": "PM2.5",
+          "openaq_parameter_id": 2,
+          "openaq_parameter_name": "pm25",
+          "openaq_sensor_id": 13516723,
+          "parameter_code": "pm25",
+          "provider_unit": "\u00b5g/m\u00b3",
+          "sensor_name": "pm25 \u00b5g/m\u00b3",
+          "unit_code": "ug_m3"
+        }
+      ],
+      "coordinates": {
+        "latitude": 14.59083,
+        "longitude": 121.07037
+      },
+      "datetime_first": {
+        "local": "2025-07-05T13:51:42+08:00",
+        "utc": "2025-07-05T05:51:42Z"
+      },
+      "datetime_last": {
+        "local": "2026-08-11T07:03:21+08:00",
+        "utc": "2026-08-10T23:03:21Z"
+      },
+      "hardware_provider": null,
+      "instruments": [
+        {
+          "id": 4,
+          "name": "Clarity Sensor"
+        }
+      ],
+      "is_mobile": false,
+      "is_reference_monitor": false,
+      "licenses": [
+        {
+          "attribution": {
+            "name": "Clarity",
+            "url": null
+          },
+          "dateFrom": "2021-10-20",
+          "dateTo": null,
+          "id": 38,
+          "name": "CC0 1.0"
+        }
+      ],
+      "locality": null,
+      "location_name": "ASMPH",
+      "openaq_location_id": 4963739,
+      "owner": {
+        "id": 9,
+        "name": "Clarity"
+      },
+      "provider": {
+        "id": 166,
+        "name": "Clarity"
+      },
+      "recent_data_status": "recent",
+      "selection_eligible": true,
+      "timezone": "Asia/Manila",
+      "transport_provider": "OpenAQ",
+      "unsuitable_sensors": []
+    },
+    {
+      "airgradient_metadata_evidence": [
+        "instrument:Unknown AirGradient Sensor",
+        "owner:AirGradient",
+        "provider:AirGradient"
+      ],
+      "compatible_parameter_codes": [
+        "pm25"
+      ],
+      "compatible_sensors": [
+        {
+          "compatibility_status": "compatible",
+          "exclusion_reason": null,
+          "native_temporal_metadata": {
+            "aggregation_period": null,
+            "expected_frequency_seconds": null,
+            "status": "not_provided_by_location_discovery"
+          },
+          "openaq_parameter_display_name": "PM2.5",
+          "openaq_parameter_id": 2,
+          "openaq_parameter_name": "pm25",
+          "openaq_sensor_id": 14249764,
+          "parameter_code": "pm25",
+          "provider_unit": "\u00b5g/m\u00b3",
+          "sensor_name": "pm25 \u00b5g/m\u00b3",
+          "unit_code": "ug_m3"
+        }
+      ],
+      "coordinates": {
+        "latitude": 14.6227,
+        "longitude": 121.0528
+      },
+      "datetime_first": {
+        "local": "2025-09-30T16:00:00+08:00",
+        "utc": "2025-09-30T08:00:00Z"
+      },
+      "datetime_last": {
+        "local": "2025-10-01T13:00:00+08:00",
+        "utc": "2025-10-01T05:00:00Z"
+      },
+      "hardware_provider": "AirGradient",
+      "instruments": [
+        {
+          "id": 7,
+          "name": "Unknown AirGradient Sensor"
+        }
+      ],
+      "is_mobile": false,
+      "is_reference_monitor": false,
+      "licenses": [
+        {
+          "attribution": {
+            "name": "AirGradient",
+            "url": null
+          },
+          "dateFrom": "2023-07-15",
+          "dateTo": null,
+          "id": 41,
+          "name": "CC BY 4.0"
+        }
+      ],
+      "locality": null,
+      "location_name": "313_Cubao",
+      "openaq_location_id": 5963700,
+      "owner": {
+        "id": 12,
+        "name": "AirGradient"
+      },
+      "provider": {
+        "id": 66,
+        "name": "AirGradient"
+      },
+      "recent_data_status": "stale",
+      "selection_eligible": false,
+      "timezone": "Asia/Manila",
+      "transport_provider": "OpenAQ",
+      "unsuitable_sensors": [
+        {
+          "compatibility_status": "unsuitable",
+          "exclusion_reason": "unsupported_parameter",
+          "native_temporal_metadata": {
+            "aggregation_period": null,
+            "expected_frequency_seconds": null,
+            "status": "not_provided_by_location_discovery"
+          },
+          "openaq_parameter_display_name": "PM1",
+          "openaq_parameter_id": 19,
+          "openaq_parameter_name": "pm1",
+          "openaq_sensor_id": 14249763,
+          "parameter_code": null,
+          "provider_unit": "\u00b5g/m\u00b3",
+          "sensor_name": "pm1 \u00b5g/m\u00b3",
+          "unit_code": "ug_m3"
+        },
+        {
+          "compatibility_status": "unsuitable",
+          "exclusion_reason": "unsupported_parameter",
+          "native_temporal_metadata": {
+            "aggregation_period": null,
+            "expected_frequency_seconds": null,
+            "status": "not_provided_by_location_discovery"
+          },
+          "openaq_parameter_display_name": "RH",
+          "openaq_parameter_id": 98,
+          "openaq_parameter_name": "relativehumidity",
+          "openaq_sensor_id": 14249765,
+          "parameter_code": null,
+          "provider_unit": "%",
+          "sensor_name": "relativehumidity %",
+          "unit_code": null
+        },
+        {
+          "compatibility_status": "unsuitable",
+          "exclusion_reason": "unsupported_parameter",
+          "native_temporal_metadata": {
+            "aggregation_period": null,
+            "expected_frequency_seconds": null,
+            "status": "not_provided_by_location_discovery"
+          },
+          "openaq_parameter_display_name": "Temperature (C)",
+          "openaq_parameter_id": 100,
+          "openaq_parameter_name": "temperature",
+          "openaq_sensor_id": 14249766,
+          "parameter_code": null,
+          "provider_unit": "c",
+          "sensor_name": "temperature c",
+          "unit_code": null
+        },
+        {
+          "compatibility_status": "unsuitable",
+          "exclusion_reason": "unsupported_parameter",
+          "native_temporal_metadata": {
+            "aggregation_period": null,
+            "expected_frequency_seconds": null,
+            "status": "not_provided_by_location_discovery"
+          },
+          "openaq_parameter_display_name": "PM0.3 count",
+          "openaq_parameter_id": 125,
+          "openaq_parameter_name": "um003",
+          "openaq_sensor_id": 14249767,
+          "parameter_code": null,
+          "provider_unit": "particles/cm\u00b3",
+          "sensor_name": "um003 particles/cm\u00b3",
+          "unit_code": null
+        }
+      ]
+    },
+    {
+      "airgradient_metadata_evidence": [
+        "instrument:Unknown AirGradient Sensor",
+        "owner:AirGradient",
+        "provider:AirGradient"
+      ],
+      "compatible_parameter_codes": [
+        "pm25"
+      ],
+      "compatible_sensors": [
+        {
+          "compatibility_status": "compatible",
+          "exclusion_reason": null,
+          "native_temporal_metadata": {
+            "aggregation_period": null,
+            "expected_frequency_seconds": null,
+            "status": "not_provided_by_location_discovery"
+          },
+          "openaq_parameter_display_name": "PM2.5",
+          "openaq_parameter_id": 2,
+          "openaq_parameter_name": "pm25",
+          "openaq_sensor_id": 14258134,
+          "parameter_code": "pm25",
+          "provider_unit": "\u00b5g/m\u00b3",
+          "sensor_name": "pm25 \u00b5g/m\u00b3",
+          "unit_code": "ug_m3"
+        }
+      ],
+      "coordinates": {
+        "latitude": 14.5496,
+        "longitude": 121.0285
+      },
+      "datetime_first": {
+        "local": "2025-10-01T15:00:00+08:00",
+        "utc": "2025-10-01T07:00:00Z"
+      },
+      "datetime_last": {
+        "local": "2025-10-10T09:00:00+08:00",
+        "utc": "2025-10-10T01:00:00Z"
+      },
+      "hardware_provider": "AirGradient",
+      "instruments": [
+        {
+          "id": 7,
+          "name": "Unknown AirGradient Sensor"
+        }
+      ],
+      "is_mobile": false,
+      "is_reference_monitor": false,
+      "licenses": [
+        {
+          "attribution": {
+            "name": "AirGradient",
+            "url": null
+          },
+          "dateFrom": "2023-07-15",
+          "dateTo": null,
+          "id": 41,
+          "name": "CC BY 4.0"
+        }
+      ],
+      "locality": null,
+      "location_name": "Ayala MRT",
+      "openaq_location_id": 5974688,
+      "owner": {
+        "id": 12,
+        "name": "AirGradient"
+      },
+      "provider": {
+        "id": 66,
+        "name": "AirGradient"
+      },
+      "recent_data_status": "stale",
+      "selection_eligible": false,
+      "timezone": "Asia/Manila",
+      "transport_provider": "OpenAQ",
+      "unsuitable_sensors": [
+        {
+          "compatibility_status": "unsuitable",
+          "exclusion_reason": "unsupported_parameter",
+          "native_temporal_metadata": {
+            "aggregation_period": null,
+            "expected_frequency_seconds": null,
+            "status": "not_provided_by_location_discovery"
+          },
+          "openaq_parameter_display_name": "PM1",
+          "openaq_parameter_id": 19,
+          "openaq_parameter_name": "pm1",
+          "openaq_sensor_id": 14258133,
+          "parameter_code": null,
+          "provider_unit": "\u00b5g/m\u00b3",
+          "sensor_name": "pm1 \u00b5g/m\u00b3",
+          "unit_code": "ug_m3"
+        },
+        {
+          "compatibility_status": "unsuitable",
+          "exclusion_reason": "unsupported_parameter",
+          "native_temporal_metadata": {
+            "aggregation_period": null,
+            "expected_frequency_seconds": null,
+            "status": "not_provided_by_location_discovery"
+          },
+          "openaq_parameter_display_name": "RH",
+          "openaq_parameter_id": 98,
+          "openaq_parameter_name": "relativehumidity",
+          "openaq_sensor_id": 14258135,
+          "parameter_code": null,
+          "provider_unit": "%",
+          "sensor_name": "relativehumidity %",
+          "unit_code": null
+        },
+        {
+          "compatibility_status": "unsuitable",
+          "exclusion_reason": "unsupported_parameter",
+          "native_temporal_metadata": {
+            "aggregation_period": null,
+            "expected_frequency_seconds": null,
+            "status": "not_provided_by_location_discovery"
+          },
+          "openaq_parameter_display_name": "Temperature (C)",
+          "openaq_parameter_id": 100,
+          "openaq_parameter_name": "temperature",
+          "openaq_sensor_id": 14258136,
+          "parameter_code": null,
+          "provider_unit": "c",
+          "sensor_name": "temperature c",
+          "unit_code": null
+        },
+        {
+          "compatibility_status": "unsuitable",
+          "exclusion_reason": "unsupported_parameter",
+          "native_temporal_metadata": {
+            "aggregation_period": null,
+            "expected_frequency_seconds": null,
+            "status": "not_provided_by_location_discovery"
+          },
+          "openaq_parameter_display_name": "PM0.3 count",
+          "openaq_parameter_id": 125,
+          "openaq_parameter_name": "um003",
+          "openaq_sensor_id": 14258137,
+          "parameter_code": null,
+          "provider_unit": "particles/cm\u00b3",
+          "sensor_name": "um003 particles/cm\u00b3",
+          "unit_code": null
+        }
+      ]
+    },
+    {
+      "airgradient_metadata_evidence": [
+        "instrument:AirGradient Open Air Generation 1 (O-1PST)",
+        "provider:AirGradient"
+      ],
+      "compatible_parameter_codes": [
+        "pm25"
+      ],
+      "compatible_sensors": [
+        {
+          "compatibility_status": "compatible",
+          "exclusion_reason": null,
+          "native_temporal_metadata": {
+            "aggregation_period": null,
+            "expected_frequency_seconds": null,
+            "status": "not_provided_by_location_discovery"
+          },
+          "openaq_parameter_display_name": "PM2.5",
+          "openaq_parameter_id": 2,
+          "openaq_parameter_name": "pm25",
+          "openaq_sensor_id": 14258421,
+          "parameter_code": "pm25",
+          "provider_unit": "\u00b5g/m\u00b3",
+          "sensor_name": "pm25 \u00b5g/m\u00b3",
+          "unit_code": "ug_m3"
+        }
+      ],
+      "coordinates": {
+        "latitude": 14.688555,
+        "longitude": 120.970708
+      },
+      "datetime_first": {
+        "local": "2025-10-01T16:00:00+08:00",
+        "utc": "2025-10-01T08:00:00Z"
+      },
+      "datetime_last": {
+        "local": "2026-08-11T14:00:00+08:00",
+        "utc": "2026-08-11T06:00:00Z"
+      },
+      "hardware_provider": "AirGradient",
+      "instruments": [
+        {
+          "id": 24,
+          "name": "AirGradient Open Air Generation 1 (O-1PST)"
+        }
+      ],
+      "is_mobile": false,
+      "is_reference_monitor": false,
+      "licenses": [
+        {
+          "attribution": {
+            "name": "DLSU",
+            "url": null
+          },
+          "dateFrom": "2023-07-15",
+          "dateTo": null,
+          "id": 41,
+          "name": "CC BY 4.0"
+        }
+      ],
+      "locality": null,
+      "location_name": "Valenzuela",
+      "openaq_location_id": 5975180,
+      "owner": {
+        "id": 22715,
+        "name": "DLSU"
+      },
+      "provider": {
+        "id": 66,
+        "name": "AirGradient"
+      },
+      "recent_data_status": "recent",
+      "selection_eligible": true,
+      "timezone": "Asia/Manila",
+      "transport_provider": "OpenAQ",
+      "unsuitable_sensors": [
+        {
+          "compatibility_status": "unsuitable",
+          "exclusion_reason": "unsupported_parameter",
+          "native_temporal_metadata": {
+            "aggregation_period": null,
+            "expected_frequency_seconds": null,
+            "status": "not_provided_by_location_discovery"
+          },
+          "openaq_parameter_display_name": "PM1",
+          "openaq_parameter_id": 19,
+          "openaq_parameter_name": "pm1",
+          "openaq_sensor_id": 14258420,
+          "parameter_code": null,
+          "provider_unit": "\u00b5g/m\u00b3",
+          "sensor_name": "pm1 \u00b5g/m\u00b3",
+          "unit_code": "ug_m3"
+        },
+        {
+          "compatibility_status": "unsuitable",
+          "exclusion_reason": "unsupported_parameter",
+          "native_temporal_metadata": {
+            "aggregation_period": null,
+            "expected_frequency_seconds": null,
+            "status": "not_provided_by_location_discovery"
+          },
+          "openaq_parameter_display_name": "RH",
+          "openaq_parameter_id": 98,
+          "openaq_parameter_name": "relativehumidity",
+          "openaq_sensor_id": 14258422,
+          "parameter_code": null,
+          "provider_unit": "%",
+          "sensor_name": "relativehumidity %",
+          "unit_code": null
+        },
+        {
+          "compatibility_status": "unsuitable",
+          "exclusion_reason": "unsupported_parameter",
+          "native_temporal_metadata": {
+            "aggregation_period": null,
+            "expected_frequency_seconds": null,
+            "status": "not_provided_by_location_discovery"
+          },
+          "openaq_parameter_display_name": "Temperature (C)",
+          "openaq_parameter_id": 100,
+          "openaq_parameter_name": "temperature",
+          "openaq_sensor_id": 14258423,
+          "parameter_code": null,
+          "provider_unit": "c",
+          "sensor_name": "temperature c",
+          "unit_code": null
+        },
+        {
+          "compatibility_status": "unsuitable",
+          "exclusion_reason": "unsupported_parameter",
+          "native_temporal_metadata": {
+            "aggregation_period": null,
+            "expected_frequency_seconds": null,
+            "status": "not_provided_by_location_discovery"
+          },
+          "openaq_parameter_display_name": "PM0.3 count",
+          "openaq_parameter_id": 125,
+          "openaq_parameter_name": "um003",
+          "openaq_sensor_id": 14258424,
+          "parameter_code": null,
+          "provider_unit": "particles/cm\u00b3",
+          "sensor_name": "um003 particles/cm\u00b3",
+          "unit_code": null
+        }
+      ]
+    },
+    {
+      "airgradient_metadata_evidence": [
+        "instrument:AirGradient Open Air Generation 1 (O-1PST)",
+        "provider:AirGradient"
+      ],
+      "compatible_parameter_codes": [
+        "pm25"
+      ],
+      "compatible_sensors": [
+        {
+          "compatibility_status": "compatible",
+          "exclusion_reason": null,
+          "native_temporal_metadata": {
+            "aggregation_period": null,
+            "expected_frequency_seconds": null,
+            "status": "not_provided_by_location_discovery"
+          },
+          "openaq_parameter_display_name": "PM2.5",
+          "openaq_parameter_id": 2,
+          "openaq_parameter_name": "pm25",
+          "openaq_sensor_id": 14264526,
+          "parameter_code": "pm25",
+          "provider_unit": "\u00b5g/m\u00b3",
+          "sensor_name": "pm25 \u00b5g/m\u00b3",
+          "unit_code": "ug_m3"
+        }
+      ],
+      "coordinates": {
+        "latitude": 14.437546,
+        "longitude": 121.000088
+      },
+      "datetime_first": {
+        "local": "2025-10-02T09:00:00+08:00",
+        "utc": "2025-10-02T01:00:00Z"
+      },
+      "datetime_last": {
+        "local": "2026-08-11T14:00:00+08:00",
+        "utc": "2026-08-11T06:00:00Z"
+      },
+      "hardware_provider": "AirGradient",
+      "instruments": [
+        {
+          "id": 24,
+          "name": "AirGradient Open Air Generation 1 (O-1PST)"
+        }
+      ],
+      "is_mobile": false,
+      "is_reference_monitor": false,
+      "licenses": [
+        {
+          "attribution": {
+            "name": "DLSU",
+            "url": null
+          },
+          "dateFrom": "2023-07-15",
+          "dateTo": null,
+          "id": 41,
+          "name": "CC BY 4.0"
+        }
+      ],
+      "locality": null,
+      "location_name": "Las Pinas",
+      "openaq_location_id": 5976206,
+      "owner": {
+        "id": 22715,
+        "name": "DLSU"
+      },
+      "provider": {
+        "id": 66,
+        "name": "AirGradient"
+      },
+      "recent_data_status": "recent",
+      "selection_eligible": true,
+      "timezone": "Asia/Manila",
+      "transport_provider": "OpenAQ",
+      "unsuitable_sensors": [
+        {
+          "compatibility_status": "unsuitable",
+          "exclusion_reason": "unsupported_parameter",
+          "native_temporal_metadata": {
+            "aggregation_period": null,
+            "expected_frequency_seconds": null,
+            "status": "not_provided_by_location_discovery"
+          },
+          "openaq_parameter_display_name": "PM1",
+          "openaq_parameter_id": 19,
+          "openaq_parameter_name": "pm1",
+          "openaq_sensor_id": 14264525,
+          "parameter_code": null,
+          "provider_unit": "\u00b5g/m\u00b3",
+          "sensor_name": "pm1 \u00b5g/m\u00b3",
+          "unit_code": "ug_m3"
+        },
+        {
+          "compatibility_status": "unsuitable",
+          "exclusion_reason": "unsupported_parameter",
+          "native_temporal_metadata": {
+            "aggregation_period": null,
+            "expected_frequency_seconds": null,
+            "status": "not_provided_by_location_discovery"
+          },
+          "openaq_parameter_display_name": "RH",
+          "openaq_parameter_id": 98,
+          "openaq_parameter_name": "relativehumidity",
+          "openaq_sensor_id": 14264527,
+          "parameter_code": null,
+          "provider_unit": "%",
+          "sensor_name": "relativehumidity %",
+          "unit_code": null
+        },
+        {
+          "compatibility_status": "unsuitable",
+          "exclusion_reason": "unsupported_parameter",
+          "native_temporal_metadata": {
+            "aggregation_period": null,
+            "expected_frequency_seconds": null,
+            "status": "not_provided_by_location_discovery"
+          },
+          "openaq_parameter_display_name": "Temperature (C)",
+          "openaq_parameter_id": 100,
+          "openaq_parameter_name": "temperature",
+          "openaq_sensor_id": 14264528,
+          "parameter_code": null,
+          "provider_unit": "c",
+          "sensor_name": "temperature c",
+          "unit_code": null
+        },
+        {
+          "compatibility_status": "unsuitable",
+          "exclusion_reason": "unsupported_parameter",
+          "native_temporal_metadata": {
+            "aggregation_period": null,
+            "expected_frequency_seconds": null,
+            "status": "not_provided_by_location_discovery"
+          },
+          "openaq_parameter_display_name": "PM0.3 count",
+          "openaq_parameter_id": 125,
+          "openaq_parameter_name": "um003",
+          "openaq_sensor_id": 14264529,
+          "parameter_code": null,
+          "provider_unit": "particles/cm\u00b3",
+          "sensor_name": "um003 particles/cm\u00b3",
+          "unit_code": null
+        }
+      ]
+    },
+    {
+      "airgradient_metadata_evidence": [
+        "instrument:Unknown AirGradient Sensor",
+        "owner:AirGradient",
+        "provider:AirGradient"
+      ],
+      "compatible_parameter_codes": [
+        "pm25"
+      ],
+      "compatible_sensors": [
+        {
+          "compatibility_status": "compatible",
+          "exclusion_reason": null,
+          "native_temporal_metadata": {
+            "aggregation_period": null,
+            "expected_frequency_seconds": null,
+            "status": "not_provided_by_location_discovery"
+          },
+          "openaq_parameter_display_name": "PM2.5",
+          "openaq_parameter_id": 2,
+          "openaq_parameter_name": "pm25",
+          "openaq_sensor_id": 14272759,
+          "parameter_code": "pm25",
+          "provider_unit": "\u00b5g/m\u00b3",
+          "sensor_name": "pm25 \u00b5g/m\u00b3",
+          "unit_code": "ug_m3"
+        }
+      ],
+      "coordinates": {
+        "latitude": 14.53766,
+        "longitude": 121.00039
+      },
+      "datetime_first": {
+        "local": "2025-10-03T07:00:00+08:00",
+        "utc": "2025-10-02T23:00:00Z"
+      },
+      "datetime_last": {
+        "local": "2026-01-19T17:00:00+08:00",
+        "utc": "2026-01-19T09:00:00Z"
+      },
+      "hardware_provider": "AirGradient",
+      "instruments": [
+        {
+          "id": 7,
+          "name": "Unknown AirGradient Sensor"
+        }
+      ],
+      "is_mobile": false,
+      "is_reference_monitor": false,
+      "licenses": [
+        {
+          "attribution": {
+            "name": "AirGradient",
+            "url": null
+          },
+          "dateFrom": "2023-07-15",
+          "dateTo": null,
+          "id": 41,
+          "name": "CC BY 4.0"
+        }
+      ],
+      "locality": null,
+      "location_name": "Pasay Rotonda",
+      "openaq_location_id": 5995084,
+      "owner": {
+        "id": 12,
+        "name": "AirGradient"
+      },
+      "provider": {
+        "id": 66,
+        "name": "AirGradient"
+      },
+      "recent_data_status": "stale",
+      "selection_eligible": false,
+      "timezone": "Asia/Manila",
+      "transport_provider": "OpenAQ",
+      "unsuitable_sensors": [
+        {
+          "compatibility_status": "unsuitable",
+          "exclusion_reason": "unsupported_parameter",
+          "native_temporal_metadata": {
+            "aggregation_period": null,
+            "expected_frequency_seconds": null,
+            "status": "not_provided_by_location_discovery"
+          },
+          "openaq_parameter_display_name": "PM1",
+          "openaq_parameter_id": 19,
+          "openaq_parameter_name": "pm1",
+          "openaq_sensor_id": 14272758,
+          "parameter_code": null,
+          "provider_unit": "\u00b5g/m\u00b3",
+          "sensor_name": "pm1 \u00b5g/m\u00b3",
+          "unit_code": "ug_m3"
+        },
+        {
+          "compatibility_status": "unsuitable",
+          "exclusion_reason": "unsupported_parameter",
+          "native_temporal_metadata": {
+            "aggregation_period": null,
+            "expected_frequency_seconds": null,
+            "status": "not_provided_by_location_discovery"
+          },
+          "openaq_parameter_display_name": "RH",
+          "openaq_parameter_id": 98,
+          "openaq_parameter_name": "relativehumidity",
+          "openaq_sensor_id": 14272760,
+          "parameter_code": null,
+          "provider_unit": "%",
+          "sensor_name": "relativehumidity %",
+          "unit_code": null
+        },
+        {
+          "compatibility_status": "unsuitable",
+          "exclusion_reason": "unsupported_parameter",
+          "native_temporal_metadata": {
+            "aggregation_period": null,
+            "expected_frequency_seconds": null,
+            "status": "not_provided_by_location_discovery"
+          },
+          "openaq_parameter_display_name": "Temperature (C)",
+          "openaq_parameter_id": 100,
+          "openaq_parameter_name": "temperature",
+          "openaq_sensor_id": 14272761,
+          "parameter_code": null,
+          "provider_unit": "c",
+          "sensor_name": "temperature c",
+          "unit_code": null
+        },
+        {
+          "compatibility_status": "unsuitable",
+          "exclusion_reason": "unsupported_parameter",
+          "native_temporal_metadata": {
+            "aggregation_period": null,
+            "expected_frequency_seconds": null,
+            "status": "not_provided_by_location_discovery"
+          },
+          "openaq_parameter_display_name": "PM0.3 count",
+          "openaq_parameter_id": 125,
+          "openaq_parameter_name": "um003",
+          "openaq_sensor_id": 14272762,
+          "parameter_code": null,
+          "provider_unit": "particles/cm\u00b3",
+          "sensor_name": "um003 particles/cm\u00b3",
+          "unit_code": null
+        }
+      ]
+    },
+    {
+      "airgradient_metadata_evidence": [
+        "instrument:Unknown AirGradient Sensor",
+        "owner:AirGradient",
+        "provider:AirGradient"
+      ],
+      "compatible_parameter_codes": [
+        "pm25"
+      ],
+      "compatible_sensors": [
+        {
+          "compatibility_status": "compatible",
+          "exclusion_reason": null,
+          "native_temporal_metadata": {
+            "aggregation_period": null,
+            "expected_frequency_seconds": null,
+            "status": "not_provided_by_location_discovery"
+          },
+          "openaq_parameter_display_name": "PM2.5",
+          "openaq_parameter_id": 2,
+          "openaq_parameter_name": "pm25",
+          "openaq_sensor_id": 15219515,
+          "parameter_code": "pm25",
+          "provider_unit": "\u00b5g/m\u00b3",
+          "sensor_name": "pm25 \u00b5g/m\u00b3",
+          "unit_code": "ug_m3"
+        }
+      ],
+      "coordinates": {
+        "latitude": 14.593565,
+        "longitude": 120.989459
+      },
+      "datetime_first": {
+        "local": "2026-01-21T11:00:00+08:00",
+        "utc": "2026-01-21T03:00:00Z"
+      },
+      "datetime_last": {
+        "local": "2026-06-17T20:00:00+08:00",
+        "utc": "2026-06-17T12:00:00Z"
+      },
+      "hardware_provider": "AirGradient",
+      "instruments": [
+        {
+          "id": 7,
+          "name": "Unknown AirGradient Sensor"
+        }
+      ],
+      "is_mobile": false,
+      "is_reference_monitor": false,
+      "licenses": [
+        {
+          "attribution": {
+            "name": "AirGradient",
+            "url": null
+          },
+          "dateFrom": "2023-07-15",
+          "dateTo": null,
+          "id": 41,
+          "name": "CC BY 4.0"
+        }
+      ],
+      "locality": null,
+      "location_name": "Ramon Avancena High School",
+      "openaq_location_id": 6209259,
+      "owner": {
+        "id": 12,
+        "name": "AirGradient"
+      },
+      "provider": {
+        "id": 66,
+        "name": "AirGradient"
+      },
+      "recent_data_status": "stale",
+      "selection_eligible": false,
+      "timezone": "Asia/Manila",
+      "transport_provider": "OpenAQ",
+      "unsuitable_sensors": [
+        {
+          "compatibility_status": "unsuitable",
+          "exclusion_reason": "unsupported_parameter",
+          "native_temporal_metadata": {
+            "aggregation_period": null,
+            "expected_frequency_seconds": null,
+            "status": "not_provided_by_location_discovery"
+          },
+          "openaq_parameter_display_name": "PM1",
+          "openaq_parameter_id": 19,
+          "openaq_parameter_name": "pm1",
+          "openaq_sensor_id": 15219514,
+          "parameter_code": null,
+          "provider_unit": "\u00b5g/m\u00b3",
+          "sensor_name": "pm1 \u00b5g/m\u00b3",
+          "unit_code": "ug_m3"
+        },
+        {
+          "compatibility_status": "unsuitable",
+          "exclusion_reason": "unsupported_parameter",
+          "native_temporal_metadata": {
+            "aggregation_period": null,
+            "expected_frequency_seconds": null,
+            "status": "not_provided_by_location_discovery"
+          },
+          "openaq_parameter_display_name": "RH",
+          "openaq_parameter_id": 98,
+          "openaq_parameter_name": "relativehumidity",
+          "openaq_sensor_id": 15219516,
+          "parameter_code": null,
+          "provider_unit": "%",
+          "sensor_name": "relativehumidity %",
+          "unit_code": null
+        },
+        {
+          "compatibility_status": "unsuitable",
+          "exclusion_reason": "unsupported_parameter",
+          "native_temporal_metadata": {
+            "aggregation_period": null,
+            "expected_frequency_seconds": null,
+            "status": "not_provided_by_location_discovery"
+          },
+          "openaq_parameter_display_name": "Temperature (C)",
+          "openaq_parameter_id": 100,
+          "openaq_parameter_name": "temperature",
+          "openaq_sensor_id": 15219517,
+          "parameter_code": null,
+          "provider_unit": "c",
+          "sensor_name": "temperature c",
+          "unit_code": null
+        },
+        {
+          "compatibility_status": "unsuitable",
+          "exclusion_reason": "unsupported_parameter",
+          "native_temporal_metadata": {
+            "aggregation_period": null,
+            "expected_frequency_seconds": null,
+            "status": "not_provided_by_location_discovery"
+          },
+          "openaq_parameter_display_name": "PM0.3 count",
+          "openaq_parameter_id": 125,
+          "openaq_parameter_name": "um003",
+          "openaq_sensor_id": 15219518,
+          "parameter_code": null,
+          "provider_unit": "particles/cm\u00b3",
+          "sensor_name": "um003 particles/cm\u00b3",
+          "unit_code": null
+        }
+      ]
+    },
+    {
+      "airgradient_metadata_evidence": [
+        "instrument:Unknown AirGradient Sensor",
+        "owner:AirGradient",
+        "provider:AirGradient"
+      ],
+      "compatible_parameter_codes": [
+        "pm25"
+      ],
+      "compatible_sensors": [
+        {
+          "compatibility_status": "compatible",
+          "exclusion_reason": null,
+          "native_temporal_metadata": {
+            "aggregation_period": null,
+            "expected_frequency_seconds": null,
+            "status": "not_provided_by_location_discovery"
+          },
+          "openaq_parameter_display_name": "PM2.5",
+          "openaq_parameter_id": 2,
+          "openaq_parameter_name": "pm25",
+          "openaq_sensor_id": 15374905,
+          "parameter_code": "pm25",
+          "provider_unit": "\u00b5g/m\u00b3",
+          "sensor_name": "pm25 \u00b5g/m\u00b3",
+          "unit_code": "ug_m3"
+        }
+      ],
+      "coordinates": {
+        "latitude": 14.7459495,
+        "longitude": 121.0101457
+      },
+      "datetime_first": {
+        "local": "2026-02-06T18:00:00+08:00",
+        "utc": "2026-02-06T10:00:00Z"
+      },
+      "datetime_last": {
+        "local": "2026-08-11T14:00:00+08:00",
+        "utc": "2026-08-11T06:00:00Z"
+      },
+      "hardware_provider": "AirGradient",
+      "instruments": [
+        {
+          "id": 7,
+          "name": "Unknown AirGradient Sensor"
+        }
+      ],
+      "is_mobile": false,
+      "is_reference_monitor": false,
+      "licenses": [
+        {
+          "attribution": {
+            "name": "AirGradient",
+            "url": null
+          },
+          "dateFrom": "2023-07-15",
+          "dateTo": null,
+          "id": 41,
+          "name": "CC BY 4.0"
+        }
+      ],
+      "locality": null,
+      "location_name": "North Caloocan Nova Romania - Alora (download airgradient mobile app for realtime data)",
+      "openaq_location_id": 6230501,
+      "owner": {
+        "id": 12,
+        "name": "AirGradient"
+      },
+      "provider": {
+        "id": 66,
+        "name": "AirGradient"
+      },
+      "recent_data_status": "recent",
+      "selection_eligible": true,
+      "timezone": "Asia/Manila",
+      "transport_provider": "OpenAQ",
+      "unsuitable_sensors": [
+        {
+          "compatibility_status": "unsuitable",
+          "exclusion_reason": "unsupported_parameter",
+          "native_temporal_metadata": {
+            "aggregation_period": null,
+            "expected_frequency_seconds": null,
+            "status": "not_provided_by_location_discovery"
+          },
+          "openaq_parameter_display_name": "PM1",
+          "openaq_parameter_id": 19,
+          "openaq_parameter_name": "pm1",
+          "openaq_sensor_id": 15374904,
+          "parameter_code": null,
+          "provider_unit": "\u00b5g/m\u00b3",
+          "sensor_name": "pm1 \u00b5g/m\u00b3",
+          "unit_code": "ug_m3"
+        },
+        {
+          "compatibility_status": "unsuitable",
+          "exclusion_reason": "unsupported_parameter",
+          "native_temporal_metadata": {
+            "aggregation_period": null,
+            "expected_frequency_seconds": null,
+            "status": "not_provided_by_location_discovery"
+          },
+          "openaq_parameter_display_name": "RH",
+          "openaq_parameter_id": 98,
+          "openaq_parameter_name": "relativehumidity",
+          "openaq_sensor_id": 15374906,
+          "parameter_code": null,
+          "provider_unit": "%",
+          "sensor_name": "relativehumidity %",
+          "unit_code": null
+        },
+        {
+          "compatibility_status": "unsuitable",
+          "exclusion_reason": "unsupported_parameter",
+          "native_temporal_metadata": {
+            "aggregation_period": null,
+            "expected_frequency_seconds": null,
+            "status": "not_provided_by_location_discovery"
+          },
+          "openaq_parameter_display_name": "Temperature (C)",
+          "openaq_parameter_id": 100,
+          "openaq_parameter_name": "temperature",
+          "openaq_sensor_id": 15374907,
+          "parameter_code": null,
+          "provider_unit": "c",
+          "sensor_name": "temperature c",
+          "unit_code": null
+        },
+        {
+          "compatibility_status": "unsuitable",
+          "exclusion_reason": "unsupported_parameter",
+          "native_temporal_metadata": {
+            "aggregation_period": null,
+            "expected_frequency_seconds": null,
+            "status": "not_provided_by_location_discovery"
+          },
+          "openaq_parameter_display_name": "PM0.3 count",
+          "openaq_parameter_id": 125,
+          "openaq_parameter_name": "um003",
+          "openaq_sensor_id": 15374908,
+          "parameter_code": null,
+          "provider_unit": "particles/cm\u00b3",
+          "sensor_name": "um003 particles/cm\u00b3",
+          "unit_code": null
+        }
+      ]
+    },
+    {
+      "airgradient_metadata_evidence": [
+        "instrument:Unknown AirGradient Sensor",
+        "owner:AirGradient",
+        "provider:AirGradient"
+      ],
+      "compatible_parameter_codes": [
+        "pm25"
+      ],
+      "compatible_sensors": [
+        {
+          "compatibility_status": "compatible",
+          "exclusion_reason": null,
+          "native_temporal_metadata": {
+            "aggregation_period": null,
+            "expected_frequency_seconds": null,
+            "status": "not_provided_by_location_discovery"
+          },
+          "openaq_parameter_display_name": "PM2.5",
+          "openaq_parameter_id": 2,
+          "openaq_parameter_name": "pm25",
+          "openaq_sensor_id": 15636040,
+          "parameter_code": "pm25",
+          "provider_unit": "\u00b5g/m\u00b3",
+          "sensor_name": "pm25 \u00b5g/m\u00b3",
+          "unit_code": "ug_m3"
+        }
+      ],
+      "coordinates": {
+        "latitude": 14.65568,
+        "longitude": 121.11149
+      },
+      "datetime_first": {
+        "local": "2026-03-09T16:00:00+08:00",
+        "utc": "2026-03-09T08:00:00Z"
+      },
+      "datetime_last": {
+        "local": "2026-03-09T17:00:00+08:00",
+        "utc": "2026-03-09T09:00:00Z"
+      },
+      "hardware_provider": "AirGradient",
+      "instruments": [
+        {
+          "id": 7,
+          "name": "Unknown AirGradient Sensor"
+        }
+      ],
+      "is_mobile": false,
+      "is_reference_monitor": false,
+      "licenses": [
+        {
+          "attribution": {
+            "name": "AirGradient",
+            "url": null
+          },
+          "dateFrom": "2023-07-15",
+          "dateTo": null,
+          "id": 41,
+          "name": "CC BY 4.0"
+        }
+      ],
+      "locality": null,
+      "location_name": "Marikina",
+      "openaq_location_id": 6265529,
+      "owner": {
+        "id": 12,
+        "name": "AirGradient"
+      },
+      "provider": {
+        "id": 66,
+        "name": "AirGradient"
+      },
+      "recent_data_status": "stale",
+      "selection_eligible": false,
+      "timezone": "Asia/Manila",
+      "transport_provider": "OpenAQ",
+      "unsuitable_sensors": [
+        {
+          "compatibility_status": "unsuitable",
+          "exclusion_reason": "unsupported_parameter",
+          "native_temporal_metadata": {
+            "aggregation_period": null,
+            "expected_frequency_seconds": null,
+            "status": "not_provided_by_location_discovery"
+          },
+          "openaq_parameter_display_name": "PM1",
+          "openaq_parameter_id": 19,
+          "openaq_parameter_name": "pm1",
+          "openaq_sensor_id": 15636039,
+          "parameter_code": null,
+          "provider_unit": "\u00b5g/m\u00b3",
+          "sensor_name": "pm1 \u00b5g/m\u00b3",
+          "unit_code": "ug_m3"
+        },
+        {
+          "compatibility_status": "unsuitable",
+          "exclusion_reason": "unsupported_parameter",
+          "native_temporal_metadata": {
+            "aggregation_period": null,
+            "expected_frequency_seconds": null,
+            "status": "not_provided_by_location_discovery"
+          },
+          "openaq_parameter_display_name": "RH",
+          "openaq_parameter_id": 98,
+          "openaq_parameter_name": "relativehumidity",
+          "openaq_sensor_id": 15636041,
+          "parameter_code": null,
+          "provider_unit": "%",
+          "sensor_name": "relativehumidity %",
+          "unit_code": null
+        },
+        {
+          "compatibility_status": "unsuitable",
+          "exclusion_reason": "unsupported_parameter",
+          "native_temporal_metadata": {
+            "aggregation_period": null,
+            "expected_frequency_seconds": null,
+            "status": "not_provided_by_location_discovery"
+          },
+          "openaq_parameter_display_name": "Temperature (C)",
+          "openaq_parameter_id": 100,
+          "openaq_parameter_name": "temperature",
+          "openaq_sensor_id": 15636042,
+          "parameter_code": null,
+          "provider_unit": "c",
+          "sensor_name": "temperature c",
+          "unit_code": null
+        },
+        {
+          "compatibility_status": "unsuitable",
+          "exclusion_reason": "unsupported_parameter",
+          "native_temporal_metadata": {
+            "aggregation_period": null,
+            "expected_frequency_seconds": null,
+            "status": "not_provided_by_location_discovery"
+          },
+          "openaq_parameter_display_name": "PM0.3 count",
+          "openaq_parameter_id": 125,
+          "openaq_parameter_name": "um003",
+          "openaq_sensor_id": 15636043,
+          "parameter_code": null,
+          "provider_unit": "particles/cm\u00b3",
+          "sensor_name": "um003 particles/cm\u00b3",
+          "unit_code": null
+        }
+      ]
+    },
+    {
+      "airgradient_metadata_evidence": [
+        "instrument:Unknown AirGradient Sensor",
+        "owner:AirGradient",
+        "provider:AirGradient"
+      ],
+      "compatible_parameter_codes": [
+        "pm25"
+      ],
+      "compatible_sensors": [
+        {
+          "compatibility_status": "compatible",
+          "exclusion_reason": null,
+          "native_temporal_metadata": {
+            "aggregation_period": null,
+            "expected_frequency_seconds": null,
+            "status": "not_provided_by_location_discovery"
+          },
+          "openaq_parameter_display_name": "PM2.5",
+          "openaq_parameter_id": 2,
+          "openaq_parameter_name": "pm25",
+          "openaq_sensor_id": 15712748,
+          "parameter_code": "pm25",
+          "provider_unit": "\u00b5g/m\u00b3",
+          "sensor_name": "pm25 \u00b5g/m\u00b3",
+          "unit_code": "ug_m3"
+        }
+      ],
+      "coordinates": {
+        "latitude": 14.558248,
+        "longitude": 120.993386
+      },
+      "datetime_first": {
+        "local": "2026-03-18T11:00:00+08:00",
+        "utc": "2026-03-18T03:00:00Z"
+      },
+      "datetime_last": {
+        "local": "2026-05-18T18:00:00+08:00",
+        "utc": "2026-05-18T10:00:00Z"
+      },
+      "hardware_provider": "AirGradient",
+      "instruments": [
+        {
+          "id": 7,
+          "name": "Unknown AirGradient Sensor"
+        }
+      ],
+      "is_mobile": false,
+      "is_reference_monitor": false,
+      "licenses": [
+        {
+          "attribution": {
+            "name": "AirGradient",
+            "url": null
+          },
+          "dateFrom": "2023-07-15",
+          "dateTo": null,
+          "id": 41,
+          "name": "CC BY 4.0"
+        }
+      ],
+      "locality": null,
+      "location_name": "pasay city",
+      "openaq_location_id": 6275863,
+      "owner": {
+        "id": 12,
+        "name": "AirGradient"
+      },
+      "provider": {
+        "id": 66,
+        "name": "AirGradient"
+      },
+      "recent_data_status": "stale",
+      "selection_eligible": false,
+      "timezone": "Asia/Manila",
+      "transport_provider": "OpenAQ",
+      "unsuitable_sensors": [
+        {
+          "compatibility_status": "unsuitable",
+          "exclusion_reason": "unsupported_parameter",
+          "native_temporal_metadata": {
+            "aggregation_period": null,
+            "expected_frequency_seconds": null,
+            "status": "not_provided_by_location_discovery"
+          },
+          "openaq_parameter_display_name": "PM1",
+          "openaq_parameter_id": 19,
+          "openaq_parameter_name": "pm1",
+          "openaq_sensor_id": 15712747,
+          "parameter_code": null,
+          "provider_unit": "\u00b5g/m\u00b3",
+          "sensor_name": "pm1 \u00b5g/m\u00b3",
+          "unit_code": "ug_m3"
+        },
+        {
+          "compatibility_status": "unsuitable",
+          "exclusion_reason": "unsupported_parameter",
+          "native_temporal_metadata": {
+            "aggregation_period": null,
+            "expected_frequency_seconds": null,
+            "status": "not_provided_by_location_discovery"
+          },
+          "openaq_parameter_display_name": "RH",
+          "openaq_parameter_id": 98,
+          "openaq_parameter_name": "relativehumidity",
+          "openaq_sensor_id": 15712749,
+          "parameter_code": null,
+          "provider_unit": "%",
+          "sensor_name": "relativehumidity %",
+          "unit_code": null
+        },
+        {
+          "compatibility_status": "unsuitable",
+          "exclusion_reason": "unsupported_parameter",
+          "native_temporal_metadata": {
+            "aggregation_period": null,
+            "expected_frequency_seconds": null,
+            "status": "not_provided_by_location_discovery"
+          },
+          "openaq_parameter_display_name": "Temperature (C)",
+          "openaq_parameter_id": 100,
+          "openaq_parameter_name": "temperature",
+          "openaq_sensor_id": 15712750,
+          "parameter_code": null,
+          "provider_unit": "c",
+          "sensor_name": "temperature c",
+          "unit_code": null
+        },
+        {
+          "compatibility_status": "unsuitable",
+          "exclusion_reason": "unsupported_parameter",
+          "native_temporal_metadata": {
+            "aggregation_period": null,
+            "expected_frequency_seconds": null,
+            "status": "not_provided_by_location_discovery"
+          },
+          "openaq_parameter_display_name": "PM0.3 count",
+          "openaq_parameter_id": 125,
+          "openaq_parameter_name": "um003",
+          "openaq_sensor_id": 15712751,
+          "parameter_code": null,
+          "provider_unit": "particles/cm\u00b3",
+          "sensor_name": "um003 particles/cm\u00b3",
+          "unit_code": null
+        }
+      ]
+    },
+    {
+      "airgradient_metadata_evidence": [
+        "instrument:Unknown AirGradient Sensor",
+        "owner:AirGradient",
+        "provider:AirGradient"
+      ],
+      "compatible_parameter_codes": [
+        "pm25"
+      ],
+      "compatible_sensors": [
+        {
+          "compatibility_status": "compatible",
+          "exclusion_reason": null,
+          "native_temporal_metadata": {
+            "aggregation_period": null,
+            "expected_frequency_seconds": null,
+            "status": "not_provided_by_location_discovery"
+          },
+          "openaq_parameter_display_name": "PM2.5",
+          "openaq_parameter_id": 2,
+          "openaq_parameter_name": "pm25",
+          "openaq_sensor_id": 15772600,
+          "parameter_code": "pm25",
+          "provider_unit": "\u00b5g/m\u00b3",
+          "sensor_name": "pm25 \u00b5g/m\u00b3",
+          "unit_code": "ug_m3"
+        }
+      ],
+      "coordinates": {
+        "latitude": 14.630765,
+        "longitude": 120.967483
+      },
+      "datetime_first": {
+        "local": "2026-03-25T14:00:00+08:00",
+        "utc": "2026-03-25T06:00:00Z"
+      },
+      "datetime_last": {
+        "local": "2026-03-25T14:00:00+08:00",
+        "utc": "2026-03-25T06:00:00Z"
+      },
+      "hardware_provider": "AirGradient",
+      "instruments": [
+        {
+          "id": 7,
+          "name": "Unknown AirGradient Sensor"
+        }
+      ],
+      "is_mobile": false,
+      "is_reference_monitor": false,
+      "licenses": [
+        {
+          "attribution": {
+            "name": "AirGradient",
+            "url": null
+          },
+          "dateFrom": "2023-07-15",
+          "dateTo": null,
+          "id": 41,
+          "name": "CC BY 4.0"
+        }
+      ],
+      "locality": null,
+      "location_name": "Timoteo Paez Integrated High School",
+      "openaq_location_id": 6284033,
+      "owner": {
+        "id": 12,
+        "name": "AirGradient"
+      },
+      "provider": {
+        "id": 66,
+        "name": "AirGradient"
+      },
+      "recent_data_status": "stale",
+      "selection_eligible": false,
+      "timezone": "Asia/Manila",
+      "transport_provider": "OpenAQ",
+      "unsuitable_sensors": [
+        {
+          "compatibility_status": "unsuitable",
+          "exclusion_reason": "unsupported_parameter",
+          "native_temporal_metadata": {
+            "aggregation_period": null,
+            "expected_frequency_seconds": null,
+            "status": "not_provided_by_location_discovery"
+          },
+          "openaq_parameter_display_name": "PM1",
+          "openaq_parameter_id": 19,
+          "openaq_parameter_name": "pm1",
+          "openaq_sensor_id": 15772599,
+          "parameter_code": null,
+          "provider_unit": "\u00b5g/m\u00b3",
+          "sensor_name": "pm1 \u00b5g/m\u00b3",
+          "unit_code": "ug_m3"
+        },
+        {
+          "compatibility_status": "unsuitable",
+          "exclusion_reason": "unsupported_parameter",
+          "native_temporal_metadata": {
+            "aggregation_period": null,
+            "expected_frequency_seconds": null,
+            "status": "not_provided_by_location_discovery"
+          },
+          "openaq_parameter_display_name": "RH",
+          "openaq_parameter_id": 98,
+          "openaq_parameter_name": "relativehumidity",
+          "openaq_sensor_id": 15772601,
+          "parameter_code": null,
+          "provider_unit": "%",
+          "sensor_name": "relativehumidity %",
+          "unit_code": null
+        },
+        {
+          "compatibility_status": "unsuitable",
+          "exclusion_reason": "unsupported_parameter",
+          "native_temporal_metadata": {
+            "aggregation_period": null,
+            "expected_frequency_seconds": null,
+            "status": "not_provided_by_location_discovery"
+          },
+          "openaq_parameter_display_name": "Temperature (C)",
+          "openaq_parameter_id": 100,
+          "openaq_parameter_name": "temperature",
+          "openaq_sensor_id": 15772602,
+          "parameter_code": null,
+          "provider_unit": "c",
+          "sensor_name": "temperature c",
+          "unit_code": null
+        },
+        {
+          "compatibility_status": "unsuitable",
+          "exclusion_reason": "unsupported_parameter",
+          "native_temporal_metadata": {
+            "aggregation_period": null,
+            "expected_frequency_seconds": null,
+            "status": "not_provided_by_location_discovery"
+          },
+          "openaq_parameter_display_name": "PM0.3 count",
+          "openaq_parameter_id": 125,
+          "openaq_parameter_name": "um003",
+          "openaq_sensor_id": 15772603,
+          "parameter_code": null,
+          "provider_unit": "particles/cm\u00b3",
+          "sensor_name": "um003 particles/cm\u00b3",
+          "unit_code": null
+        }
+      ]
+    },
+    {
+      "airgradient_metadata_evidence": [],
+      "compatible_parameter_codes": [
+        "pm25"
+      ],
+      "compatible_sensors": [
+        {
+          "compatibility_status": "compatible",
+          "exclusion_reason": null,
+          "native_temporal_metadata": {
+            "aggregation_period": null,
+            "expected_frequency_seconds": null,
+            "status": "not_provided_by_location_discovery"
+          },
+          "openaq_parameter_display_name": "PM2.5",
+          "openaq_parameter_id": 2,
+          "openaq_parameter_name": "pm25",
+          "openaq_sensor_id": 15922108,
+          "parameter_code": "pm25",
+          "provider_unit": "\u00b5g/m\u00b3",
+          "sensor_name": "pm25 \u00b5g/m\u00b3",
+          "unit_code": "ug_m3"
+        }
+      ],
+      "coordinates": {
+        "latitude": 14.58385,
+        "longitude": 121.01645
+      },
+      "datetime_first": {
+        "local": "2026-04-11T16:06:31+08:00",
+        "utc": "2026-04-11T08:06:31Z"
+      },
+      "datetime_last": {
+        "local": "2026-08-11T07:06:09+08:00",
+        "utc": "2026-08-10T23:06:09Z"
+      },
+      "hardware_provider": null,
+      "instruments": [
+        {
+          "id": 4,
+          "name": "Clarity Sensor"
+        }
+      ],
+      "is_mobile": false,
+      "is_reference_monitor": false,
+      "licenses": [
+        {
+          "attribution": {
+            "name": "Clarity",
+            "url": null
+          },
+          "dateFrom": "2021-10-20",
+          "dateTo": null,
+          "id": 38,
+          "name": "CC0 1.0"
+        }
+      ],
+      "locality": null,
+      "location_name": "Sta. Ana Hospital",
+      "openaq_location_id": 6303934,
+      "owner": {
+        "id": 9,
+        "name": "Clarity"
+      },
+      "provider": {
+        "id": 166,
+        "name": "Clarity"
+      },
+      "recent_data_status": "recent",
+      "selection_eligible": true,
+      "timezone": "Asia/Manila",
+      "transport_provider": "OpenAQ",
+      "unsuitable_sensors": []
+    },
+    {
+      "airgradient_metadata_evidence": [],
+      "compatible_parameter_codes": [
+        "pm25"
+      ],
+      "compatible_sensors": [
+        {
+          "compatibility_status": "compatible",
+          "exclusion_reason": null,
+          "native_temporal_metadata": {
+            "aggregation_period": null,
+            "expected_frequency_seconds": null,
+            "status": "not_provided_by_location_discovery"
+          },
+          "openaq_parameter_display_name": "PM2.5",
+          "openaq_parameter_id": 2,
+          "openaq_parameter_name": "pm25",
+          "openaq_sensor_id": 15922109,
+          "parameter_code": "pm25",
+          "provider_unit": "\u00b5g/m\u00b3",
+          "sensor_name": "pm25 \u00b5g/m\u00b3",
+          "unit_code": "ug_m3"
+        }
+      ],
+      "coordinates": {
+        "latitude": 14.61825,
+        "longitude": 120.97142
+      },
+      "datetime_first": {
+        "local": "2026-04-11T16:03:48+08:00",
+        "utc": "2026-04-11T08:03:48Z"
+      },
+      "datetime_last": {
+        "local": "2026-08-11T06:59:32+08:00",
+        "utc": "2026-08-10T22:59:32Z"
+      },
+      "hardware_provider": null,
+      "instruments": [
+        {
+          "id": 4,
+          "name": "Clarity Sensor"
+        }
+      ],
+      "is_mobile": false,
+      "is_reference_monitor": false,
+      "licenses": [
+        {
+          "attribution": {
+            "name": "Clarity",
+            "url": null
+          },
+          "dateFrom": "2021-10-20",
+          "dateTo": null,
+          "id": 38,
+          "name": "CC0 1.0"
+        }
+      ],
+      "locality": null,
+      "location_name": "Near Puregold Tayuman",
+      "openaq_location_id": 6303935,
+      "owner": {
+        "id": 9,
+        "name": "Clarity"
+      },
+      "provider": {
+        "id": 166,
+        "name": "Clarity"
+      },
+      "recent_data_status": "recent",
+      "selection_eligible": true,
+      "timezone": "Asia/Manila",
+      "transport_provider": "OpenAQ",
+      "unsuitable_sensors": []
+    },
+    {
+      "airgradient_metadata_evidence": [],
+      "compatible_parameter_codes": [
+        "pm25"
+      ],
+      "compatible_sensors": [
+        {
+          "compatibility_status": "compatible",
+          "exclusion_reason": null,
+          "native_temporal_metadata": {
+            "aggregation_period": null,
+            "expected_frequency_seconds": null,
+            "status": "not_provided_by_location_discovery"
+          },
+          "openaq_parameter_display_name": "PM2.5",
+          "openaq_parameter_id": 2,
+          "openaq_parameter_name": "pm25",
+          "openaq_sensor_id": 15922106,
+          "parameter_code": "pm25",
+          "provider_unit": "\u00b5g/m\u00b3",
+          "sensor_name": "pm25 \u00b5g/m\u00b3",
+          "unit_code": "ug_m3"
+        }
+      ],
+      "coordinates": {
+        "latitude": 14.59064,
+        "longitude": 120.97112
+      },
+      "datetime_first": {
+        "local": "2026-04-11T16:02:31+08:00",
+        "utc": "2026-04-11T08:02:31Z"
+      },
+      "datetime_last": {
+        "local": "2026-08-11T07:06:29+08:00",
+        "utc": "2026-08-10T23:06:29Z"
+      },
+      "hardware_provider": null,
+      "instruments": [
+        {
+          "id": 4,
+          "name": "Clarity Sensor"
+        }
+      ],
+      "is_mobile": false,
+      "is_reference_monitor": false,
+      "licenses": [
+        {
+          "attribution": {
+            "name": "Clarity",
+            "url": null
+          },
+          "dateFrom": "2021-10-20",
+          "dateTo": null,
+          "id": 38,
+          "name": "CC0 1.0"
+        }
+      ],
+      "locality": null,
+      "location_name": "Anda Circle",
+      "openaq_location_id": 6303936,
+      "owner": {
+        "id": 9,
+        "name": "Clarity"
+      },
+      "provider": {
+        "id": 166,
+        "name": "Clarity"
+      },
+      "recent_data_status": "recent",
+      "selection_eligible": true,
+      "timezone": "Asia/Manila",
+      "transport_provider": "OpenAQ",
+      "unsuitable_sensors": []
+    },
+    {
+      "airgradient_metadata_evidence": [],
+      "compatible_parameter_codes": [
+        "pm25"
+      ],
+      "compatible_sensors": [
+        {
+          "compatibility_status": "compatible",
+          "exclusion_reason": null,
+          "native_temporal_metadata": {
+            "aggregation_period": null,
+            "expected_frequency_seconds": null,
+            "status": "not_provided_by_location_discovery"
+          },
+          "openaq_parameter_display_name": "PM2.5",
+          "openaq_parameter_id": 2,
+          "openaq_parameter_name": "pm25",
+          "openaq_sensor_id": 15922107,
+          "parameter_code": "pm25",
+          "provider_unit": "\u00b5g/m\u00b3",
+          "sensor_name": "pm25 \u00b5g/m\u00b3",
+          "unit_code": "ug_m3"
+        }
+      ],
+      "coordinates": {
+        "latitude": 14.59871,
+        "longitude": 120.98947
+      },
+      "datetime_first": {
+        "local": "2026-04-11T16:06:45+08:00",
+        "utc": "2026-04-11T08:06:45Z"
+      },
+      "datetime_last": {
+        "local": "2026-08-11T07:00:40+08:00",
+        "utc": "2026-08-10T23:00:40Z"
+      },
+      "hardware_provider": null,
+      "instruments": [
+        {
+          "id": 4,
+          "name": "Clarity Sensor"
+        }
+      ],
+      "is_mobile": false,
+      "is_reference_monitor": false,
+      "licenses": [
+        {
+          "attribution": {
+            "name": "Clarity",
+            "url": null
+          },
+          "dateFrom": "2021-10-20",
+          "dateTo": null,
+          "id": 38,
+          "name": "CC0 1.0"
+        }
+      ],
+      "locality": null,
+      "location_name": "San Sebastian Residences",
+      "openaq_location_id": 6303937,
+      "owner": {
+        "id": 9,
+        "name": "Clarity"
+      },
+      "provider": {
+        "id": 166,
+        "name": "Clarity"
+      },
+      "recent_data_status": "recent",
+      "selection_eligible": true,
+      "timezone": "Asia/Manila",
+      "transport_provider": "OpenAQ",
+      "unsuitable_sensors": []
+    },
+    {
+      "airgradient_metadata_evidence": [],
+      "compatible_parameter_codes": [
+        "pm25"
+      ],
+      "compatible_sensors": [
+        {
+          "compatibility_status": "compatible",
+          "exclusion_reason": null,
+          "native_temporal_metadata": {
+            "aggregation_period": null,
+            "expected_frequency_seconds": null,
+            "status": "not_provided_by_location_discovery"
+          },
+          "openaq_parameter_display_name": "PM2.5",
+          "openaq_parameter_id": 2,
+          "openaq_parameter_name": "pm25",
+          "openaq_sensor_id": 16181084,
+          "parameter_code": "pm25",
+          "provider_unit": "\u00b5g/m\u00b3",
+          "sensor_name": "pm25 \u00b5g/m\u00b3",
+          "unit_code": "ug_m3"
+        }
+      ],
+      "coordinates": {
+        "latitude": 14.569,
+        "longitude": 120.98366
+      },
+      "datetime_first": {
+        "local": "2026-05-07T15:05:38+08:00",
+        "utc": "2026-05-07T07:05:38Z"
+      },
+      "datetime_last": {
+        "local": "2026-08-11T07:05:23+08:00",
+        "utc": "2026-08-10T23:05:23Z"
+      },
+      "hardware_provider": null,
+      "instruments": [
+        {
+          "id": 4,
+          "name": "Clarity Sensor"
+        }
+      ],
+      "is_mobile": false,
+      "is_reference_monitor": false,
+      "licenses": [
+        {
+          "attribution": {
+            "name": "Clarity",
+            "url": null
+          },
+          "dateFrom": "2021-10-20",
+          "dateTo": null,
+          "id": 38,
+          "name": "CC0 1.0"
+        }
+      ],
+      "locality": null,
+      "location_name": "Rajah Sulayman Park",
+      "openaq_location_id": 6338564,
+      "owner": {
+        "id": 9,
+        "name": "Clarity"
+      },
+      "provider": {
+        "id": 166,
+        "name": "Clarity"
+      },
+      "recent_data_status": "recent",
+      "selection_eligible": true,
+      "timezone": "Asia/Manila",
+      "transport_provider": "OpenAQ",
+      "unsuitable_sensors": []
+    },
+    {
+      "airgradient_metadata_evidence": [
+        "instrument:Unknown AirGradient Sensor",
+        "owner:AirGradient",
+        "provider:AirGradient"
+      ],
+      "compatible_parameter_codes": [
+        "pm25"
+      ],
+      "compatible_sensors": [
+        {
+          "compatibility_status": "compatible",
+          "exclusion_reason": null,
+          "native_temporal_metadata": {
+            "aggregation_period": null,
+            "expected_frequency_seconds": null,
+            "status": "not_provided_by_location_discovery"
+          },
+          "openaq_parameter_display_name": "PM2.5",
+          "openaq_parameter_id": 2,
+          "openaq_parameter_name": "pm25",
+          "openaq_sensor_id": 16198443,
+          "parameter_code": "pm25",
+          "provider_unit": "\u00b5g/m\u00b3",
+          "sensor_name": "pm25 \u00b5g/m\u00b3",
+          "unit_code": "ug_m3"
+        }
+      ],
+      "coordinates": {
+        "latitude": 14.676664,
+        "longitude": 121.095814
+      },
+      "datetime_first": {
+        "local": "2026-05-09T07:00:00+08:00",
+        "utc": "2026-05-08T23:00:00Z"
+      },
+      "datetime_last": {
+        "local": "2026-08-11T14:00:00+08:00",
+        "utc": "2026-08-11T06:00:00Z"
+      },
+      "hardware_provider": "AirGradient",
+      "instruments": [
+        {
+          "id": 7,
+          "name": "Unknown AirGradient Sensor"
+        }
+      ],
+      "is_mobile": false,
+      "is_reference_monitor": false,
+      "licenses": [
+        {
+          "attribution": {
+            "name": "AirGradient",
+            "url": null
+          },
+          "dateFrom": "2023-07-15",
+          "dateTo": null,
+          "id": 41,
+          "name": "CC BY 4.0"
+        }
+      ],
+      "locality": null,
+      "location_name": "Tivoli",
+      "openaq_location_id": 6340868,
+      "owner": {
+        "id": 12,
+        "name": "AirGradient"
+      },
+      "provider": {
+        "id": 66,
+        "name": "AirGradient"
+      },
+      "recent_data_status": "recent",
+      "selection_eligible": true,
+      "timezone": "Asia/Manila",
+      "transport_provider": "OpenAQ",
+      "unsuitable_sensors": [
+        {
+          "compatibility_status": "unsuitable",
+          "exclusion_reason": "unsupported_parameter",
+          "native_temporal_metadata": {
+            "aggregation_period": null,
+            "expected_frequency_seconds": null,
+            "status": "not_provided_by_location_discovery"
+          },
+          "openaq_parameter_display_name": "PM1",
+          "openaq_parameter_id": 19,
+          "openaq_parameter_name": "pm1",
+          "openaq_sensor_id": 16198442,
+          "parameter_code": null,
+          "provider_unit": "\u00b5g/m\u00b3",
+          "sensor_name": "pm1 \u00b5g/m\u00b3",
+          "unit_code": "ug_m3"
+        },
+        {
+          "compatibility_status": "unsuitable",
+          "exclusion_reason": "unsupported_parameter",
+          "native_temporal_metadata": {
+            "aggregation_period": null,
+            "expected_frequency_seconds": null,
+            "status": "not_provided_by_location_discovery"
+          },
+          "openaq_parameter_display_name": "RH",
+          "openaq_parameter_id": 98,
+          "openaq_parameter_name": "relativehumidity",
+          "openaq_sensor_id": 16198444,
+          "parameter_code": null,
+          "provider_unit": "%",
+          "sensor_name": "relativehumidity %",
+          "unit_code": null
+        },
+        {
+          "compatibility_status": "unsuitable",
+          "exclusion_reason": "unsupported_parameter",
+          "native_temporal_metadata": {
+            "aggregation_period": null,
+            "expected_frequency_seconds": null,
+            "status": "not_provided_by_location_discovery"
+          },
+          "openaq_parameter_display_name": "Temperature (C)",
+          "openaq_parameter_id": 100,
+          "openaq_parameter_name": "temperature",
+          "openaq_sensor_id": 16198445,
+          "parameter_code": null,
+          "provider_unit": "c",
+          "sensor_name": "temperature c",
+          "unit_code": null
+        },
+        {
+          "compatibility_status": "unsuitable",
+          "exclusion_reason": "unsupported_parameter",
+          "native_temporal_metadata": {
+            "aggregation_period": null,
+            "expected_frequency_seconds": null,
+            "status": "not_provided_by_location_discovery"
+          },
+          "openaq_parameter_display_name": "PM0.3 count",
+          "openaq_parameter_id": 125,
+          "openaq_parameter_name": "um003",
+          "openaq_sensor_id": 16198446,
+          "parameter_code": null,
+          "provider_unit": "particles/cm\u00b3",
+          "sensor_name": "um003 particles/cm\u00b3",
+          "unit_code": null
+        }
+      ]
+    },
+    {
+      "airgradient_metadata_evidence": [],
+      "compatible_parameter_codes": [
+        "pm25"
+      ],
+      "compatible_sensors": [
+        {
+          "compatibility_status": "compatible",
+          "exclusion_reason": null,
+          "native_temporal_metadata": {
+            "aggregation_period": null,
+            "expected_frequency_seconds": null,
+            "status": "not_provided_by_location_discovery"
+          },
+          "openaq_parameter_display_name": "PM2.5",
+          "openaq_parameter_id": 2,
+          "openaq_parameter_name": "pm25",
+          "openaq_sensor_id": 16482922,
+          "parameter_code": "pm25",
+          "provider_unit": "\u00b5g/m\u00b3",
+          "sensor_name": "pm25 \u00b5g/m\u00b3",
+          "unit_code": "ug_m3"
+        }
+      ],
+      "coordinates": {
+        "latitude": 14.58828,
+        "longitude": 121.05896
+      },
+      "datetime_first": {
+        "local": "2026-06-02T15:00:24+08:00",
+        "utc": "2026-06-02T07:00:24Z"
+      },
+      "datetime_last": {
+        "local": "2026-06-03T14:04:58+08:00",
+        "utc": "2026-06-03T06:04:58Z"
+      },
+      "hardware_provider": null,
+      "instruments": [
+        {
+          "id": 4,
+          "name": "Clarity Sensor"
+        }
+      ],
+      "is_mobile": false,
+      "is_reference_monitor": false,
+      "licenses": [
+        {
+          "attribution": {
+            "name": "Clarity",
+            "url": null
+          },
+          "dateFrom": "2021-10-20",
+          "dateTo": null,
+          "id": 38,
+          "name": "CC0 1.0"
+        }
+      ],
+      "locality": null,
+      "location_name": "ADB Courtyard (Demo)",
+      "openaq_location_id": 6384709,
+      "owner": {
+        "id": 9,
+        "name": "Clarity"
+      },
+      "provider": {
+        "id": 166,
+        "name": "Clarity"
+      },
+      "recent_data_status": "stale",
+      "selection_eligible": false,
+      "timezone": "Asia/Manila",
+      "transport_provider": "OpenAQ",
+      "unsuitable_sensors": []
+    },
+    {
+      "airgradient_metadata_evidence": [
+        "instrument:Unknown AirGradient Sensor",
+        "owner:AirGradient",
+        "provider:AirGradient"
+      ],
+      "compatible_parameter_codes": [
+        "pm25"
+      ],
+      "compatible_sensors": [
+        {
+          "compatibility_status": "compatible",
+          "exclusion_reason": null,
+          "native_temporal_metadata": {
+            "aggregation_period": null,
+            "expected_frequency_seconds": null,
+            "status": "not_provided_by_location_discovery"
+          },
+          "openaq_parameter_display_name": "PM2.5",
+          "openaq_parameter_id": 2,
+          "openaq_parameter_name": "pm25",
+          "openaq_sensor_id": 16536689,
+          "parameter_code": "pm25",
+          "provider_unit": "\u00b5g/m\u00b3",
+          "sensor_name": "pm25 \u00b5g/m\u00b3",
+          "unit_code": "ug_m3"
+        }
+      ],
+      "coordinates": {
+        "latitude": 14.576655,
+        "longitude": 121.070464
+      },
+      "datetime_first": {
+        "local": "2026-06-07T14:00:00+08:00",
+        "utc": "2026-06-07T06:00:00Z"
+      },
+      "datetime_last": {
+        "local": "2026-08-11T14:00:00+08:00",
+        "utc": "2026-08-11T06:00:00Z"
+      },
+      "hardware_provider": "AirGradient",
+      "instruments": [
+        {
+          "id": 7,
+          "name": "Unknown AirGradient Sensor"
+        }
+      ],
+      "is_mobile": false,
+      "is_reference_monitor": false,
+      "licenses": [
+        {
+          "attribution": {
+            "name": "AirGradient",
+            "url": null
+          },
+          "dateFrom": "2023-07-15",
+          "dateTo": null,
+          "id": 41,
+          "name": "CC BY 4.0"
+        }
+      ],
+      "locality": null,
+      "location_name": "Valle1",
+      "openaq_location_id": 6391974,
+      "owner": {
+        "id": 12,
+        "name": "AirGradient"
+      },
+      "provider": {
+        "id": 66,
+        "name": "AirGradient"
+      },
+      "recent_data_status": "recent",
+      "selection_eligible": true,
+      "timezone": "Asia/Manila",
+      "transport_provider": "OpenAQ",
+      "unsuitable_sensors": [
+        {
+          "compatibility_status": "unsuitable",
+          "exclusion_reason": "unsupported_parameter",
+          "native_temporal_metadata": {
+            "aggregation_period": null,
+            "expected_frequency_seconds": null,
+            "status": "not_provided_by_location_discovery"
+          },
+          "openaq_parameter_display_name": "PM1",
+          "openaq_parameter_id": 19,
+          "openaq_parameter_name": "pm1",
+          "openaq_sensor_id": 16536688,
+          "parameter_code": null,
+          "provider_unit": "\u00b5g/m\u00b3",
+          "sensor_name": "pm1 \u00b5g/m\u00b3",
+          "unit_code": "ug_m3"
+        },
+        {
+          "compatibility_status": "unsuitable",
+          "exclusion_reason": "unsupported_parameter",
+          "native_temporal_metadata": {
+            "aggregation_period": null,
+            "expected_frequency_seconds": null,
+            "status": "not_provided_by_location_discovery"
+          },
+          "openaq_parameter_display_name": "RH",
+          "openaq_parameter_id": 98,
+          "openaq_parameter_name": "relativehumidity",
+          "openaq_sensor_id": 16536690,
+          "parameter_code": null,
+          "provider_unit": "%",
+          "sensor_name": "relativehumidity %",
+          "unit_code": null
+        },
+        {
+          "compatibility_status": "unsuitable",
+          "exclusion_reason": "unsupported_parameter",
+          "native_temporal_metadata": {
+            "aggregation_period": null,
+            "expected_frequency_seconds": null,
+            "status": "not_provided_by_location_discovery"
+          },
+          "openaq_parameter_display_name": "Temperature (C)",
+          "openaq_parameter_id": 100,
+          "openaq_parameter_name": "temperature",
+          "openaq_sensor_id": 16536691,
+          "parameter_code": null,
+          "provider_unit": "c",
+          "sensor_name": "temperature c",
+          "unit_code": null
+        },
+        {
+          "compatibility_status": "unsuitable",
+          "exclusion_reason": "unsupported_parameter",
+          "native_temporal_metadata": {
+            "aggregation_period": null,
+            "expected_frequency_seconds": null,
+            "status": "not_provided_by_location_discovery"
+          },
+          "openaq_parameter_display_name": "PM0.3 count",
+          "openaq_parameter_id": 125,
+          "openaq_parameter_name": "um003",
+          "openaq_sensor_id": 16536692,
+          "parameter_code": null,
+          "provider_unit": "particles/cm\u00b3",
+          "sensor_name": "um003 particles/cm\u00b3",
+          "unit_code": null
+        }
+      ]
+    },
+    {
+      "airgradient_metadata_evidence": [],
+      "compatible_parameter_codes": [
+        "pm25"
+      ],
+      "compatible_sensors": [
+        {
+          "compatibility_status": "compatible",
+          "exclusion_reason": null,
+          "native_temporal_metadata": {
+            "aggregation_period": null,
+            "expected_frequency_seconds": null,
+            "status": "not_provided_by_location_discovery"
+          },
+          "openaq_parameter_display_name": "PM2.5",
+          "openaq_parameter_id": 2,
+          "openaq_parameter_name": "pm25",
+          "openaq_sensor_id": 16547006,
+          "parameter_code": "pm25",
+          "provider_unit": "\u00b5g/m\u00b3",
+          "sensor_name": "pm25 \u00b5g/m\u00b3",
+          "unit_code": "ug_m3"
+        }
+      ],
+      "coordinates": {
+        "latitude": 14.55612,
+        "longitude": 121.02236
+      },
+      "datetime_first": {
+        "local": "2026-06-08T12:02:19+08:00",
+        "utc": "2026-06-08T04:02:19Z"
+      },
+      "datetime_last": {
+        "local": "2026-08-11T07:03:32+08:00",
+        "utc": "2026-08-10T23:03:32Z"
+      },
+      "hardware_provider": null,
+      "instruments": [
+        {
+          "id": 4,
+          "name": "Clarity Sensor"
+        }
+      ],
+      "is_mobile": false,
+      "is_reference_monitor": false,
+      "licenses": [
+        {
+          "attribution": {
+            "name": "Clarity",
+            "url": null
+          },
+          "dateFrom": "2021-10-20",
+          "dateTo": null,
+          "id": 38,
+          "name": "CC0 1.0"
+        }
+      ],
+      "locality": null,
+      "location_name": "Ayala Ave.",
+      "openaq_location_id": 6393360,
+      "owner": {
+        "id": 9,
+        "name": "Clarity"
+      },
+      "provider": {
+        "id": 166,
+        "name": "Clarity"
+      },
+      "recent_data_status": "recent",
+      "selection_eligible": true,
+      "timezone": "Asia/Manila",
+      "transport_provider": "OpenAQ",
+      "unsuitable_sensors": []
+    }
+  ],
+  "coverage": {
+    "co": false,
+    "no2": false,
+    "o3": false,
+    "pm10": false,
+    "pm25": true,
+    "so2": false
+  },
+  "gaps": {
+    "co": "no_compatible_openaq_sensor_in_approved_radius",
+    "no2": "no_compatible_openaq_sensor_in_approved_radius",
+    "o3": "no_compatible_openaq_sensor_in_approved_radius",
+    "pm10": "no_recent_compatible_openaq_sensor_in_approved_radius",
+    "so2": "no_compatible_openaq_sensor_in_approved_radius"
+  },
+  "provider": "OpenAQ",
+  "recent_data_max_age_days": 30,
+  "reference_area_code": "metro_manila",
+  "reference_area_name": "Metro Manila / Philippines",
+  "response_meta": {
+    "found": 69,
+    "limit": 1000,
+    "page": 1,
+    "result_truncated_by_request_ceiling": false,
+    "returned": 69
+  },
+  "schema_version": "2i.3",
+  "selected_locations": [
+    {
+      "airgradient_metadata_evidence": [
+        "instrument:AirGradient ONE Generation 9 (I-9PSL-DE)",
+        "provider:AirGradient"
+      ],
+      "compatible_parameter_codes": [
+        "pm25"
+      ],
+      "coordinates": {
+        "latitude": 14.6354,
+        "longitude": 121.0779
+      },
+      "datetime_first": {
+        "local": "2025-05-30T15:00:00+08:00",
+        "utc": "2025-05-30T07:00:00Z"
+      },
+      "datetime_last": {
+        "local": "2026-08-11T14:00:00+08:00",
+        "utc": "2026-08-11T06:00:00Z"
+      },
+      "hardware_provider": "AirGradient",
+      "instruments": [
+        {
+          "id": 22,
+          "name": "AirGradient ONE Generation 9 (I-9PSL-DE)"
+        }
+      ],
+      "is_mobile": false,
+      "is_reference_monitor": false,
+      "known_limitation": "The locations discovery response does not provide native sensor interval or aggregation metadata; Phase 2I.4 must qualify temporal semantics before measurement capture.",
+      "licenses": [
+        {
+          "attribution": {
+            "name": "Manila Observatory",
+            "url": null
+          },
+          "dateFrom": "2023-07-15",
+          "dateTo": null,
+          "id": 41,
+          "name": "CC BY 4.0"
+        }
+      ],
+      "locality": null,
+      "location_name": "Manila Observatory",
+      "openaq_location_id": 4565934,
+      "owner": {
+        "id": 16824,
+        "name": "Manila Observatory"
+      },
+      "provider": {
+        "id": 66,
+        "name": "AirGradient"
+      },
+      "recent_data_status": "recent",
+      "selected_sensors": [
+        {
+          "compatibility_status": "compatible",
+          "exclusion_reason": null,
+          "hardware_provider": "AirGradient",
+          "known_limitation": "Provider parameter identity and unit are preserved without conversion.",
+          "native_temporal_metadata": {
+            "aggregation_period": null,
+            "expected_frequency_seconds": null,
+            "status": "not_provided_by_location_discovery"
+          },
+          "openaq_parameter_display_name": "PM2.5",
+          "openaq_parameter_id": 2,
+          "openaq_parameter_name": "pm25",
+          "openaq_sensor_id": 13191003,
+          "parameter_code": "pm25",
+          "provider_unit": "\u00b5g/m\u00b3",
+          "selection_reason": "Exact target parameter identity, compatible preserved unit, and deterministic preferred-unit/sensor-ID ranking.",
+          "sensor_name": "pm25 \u00b5g/m\u00b3",
+          "transport_provider": "OpenAQ",
+          "unit_code": "ug_m3"
+        }
+      ],
+      "selection_eligible": true,
+      "selection_reason": "Deterministic ranking: stationary reference monitor, new compatible-parameter coverage, recent availability, then stable OpenAQ location ID.",
+      "timezone": "Asia/Manila",
+      "transport_provider": "OpenAQ"
+    }
+  ],
+  "source_request": {
+    "endpoint": "https://api.openaq.org/v3/locations",
+    "executed_at": "2026-08-11T06:52:54.644340Z",
+    "query": {
+      "coordinates": "14.5995,120.9842",
+      "limit": 1000,
+      "order_by": "id",
+      "page": 1,
+      "radius": 25000,
+      "sort_order": "asc"
+    }
+  },
+  "target_parameter_codes": [
+    "pm25",
+    "pm10",
+    "o3",
+    "no2",
+    "so2",
+    "co"
+  ],
+  "timezone_reference": "Asia/Manila"
+}

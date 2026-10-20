@@ -55,8 +55,12 @@ def upsert_from_purpleair_sensor(session, sensor: Sensor | dict) -> Optional[mod
     if isinstance(sensor, dict):
         sid = sensor.get("sensor_index")
         name = sensor.get("name")
-        lat = sensor.get("latitude") or sensor.get("lat")
-        lon = sensor.get("longitude") or sensor.get("lon")
+        lat = sensor.get("latitude")
+        if lat is None:
+            lat = sensor.get("lat")
+        lon = sensor.get("longitude")
+        if lon is None:
+            lon = sensor.get("lon")
         last_seen = sensor.get("last_seen")
                                                                           
         v = sensor.get("pm2.5_atm") if sensor.get("pm2.5_atm") is not None else sensor.get("pm2_5_atm")
@@ -65,8 +69,12 @@ def upsert_from_purpleair_sensor(session, sensor: Sensor | dict) -> Optional[mod
     else:
         sid = sensor.sensor_index
         name = sensor.name
-        lat = getattr(sensor, 'latitude', None) or getattr(sensor, 'lat', None)
-        lon = getattr(sensor, 'longitude', None) or getattr(sensor, 'lon', None)
+        lat = getattr(sensor, 'latitude', None)
+        if lat is None:
+            lat = getattr(sensor, 'lat', None)
+        lon = getattr(sensor, 'longitude', None)
+        if lon is None:
+            lon = getattr(sensor, 'lon', None)
         last_seen = getattr(sensor, 'last_seen', None)
         v = getattr(sensor, 'pm2.5_atm', None) or getattr(sensor, 'pm2_5_atm', None) or getattr(sensor, 'pm2.5_cf_1', None) or getattr(sensor, 'pm2_5_cf_1', None)
 
@@ -90,11 +98,8 @@ def upsert_from_purpleair_sensor(session, sensor: Sensor | dict) -> Optional[mod
     except Exception:
         obs_at = None
 
-    try:
-        if lat is not None or lon is not None:
-            _update_device_location(session, dev, lat, lon, effective_from=obs_at)
-    except Exception:
-        pass
+    if lat is not None or lon is not None:
+        _update_device_location(session, dev, lat, lon, effective_from=obs_at)
 
                                                 
     pid, uid = _resolve_param_and_unit_ids(session)

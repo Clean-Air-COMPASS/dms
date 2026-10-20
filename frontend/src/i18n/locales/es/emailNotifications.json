@@ -1,0 +1,388 @@
+{
+  "page": {
+    "title": "Correo y notificaciones",
+    "description": "Configure la entrega SMTP independiente del proveedor y verifique que CompassAQ pueda enviar correos a los administradores."
+  },
+  "breadcrumbs": {
+    "admin": "Administración",
+    "email": "Correo y notificaciones"
+  },
+  "common": {
+    "yes": "Sí",
+    "no": "No",
+    "notConfigured": "Sin configurar",
+    "notUsed": "No se usa"
+  },
+  "actions": {
+    "edit": "Editar configuración",
+    "save": "Guardar cambios",
+    "saving": "Guardando…",
+    "cancel": "Cancelar",
+    "retry": "Reintentar",
+    "retryTest": "Repetir prueba"
+  },
+  "states": {
+    "loading": "Cargando la configuración de correo…"
+  },
+  "messages": {
+    "saved": "Se guardó la configuración de correo."
+  },
+  "overview": {
+    "title": "Estado general",
+    "nextActionLabel": "Siguiente paso recomendado",
+    "factLabel": "Resumen de entrega de correo",
+    "enabled": "Correo habilitado",
+    "sender": "Remitente",
+    "password": "Contraseña SMTP",
+    "recipients": "Destinatarios administradores",
+    "recipientCount_one": "{{count}} destinatario",
+    "recipientCount_other": "{{count}} destinatarios",
+    "lastTest": "Prueba de entrega"
+  },
+  "status": {
+    "not_configured": {
+      "label": "Sin configurar",
+      "explanation": "CompassAQ todavía no tiene guardada una configuración para entregar correo.",
+      "nextAction": "Ingrese y guarde la configuración SMTP, del remitente y de los destinatarios."
+    },
+    "disabled": {
+      "label": "Deshabilitado",
+      "explanation": "La configuración está guardada, pero CompassAQ no enviará correo mientras la entrega esté deshabilitada.",
+      "nextAction": "Edite la configuración y habilite la entrega cuando esté listo."
+    },
+    "needs_attention": {
+      "label": "Requiere atención",
+      "explanation": "La configuración guardada necesita otro paso antes de que la entrega esté lista.",
+      "nextAction": "Revise el problema indicado y luego guarde o repita la prueba de entrega."
+    },
+    "ready": {
+      "label": "Listo",
+      "explanation": "La configuración guardada completó correctamente una prueba de entrega.",
+      "nextAction": "No se requiere ninguna acción. Puede enviar otra prueba en cualquier momento."
+    }
+  },
+  "reasons": {
+    "emailNotConfigured": "La entrega de correo no está configurada.",
+    "emailDisabled": "La entrega de correo está desactivada.",
+    "smtpHostMissing": "Ingrese el nombre del servidor SMTP.",
+    "smtpPortMissing": "Ingrese el puerto del servidor SMTP.",
+    "smtpSecurityModeMissing": "Elija cómo se protege la conexión SMTP.",
+    "fromEmailMissing": "Ingrese la dirección de correo del remitente.",
+    "administratorRecipientsMissing": "Agregue al menos un destinatario administrador.",
+    "smtpCredentialsIncomplete": "Ingrese el usuario y la contraseña SMTP, o no use ninguno si la red autentica el relay.",
+    "unencryptedCredentialsNotAllowed": "No se puede usar autenticación con usuario y contraseña mediante SMTP sin cifrado.",
+    "testRequired": "La configuración se guardó. Envíe un correo de prueba para verificar la entrega.",
+    "lastTestFailed": "La última prueba de entrega falló. Revise la configuración y vuelva a intentarlo."
+  },
+  "errors": {
+    "loadFailed": "No se pudo cargar la configuración de correo. Revise la conexión con la API y vuelva a intentarlo.",
+    "saveFailed": "No se pudo guardar la configuración de correo. Revise los campos y vuelva a intentarlo.",
+    "testFailed": "CompassAQ no pudo enviar el correo de prueba. Revise la configuración y vuelva a intentarlo.",
+    "unknown": "La configuración de correo guardada requiere atención.",
+    "emailConfigurationDisabled": "La entrega de correo está deshabilitada. Habilítela y guárdela antes de probar.",
+    "emailConfigurationIncomplete": "La configuración guardada está incompleta. Revise los campos obligatorios de conexión, remitente y destinatarios.",
+    "smtpSecretUnavailable": "No se puede leer la contraseña SMTP guardada. Restaure la clave de cifrado de CompassAQ o reemplace la contraseña.",
+    "smtpDnsFailure": "No se encontró el nombre del servidor SMTP. Revise el nombre del servidor y el DNS de la red.",
+    "smtpConnectionTimeout": "El servidor SMTP no respondió a tiempo. Revise el nombre, el puerto, el firewall y la ruta de red.",
+    "smtpConnectionFailed": "CompassAQ no pudo conectarse al servidor SMTP. Revise el nombre, el puerto y el acceso de red.",
+    "smtpTlsError": "Falló la conexión SMTP segura. Revise el modo de seguridad y el certificado del servidor.",
+    "smtpAuthenticationFailed": "El servidor SMTP rechazó el usuario o la contraseña guardados. Reemplace las credenciales y vuelva a intentarlo.",
+    "smtpSenderRejected": "El servidor SMTP rechazó la dirección del remitente. Verifique que el servicio de correo autorice la dirección De.",
+    "smtpRecipientRejected": "El servidor SMTP rechazó al destinatario de prueba. Verifique la dirección y las restricciones del proveedor.",
+    "smtpRelayDenied": "El servidor SMTP no permitió retransmitir este mensaje. Revise la autenticación y los permisos del relay.",
+    "smtpServerDisconnected": "El servidor SMTP se desconectó antes de completar la entrega. Revise el servidor y vuelva a intentarlo.",
+    "smtpServerError": "El servidor SMTP devolvió un error inesperado. Revise el servicio del proveedor y vuelva a intentarlo.",
+    "invalidEmailMessage": "CompassAQ no pudo crear un mensaje de prueba válido. Revise las direcciones del remitente y del destinatario."
+  },
+  "validation": {
+    "required": "Este campo es obligatorio mientras la entrega de correo esté habilitada.",
+    "invalidText": "Ingrese texto válido o deje el campo vacío.",
+    "textTooLong": "Este valor es demasiado largo.",
+    "invalidControlCharacter": "Quite los saltos de línea o caracteres de control no admitidos.",
+    "invalidSmtpHost": "Ingrese un nombre de servidor o una dirección IP sin esquema de URL, ruta ni espacios.",
+    "invalidSmtpPort": "Ingrese un puerto entre 1 y 65535.",
+    "invalidSecurityMode": "Elija un modo de seguridad SMTP compatible.",
+    "invalidEmailAddress": "Ingrese una dirección de correo válida.",
+    "invalidRecipients": "Los destinatarios administradores deben ser una lista de direcciones de correo.",
+    "tooManyRecipients": "Se permiten como máximo 50 destinatarios administradores.",
+    "duplicateRecipients": "Quite las direcciones duplicadas de destinatarios administradores.",
+    "recipientRequired": "Agregue al menos un destinatario administrador mientras la entrega esté habilitada.",
+    "invalidEnabledState": "Elija si la entrega de correo está habilitada.",
+    "invalidPassword": "Ingrese una contraseña SMTP válida o elimínela de forma deliberada.",
+    "emptyPassword": "Ingrese una contraseña de reemplazo que no esté vacía. Use Eliminar contraseña para quitar la contraseña guardada.",
+    "passwordTooLong": "La contraseña SMTP no debe superar los 4096 caracteres.",
+    "credentialsTogether": "El usuario y la contraseña SMTP deben configurarse juntos.",
+    "unencryptedCredentials": "Quite el usuario y la contraseña guardada antes de usar SMTP sin cifrado."
+  },
+  "security": {
+    "options": {
+      "starttls": "STARTTLS",
+      "ssl_tls": "SSL/TLS",
+      "none": "SMTP sin cifrado"
+    },
+    "warningTitle": "Esta conexión no estará cifrada.",
+    "warningDescription": "Use este modo solo para un relay de red confiable. CompassAQ no permite autenticación con usuario o contraseña mediante una conexión sin cifrado.",
+    "confirmDialog": {
+      "title": "¿Guardar SMTP sin cifrado?",
+      "description": "Los mensajes y metadatos de la conexión podrían ser legibles en la red. Confirme que este servidor sea un relay confiable que no requiera autenticación con usuario ni contraseña.",
+      "confirm": "Guardar SMTP sin cifrado"
+    }
+  },
+  "password": {
+    "configured": "Contraseña configurada",
+    "notConfigured": "Contraseña sin configurar",
+    "willClear": "La contraseña se eliminará",
+    "writeOnlyHelp": "CompassAQ nunca devuelve la contraseña guardada. Los demás cambios la conservan automáticamente.",
+    "newLabel": "Contraseña SMTP",
+    "replacementLabel": "Nueva contraseña SMTP",
+    "inputHelp": "La contraseña se envía solo al guardar y nunca vuelve a mostrarse.",
+    "replaceAction": "Reemplazar contraseña",
+    "clearAction": "Eliminar contraseña",
+    "keepAction": "Conservar contraseña guardada",
+    "clearDialog": {
+      "title": "¿Eliminar la contraseña SMTP guardada?",
+      "description": "La contraseña se eliminará cuando guarde la configuración. La autenticación SMTP no funcionará hasta que guarde una nueva contraseña.",
+      "confirm": "Eliminar contraseña"
+    }
+  },
+  "form": {
+    "delivery": {
+      "title": "Control de entrega",
+      "description": "Elija si CompassAQ puede enviar correo con esta configuración guardada.",
+      "enabledLabel": "Habilitar entrega de correo",
+      "enabledHelp": "Deshabilite la entrega sin borrar la conexión, el remitente ni los destinatarios guardados."
+    },
+    "smtp": {
+      "title": "Conexión SMTP",
+      "description": "Ingrese la configuración SMTP estándar que proporciona su servicio de correo, como Amazon SES, Microsoft 365, Google Workspace, Exchange, SendGrid o Mailgun.",
+      "hostLabel": "Servidor SMTP",
+      "hostPlaceholder": "smtp.example.com",
+      "hostHelp": "Solo el nombre del servidor o la dirección IP; no incluya smtp://, https:// ni una ruta.",
+      "portLabel": "Puerto",
+      "portHelp": "Los valores comunes son 587 para STARTTLS y 465 para SSL/TLS. Use el puerto indicado por su proveedor.",
+      "securityLabel": "Seguridad",
+      "securityPlaceholder": "Elegir seguridad",
+      "securityHelp": "STARTTLS protege la conexión antes de autenticar. SSL/TLS está cifrado desde el inicio de la conexión.",
+      "usernameLabel": "Usuario SMTP",
+      "usernameHelp": "Es opcional para un relay autenticado por la red; de lo contrario, configúrelo junto con una contraseña.",
+      "passwordLabel": "Contraseña SMTP"
+    },
+    "sender": {
+      "title": "Remitente",
+      "description": "Esta identidad aparece en el encabezado De del correo para administradores.",
+      "fromEmailLabel": "Correo del remitente",
+      "displayNameLabel": "Nombre visible del remitente",
+      "replyToLabel": "Correo de respuesta",
+      "replyToHelp": "Dirección opcional que recibe las respuestas en lugar de la dirección del remitente."
+    },
+    "recipients": {
+      "title": "Destinatarios administradores",
+      "description": "Estas direcciones son los destinatarios predeterminados de futuras notificaciones administrativas.",
+      "count": "{{count}} de {{maximum}} configurados",
+      "addressLabel": "Destinatario {{number}}",
+      "removeLabel": "Quitar destinatario {{number}}",
+      "removeAction": "Quitar",
+      "addAction": "Agregar destinatario"
+    }
+  },
+  "summary": {
+    "smtp": {
+      "title": "Conexión SMTP",
+      "description": "Configuración guardada del servidor y la autenticación."
+    },
+    "sender": {
+      "title": "Remitente",
+      "description": "Identidad usada para el correo saliente a administradores."
+    },
+    "recipients": {
+      "title": "Destinatarios administradores",
+      "description": "Destinos predeterminados del correo para administradores.",
+      "empty": "No hay destinatarios administradores configurados."
+    }
+  },
+  "test": {
+    "title": "Prueba de entrega",
+    "description": "Envíe una prueba claramente identificada de CompassAQ mediante la configuración guardada exacta.",
+    "recipientLabel": "Destinatario de prueba",
+    "recipientPlaceholder": "administrador@example.com",
+    "recipientHelp": "De forma predeterminada usa el primer destinatario administrador guardado. Ingrese otra dirección solo para esta prueba.",
+    "sendAction": "Enviar correo de prueba",
+    "sending": "Enviando prueba…",
+    "success": "Se envió el correo de prueba a {{recipient}}.",
+    "lastSuccess": "La última prueba fue correcta",
+    "lastFailure": "La última prueba falló",
+    "neverTested": "Aún no se ha probado",
+    "lastTested": "Última prueba: {{date}}",
+    "unsavedChanges": "Guarde o cancele los cambios antes de probar. Las pruebas siempre usan la configuración guardada.",
+    "disabled": "Habilite y guarde la entrega de correo antes de enviar una prueba.",
+    "moreDetails": "Más detalles",
+    "smtpResponseCode": "Código de respuesta SMTP: {{code}}"
+  },
+  "administratorSummary": {
+    "eyebrow": "Correo programado para administradores",
+    "title": "Resumen para administradores",
+    "description": "Envíe a los administradores un resumen conciso de importaciones de datos, actividad de control de calidad y eventos importantes del sistema para cada período completado.",
+    "common": {
+      "notScheduled": "Sin programar",
+      "notAvailable": "No disponible",
+      "noneYet": "Aún no hay"
+    },
+    "states": {
+      "loading": "Cargando la configuración del resumen para administradores…"
+    },
+    "status": {
+      "summary_off": {
+        "label": "Resumen desactivado",
+        "explanation": "Los resúmenes programados para administradores no se están enviando. Aun así, puede obtener una vista previa de un período completado."
+      },
+      "blocked_email_delivery": {
+        "label": "Bloqueado",
+        "explanation": "La programación está guardada, pero los resúmenes no se pueden enviar hasta que la Entrega de correo esté lista."
+      },
+      "waiting_for_first_scheduled_period": {
+        "label": "Esperando el primer período",
+        "explanation": "La programación está activa. CompassAQ espera el primer período completado después de que esta programación entró en vigencia."
+      },
+      "last_summary_sent": {
+        "label": "Último resumen enviado",
+        "explanation": "Se envió el último resumen programado. El siguiente período completado sigue programado."
+      },
+      "last_summary_failed": {
+        "label": "Falló el último resumen",
+        "explanation": "CompassAQ no pudo enviar el último resumen programado. Esto no necesariamente significa que el servicio SMTP no esté disponible."
+      },
+      "delivery_unknown": {
+        "label": "Resultado de entrega desconocido",
+        "explanation": "CompassAQ no puede confirmar si se entregó este resumen. No lo reenviará automáticamente para evitar un duplicado."
+      },
+      "delivery_in_progress": {
+        "label": "Entrega en curso",
+        "explanation": "CompassAQ inició la última entrega programada y espera el resultado."
+      },
+      "blockedTitle": "La Entrega de correo requiere atención",
+      "reviewEmailDelivery": "Revisar la Entrega de correo arriba"
+    },
+    "schedule": {
+      "dailyAt": "Diariamente a las {{time}}",
+      "hourly": "Cada hora",
+      "testing": "Cada 15 minutos (prueba)",
+      "whenEnabled": "{{cadence}} cuando se habilite"
+    },
+    "facts": {
+      "label": "Resumen de la programación para administradores",
+      "nextSummary": "Próximo resumen",
+      "nextPeriod": "Período que abarcará",
+      "lastSummary": "Último resumen programado",
+      "lastDelivery": "Estado de la última entrega"
+    },
+    "delivery": {
+      "sending": "Enviando",
+      "sent": "Enviado",
+      "failed": "Fallido",
+      "delivery_unknown": "Resultado desconocido"
+    },
+    "form": {
+      "title": "Programación",
+      "description": "Elija una frecuencia y una zona horaria. Los cambios comienzan con períodos futuros completados y no envían resúmenes anteriores.",
+      "enabledLabel": "Habilitar resumen para administradores",
+      "enabledHelp": "Envíe automáticamente el resumen seleccionado cuando la Entrega de correo esté lista.",
+      "cadenceLegend": "¿Con qué frecuencia debe CompassAQ resumir la actividad?",
+      "sendTimeLabel": "Hora de envío",
+      "sendTimeHelp": "Un resumen enviado a las {{time}} informa sobre el día calendario anterior en esta zona horaria.",
+      "timezoneLabel": "Zona horaria del informe",
+      "useSystemTimezone": "Usar zona horaria del sistema — {{timezone}}",
+      "systemTimezoneHelp": "Se hereda de Preferencias del sistema. Si cambia la zona horaria del sistema, este resumen se actualiza a menos que elija una anulación.",
+      "timezoneHelp": "Los períodos y horas programadas usan esta zona horaria IANA.",
+      "save": "Guardar cambios",
+      "saving": "Guardando programación…"
+    },
+    "cadence": {
+      "daily": {
+        "label": "Diario",
+        "help": "Recomendado para el uso normal en producción.",
+        "periodHelp": "Cada correo resume el día calendario local anterior completado."
+      },
+      "hourly": {
+        "label": "Cada hora",
+        "help": "Una frecuencia operativa avanzada para un seguimiento más cercano.",
+        "periodHelp": "Cada correo resume la hora anterior completada."
+      },
+      "every15": {
+        "label": "Prueba — cada 15 minutos",
+        "help": "Una frecuencia de puesta en servicio para pruebas breves y supervisadas.",
+        "periodHelp": "Cada correo resume el período anterior completado de 15 minutos.",
+        "warning": "Esta frecuencia puede generar muchos correos. Úsela solo para pruebas o puesta en servicio y luego vuelva a Diario."
+      }
+    },
+    "advanced": {
+      "title": "Opciones avanzadas / Pruebas",
+      "help": "Use estas frecuencias solo cuando los administradores necesiten resúmenes operativos más frecuentes."
+    },
+    "preview": {
+      "action": "Vista previa del resumen",
+      "loading": "Creando vista previa…",
+      "title": "Vista previa del resumen",
+      "notSent": "Esta vista previa usa datos actuales de la base de datos para un período completado. No se envió ningún correo ni se cambió la entrega programada.",
+      "allNormal": "Todos los sistemas funcionan con normalidad",
+      "needsAttention": "{{count}} requieren atención",
+      "period": "Período del informe",
+      "subject": "Asunto del correo",
+      "formatLabel": "Formato de vista previa",
+      "html": "Vista previa del correo",
+      "text": "Texto sin formato",
+      "frameTitle": "Correo renderizado del resumen para administradores"
+    },
+    "test": {
+      "action": "Enviar resumen de prueba",
+      "blocked": "El resumen de prueba estará disponible cuando la Entrega de correo de arriba esté Lista.",
+      "unsaved": "Guarde la programación antes de enviar una prueba. La vista previa puede usar selecciones sin guardar.",
+      "dialogTitle": "¿Enviar un resumen de prueba para administradores?",
+      "dialogDescription": "CompassAQ creará el resumen real y enviará una prueba claramente identificada. No contará como una entrega programada.",
+      "recipientLabel": "Destinatario del resumen de prueba",
+      "recipientPlaceholder": "Usar el primer destinatario administrador guardado",
+      "recipientHelp": "Déjelo en blanco para usar el primer destinatario administrador guardado o ingrese una dirección de una sola vez. Esta dirección no se guardará.",
+      "confirm": "Enviar resumen de prueba",
+      "sending": "Enviando resumen de prueba…",
+      "success": "Se envió el resumen de prueba a {{recipient}}."
+    },
+    "messages": {
+      "saved": "Se guardó la programación del resumen para administradores."
+    },
+    "errors": {
+      "loadFailed": "No se pudo cargar la configuración del resumen para administradores. Vuelva a intentarlo.",
+      "saveFailed": "No se pudo guardar la programación del resumen. Revise la configuración y vuelva a intentarlo.",
+      "previewFailed": "CompassAQ no pudo crear la vista previa del resumen. Vuelva a intentarlo.",
+      "testFailed": "CompassAQ no pudo enviar el resumen de prueba. Revise la Entrega de correo y vuelva a intentarlo."
+    },
+    "timezones": {
+      "UTC": "Hora universal coordinada",
+      "America_Los_Angeles": "Hora del Pacífico",
+      "America_Denver": "Hora de la Montaña",
+      "America_Phoenix": "Hora de Arizona",
+      "America_Chicago": "Hora Central",
+      "America_New_York": "Hora del Este",
+      "America_Anchorage": "Hora de Alaska",
+      "Pacific_Honolulu": "Hora de Hawái",
+      "America_Mexico_City": "Hora de Ciudad de México",
+      "America_Bogota": "Hora de Bogotá",
+      "America_Lima": "Hora de Lima",
+      "America_Santiago": "Hora de Santiago",
+      "America_Argentina_Buenos_Aires": "Hora de Buenos Aires",
+      "America_Sao_Paulo": "Hora de São Paulo",
+      "Europe_London": "Hora de Londres",
+      "Europe_Madrid": "Hora de Madrid"
+    }
+  },
+  "workflow": {
+    "deliveryTitle": "Envío de correo",
+    "deliveryDescription": "Configura cómo CompassAQ envía correo a los administradores.",
+    "setupHelp": "Configura SMTP, el remitente y los destinatarios para habilitar el correo a los administradores.",
+    "configure": "Configurar el envío de correo",
+    "test": "Enviar un correo de prueba",
+    "retry": "Revisar el error de envío y repetir la prueba",
+    "summary": "Configurar o activar el resumen para administradores",
+    "monitor": "Revisar la actividad reciente de envío",
+    "summaryDescription": "Usa el envío de correo configurado para enviar resúmenes programados a los destinatarios administradores.",
+    "activityTitle": "Estado y actividad recientes"
+  }
+}

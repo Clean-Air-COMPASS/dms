@@ -1,0 +1,479 @@
+{
+  "breadcrumbs": {
+    "admin": "Administración",
+    "qualityControl": "Control de calidad"
+  },
+  "sensors": {
+    "breadcrumb": "Sensores",
+    "actions": {
+      "findSensor": "Buscar un sensor",
+      "viewDevice": "Ver dispositivo",
+      "resetAll": "Restablecer todo el CC personalizado",
+      "resetCheck": "Restablecer la configuración personalizada de {{check}}",
+      "useInheritedSetting": "Usar {{source}}",
+      "removeCustomSetting": "Eliminar el valor personalizado"
+    },
+    "search": {
+      "title": "Buscar un sensor",
+      "description": "Elija un sensor para ver exactamente qué control de calidad se aplicará a su próxima medición.",
+      "searchLabel": "Buscar sensores",
+      "searchPlaceholder": "Nombre del dispositivo, identificador, parámetro o fuente de datos",
+      "filters": "Filtros",
+      "parameterFilter": "Parámetro",
+      "sourceFilter": "Fuente de datos",
+      "statusFilter": "Estado del CC",
+      "allParameters": "Todos los parámetros",
+      "allSources": "Todas las fuentes de datos",
+      "allSensors": "Todos los sensores",
+      "customSensors": "CC personalizado del sensor",
+      "filterLoadError": "No se pudieron cargar algunas opciones de filtro. La búsqueda de sensores sigue disponible.",
+      "loading": "Cargando sensores…",
+      "loadError": "No se pudieron cargar los sensores.",
+      "emptyTitle": "No hay sensores disponibles",
+      "emptyDescription": "Los sensores aparecerán aquí después de agregarlos a CompassAQ.",
+      "noMatchesTitle": "Ningún sensor coincide",
+      "noMatchesDescription": "Pruebe otra búsqueda o quite un filtro.",
+      "resultsLabel": "Resultados de búsqueda del control de calidad de sensores",
+      "resultRange": "Se muestran {{first}}–{{last}} de {{total}} sensores",
+      "previous": "Anterior",
+      "next": "Siguiente",
+      "externalIdentifier": "Sensor {{identifier}}",
+      "internalIdentifier": "Sensor interno {{identifier}}",
+      "openSensor": "Abrir el control de calidad de {{parameter}} para {{device}}",
+      "statusInherited": "Usa el CC heredado normal",
+      "statusCustom": "CC personalizado del sensor",
+      "statusAdvanced": "Se aplica CC avanzado del sensor",
+      "statusCustomWithAdvanced": "CC personalizado del sensor · también se aplica una configuración avanzada"
+    },
+    "provenance": {
+      "compassaq": "Recomendación de CompassAQ para {{parameter}}",
+      "parameter": "Configuración de {{parameter}}",
+      "advancedParameter": "Configuración avanzada de {{parameter}}",
+      "source": "Configuración de {{source}} para {{parameter}}",
+      "advancedSource": "Configuración avanzada de {{source}} para {{parameter}}",
+      "customSensor": "Personalizada para este sensor",
+      "advancedSensor": "Configuración avanzada del sensor",
+      "notConfigured": "Sin configuración heredada"
+    },
+    "editor": {
+      "impact": "Aquí solo cambia {{check}} para {{device}}. Las propiedades heredadas siguen la fuente que se muestra junto a ellas.",
+      "convertedUnitNote": "Los valores se muestran en la unidad de este sensor ({{unit}}) mediante la conversión exacta del backend.",
+      "sensorUnitMissing": "Agregue una unidad a este sensor antes de personalizar este valor."
+    },
+    "detail": {
+      "loadingTitle": "Control de calidad del sensor",
+      "loading": "Cargando el control de calidad del sensor…",
+      "errorTitle": "Control de calidad del sensor",
+      "loadError": "No se pudo cargar la configuración de control de calidad de este sensor.",
+      "title": "CC de {{parameter}} para {{device}}",
+      "description": "{{source}} · {{parameter}} · {{unit}}",
+      "sensorContext": "Sensor",
+      "externalIdentifier": "Identificador externo del sensor: {{identifier}}",
+      "internalIdentifier": "Identificador interno del sensor: {{identifier}}",
+      "customSummary_one": "{{count}} configuración personalizada para este sensor",
+      "customSummary_other": "{{count}} configuraciones personalizadas para este sensor",
+      "customSummaryHelp": "Todas las demás propiedades permanecen heredadas.",
+      "advancedSummary": "Se aplica CC avanzado del sensor",
+      "advancedSummaryHelp": "Los valores efectivos se muestran abajo. La configuración avanzada es de solo lectura aquí.",
+      "inheritedSummary": "Usa el CC heredado normal",
+      "inheritedSummaryHelp": "Este sensor sigue la configuración de su fuente de datos, parámetro y CompassAQ.",
+      "advancedAlsoApplies": "También se aplica una configuración avanzada de resolución temporal. Los restablecimientos normales del sensor no la eliminan.",
+      "checkOverview": "Resumen de verificaciones de CC del sensor",
+      "activeChecks": "Verificaciones activas",
+      "disabledChecks": "Verificaciones desactivadas",
+      "attentionChecks": "Requieren atención",
+      "checksTitle": "Qué ocurre con las mediciones entrantes",
+      "checksDescription": "Cada propiedad muestra su valor efectivo y de dónde proviene.",
+      "customPropertyCount_one": "{{count}} configuración personalizada",
+      "customPropertyCount_other": "{{count}} configuraciones personalizadas",
+      "advancedSetting": "Configuración avanzada",
+      "convertedUnit": "CompassAQ aplica la configuración heredada en la unidad de este sensor ({{unit}}) mediante una conversión exacta.",
+      "internalSensorId": "ID interno del sensor",
+      "timeResolution": "Resolución temporal",
+      "notAvailable": "No disponible",
+      "advancedDetails": "La configuración avanzada de resolución temporal se incluye en los valores efectivos anteriores, pero no se puede editar ni restablecer en esta página.",
+      "sensorIdentity": "Sensor {{id}}",
+      "manualPolicySource": "Esta es una ubicación de monitoreo manual. Su política de CC de origen heredada es {{source}}; esta asociación de política no la convierte en una ubicación gestionada por el proveedor."
+    },
+    "states": {
+      "noRecommendationTitle": "Sin recomendación de CompassAQ",
+      "noRecommendationDescription": "CompassAQ no proporciona una configuración heredada de {{parameter}} para esta verificación. Puede agregar un valor para este sensor.",
+      "inheritedNeedsConfigurationTitle": "El CC heredado requiere configuración",
+      "inheritedNeedsConfigurationDescription": "A esta verificación le falta información necesaria para funcionar. Puede agregar aquí una configuración completa para el sensor.",
+      "unitIssueTitle": "Esta verificación no puede usar la unidad del sensor",
+      "unitIssueBadge": "Unidad no compatible",
+      "unitIssueDescription": "Esta verificación de CC no se puede aplicar actualmente a la unidad de este sensor. Puede agregar un valor específico en la unidad del sensor.",
+      "invalidSensorTitle": "No se puede aplicar la configuración personalizada de este sensor",
+      "invalidSensorBadge": "Configuración del sensor no válida"
+    },
+    "confirm": {
+      "resetCheckTitle": "¿Restablecer {{check}} para este sensor?",
+      "resetCheckDescription": "Esto elimina las propiedades ordinarias específicas del sensor para esta verificación. Cada propiedad vuelve a su configuración heredada. No cambian el parámetro, la fuente de datos, la resolución temporal avanzada ni los datos históricos.",
+      "resetAllTitle": "¿Restablecer todo el CC personalizado de este sensor?",
+      "resetAllDescription": "Esto elimina toda la configuración ordinaria de CC específica del sensor. No cambian el parámetro, la fuente de datos, la resolución temporal avanzada ni los datos históricos."
+    },
+    "notices": {
+      "saved": "Se guardó el control de calidad del sensor.",
+      "checkReset": "Esta verificación ahora usa su configuración heredada.",
+      "allReset": "Se restableció toda la configuración ordinaria de CC específica del sensor.",
+      "resetError": "No se pudo restablecer el control de calidad personalizado del sensor."
+    }
+  },
+  "overview": {
+    "title": "Control de calidad",
+    "description": "Revise los rangos plausibles y las verificaciones de calidad aplicadas a las mediciones entrantes.",
+    "attention_one": "{{count}} parámetro requiere atención",
+    "attention_other": "{{count}} parámetros requieren atención",
+    "viewAttention": "Ver",
+    "searchLabel": "Parámetro",
+    "searchPlaceholder": "Buscar parámetros",
+    "filterLabel": "Mostrar",
+    "loading": "Cargando la configuración de control de calidad…",
+    "loadError": "No se pudo cargar la configuración de control de calidad.",
+    "emptyTitle": "No hay parámetros disponibles",
+    "emptyDescription": "Los parámetros aparecerán aquí después de agregarlos a CompassAQ.",
+    "noMatchesTitle": "Ningún parámetro coincide",
+    "noMatchesDescription": "Pruebe otra búsqueda o filtro de estado.",
+    "clearFilters": "Borrar filtros",
+    "parameterListLabel": "Configuración de control de calidad por parámetro",
+    "openParameter": "Abrir la configuración de control de calidad de {{parameter}}",
+    "none": "Ninguna",
+    "sourceExceptionCount_one": "{{count}} fuente",
+    "sourceExceptionCount_other": "{{count}} fuentes",
+    "sensorExceptionCount_one": "{{count}} sensor",
+    "sensorExceptionCount_other": "{{count}} sensores",
+    "driftOffByDefault": "Desactivada de forma predeterminada",
+    "driftEnabledSourceCount_one": "{{count}} fuente activada",
+    "driftEnabledSourceCount_other": "{{count}} fuentes activadas",
+    "driftEnabledSensorCount_one": "{{count}} sensor activado",
+    "driftEnabledSensorCount_other": "{{count}} sensores activados",
+    "driftOnWithOverrides_one": "Activada · {{count}} excepción",
+    "driftOnWithOverrides_other": "Activada · {{count}} excepciones",
+    "reviewResults": "Revisar resultados de QC",
+    "resultsHelp": "Revise las mediciones marcadas, inválidas e indeterminadas en Eventos → Fallos de QC. Expanda Procedencia para ver la regla y la política aplicadas a cada resultado."
+  },
+  "filters": {
+    "all": "Todos los parámetros",
+    "customized": "Personalizados",
+    "hasExceptions": "Con excepciones",
+    "needsAttention": "Requiere atención",
+    "needsConfiguration": "Requiere configuración",
+    "unavailable": "No disponible",
+    "noRecommendation": "Sin rango recomendado"
+  },
+  "columns": {
+    "parameter": "Parámetro",
+    "minimum": "Mínimo",
+    "maximum": "Máximo",
+    "baselineDrift": "Deriva de línea base",
+    "sensors": "Sensores",
+    "exceptions": "Excepciones",
+    "status": "Estado"
+  },
+  "states": {
+    "on": "Activada",
+    "off": "Desactivada",
+    "enabled": "Activada",
+    "disabled": "Desactivada",
+    "notConfigured": "Sin configurar",
+    "needsConfiguration": "Requiere configuración",
+    "unavailable": "No disponible",
+    "recommended": "Recomendada",
+    "screeningPreset": "Preajuste de detección de CompassAQ",
+    "custom": "Personalizada",
+    "inherited": "Heredada",
+    "noRecommendation": "Sin recomendación de CompassAQ",
+    "defaultConfiguration": "Configuración predeterminada",
+    "recommendedPreset": "Preajuste recomendado",
+    "noRecommendedRange": "Sin rango recomendado"
+  },
+  "actions": {
+    "retry": "Reintentar",
+    "refresh": "Actualizar",
+    "cancel": "Cancelar",
+    "saving": "Guardando…",
+    "saveChanges": "Guardar cambios",
+    "preview": "Previsualizar impacto",
+    "previewing": "Preparando vista previa…",
+    "customize": "Personalizar",
+    "edit": "Editar",
+    "editSettings": "Editar configuración",
+    "reviewScreeningPreset": "Revisar y activar",
+    "useRecommended": "Usar el valor recomendado",
+    "useSuggestedScreeningSetting": "Usar la configuración de detección sugerida",
+    "useParameterSetting": "Usar la configuración de {{parameter}}",
+    "resetCheck": "Restablecer verificación",
+    "resetCheckRecommended": "Restablecer esta verificación a las recomendaciones de CompassAQ",
+    "resetCheckScreeningPreset": "Restablecer esta verificación al preajuste de detección desactivado de CompassAQ",
+    "resetCheckParameter": "Restablecer esta verificación a la configuración de {{parameter}}",
+    "resetParameter": "Restablecer valores personalizados",
+    "resetting": "Restableciendo…",
+    "removeException": "Eliminar excepción"
+  },
+  "checks": {
+    "minimum": {
+      "name": "Valor plausible mínimo",
+      "description": "Verifica las mediciones inferiores al rango plausible recomendado.",
+      "settings": {
+        "min": {
+          "label": "Valor plausible mínimo",
+          "help": "Las mediciones inferiores a este valor no superan la verificación."
+        }
+      }
+    },
+    "maximum": {
+      "name": "Valor plausible máximo",
+      "description": "Verifica las mediciones superiores al rango plausible recomendado.",
+      "settings": {
+        "max": {
+          "label": "Valor plausible máximo",
+          "help": "Las mediciones superiores a este valor no superan la verificación."
+        }
+      }
+    },
+    "baselineDrift": {
+      "name": "Deriva de línea base",
+      "description": "Detecta cambios en la línea base inferior con historial válido. El indicador se normaliza por todo el período retrospectivo; no es una pendiente física.",
+      "effectiveSettings": "Configuración efectiva de deriva de línea base",
+      "suggestedSettings": "Configuración de detección sugerida",
+      "suggestedDescription": "Esta herramienta de detección está desactivada de forma predeterminada. Actívela deliberadamente después de revisar esta configuración para sus sensores y condiciones operativas.",
+      "suggestedFailureAction": "Acción sugerida ante una falla: {{action}}.",
+      "settings": {
+        "lookback_hours": {
+          "label": "Horas retrospectivas",
+          "help": "Número de horas recientes utilizadas para evaluar la deriva."
+        },
+        "min_samples": {
+          "label": "Mediciones mínimas",
+          "help": "Mínimo de mediciones históricas válidas, sin incluir la candidata. Cada mitad del período requiere al menos la mitad de esta cantidad, redondeada hacia arriba."
+        },
+        "baseline_quantile": {
+          "label": "Cuantil de línea base",
+          "help": "Cuantil inferior utilizado para estimar la línea base del sensor."
+        },
+        "max_drift_per_day": {
+          "label": "Indicador máximo de cambio de línea base (por día)",
+          "help": "Cambio del cuantil inferior dividido por los días de todo el período retrospectivo. Los valores predefinidos son referencias de detección, no límites validados de pendiente física."
+        },
+        "direction": {
+          "label": "Dirección",
+          "help": "Elija si desea verificar la dirección ascendente, descendente o ambas."
+        }
+      }
+    },
+    "unavailable": {
+      "name": "Verificación de calidad no disponible",
+      "description": "Una verificación configurada no está disponible actualmente."
+    }
+  },
+  "choices": {
+    "up": "Ascendente",
+    "down": "Descendente",
+    "both": "Ambas direcciones"
+  },
+  "failureActions": {
+    "flagForReview": {
+      "label": "Marcar para revisión",
+      "description": "Mantener la medición disponible y registrar una advertencia de calidad."
+    },
+    "markInvalid": {
+      "label": "Marcar como no válida",
+      "description": "Registrar la falla y excluir la medición del uso normal posterior."
+    }
+  },
+  "provenance": {
+    "recommended": "Valor recomendado por CompassAQ",
+    "screeningPreset": "Preajuste de detección desactivado de CompassAQ",
+    "customParameter": "Personalizado para {{parameter}}",
+    "usesParameter": "Usa la configuración de {{parameter}}",
+    "customSource": "Personalizado para {{source}}",
+    "customSensor": "Configuración personalizada del sensor",
+    "custom": "Configuración personalizada"
+  },
+  "detail": {
+    "loadingTitle": "Control de calidad",
+    "loading": "Cargando la configuración del parámetro…",
+    "errorTitle": "Control de calidad",
+    "loadError": "No se pudo cargar la configuración de control de calidad de este parámetro.",
+    "description_one": "Unidad normal: {{unit}} · {{count}} sensor",
+    "description_other": "Unidad normal: {{unit}} · {{count}} sensores",
+    "normalUnit": "Unidad normal",
+    "unitDefaultsTitle": "Configuración de rangos por unidad",
+    "unitDefaultsDescription": "Cada unidad compatible tiene su propia configuración mínima y máxima.",
+    "editingUnit": "Editando las verificaciones de rango para {{unit}}.",
+    "dataSourceExceptions": "Excepciones por fuente de datos",
+    "sensorExceptions": "Excepciones por sensor",
+    "checksTitle": "Verificaciones de calidad",
+    "checksDescription": "Cada verificación muestra su valor, comportamiento y origen actuales.",
+    "moreDetails": "Más detalles",
+    "profileVersion": "Perfil de recomendaciones de CompassAQ",
+    "advancedOverrides": "Configuraciones avanzadas de agregación",
+    "advancedHelp": "Las configuraciones avanzadas de agregación se conservan, pero no se pueden editar en esta fase.",
+    "parameterIdentity": "Parámetro {{id}}",
+    "policyContext": "Política de QC del parámetro",
+    "effectiveUnit": "Unidad que se configurará",
+    "parameterScope": "Política del parámetro",
+    "customPolicy": "Hay ajustes del parámetro guardados; los demás se heredan de CompassAQ. Consulte cada verificación a continuación.",
+    "inheritedPolicy": "Hereda los valores predeterminados de CompassAQ. A continuación se indican las verificaciones activadas, desactivadas y no disponibles.",
+    "hierarchy": "Valor predeterminado de CompassAQ → ajuste del parámetro → fuente + parámetro → ajuste del sensor. Los ajustes más específicos tienen prioridad; las demás propiedades se heredan.",
+    "unitLimitations": "Cada unidad tiene su propia política. Las conversiones exactas ppm/ppb y mg/m³/µg/m³ siguen las reglas de herencia de la política. No se convierten concentraciones másicas de gases a proporciones de mezcla.",
+    "contextTitle": "Herencia y contexto científico"
+  },
+  "checkCard": {
+    "currentSetting": "Configuración actual",
+    "status": "Estado",
+    "uses": "Origen",
+    "whenFails": "Cuando falla esta verificación"
+  },
+  "editor": {
+    "parameterImpact_one": "Esto cambia el valor predeterminado de {{parameter}} usado por hasta {{count}} sensor. Las excepciones de fuentes y sensores no cambian.",
+    "parameterImpact_other": "Esto cambia el valor predeterminado de {{parameter}} usado por hasta {{count}} sensores. Las excepciones de fuentes y sensores no cambian.",
+    "sourceImpact_one": "Esto cambia la excepción de {{source}} usada por hasta {{count}} sensor. Las configuraciones específicas de sensores no cambian.",
+    "sourceImpact_other": "Esto cambia la excepción de {{source}} usada por hasta {{count}} sensores. Las configuraciones específicas de sensores no cambian.",
+    "parameterDisableImpact_one": "Desactivar {{check}} detiene esta verificación para hasta {{count}} sensor que usa la configuración de {{parameter}}. Las excepciones de fuentes y sensores no cambian.",
+    "parameterDisableImpact_other": "Desactivar {{check}} detiene esta verificación para hasta {{count}} sensores que usan la configuración de {{parameter}}. Las excepciones de fuentes y sensores no cambian.",
+    "sourceDisableImpact_one": "Desactivar {{check}} detiene esta verificación para hasta {{count}} sensor que usa la excepción de {{source}}. Las configuraciones específicas de sensores no cambian.",
+    "sourceDisableImpact_other": "Desactivar {{check}} detiene esta verificación para hasta {{count}} sensores que usan la excepción de {{source}}. Las configuraciones específicas de sensores no cambian.",
+    "checkState": "Estado de la verificación",
+    "enableCheck": "Activar esta verificación",
+    "unit": "Unidad",
+    "unitHelp": "Este rango se aplica solo a mediciones en esta unidad o en una unidad con una conversión exacta aprobada.",
+    "sensorUnitHelp": "Las reglas de rango del sensor usan la unidad de medición del sensor.",
+    "enabledHelp": "Esta verificación se ejecuta para las mediciones que usan esta configuración.",
+    "disabledHelp": "Esta verificación no se ejecuta para las mediciones que usan esta configuración.",
+    "whenFails": "Cuando falla esta verificación",
+    "resetValue": "Al restablecer, vuelve a {{value}}",
+    "saveError": "No se pudo guardar la configuración. Sus cambios siguen aquí.",
+    "resetError": "No se pudo restablecer la verificación."
+  },
+  "validation": {
+    "unitRequired": "Seleccione una unidad compatible.",
+    "required": "Este valor es obligatorio cuando la verificación está activada.",
+    "number": "Introduzca un número válido.",
+    "integer": "Introduzca un número entero.",
+    "minimum": "Introduzca {{minimum}} o más.",
+    "maximum": "Introduzca {{maximum}} o menos."
+  },
+  "preview": {
+    "title": "Vista previa del impacto",
+    "eyebrow": "Cambio propuesto",
+    "basedOn_one": "Basado en {{formattedCount}} medición de las últimas {{hours}} horas",
+    "basedOn_other": "Basado en {{formattedCount}} mediciones de las últimas {{hours}} horas",
+    "pass": "Superarían la verificación",
+    "warnings": "Registrarían una advertencia",
+    "invalid": "De ellas, marcadas no válidas",
+    "indeterminate": "No se pudo determinar",
+    "notApplicable_one": "{{count}} medición estaba desactivada o no era aplicable para esta verificación.",
+    "notApplicable_other": "{{count}} mediciones estaban desactivadas o no eran aplicables para esta verificación.",
+    "indeterminateHelp": "Algunas mediciones no pudieron evaluarse. Guardar esta configuración no hará que se consideren aprobadas.",
+    "truncated": "Últimas {{limit}} mediciones coincidentes",
+    "noMeasurements": "No hay mediciones recientes disponibles para previsualizar este cambio.",
+    "historyNote": "Solo es una vista previa. Las mediciones históricas no se modifican.",
+    "error": "No se pudo preparar la vista previa del impacto."
+  },
+  "unavailable": {
+    "title": "{{check}} no disponible",
+    "description": "Esta verificación no está disponible actualmente en el servidor. Comuníquese con un administrador o revise las extensiones de calidad."
+  },
+  "needsConfiguration": {
+    "title": "Valor de calidad recomendado sin configurar",
+    "description": "CompassAQ no ofrece actualmente un valor universal recomendado para {{parameter}}."
+  },
+  "noDefault": {
+    "title": "Sin rango predeterminado para {{unit}}",
+    "description": "No hay un rango predeterminado configurado para {{parameter}} en {{unit}}. No se crea ningún resultado de CC a menos que un administrador agregue un rango explícito."
+  },
+  "policyIssues": {
+    "title": "La configuración requiere atención",
+    "missing_required_setting": "A esta verificación activada le falta una configuración obligatoria.",
+    "missing_policy_unit": "Esta verificación activada no tiene una unidad de medición.",
+    "unknown_unit": "No se reconoce la unidad de medición configurada.",
+    "conversion_not_supported": "CompassAQ no puede convertir de forma segura entre las unidades configuradas y las de medición.",
+    "ambiguous_policy": "Se aplica más de una configuración en el mismo nivel.",
+    "invalid_policy_setting": "Uno o más valores configurados no son válidos.",
+    "missing_failure_action": "Esta verificación activada no especifica qué ocurre cuando falla.",
+    "generic": "Esta verificación no puede ejecutarse con su configuración actual."
+  },
+  "exceptions": {
+    "title": "Excepciones por fuente de datos",
+    "description": "Personalice {{parameter}} solo cuando una fuente necesite una configuración de calidad diferente.",
+    "add": "Agregar excepción de fuente de datos",
+    "loading": "Cargando excepciones de fuentes de datos…",
+    "partialError": "No se pudo cargar la configuración de algunas fuentes. Las excepciones disponibles se muestran a continuación.",
+    "none": "No hay excepciones de fuentes de datos. Todas usan la configuración del parámetro.",
+    "customizedChecks": "Personalizadas: {{checks}}",
+    "selectSource": "Fuente de datos",
+    "selectPlaceholder": "Seleccione una fuente de datos",
+    "continue": "Continuar"
+  },
+  "sensorOverrides": {
+    "title": "Configuraciones personalizadas de sensores",
+    "exists_one": "{{count}} sensor tiene configuraciones personalizadas. La edición de sensores no está incluida en esta página.",
+    "exists_other": "{{count}} sensores tienen configuraciones personalizadas. La edición de sensores no está incluida en esta página.",
+    "none": "No existen configuraciones personalizadas de sensores para este parámetro.",
+    "badge": "Existen configuraciones de sensores"
+  },
+  "source": {
+    "loadingTitle": "Excepción de fuente de datos",
+    "loading": "Cargando la configuración de la fuente…",
+    "errorTitle": "Excepción de fuente de datos",
+    "loadError": "No se pudo cargar esta excepción de fuente de datos.",
+    "title": "{{source}} {{parameter}}",
+    "description": "Revise la configuración heredada por {{source}} y personalice solo lo que deba ser diferente.",
+    "dataSourceException": "Excepción de fuente de datos",
+    "customSummary": "Solo las configuraciones marcadas como Personalizadas son diferentes para {{source}}.",
+    "inheritedSummary": "{{source}} usa actualmente toda la configuración de {{parameter}}.",
+    "customizedChecks": "Verificaciones personalizadas",
+    "startHelp": "Elija Personalizar en una verificación para crear una excepción específica de {{source}}. Las propiedades sin cambios siguen usando la configuración de {{parameter}}.",
+    "checksTitle": "Verificaciones de calidad para esta fuente",
+    "checksDescription": "Los valores heredados permanecen vinculados a la configuración de {{parameter}}.",
+    "sourceIdentity": "Fuente {{source}} · Parámetro {{parameter}}"
+  },
+  "confirm": {
+    "resetCheckTitle": "¿Restablecer {{check}}?",
+    "resetParameterCheckDescription": "Elimine la configuración personalizada de esta verificación y vuelva a la recomendación de CompassAQ para {{parameter}}.",
+    "resetParameterBaselineDriftDescription": "Elimine la configuración personalizada de esta verificación y vuelva al preajuste de detección desactivado de CompassAQ para {{parameter}}.",
+    "resetSourceCheckDescription": "Elimine la configuración personalizada de {{source}} para esta verificación y vuelva a la configuración de {{parameter}}.",
+    "resetParameterTitle": "¿Restablecer los valores personalizados de {{parameter}}?",
+    "resetParameterDescription": "Esto elimina los valores predeterminados personalizados del parámetro. Las configuraciones de fuentes, sensores y agregaciones avanzadas no cambian.",
+    "removeSourceTitle": "¿Eliminar la excepción de {{source}}?",
+    "removeSourceDescription": "Toda la configuración de {{source}} para {{parameter}} volverá a la configuración del parámetro. Las configuraciones de sensores y agregaciones avanzadas no cambian."
+  },
+  "notices": {
+    "saved": "Configuración de control de calidad guardada.",
+    "checkReset": "La verificación ahora usa su configuración heredada.",
+    "parameterReset": "Se restablecieron los valores predeterminados personalizados del parámetro.",
+    "sourceRemoved": "Se eliminó la excepción de fuente de datos."
+  },
+  "extensions": {
+    "link": "Extensiones de calidad",
+    "review": "Revisar extensiones de calidad",
+    "title": "Extensiones de calidad",
+    "description": "Revise las verificaciones instaladas con esta implementación de CompassAQ.",
+    "deploymentOwned": "Las extensiones se instalan y actualizan con la implementación del backend de CompassAQ. Esta página es de solo lectura.",
+    "loading": "Cargando extensiones de calidad…",
+    "loadError": "No se pudo cargar la información de las extensiones.",
+    "installedTitle": "Verificaciones instaladas",
+    "installedDescription": "Estas verificaciones están disponibles para el resolvedor de políticas de calidad.",
+    "diagnosticsTitle": "Diagnóstico de extensiones",
+    "diagnosticsDescription": "Información técnica de implementación para administradores que investigan verificaciones no disponibles.",
+    "noIssues": "No se informaron problemas de descubrimiento de extensiones.",
+    "unavailableCheckTitle": "{{check}} no está disponible",
+    "unavailableCheckDescription_one": "El servidor no puede ejecutar esta verificación esperada. Hay {{count}} personalización configurada afectada. Revise la implementación del backend.",
+    "unavailableCheckDescription_other": "El servidor no puede ejecutar esta verificación esperada. Hay {{count}} personalizaciones configuradas afectadas. Revise la implementación del backend.",
+    "origin": "Origen",
+    "access": "Acceso a datos",
+    "version": "Versión",
+    "rules": "Personalizaciones configuradas",
+    "origins": {
+      "builtIn": "Integrada en CompassAQ",
+      "installedPackage": "Paquete instalado",
+      "runtime": "Registro en tiempo de ejecución"
+    },
+    "accessLevels": {
+      "policyOnly": "Solo política resuelta",
+      "databaseRead": "Historial de mediciones",
+      "databaseWrite": "Escritura en la base de datos"
+    }
+  }
+}

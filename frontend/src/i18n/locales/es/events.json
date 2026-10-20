@@ -1,0 +1,241 @@
+{
+  "adminEventLog": {
+    "tooltips": {
+      "events": "Eventos"
+    },
+    "text": {
+      "autoRefresh": "Actualización automática",
+      "last": "Último:",
+      "results": "resultados",
+      "loadingJobRuns": "Cargando ejecuciones de trabajos…",
+      "noJobRunsFound": "Ninguna ejecución coincide con este período y estos filtros. Pruebe otras fechas o quite un filtro.",
+      "results2": "resultados",
+      "loadingEvents": "Cargando eventos…",
+      "noEventsFound": "Ningún evento coincide con este período y estos filtros. Pruebe otras fechas o quite un filtro.",
+      "running": "En ejecución…",
+      "notAvailable": "No disponible",
+      "refreshInterval": "Intervalo de actualización"
+    },
+    "actions": {
+      "refresh": "↻ Actualizar",
+      "jobRuns": "Ejecuciones de trabajos",
+      "events": "Eventos",
+      "systemEvents": "Eventos del sistema",
+      "qcFailures": "Fallas de CC"
+    },
+    "fields": {
+      "status": "Estado:",
+      "task": "Tarea:",
+      "type": "Tipo:",
+      "source": "Fuente:",
+      "severity": "Gravedad:",
+      "search": "Buscar:",
+      "parameter": "Parámetro:",
+      "effect": "Efecto:",
+      "dataSource": "Fuente de datos:"
+    },
+    "options": {
+      "all": "Todos",
+      "all2": "Todos",
+      "all3": "Todos",
+      "all4": "Todos",
+      "all5": "Todos",
+      "allEffects": "Todos los efectos"
+    },
+    "columns": {
+      "id": "ID",
+      "task": "Tarea",
+      "started": "Comenzó",
+      "duration": "Duración",
+      "summary": "Resumen",
+      "error": "Error",
+      "time": "Hora",
+      "severity": "Gravedad",
+      "type": "Tipo",
+      "source": "Fuente",
+      "actor": "Actor",
+      "message": "Mensaje",
+      "device": "Dispositivo",
+      "sensor": "Sensor"
+    },
+    "accessibility": {
+      "inspectImporterJobRunsSystemEvent": "Inspeccione las ejecuciones de trabajos del importador, los eventos del sistema y las fallas del control de calidad de las mediciones.",
+      "eventViews": "Vistas de eventos"
+    },
+    "content": {
+      "admin": "Administración",
+      "events": "Eventos"
+    },
+    "qcFailures": {
+      "loading": "Cargando problemas de CC…",
+      "empty": "No se encontraron problemas de CC. Es posible que el CC esté funcionando y que las mediciones estén siendo aprobadas.",
+      "resultCount_one": "{{count}} problema de CC",
+      "resultCount_other": "{{count}} problemas de CC",
+      "range": "Mostrando {{first}}–{{last}} de {{total}}",
+      "previous": "Anterior",
+      "next": "Siguiente",
+      "status": {
+        "allIssues": "Todos los problemas",
+        "failed": "Fallida",
+        "markedInvalid": "Marcada como no válida",
+        "unableToEvaluate": "No se puede evaluar"
+      },
+      "indeterminateFallback": "CompassAQ no pudo tomar una decisión de aprobado o fallo para esta verificación de CC.",
+      "indeterminateReasons": {
+        "conversionNotSupported": "Esta medición se informa en µg/m³, pero esta regla de CC está definida en ppm. CompassAQ no puede convertir estas unidades de forma segura sin información de temperatura y presión, por lo que no se tomó una decisión de aprobado o fallo.",
+        "invalidMeasurementValue": "El valor de la medición falta o no es un número finito, por lo que CompassAQ no pudo tomar una decisión de aprobado o fallo.",
+        "invalidPluginResult": "La verificación de CC devolvió un resultado no válido, por lo que CompassAQ no pudo tomar una decisión de aprobado o fallo.",
+        "missingEffectivePolicy": "La verificación de CC no recibió su política resuelta, por lo que CompassAQ no pudo tomar una decisión de aprobado o fallo.",
+        "missingRequiredSetting": "Falta una configuración de CC necesaria, por lo que CompassAQ no pudo tomar una decisión de aprobado o fallo.",
+        "insufficientHistory": "El sensor aún no ha acumulado suficiente historial válido en ambas mitades del período retrospectivo. No se evaluó la deriva de línea base y la medición no se marcó como no válida.",
+        "pluginError": "La verificación de CC encontró un error durante la evaluación, por lo que CompassAQ no pudo tomar una decisión de aprobado o fallo.",
+        "pluginResultMissing": "La verificación de CC no devolvió un resultado para esta medición, por lo que CompassAQ no pudo tomar una decisión de aprobado o fallo.",
+        "pluginUnavailable": "El complemento de la verificación de CC no estaba disponible, por lo que CompassAQ no pudo tomar una decisión de aprobado o fallo."
+      },
+      "placeholders": {
+        "search": "Dispositivo, sensor, verificación o motivo",
+        "parameter": "Por ejemplo, pm25",
+        "dataSource": "Nombre o código del proveedor"
+      },
+      "columns": {
+        "resultTime": "Hora del resultado de CC",
+        "dataSource": "Fuente de datos",
+        "parameter": "Parámetro",
+        "measurement": "Medición",
+        "check": "Verificación",
+        "statusEffect": "Estado / efecto",
+        "reason": "Explicación"
+      },
+      "provenance": {
+        "show": "Ver procedencia de CC",
+        "policySource": "Fuente de la política",
+        "reasonCode": "Código del motivo",
+        "policyStatus": "Estado de la política",
+        "persistedMessage": "Mensaje guardado",
+        "pluginVersion": "Versión del plugin",
+        "policyVersion": "Versión de la política",
+        "measurementId": "ID de medición",
+        "observedDrift": "Indicador de cambio de línea base",
+        "maximumDrift": "Indicador máximo configurado",
+        "direction": "Dirección",
+        "perDayValue": "{{value}} {{unit}}/día"
+      },
+      "ruleSources": {
+        "compassAQDefault": "Valor predeterminado de CompassAQ",
+        "parameterOverride": "Excepción del parámetro",
+        "parameterAggregateOverride": "Excepción de agregación del parámetro",
+        "sourceOverride": "Excepción de la fuente de datos",
+        "sourceAggregateOverride": "Excepción de agregación de la fuente de datos",
+        "sensorOverride": "Excepción del sensor",
+        "sensorAggregateOverride": "Excepción de agregación del sensor"
+      }
+    }
+  },
+  "jobRunStatus": {
+    "success": "Correcta",
+    "failed": "Fallida",
+    "running": "En ejecución",
+    "skipped": "Omitida",
+    "timeout": "Tiempo agotado",
+    "interrupted": "Interrumpida",
+    "neverRun": "Nunca se ejecutó"
+  },
+  "jobRunSummary": {
+    "zeroDevices": "0 dispositivos configurados · no se solicitaron mediciones",
+    "devicesAndImported": "{{devices}} dispositivos · {{measurements}} mediciones importadas",
+    "noNewMeasurements": "{{devices}} dispositivos revisados · no hay mediciones nuevas",
+    "noNewMeasurementsOnly": "no hay mediciones nuevas",
+    "devices_one": "{{count}} dispositivo",
+    "devices_other": "{{count}} dispositivos",
+    "devicesChecked_one": "{{count}} dispositivo revisado",
+    "devicesChecked_other": "{{count}} dispositivos revisados",
+    "devicesCreated_one": "{{count}} dispositivo creado",
+    "devicesCreated_other": "{{count}} dispositivos creados",
+    "sensorsCreated_one": "{{count}} sensor creado",
+    "sensorsCreated_other": "{{count}} sensores creados",
+    "received_one": "{{count}} recibida",
+    "received_other": "{{count}} recibidas",
+    "inserted_one": "{{count}} insertada",
+    "inserted_other": "{{count}} insertadas",
+    "updated_one": "{{count}} actualizada",
+    "updated_other": "{{count}} actualizadas",
+    "skipped_one": "{{count}} omitida",
+    "skipped_other": "{{count}} omitidas",
+    "qc": "CC: {{outcomes}}",
+    "qcPassed_one": "{{count}} aprobada",
+    "qcPassed_other": "{{count}} aprobadas",
+    "qcFlagged_one": "{{count}} marcada",
+    "qcFlagged_other": "{{count}} marcadas",
+    "qcIndeterminate_one": "{{count}} indeterminada",
+    "qcIndeterminate_other": "{{count}} indeterminadas",
+    "unavailable": "Resumen no disponible para esta ejecución anterior",
+    "referenceLocationFailed": "No se pudo cargar la ubicación de referencia de AirGradient {{locationId}} ({{region}})"
+  },
+  "referenceLocations": {
+    "newYork": "Nueva York",
+    "saoPaulo": "São Paulo",
+    "metroManila": "Metro Manila"
+  },
+  "history": {
+    "title": "Período del historial",
+    "scope": "Busque en todo el historial conservado, del más reciente al más antiguo. Las fechas usan UTC; las fechas de trabajos corresponden al inicio. Los registros eliminados no están disponibles.",
+    "from": "Desde la fecha (UTC)",
+    "to": "Hasta la fecha (UTC)",
+    "apply": "Aplicar fechas",
+    "clear": "Todas las fechas",
+    "invalid": "La fecha final debe ser igual o posterior a la inicial.",
+    "period": "Período: {{from}} a {{to}}",
+    "beginning": "primer registro conservado",
+    "range": "Mostrando {{first}}–{{last}} de {{total}} registros coincidentes",
+    "previous": "Anterior",
+    "next": "Siguiente",
+    "pagePeriod": "Esta página: {{from}} a {{to}}",
+    "refreshPaused": "La actualización automática está pausada mientras investiga el historial. Actualizar vuelve a la primera página.",
+    "technicalCode": "Código técnico",
+    "unknown": "Otra actividad",
+    "severity": {
+      "info": "Información",
+      "warning": "Advertencia",
+      "warn": "Advertencia",
+      "error": "Error"
+    },
+    "labels": {
+      "task": {
+        "openaq_import": "Importación de OpenAQ",
+        "purpleair_import": "Importación de PurpleAir",
+        "airgradient_import": "Importación de AirGradient",
+        "demo_data_import": "Importación de datos de demostración",
+        "demo_import": "Importación de datos de demostración"
+      },
+      "event": {
+        "scheduler_job_run_interrupted": "Ejecución interrumpida",
+        "email_configuration_updated": "Configuración de correo actualizada",
+        "email_test_failed": "Falló el correo de prueba",
+        "email_test_sent": "Correo de prueba enviado",
+        "profile_updated": "Perfil actualizado",
+        "admin_account_recovered": "Cuenta de administrador recuperada",
+        "openaq_missing_api_key": "Falta la clave de API de OpenAQ",
+        "openaq_measurements_validation_failed": "Falló la validación de mediciones de OpenAQ",
+        "auth_login_failed": "Falló el inicio de sesión",
+        "auth_login_locked": "Inicio de sesión bloqueado",
+        "auth_login_disabled": "Inicio de sesión deshabilitado",
+        "auth_login_rate_limited": "Límite de intentos de inicio de sesión",
+        "auth_account_locked": "Cuenta bloqueada",
+        "csv_upload": "Carga de CSV"
+      }
+    },
+    "loadError": "No se pudo cargar el historial. Use Actualizar para volver a intentarlo.",
+    "errorDetails": "Detalles del error"
+  },
+  "csvUpload": {
+    "source": "Carga de CSV",
+    "outcomes": {
+      "running": "Carga de CSV en curso",
+      "success": "Carga de CSV completada",
+      "partial": "Carga de CSV completada con líneas rechazadas",
+      "failed": "La carga de CSV falló o el archivo fue rechazado"
+    },
+    "counts": "Insertadas: {{inserted_records}} · Actualizadas: {{updated_records}} · Omitidas: {{skipped_records}} · Fallidas: {{failed_records}}",
+    "completed": "Finalizada: {{time}}"
+  }
+}

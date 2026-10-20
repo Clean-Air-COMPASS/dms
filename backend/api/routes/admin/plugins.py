@@ -1,150 +1,96 @@
+"""Read-only administration diagnostics for installed QC plugins."""
+
 from __future__ import annotations
 
-from fastapi import APIRouter, Depends, HTTPException, Body, UploadFile, File
+from dataclasses import asdict
+
+from fastapi import APIRouter, Depends
+from sqlalchemy import func, select
 from sqlalchemy.orm import Session
 
 from db import get_session
 from models import QCRule
-from sqlalchemy import select, func
-
 from qaqc import discovery, registry
-import pathlib, re, os
+from qaqc.admin_policy import get_check_metadata
 
-                                                               
-LOCAL_DIR = pathlib.Path(__file__).resolve().parents[3] / "qaqc" / "plugins_local"
-VALID_NAME_RE = re.compile(r"^[a-z_][a-z0-9_]{2,48}$")
 
-router = APIRouter(prefix="/admin", tags=["admin"]) 
+router = APIRouter(prefix="/admin", tags=["admin"])
+
+
+def _rule_counts(session: Session) -> dict[str, int]:
+    rule_rows = session.execute(
+        select(QCRule.check_code, func.count(QCRule.qc_rule_id)).group_by(
+            QCRule.check_code
+        )
+    ).all()
+    return {check_code: int(count) for check_code, count in rule_rows}
+
+
+def _plugin_list(rule_counts: dict[str, int]) -> list[dict]:
+    items: list[dict] = []
+    for name, registration in registry.all_registrations().items():
+        item = asdict(registration.metadata)
+        item.update(
+            {
+                "available": True,
+                "rules_count": rule_counts.get(name, 0),
+                # Installed code is managed by deployment, never by an HTTP
+                # request or a file path exposed to the browser.
+                "deletable": False,
+            }
+        )
+        items.append(item)
+    return items
+
+
+def _unavailable_checks(rule_counts: dict[str, int]) -> list[dict]:
+    """Describe expected or configured checks that cannot currently execute."""
+    metadata_by_code = {
+        item["check_code"]: item for item in get_check_metadata()
+    }
+    known_check_codes = set(metadata_by_code)
+    known_check_codes.update(rule_counts)
+
+    unavailable: list[dict] = []
+    for check_code in sorted(known_check_codes):
+        metadata = metadata_by_code.get(check_code)
+        if registry.get_registration(check_code) is not None:
+            continue
+        unavailable.append(
+            {
+                "check_code": check_code,
+                "display_name": (
+                    metadata["display_name"] if metadata is not None else check_code
+                ),
+                "reason_code": "plugin_unavailable",
+                "configured_rule_count": rule_counts.get(check_code, 0),
+            }
+        )
+    return unavailable
 
 
 @router.get("/plugins")
-def list_plugins(session: Session = Depends(get_session)):
-    """List currently registered plugins with basic metadata."""
-    items = []
-    for name, inst in registry.all_plugins().items():
-        origin = "entry_point"
-        file_path = None
-        try:
-            mod = getattr(inst, "__module__", "")
-            if mod.startswith("qaqc.plugins_local."):
-                origin = "local"
-                candidate = LOCAL_DIR / f"{name}.py"
-                if candidate.exists():
-                    file_path = str(candidate)
-        except Exception:
-            pass
-        items.append(
-            {
-                "name": name,
-                "display_name": getattr(inst, "display_name", None),
-                "long_description": getattr(inst, "long_description", None),
-                "param_schema": getattr(inst, "param_schema", None),
-                "version": getattr(inst, "version", None),
-                "required_access": getattr(inst, "required_access", "api-only"),
-                "module": getattr(inst, "__module__", None),
-                "api_version": getattr(inst, "api_version", None),
-                "description": getattr(inst, "description", None),
-                "origin": origin,
-                "file_path": file_path,
-                "deletable": origin == "local" and file_path is not None,
-                                                                                                       
-                "rules_count": int(
-                    session.scalar(
-                        select(func.count()).select_from(QCRule).where(QCRule.check_code == name)
-                    )
-                    or 0
-                ),
-            }
-        )
-                                                                           
-    rows = session.execute(select(QCRule.check_code, func.count()).group_by(QCRule.check_code)).all()
-    rules_summary = {code: int(cnt) for code, cnt in rows}
-    return {"plugins": items, "rules_summary": rules_summary}
+def list_plugins(session: Session = Depends(get_session)) -> dict:
+    """List validated installed plugins and the last discovery diagnostics."""
+    rule_counts = _rule_counts(session)
+    return {
+        "plugins": _plugin_list(rule_counts),
+        "unavailable_checks": _unavailable_checks(rule_counts),
+        "rules_summary": rule_counts,
+        "discovery": discovery.get_last_report(),
+        "management_mode": "deployment_owned",
+    }
 
 
-@router.get("/plugins/reload")
-def reload_plugins():
-    """Reload plugins from entry points and local dev directory.
-
-    Returns discovery report and the current registered plugins list.
-    """
-    registry.clear()
+@router.post("/plugins/reload")
+def reload_plugins(session: Session = Depends(get_session)) -> dict:
+    """Re-read deployment-installed entry points and atomically publish them."""
     report = discovery.load_plugins()
-    registered = sorted(list(registry.all_plugins().keys()))
-    return {"report": report, "registered": registered}
-
-
-@router.post("/plugins/local")
-def create_local_plugin(payload: dict = Body(...)):
-    """Create a new local plugin skeleton file and reload plugins.
-
-    Payload: { name: str, description?: str }
-    """
-    name = str(payload.get("name") or "").strip()
-    if not name:
-        raise HTTPException(status_code=400, detail="name is required")
-    if not VALID_NAME_RE.match(name):
-        raise HTTPException(status_code=400, detail="Invalid name; use lowercase alphanumerics/underscores (min 3 chars)")
-    LOCAL_DIR.mkdir(parents=True, exist_ok=True)
-    target = LOCAL_DIR / f"{name}.py"
-    if target.exists():
-        raise HTTPException(status_code=409, detail="Plugin file already exists")
-    long_desc = str(payload.get("description") or f"Custom plugin {name}")
-    skeleton = f"""from qaqc.plugin import QCPlugin\nfrom qaqc.registry import register\nfrom qaqc.types import QCDecision, QCRecord\n\nclass {name.title().replace('_','')}Plugin(QCPlugin):\n    name = \"{name}\"\n    display_name = \"{name}\"\n    long_description = \"{long_desc}\"\n    param_schema = {{}}  # add parameter schema here if needed\n\n    def apply(self, records, context):\n        out = []\n        for r in records:\n            out.append(QCDecision(\n                sensor_id=r.sensor_id,\n                parameter_id=r.parameter_id,\n                value=r.value,\n                unit_id=r.unit_id,\n                observed_at=r.observed_at,\n                is_valid=True,\n                flags=[],\n                plugin_name=self.name,\n            ))\n        return out\n\nplugin = {name.title().replace('_','')}Plugin()\nregister(plugin)\n"""
-    try:
-        target.write_text(skeleton, encoding="utf-8")
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=f"Failed to write plugin file: {e}")
-                    
-    registry.clear()
-    report = discovery.load_plugins()
-    return {"created": name, "file": str(target), "report": report}
-
-
-@router.delete("/plugins/{name}")
-def delete_plugin(name: str):
-    """Remove a local plugin source file (if present) and reload plugins.
-
-    Does not uninstall entry_point/distributed packages.
-    """
-    if not VALID_NAME_RE.match(name):
-        raise HTTPException(status_code=400, detail="Invalid plugin name")
-    target = LOCAL_DIR / f"{name}.py"
-    if not target.exists():
-        raise HTTPException(status_code=404, detail="Local plugin file not found")
-    try:
-        os.remove(target)
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=f"Failed to delete plugin file: {e}")
-    registry.clear()
-    report = discovery.load_plugins()
-    return {"deleted": name, "report": report}
-
-
-@router.post("/plugins/upload")
-async def upload_plugin(file: UploadFile = File(...), overwrite: bool = False):
-    """Upload a plugin source file (.py) into plugins_local and reload.
-
-    - Only accepts single-file Python modules for now.
-    - Derives plugin name from filename (without extension) and validates.
-    - Set overwrite=true to replace an existing file.
-    """
-    fname = file.filename or ""
-    if not fname.lower().endswith(".py"):
-        raise HTTPException(status_code=400, detail="Only .py plugin files are supported")
-    base = pathlib.Path(fname).stem
-    if not VALID_NAME_RE.match(base):
-        raise HTTPException(status_code=400, detail="Invalid plugin name derived from filename")
-    LOCAL_DIR.mkdir(parents=True, exist_ok=True)
-    target = LOCAL_DIR / f"{base}.py"
-    if target.exists() and not overwrite:
-        raise HTTPException(status_code=409, detail="Plugin file already exists; use overwrite=true")
-    try:
-        content = await file.read()
-        with open(target, "wb") as f:
-            f.write(content)
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=f"Failed to save uploaded file: {e}")
-    registry.clear()
-    report = discovery.load_plugins()
-    return {"uploaded": base, "file": str(target), "report": report}
+    rule_counts = _rule_counts(session)
+    return {
+        "plugins": _plugin_list(rule_counts),
+        "unavailable_checks": _unavailable_checks(rule_counts),
+        "rules_summary": rule_counts,
+        "discovery": report,
+        "management_mode": "deployment_owned",
+    }

@@ -7,7 +7,6 @@ from fastapi import APIRouter, HTTPException, Query
 from pydantic import BaseModel
 from typing import Optional
 import httpx
-from functools import lru_cache
 from datetime import datetime, timedelta
 from db import SessionLocal
 from models import SystemSettings

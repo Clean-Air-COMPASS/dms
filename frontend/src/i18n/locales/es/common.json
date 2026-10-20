@@ -1,0 +1,120 @@
+{
+  "actions": {
+    "add": "Agregar",
+    "back": "Atrás",
+    "cancel": "Cancelar",
+    "close": "Cerrar",
+    "continue": "Continuar",
+    "copy": "Copiar",
+    "create": "Crear",
+    "delete": "Borrar",
+    "edit": "Editar",
+    "finish": "Finalizar",
+    "loadMore": "Cargar más",
+    "next": "Siguiente",
+    "previous": "Anterior",
+    "refresh": "Actualizar",
+    "remove": "Eliminar",
+    "reset": "Reiniciar",
+    "retry": "Reintentar",
+    "save": "Guardar",
+    "saveChanges": "Guardar cambios",
+    "search": "Buscar",
+    "select": "Seleccionar",
+    "signIn": "Iniciar sesión",
+    "signOut": "Cerrar sesión",
+    "skip": "Saltar",
+    "upload": "Subir",
+    "savingChanges": "Guardando…"
+  },
+  "fields": {
+    "email": "Correo electrónico",
+    "name": "Nombre",
+    "password": "Contraseña",
+    "status": "Estado"
+  },
+  "parameters": {
+    "pm1": "PM1",
+    "pm25": "PM2.5",
+    "pm10": "PM10",
+    "co2": "CO₂",
+    "temperature": "Temperatura",
+    "relative_humidity": "Humedad relativa",
+    "pressure": "Presión",
+    "tvoc": "TVOC",
+    "tvoc_index": "Índice de VOC",
+    "nox_index": "Índice de NOx"
+  },
+  "language": {
+    "label": "Idioma",
+    "systemDefault": "Usar valor predeterminado del sistema",
+    "names": {
+      "en": "English",
+      "es": "Español"
+    }
+  },
+  "dynamic": {
+    "dataSource": "Fuente de datos: {{source}}"
+  },
+  "dataAttribution": {
+    "label": "Atribución de datos",
+    "providedBy": "Datos proporcionados por <providerLink>{{provider}}</providerLink>.",
+    "airGradientViaOpenAQ": "Datos proporcionados por <airGradient>AirGradient</airGradient> a través de <openAQ>OpenAQ</openAQ>.",
+    "contributor": "Datos aportados por <contributorLink>{{contributor}}</contributorLink>.",
+    "license": "Con licencia <licenseLink>{{license}}</licenseLink>.",
+    "authenticatedOwnerControlled": "Datos autenticados propiedad del usuario; no se presupone una licencia de datos públicos."
+  },
+  "states": {
+    "loading": "Cargando…",
+    "never": "Nunca",
+    "notAvailable": "No disponible",
+    "notAvailableShort": "N/A",
+    "unknown": "Desconocido",
+    "valid": "Válido",
+    "invalid": "Inválido",
+    "available": "Disponible",
+    "unavailable": "Indisponible"
+  },
+  "errors": {
+    "requestFailed": "No se pudo completar la solicitud. Inténtelo de nuevo.",
+    "loadDevice": "No se pudo cargar el dispositivo",
+    "loadDevices": "No se pudieron cargar los dispositivos",
+    "loadParameters": "No se pudieron cargar los parámetros",
+    "loadTimeResolutions": "No se pudieron cargar las resoluciones temporales",
+    "loadDataSources": "No se pudieron cargar las fuentes de datos",
+    "loadSensors": "No se pudieron cargar los sensores",
+    "addSensor": "No se pudo agregar el sensor",
+    "updateSensor": "No se pudo actualizar el sensor",
+    "deleteSensor": "No se pudo eliminar el sensor",
+    "saveDevice": "No se pudo guardar el dispositivo",
+    "deleteDevice": "No se pudo eliminar el dispositivo",
+    "upload": "No se pudo cargar el archivo",
+    "loadRules": "No se pudieron cargar las reglas",
+    "toggleRule": "No se pudo cambiar el estado de la regla",
+    "createRule": "No se pudo crear la regla",
+    "deleteRule": "No se pudo eliminar la regla",
+    "resolveRule": "No se pudo resolver la regla efectiva",
+    "loadUsers": "No se pudieron cargar los usuarios",
+    "loadUser": "No se pudo cargar el usuario",
+    "updateRoles": "No se pudieron actualizar los roles",
+    "updateStatus": "No se pudo actualizar el estado",
+    "deleteUser": "No se pudo eliminar el usuario",
+    "unlockAccount": "No se pudo desbloquear la cuenta",
+    "createUser": "No se pudo crear el usuario",
+    "update": "No se pudo actualizar",
+    "create": "No se pudo crear",
+    "deleteDataSource": "No se pudo eliminar la fuente de datos",
+    "updateSchedule": "No se pudo actualizar el cronograma",
+    "save": "No se pudo guardar",
+    "search": "Error de búsqueda",
+    "loadDataStreams": "No se pudieron cargar los flujos de datos",
+    "saveDraft": "No se pudo guardar el borrador",
+    "preview": "No se pudo generar la vista previa",
+    "activation": "No se pudo activar",
+    "download": "No se pudo descargar"
+  },
+  "counts": {
+    "item_one": "{{count}} elemento",
+    "item_other": "{{count}} elementos"
+  }
+}

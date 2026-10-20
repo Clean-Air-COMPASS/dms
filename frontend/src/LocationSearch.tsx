@@ -1,3 +1,4 @@
+import i18n from './i18n';
 import * as React from 'react';
 import { API_BASE } from './api';
 
@@ -27,7 +28,7 @@ interface AutocompleteResponse {
 
 
 function formatResult(result: GeoapifyResult): { primary: string; secondary: string } {
-  const primary = result.name || 'Unknown location';
+  const primary = result.name || i18n.t('map:locationSearch.states.unknownLocation');
   
   
   const parts: string[] = [];
@@ -72,6 +73,7 @@ function getZoomForResult(result: GeoapifyResult): number {
 
 const DEBOUNCE_MS = 250;
 const MIN_QUERY_LENGTH = 2;
+const SEARCH_TIMEOUT_MS = 12000;
 
 const LocationSearch: React.FC<LocationSearchProps> = ({ onLocationSelect }) => {
   const [query, setQuery] = React.useState('');
@@ -81,22 +83,30 @@ const LocationSearch: React.FC<LocationSearchProps> = ({ onLocationSelect }) => 
   const [selectedIndex, setSelectedIndex] = React.useState(-1);
   const [errorMessage, setErrorMessage] = React.useState<string | null>(null);
   
+  const statusId = React.useId();
+  const listId = React.useId();
+  const requestIdRef = React.useRef(0);
+  const requestTimeoutRef = React.useRef<number | null>(null);
+
   const inputRef = React.useRef<HTMLInputElement>(null);
   const containerRef = React.useRef<HTMLDivElement>(null);
   const debounceRef = React.useRef<number | null>(null);
   const abortControllerRef = React.useRef<AbortController | null>(null);
   const successTimeoutRef = React.useRef<number | null>(null);
 
-  
-  React.useEffect(() => {
-    return () => {
-      if (debounceRef.current) window.clearTimeout(debounceRef.current);
-      if (successTimeoutRef.current) window.clearTimeout(successTimeoutRef.current);
-      if (abortControllerRef.current) abortControllerRef.current.abort();
-    };
+
+  // Invalidate ownership before aborting: a response body may already be resolving.
+  const cancelSearch = React.useCallback(() => {
+    requestIdRef.current += 1;
+    if (debounceRef.current) window.clearTimeout(debounceRef.current);
+    if (requestTimeoutRef.current) window.clearTimeout(requestTimeoutRef.current);
+    if (successTimeoutRef.current) window.clearTimeout(successTimeoutRef.current);
+    abortControllerRef.current?.abort();
   }, []);
 
   
+  React.useEffect(() => cancelSearch, [cancelSearch]);
+
   React.useEffect(() => {
     const handleClickOutside = (e: MouseEvent) => {
       if (containerRef.current && !containerRef.current.contains(e.target as Node)) {
@@ -125,7 +135,20 @@ const LocationSearch: React.FC<LocationSearchProps> = ({ onLocationSelect }) => 
 
     setState('loading');
     setErrorMessage(null);
-    abortControllerRef.current = new AbortController();
+    const requestId = ++requestIdRef.current;
+    const controller = new AbortController();
+    abortControllerRef.current = controller;
+    const isCurrent = () => requestId === requestIdRef.current;
+    const timeout = window.setTimeout(() => {
+      if (!isCurrent()) return;
+      requestIdRef.current += 1;
+      controller.abort();
+      setState('error');
+      setErrorMessage(i18n.t('map:locationSearch.messages.searchTimedOut'));
+      setSuggestions([]);
+      setShowSuggestions(false);
+    }, SEARCH_TIMEOUT_MS);
+    requestTimeoutRef.current = timeout;
 
     try {
       
@@ -135,15 +158,15 @@ const LocationSearch: React.FC<LocationSearchProps> = ({ onLocationSelect }) => 
       url.searchParams.set('limit', '6');
       
       const response = await fetch(url.toString(), {
-        signal: abortControllerRef.current.signal,
+        signal: controller.signal,
         headers: { 'Accept': 'application/json' },
       });
 
+      if (!isCurrent()) return;
       if (response.status === 503) {
         
-        const data = await response.json();
         setState('error');
-        setErrorMessage(data.detail || 'Search not configured');
+        setErrorMessage(i18n.t('map:locationSearch.messages.notConfigured'));
         setSuggestions([]);
         setShowSuggestions(false);
         return;
@@ -151,42 +174,52 @@ const LocationSearch: React.FC<LocationSearchProps> = ({ onLocationSelect }) => 
 
       if (response.status === 429) {
         setState('error');
-        setErrorMessage('Too many requests. Try again shortly.');
+        setErrorMessage(i18n.t('map:locationSearch.messages.tooManyRequestsTryAgainShortly'));
         setSuggestions([]);
         setShowSuggestions(false);
         return;
       }
 
       if (!response.ok) {
-        throw new Error('Search service unavailable');
+        throw new Error('search_service_unavailable');
       }
 
       const data: AutocompleteResponse = await response.json();
+      if (!isCurrent()) return;
+      if (!Array.isArray(data.results)) throw new Error('invalid_search_response');
       
-      setSuggestions(data.results || []);
-      setShowSuggestions((data.results || []).length > 0);
+      setSuggestions(data.results);
+      setShowSuggestions((data.results).length > 0);
       setSelectedIndex(-1);
       setState('idle');
 
-      if ((data.results || []).length === 0 && trimmed.length >= MIN_QUERY_LENGTH) {
-        setErrorMessage('No matches found');
+      if ((data.results).length === 0 && trimmed.length >= MIN_QUERY_LENGTH) {
+        setErrorMessage(i18n.t('map:locationSearch.messages.noMatchesFound'));
       }
 
     } catch (err) {
+      if (!isCurrent()) return;
       if ((err as Error).name === 'AbortError') {
         
         return;
       }
       console.error('Geocoding error:', err);
       setState('error');
-      setErrorMessage('Search failed');
+      setErrorMessage(i18n.t('map:locationSearch.messages.searchFailed'));
       setSuggestions([]);
       setShowSuggestions(false);
+    } finally {
+      window.clearTimeout(timeout);
     }
   }, []);
 
   
   const handleInputChange = React.useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
+    cancelSearch();
+    setState('idle');
+    setSuggestions([]);
+    setShowSuggestions(false);
+    setSelectedIndex(-1);
     const value = e.target.value;
     setQuery(value);
     setErrorMessage(null);
@@ -200,10 +233,11 @@ const LocationSearch: React.FC<LocationSearchProps> = ({ onLocationSelect }) => 
     debounceRef.current = window.setTimeout(() => {
       fetchSuggestions(value);
     }, DEBOUNCE_MS);
-  }, [fetchSuggestions]);
+  }, [fetchSuggestions, cancelSearch]);
 
   
   const selectSuggestion = React.useCallback((result: GeoapifyResult) => {
+    cancelSearch();
     const zoom = getZoomForResult(result);
     const { primary, secondary } = formatResult(result);
     const displayName = secondary ? `${primary}, ${secondary}` : primary;
@@ -225,12 +259,13 @@ const LocationSearch: React.FC<LocationSearchProps> = ({ onLocationSelect }) => 
     successTimeoutRef.current = window.setTimeout(() => {
       setState('idle');
     }, 1500);
-  }, [onLocationSelect]);
+  }, [onLocationSelect, cancelSearch]);
 
   
   const handleKeyDown = React.useCallback((e: React.KeyboardEvent) => {
     if (!showSuggestions || suggestions.length === 0) {
       if (e.key === 'Escape') {
+        cancelSearch();
         setQuery('');
         setState('idle');
         setErrorMessage(null);
@@ -260,6 +295,8 @@ const LocationSearch: React.FC<LocationSearchProps> = ({ onLocationSelect }) => 
         }
         break;
       case 'Escape':
+        cancelSearch();
+        setState('idle');
         e.preventDefault();
         setShowSuggestions(false);
         setSelectedIndex(-1);
@@ -270,9 +307,10 @@ const LocationSearch: React.FC<LocationSearchProps> = ({ onLocationSelect }) => 
         setSelectedIndex(-1);
         break;
     }
-  }, [showSuggestions, suggestions, selectedIndex, selectSuggestion]);
+  }, [showSuggestions, suggestions, selectedIndex, selectSuggestion, cancelSearch]);
 
   const handleClear = React.useCallback(() => {
+    cancelSearch();
     setQuery('');
     setState('idle');
     setErrorMessage(null);
@@ -280,7 +318,7 @@ const LocationSearch: React.FC<LocationSearchProps> = ({ onLocationSelect }) => 
     setShowSuggestions(false);
     setSelectedIndex(-1);
     inputRef.current?.focus();
-  }, []);
+  }, [cancelSearch]);
 
   const handleFocus = React.useCallback(() => {
     
@@ -317,12 +355,17 @@ const LocationSearch: React.FC<LocationSearchProps> = ({ onLocationSelect }) => 
           ref={inputRef}
           type="text"
           className="location-search-input"
-          placeholder="Search location…"
+          placeholder={i18n.t('map:locationSearch.placeholders.searchLocation')}
           value={query}
+          title={query || undefined}
           onChange={handleInputChange}
           onKeyDown={handleKeyDown}
           onFocus={handleFocus}
-          aria-label="Search location"
+          aria-label={i18n.t('map:locationSearch.accessibility.searchLocation')}
+          role="combobox"
+          aria-describedby={statusId}
+          aria-controls={listId}
+          aria-activedescendant={selectedIndex >= 0 ? `${listId}-${selectedIndex}` : undefined}
           aria-expanded={showSuggestions}
           aria-haspopup="listbox"
           aria-autocomplete="list"
@@ -331,13 +374,12 @@ const LocationSearch: React.FC<LocationSearchProps> = ({ onLocationSelect }) => 
         />
 
         
-        {query && state !== 'loading' && (
+        {query && (
           <button
             type="button"
             className="location-search-clear"
             onClick={handleClear}
-            aria-label="Clear search"
-            tabIndex={-1}
+            aria-label={i18n.t('map:locationSearch.accessibility.clearSearch')}
           >
             <svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
               <line x1="18" y1="6" x2="6" y2="18" />
@@ -349,13 +391,14 @@ const LocationSearch: React.FC<LocationSearchProps> = ({ onLocationSelect }) => 
 
       
       {showSuggestions && suggestions.length > 0 && (
-        <ul className="location-search-suggestions" role="listbox">
+        <ul id={listId} aria-label={i18n.t('map:locationSearch.accessibility.searchLocation')} className="location-search-suggestions" role="listbox">
           {suggestions.map((result, index) => {
             const { primary, secondary } = formatResult(result);
             const isSelected = index === selectedIndex;
             return (
               <li
                 key={result.place_id || `${result.lat}-${result.lon}-${index}`}
+                id={`${listId}-${index}`}
                 role="option"
                 aria-selected={isSelected}
                 className={`location-search-suggestion ${isSelected ? 'selected' : ''}`}
@@ -382,11 +425,10 @@ const LocationSearch: React.FC<LocationSearchProps> = ({ onLocationSelect }) => 
       )}
 
       
-      {errorMessage && !showSuggestions && (
-        <div className="location-search-error" role="alert">
-          {errorMessage}
-        </div>
-      )}
+      <div id={statusId} role="status" aria-live="polite"
+        className={errorMessage && !showSuggestions ? 'location-search-error' : 'sr-only'}>
+        {state === 'loading' ? i18n.t('map:locationSearch.messages.searching') : errorMessage}
+      </div>
     </div>
   );
 };

@@ -1,0 +1,414 @@
+{
+  "captured_at": "2026-09-15T04:58:37.763352+00:00",
+  "catalog_count": 2802,
+  "envelope_count": 27,
+  "ranked_catalog": [
+    {
+      "location_id": 175911,
+      "name": "São Paulo",
+      "latitude": -23.6473149,
+      "longitude": -46.6643635,
+      "distance_km": 366.0033611002278,
+      "excluded_reason": null
+    },
+    {
+      "location_id": 155922,
+      "name": "Parque Vida Nova, Caji",
+      "latitude": -12.884741,
+      "longitude": -38.329652,
+      "distance_km": 1226.2322400759222,
+      "excluded_reason": null
+    },
+    {
+      "location_id": 196465,
+      "name": "Fernando de la Mora-ZonaNorte",
+      "latitude": -25.306974,
+      "longitude": -57.547382,
+      "distance_km": 1482.3802772147485,
+      "excluded_reason": null
+    },
+    {
+      "location_id": 191355,
+      "name": "Plaza Herminio Giménez",
+      "latitude": -25.2831,
+      "longitude": -57.5992,
+      "distance_km": 1487.2107753312675,
+      "excluded_reason": null
+    },
+    {
+      "location_id": 192586,
+      "name": "Barrio Jara",
+      "latitude": -25.3281177,
+      "longitude": -57.6181271,
+      "distance_km": 1489.734185444805,
+      "excluded_reason": null
+    },
+    {
+      "location_id": 81423,
+      "name": "La Plata",
+      "latitude": -34.900091,
+      "longitude": -57.924198,
+      "distance_km": 1955.3259331265003,
+      "excluded_reason": null
+    },
+    {
+      "location_id": 174298,
+      "name": "Imperatriz",
+      "latitude": -5.523688,
+      "longitude": -47.477717,
+      "distance_km": 1987.3343158902467,
+      "excluded_reason": null
+    },
+    {
+      "location_id": 65837,
+      "name": "La Matanza, Buenos Aires",
+      "latitude": -34.88106631929777,
+      "longitude": -58.68288039022074,
+      "distance_km": 2008.3738198208728,
+      "excluded_reason": null
+    },
+    {
+      "location_id": 71029,
+      "name": "EET1_Saladillo",
+      "latitude": -35.6442117793875,
+      "longitude": -59.783312717343826,
+      "distance_km": 2139.256109308269,
+      "excluded_reason": null
+    },
+    {
+      "location_id": 207275,
+      "name": "Américo Vespucio, El Alto",
+      "latitude": -16.5912614,
+      "longitude": -68.178268,
+      "distance_km": 2705.4057166857456,
+      "excluded_reason": null
+    },
+    {
+      "location_id": 194468,
+      "name": "JISDP-d83bda1b6f20",
+      "latitude": -26.334951,
+      "longitude": -70.607498,
+      "distance_km": 2794.0081848536656,
+      "excluded_reason": null
+    },
+    {
+      "location_id": 192282,
+      "name": "ID-d83bda1b9050",
+      "latitude": -26.33771,
+      "longitude": -70.611106,
+      "distance_km": 2794.377554254846,
+      "excluded_reason": null
+    },
+    {
+      "location_id": 194003,
+      "name": "JICR-d83bda1ba72c",
+      "latitude": -26.350499,
+      "longitude": -70.61193,
+      "distance_km": 2794.5064048442787,
+      "excluded_reason": null
+    },
+    {
+      "location_id": 192280,
+      "name": "JIT-d83bda1b2954",
+      "latitude": -26.346458,
+      "longitude": -70.614423,
+      "distance_km": 2794.7398299129923,
+      "excluded_reason": null
+    },
+    {
+      "location_id": 194466,
+      "name": "JIC-d83bda1bda18",
+      "latitude": -26.337637,
+      "longitude": -70.615348,
+      "distance_km": 2794.799789697243,
+      "excluded_reason": null
+    },
+    {
+      "location_id": 194685,
+      "name": "Hispanoamericano-d83bda1b122c",
+      "latitude": -26.347458,
+      "longitude": -70.616389,
+      "distance_km": 2794.9392906946646,
+      "excluded_reason": null
+    },
+    {
+      "location_id": 194002,
+      "name": "Primera calle relave, aeropuerto",
+      "latitude": -26.334127,
+      "longitude": -70.617424,
+      "distance_km": 2794.9938571959337,
+      "excluded_reason": null
+    },
+    {
+      "location_id": 194474,
+      "name": "Rayito-d83bda1a0a84",
+      "latitude": -26.347617,
+      "longitude": -70.624114,
+      "distance_km": 2795.7092049435128,
+      "excluded_reason": null
+    },
+    {
+      "location_id": 194477,
+      "name": "Pasitos-d83bda1c60ec ",
+      "latitude": -26.348852,
+      "longitude": -70.625487,
+      "distance_km": 2795.8504640161027,
+      "excluded_reason": null
+    },
+    {
+      "location_id": 192281,
+      "name": "PNPA-d83bda1a1814",
+      "latitude": -26.144683,
+      "longitude": -70.661568,
+      "distance_km": 2798.7888496426012,
+      "excluded_reason": null
+    },
+    {
+      "location_id": 168092,
+      "name": "Cherquenco",
+      "latitude": -38.662391,
+      "longitude": -72.009579,
+      "distance_km": 3242.758212326762,
+      "excluded_reason": null
+    },
+    {
+      "location_id": 205021,
+      "name": "El Pedregoso",
+      "latitude": -42.10403,
+      "longitude": -71.44551,
+      "distance_km": 3375.9301598002326,
+      "excluded_reason": null
+    },
+    {
+      "location_id": 190900,
+      "name": "Lookout Industrial",
+      "latitude": -51.696006,
+      "longitude": -57.846625,
+      "distance_km": 3439.5200635132355,
+      "excluded_reason": null
+    },
+    {
+      "location_id": 188853,
+      "name": "Stanley 1",
+      "latitude": -51.6941666,
+      "longitude": -57.88083333,
+      "distance_km": 3440.4092548880385,
+      "excluded_reason": null
+    },
+    {
+      "location_id": 165731,
+      "name": "Coyhaique",
+      "latitude": -45.5486628,
+      "longitude": -72.0722702,
+      "distance_km": 3623.2413397905975,
+      "excluded_reason": null
+    },
+    {
+      "location_id": 170485,
+      "name": "St Joseph's Convent, Port of Spain",
+      "latitude": 10.6588,
+      "longitude": -61.5108,
+      "distance_km": 4232.940853610935,
+      "excluded_reason": "Trinidad and Tobago, Caribbean; not South America"
+    },
+    {
+      "location_id": 163619,
+      "name": "Guachetá ",
+      "latitude": 5.359755,
+      "longitude": -73.703483,
+      "distance_km": 4569.725794898769,
+      "excluded_reason": null
+    }
+  ],
+  "candidates": [
+    {
+      "distance_km": 366.0033611002278,
+      "url": "https://api.airgradient.com/public/api/v1/world/locations/175911/measures/current",
+      "http_status": 200,
+      "payload": {
+        "locationId": 175911,
+        "locationName": "São Paulo",
+        "publicLocationName": "São Paulo",
+        "latitude": -23.6473149,
+        "longitude": -46.6643635,
+        "offline": false,
+        "pm01": 3.0,
+        "pm02": 8.0,
+        "pm10": 8.0,
+        "pm003Count": 405,
+        "atmp": 18.8,
+        "rhum": 61,
+        "rco2": 414,
+        "tvoc": 105.9,
+        "wifi": -53,
+        "timestamp": "2026-09-15T04:58:26.000Z",
+        "tvocIndex": 112,
+        "noxIndex": 1,
+        "heatindex": 17,
+        "placeId": 19363,
+        "publicPlaceName": null,
+        "publicPlaceUrl": null,
+        "publicContributorName": "raflima",
+        "timezone": "America/Sao_Paulo",
+        "model": "O-1PST",
+        "firmwareVersion": "3.7.0"
+      },
+      "country": "Brazil",
+      "country_basis": "Geographic interpretation of provider coordinates; current-measures API has no country field"
+    },
+    {
+      "distance_km": 1226.2322400759222,
+      "url": "https://api.airgradient.com/public/api/v1/world/locations/155922/measures/current",
+      "http_status": 200,
+      "payload": {
+        "locationId": 155922,
+        "locationName": "Parque Vida Nova, Caji",
+        "publicLocationName": "Parque Vida Nova, Caji",
+        "latitude": -12.884741,
+        "longitude": -38.329652,
+        "offline": false,
+        "pm01": 0.0,
+        "pm02": 0.0,
+        "pm10": 0.0,
+        "pm003Count": 67,
+        "atmp": 27.4,
+        "rhum": 52,
+        "rco2": 438,
+        "tvoc": 110.9,
+        "wifi": -64,
+        "timestamp": "2026-09-15T04:58:25.000Z",
+        "tvocIndex": 117,
+        "noxIndex": 1,
+        "heatindex": 29,
+        "placeId": 13992,
+        "publicPlaceName": null,
+        "publicPlaceUrl": null,
+        "publicContributorName": "catejust",
+        "timezone": "America/Sao_Paulo",
+        "model": "O-1PST",
+        "firmwareVersion": "3.7.0"
+      },
+      "country": "Brazil",
+      "country_basis": "Geographic interpretation of provider coordinates; current-measures API has no country field"
+    },
+    {
+      "distance_km": 1482.3802772147485,
+      "url": "https://api.airgradient.com/public/api/v1/world/locations/196465/measures/current",
+      "http_status": 200,
+      "payload": {
+        "locationId": 196465,
+        "locationName": "Fernando de la Mora-ZonaNorte",
+        "publicLocationName": "Fernando de la Mora-ZonaNorte",
+        "latitude": -25.306974,
+        "longitude": -57.547382,
+        "offline": false,
+        "pm01": 1.7,
+        "pm02": 3.8,
+        "pm10": 3.8,
+        "pm003Count": 327,
+        "atmp": 23.4,
+        "rhum": 39,
+        "rco2": 405,
+        "tvoc": 47.1,
+        "wifi": -73,
+        "timestamp": "2026-09-15T04:57:38.000Z",
+        "tvocIndex": 48,
+        "noxIndex": 1,
+        "heatindex": 23,
+        "placeId": 24820,
+        "publicPlaceName": null,
+        "publicPlaceUrl": null,
+        "publicContributorName": "Proyecto Respira",
+        "timezone": "America/Sao_Paulo",
+        "model": "O-1PST",
+        "firmwareVersion": "3.7.0"
+      },
+      "country": "Paraguay",
+      "country_basis": "Geographic interpretation of provider coordinates; current-measures API has no country field"
+    },
+    {
+      "distance_km": 1487.2107753312675,
+      "url": "https://api.airgradient.com/public/api/v1/world/locations/191355/measures/current",
+      "http_status": 200,
+      "payload": {
+        "locationId": 191355,
+        "locationName": "Plaza Herminio Giménez",
+        "publicLocationName": "Plaza Herminio Giménez",
+        "latitude": -25.2831,
+        "longitude": -57.5992,
+        "offline": false,
+        "pm01": 10.7,
+        "pm02": 15.0,
+        "pm10": 15.4,
+        "pm003Count": 1959,
+        "atmp": 17.4,
+        "rhum": 66,
+        "rco2": 423,
+        "tvoc": null,
+        "wifi": -81,
+        "timestamp": "2026-09-15T04:53:00.000Z",
+        "tvocIndex": 36091,
+        "noxIndex": 18656,
+        "heatindex": 17,
+        "placeId": 24820,
+        "publicPlaceName": null,
+        "publicPlaceUrl": null,
+        "publicContributorName": "Proyecto Respira",
+        "timezone": "America/Sao_Paulo",
+        "model": "O-M-1PPST-CE",
+        "firmwareVersion": null
+      },
+      "country": "Paraguay",
+      "country_basis": "Geographic interpretation of provider coordinates; current-measures API has no country field"
+    },
+    {
+      "distance_km": 1489.734185444805,
+      "url": "https://api.airgradient.com/public/api/v1/world/locations/192586/measures/current",
+      "http_status": 200,
+      "payload": {
+        "locationId": 192586,
+        "locationName": "Barrio Jara",
+        "publicLocationName": "Barrio Jara",
+        "latitude": -25.3281177,
+        "longitude": -57.6181271,
+        "offline": false,
+        "pm01": 4.3,
+        "pm02": 7.2,
+        "pm10": 7.2,
+        "pm003Count": 418,
+        "atmp": 19.6,
+        "rhum": 49,
+        "rco2": 426,
+        "tvoc": 62.9,
+        "wifi": -66,
+        "timestamp": "2026-09-15T04:58:12.000Z",
+        "tvocIndex": 66,
+        "noxIndex": 1,
+        "heatindex": 18,
+        "placeId": 24820,
+        "publicPlaceName": null,
+        "publicPlaceUrl": null,
+        "publicContributorName": "Proyecto Respira",
+        "timezone": "America/Sao_Paulo",
+        "model": "O-1PST",
+        "firmwareVersion": "3.7.0"
+      },
+      "country": "Paraguay",
+      "country_basis": "Geographic interpretation of provider coordinates; current-measures API has no country field"
+    }
+  ],
+  "catalog_url": "https://api.airgradient.com/public/api/v1/world/locations/measures/current",
+  "rio_reference": {
+    "latitude": -22.9068,
+    "longitude": -43.1729
+  },
+  "distance_method": "Haversine great-circle, mean Earth radius 6371.0088 km",
+  "selected_location_id": "175911",
+  "active_max_age_seconds": 3600,
+  "attribution": {
+    "provider": "AirGradient",
+    "provider_url": "https://www.airgradient.com",
+    "license": "CC-BY-SA-4.0",
+    "license_url": "https://creativecommons.org/licenses/by-sa/4.0/"
+  }
+}

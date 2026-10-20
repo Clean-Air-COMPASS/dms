@@ -19,6 +19,15 @@ import sys
 from sqlalchemy import select, text, func
 
 from db import SessionLocal
+from services.external_sources import (
+    ExternalSourceNotRunnable,
+    require_task_source_runnable,
+)
+from services.import_summaries import (
+    merge_qc_counts,
+    new_import_summary,
+    write_import_summary,
+)
 import models
 from qaqc import discovery
 from .openaq_client import get_api_client, fetch_json
@@ -29,8 +38,8 @@ from .openaq_upserts import (
     _upsert_device_for_sensor,
     _upsert_sensor_for_device,
     _upsert_device_for_external_location,
-    upsert_measurement_with_policy,
-    _canonical_unit_id,
+    upsert_measurement_with_policy_detailed,
+    _openaq_import_unit_id,
 )
 
 OPENAQ_LOCATIONS_URL = "https://api.openaq.org/v3/locations"
@@ -84,6 +93,107 @@ def _iso_duration_to_hhmmss(v: Optional[str]) -> Optional[str]:
     return f"{hours:02d}:{minutes:02d}:{seconds:02d}"
 
 
+def _iso_duration_seconds(value: Optional[str]) -> Optional[int]:
+    hhmmss = _iso_duration_to_hhmmss(value)
+    if hhmmss is None:
+        return None
+    hours, minutes, seconds = (int(part) for part in hhmmss.split(":"))
+    return hours * 3600 + minutes * 60 + seconds
+
+
+def _parse_utc_instant(value: object) -> Optional[datetime]:
+    if not isinstance(value, str) or not value.strip():
+        return None
+    normalized = value.strip().replace("Z", "+00:00")
+    try:
+        instant = datetime.fromisoformat(normalized)
+    except ValueError:
+        return None
+    if instant.tzinfo is None:
+        instant = instant.replace(tzinfo=timezone.utc)
+    return instant.astimezone(timezone.utc)
+
+
+def _apply_new_openaq_gas_period_metadata(
+    session,
+    sensor: models.Sensor,
+    *,
+    parameter_code: str,
+    period: object,
+) -> None:
+    """Qualify only new AQI-gas streams whose provider interval is explicit.
+
+    Existing measurements may already have undergone the legacy unit conversion,
+    so their stream is never certified by a later synchronization.
+    """
+    if (
+        parameter_code.strip().lower() not in {"o3", "co", "no2", "so2"}
+        or not isinstance(period, dict)
+    ):
+        return
+    existing_measurement_id = session.scalar(
+        select(models.Measurement.measurement_id)
+        .where(models.Measurement.sensor_id == sensor.sensor_id)
+        .limit(1)
+    )
+    if existing_measurement_id is not None:
+        return
+    interval_seconds = _iso_duration_seconds(period.get("interval"))
+    datetime_from = period.get("datetimeFrom") or {}
+    datetime_to = period.get("datetimeTo") or {}
+    interval_start = _parse_utc_instant(
+        datetime_from.get("utc") if isinstance(datetime_from, dict) else None
+    )
+    interval_end = _parse_utc_instant(
+        datetime_to.get("utc") if isinstance(datetime_to, dict) else None
+    )
+    if (
+        interval_seconds is None
+        or interval_start is None
+        or interval_end is None
+        or int((interval_end - interval_start).total_seconds()) != interval_seconds
+    ):
+        return
+
+    if interval_seconds == 3600:
+        aggregation_period_id = _lookup_aggregation_period_id_by_interval(
+            session, "01:00:00"
+        )
+    elif 60 <= interval_seconds <= 900 and 3600 % interval_seconds == 0:
+        aggregation_period_id = None
+    else:
+        return
+
+    sensor.measurement_metadata_status = "provider_documented"
+    sensor.measurement_metadata_managed_by = "openaq_importer"
+    sensor.measurement_duration_seconds = interval_seconds
+    sensor.source_aggregation_duration_seconds = interval_seconds
+    if interval_seconds == 3600:
+        sensor.aggregation_period_id = aggregation_period_id
+        sensor.hourly_concentration_provenance = "provider_reported_hourly_average"
+        sensor.hourly_timestamp_semantics = "hour_end"
+    else:
+        sensor.expected_frequency_seconds = interval_seconds
+        sensor.measurement_timestamp_semantics = "interval_end"
+    session.add(sensor)
+
+
+def _apply_new_openaq_ozone_period_metadata(
+    session,
+    sensor: models.Sensor,
+    *,
+    parameter_code: str,
+    period: object,
+) -> None:
+    """Backward-compatible name for the gas period-metadata safeguard."""
+    _apply_new_openaq_gas_period_metadata(
+        session,
+        sensor,
+        parameter_code=parameter_code,
+        period=period,
+    )
+
+
 def _lookup_aggregation_period_id_by_interval(session, hhmmss: Optional[str]) -> Optional[int]:
     if not hhmmss:
         return None
@@ -105,7 +215,9 @@ def _get_api_key_for_external_api(name: str) -> Optional[str]:
     try:
         with SessionLocal() as session:
             row = session.scalars(
-                select(models.ExternalAPI.api_key).where(func.lower(models.ExternalAPI.name) == (name or "").lower()).limit(1)
+                select(models.ExternalAPI.api_key).where(
+                    models.ExternalAPI.provider_code == (name or "").lower()
+                ).limit(1)
             ).one_or_none()
             return row
     except Exception:
@@ -116,7 +228,9 @@ def _get_openaq_external_api_id(session) -> Optional[int]:
     """Resolve the external_api_id for OpenAQ (case-insensitive)."""
     try:
         return session.scalar(
-            select(models.ExternalAPI.external_api_id).where(func.lower(models.ExternalAPI.name) == "openaq").limit(1)
+            select(models.ExternalAPI.external_api_id).where(
+                models.ExternalAPI.provider_code == "openaq"
+            ).limit(1)
         )
     except Exception:
         return None
@@ -217,7 +331,21 @@ def sync_catalogs_from_sensors() -> None:
         symbol_to_unitid = {sym: uid for (uid, _code, sym) in unit_rows}
 
                              
-        existing_params = set(session.scalars(select(models.Parameter.code)).all())
+        parameter_ids_by_code = {
+            code: parameter_id
+            for parameter_id, code in session.execute(
+                select(models.Parameter.parameter_id, models.Parameter.code)
+            ).all()
+        }
+        existing_supported_units = {
+            (parameter_id, supported_unit_id)
+            for parameter_id, supported_unit_id in session.execute(
+                select(
+                    models.ParameterSupportedUnit.parameter_id,
+                    models.ParameterSupportedUnit.unit_id,
+                )
+            ).all()
+        }
 
                          
         sensors = session.scalars(select(models.Sensor)).all()
@@ -247,7 +375,7 @@ def sync_catalogs_from_sensors() -> None:
             pcode = (s.parameter or "").strip().lower()
             if not pcode:
                 continue
-            if pcode not in existing_params:
+            if pcode not in parameter_ids_by_code:
                                                                                                   
                 if unit_id is None:
                     continue
@@ -255,8 +383,18 @@ def sync_catalogs_from_sensors() -> None:
                 new_p = models.Parameter(code=pcode, display_name=disp, default_unit_id=unit_id)
                 session.add(new_p)
                 session.flush()
-                existing_params.add(pcode)
+                parameter_ids_by_code[pcode] = new_p.parameter_id
                 created_params += 1
+
+            supported_unit_key = (parameter_ids_by_code[pcode], unit_id)
+            if unit_id is not None and supported_unit_key not in existing_supported_units:
+                session.add(
+                    models.ParameterSupportedUnit(
+                        parameter_id=parameter_ids_by_code[pcode],
+                        unit_id=unit_id,
+                    )
+                )
+                existing_supported_units.add(supported_unit_key)
 
         session.commit()
 
@@ -286,7 +424,10 @@ def sync_catalogs_from_sensors() -> None:
     print(f"Catalog sync complete: created {created_units} unit(s), {created_params} parameter(s).")
 
 
-def import_single_sensor(sensor_id: str) -> None:
+def import_single_sensor(
+    sensor_id: str,
+    import_summary: dict | None = None,
+) -> str | None:
     """Fetch a single sensor by id and insert its latest PM2.5 measurement if present."""
 
     api_key = _get_api_key_for_external_api("OpenAQ") or os.getenv("OPENAQ_API_KEY")
@@ -400,8 +541,13 @@ def import_single_sensor(sensor_id: str) -> None:
         if unit:
             uid = unit_code_map.get(unit) or unit_symbol_map.get(unit)
                                                       
-        canonical_uid = _canonical_unit_id(param_name or "", param_default_unit, unit_code_map, unit_symbol_map)
-        uid = canonical_uid or uid
+        uid = _openaq_import_unit_id(
+            param_name or "",
+            unit,
+            param_default_unit,
+            unit_code_map,
+            unit_symbol_map,
+        )
 
                                                                                     
         agg_pid: Optional[int] = None
@@ -432,7 +578,9 @@ def import_single_sensor(sensor_id: str) -> None:
             )
 
         if value is None:
-            value = 0.0
+            session.commit()
+            print(f"Skipped measurement for sensor {sensor_id}: no numeric value")
+            return "no_data"
 
         observed_at = None
         if isinstance(latest, dict):
@@ -451,13 +599,6 @@ def import_single_sensor(sensor_id: str) -> None:
         )
 
                                                                                
-        if device and observed_at:
-            try:
-                from .openaq_upserts import _update_device_location
-                _update_device_location(session, device, getattr(device, "latitude", None), getattr(device, "longitude", None), effective_from=observed_at)
-            except Exception:
-                pass
-
                                                               
         norm_items = [
             {
@@ -488,13 +629,25 @@ def import_single_sensor(sensor_id: str) -> None:
             m = measurements[0]
             if sensor:
                 m.sensor_id = sensor.sensor_id
-            action = upsert_measurement_with_policy(session, m, device=device, sensor=sensor)
+            upsert_result = upsert_measurement_with_policy_detailed(
+                session,
+                m,
+                device=device,
+                sensor=sensor,
+            )
+            if import_summary is not None:
+                merge_qc_counts(import_summary, upsert_result.qc)
             session.commit()
             verb_map = {"insert": "Inserted", "update": "Updated", "skip": "Skipped"}
-            print(f"{verb_map.get(action, action)} 1 measurement for sensor {sensor_id}")
+            print(
+                f"{verb_map.get(upsert_result.action, upsert_result.action)} "
+                f"1 measurement for sensor {sensor_id}"
+            )
+            return upsert_result.action
         else:
             session.commit()
             print(f"Skipped measurement for sensor {sensor_id}: no numeric value")
+            return "no_data"
 
 
 def import_measurements_from_locations(
@@ -503,6 +656,8 @@ def import_measurements_from_locations(
     summary_csv: Optional[str] = None,
 ) -> dict:
     """Import measurements for OpenAQ devices using location-scoped endpoints."""
+
+    summary = new_import_summary()
 
     api_key = _get_api_key_for_external_api("OpenAQ") or os.getenv("OPENAQ_API_KEY")
     headers = {"X-API-Key": api_key} if api_key else {}
@@ -518,17 +673,26 @@ def import_measurements_from_locations(
         if openaq_api_id:
             stmt = stmt.where(models.Device.external_api_id == openaq_api_id)
         else:
-            stmt = stmt.where(func.lower(models.ExternalAPI.name) == "openaq")
+            stmt = stmt.where(models.ExternalAPI.provider_code == "openaq")
         stmt = stmt.order_by(models.Device.device_id)
         devices_with_ext = session.scalars(stmt).all()
+        existing_device_ids_before_import = set(
+            session.scalars(select(models.Device.device_id)).all()
+        )
+        existing_sensor_ids_before_import = set(
+            session.scalars(select(models.Sensor.sensor_id)).all()
+        )
 
     if not devices_with_ext:
         print("No OpenAQ devices with external_id found in DB; skipping measurement import.")
-        return
+        write_import_summary(summary, summary_json)
+        return summary
 
     batch_size = 100
-    inserted_total = 0
+    classified_total = 0
     processed_locations = 0
+    processed_device_ids: set[int] = set()
+    processed_sensor_ids: set[int] = set()
 
     with get_api_client("OpenAQ") as client, SessionLocal() as session:
                                                                                    
@@ -555,6 +719,8 @@ def import_measurements_from_locations(
             ext_id = getattr(dev, "external_id", None)
             if not ext_id:
                 continue
+
+            processed_device_ids.add(dev.device_id)
 
                                                                              
 
@@ -615,9 +781,13 @@ def import_measurements_from_locations(
                         param_name = pn if pn in known_params else pn
 
                     pid = param_map.get(param_name) if param_name else None
-                    uid = unit_code_map.get(unit) or unit_symbol_map.get(unit) if unit else None
-                    canonical_uid = _canonical_unit_id(param_name or "", param_default_unit, unit_code_map, unit_symbol_map)
-                    uid = canonical_uid or uid
+                    uid = _openaq_import_unit_id(
+                        param_name or "",
+                        unit,
+                        param_default_unit,
+                        unit_code_map,
+                        unit_symbol_map,
+                    )
                                                                                  
                     agg_pid: Optional[int] = None
                     try:
@@ -646,6 +816,8 @@ def import_measurements_from_locations(
                         unit_id_code_map=unit_id_code_map,
                         convert_unit=True,
                     ) if device else None
+                    if sensor is not None:
+                        processed_sensor_ids.add(sensor.sensor_id)
 
                     latest_val = None
                     if lv is not None:
@@ -734,15 +906,43 @@ def import_measurements_from_locations(
                             except Exception:
                                 mresults = []
                         for mr in mresults:
-                                                                 
-                            m_param = (mr.get("parameter") or "").lower()
-                            m_val = mr.get("value")
-                            m_unit = mr.get("unit") or mr.get("units")
-                            m_dt = None
-                            if isinstance(mr.get("date"), dict):
-                                m_dt = (mr.get("date") or {}).get("utc")
-                            elif isinstance(mr.get("datetime"), dict):
-                                m_dt = (mr.get("datetime") or {}).get("utc")
+                            measurement_payload = (
+                                mr.model_dump() if hasattr(mr, "model_dump") else mr
+                            )
+                            if not isinstance(measurement_payload, dict):
+                                continue
+                            parameter_payload = measurement_payload.get("parameter") or {}
+                            if isinstance(parameter_payload, dict):
+                                m_param = str(
+                                    parameter_payload.get("name") or param_name or ""
+                                ).lower()
+                                m_unit = (
+                                    parameter_payload.get("units")
+                                    or measurement_payload.get("unit")
+                                    or unit
+                                )
+                            else:
+                                m_param = str(parameter_payload or param_name or "").lower()
+                                m_unit = measurement_payload.get("unit") or unit
+                            m_val = measurement_payload.get("value")
+                            period_payload = measurement_payload.get("period") or {}
+                            period_end = (
+                                period_payload.get("datetimeTo") or {}
+                                if isinstance(period_payload, dict)
+                                else {}
+                            )
+                            m_dt = (
+                                period_end.get("utc")
+                                if isinstance(period_end, dict)
+                                else None
+                            )
+                            if m_dt is None:
+                                date_payload = measurement_payload.get("date") or {}
+                                datetime_payload = measurement_payload.get("datetime") or {}
+                                if isinstance(date_payload, dict):
+                                    m_dt = date_payload.get("utc")
+                                if m_dt is None and isinstance(datetime_payload, dict):
+                                    m_dt = datetime_payload.get("utc")
                                                       
                             try:
                                 m_val = float(m_val)
@@ -750,6 +950,13 @@ def import_measurements_from_locations(
                                 m_val = None
                             if m_val is None:
                                 continue
+                            if sensor is not None:
+                                _apply_new_openaq_gas_period_metadata(
+                                    session,
+                                    sensor,
+                                    parameter_code=m_param,
+                                    period=period_payload,
+                                )
                             items.append(
                                 {
                                     "location": dev.name if dev else None,
@@ -763,7 +970,8 @@ def import_measurements_from_locations(
                                     },
                                     "id": s_ext_id,
                                     "locationId": ext_id,
-                                    "raw": {"measurement": mr},
+                                    "sensorId": s_ext_id,
+                                    "raw": {"measurement": measurement_payload},
                                 }
                             )
                     except Exception:
@@ -834,6 +1042,8 @@ def import_measurements_from_locations(
             if limit_per_location > 0:
                 items = items[:limit_per_location]
 
+            summary["measurements_received"] += len(items)
+
             measurements = normalize_and_upsert_from_parameter_latest(
                 items,
                 parameter_name="",
@@ -851,6 +1061,8 @@ def import_measurements_from_locations(
                 dev_for_row = session.scalars(select(models.Device).where(models.Device.external_id == getattr(mobj, "_openaq_location_id", None))).one_or_none()
                 if not dev_for_row:
                     dev_for_row = _upsert_device_for_external_location(session, getattr(mobj, "_openaq_location_id", None), name=None, latitude=None, longitude=None, timezone=None)
+                if dev_for_row is not None:
+                    processed_device_ids.add(dev_for_row.device_id)
                 code = getattr(mobj, "_parameter_code", None)
                 pid = getattr(mobj, "_parameter_id", None)
                 uid = getattr(mobj, "_unit_id", None)
@@ -867,29 +1079,28 @@ def import_measurements_from_locations(
 
                 if sensor:
                     mobj.sensor_id = sensor.sensor_id
+                    processed_sensor_ids.add(sensor.sensor_id)
                                                                                        
-                if dev_for_row:
-                    try:
-                        from .openaq_upserts import _update_device_location
-                        _update_device_location(session, dev_for_row, getattr(dev_for_row, "latitude", None), getattr(dev_for_row, "longitude", None), effective_from=mobj.observed_at)
-                    except Exception:
-                        pass
-                                                                                    
-
-                action = upsert_measurement_with_policy(session, mobj, device=dev_for_row, sensor=sensor)
+                upsert_result = upsert_measurement_with_policy_detailed(
+                    session,
+                    mobj,
+                    device=dev_for_row,
+                    sensor=sensor,
+                )
+                action = upsert_result.action
+                merge_qc_counts(summary, upsert_result.qc)
                                  
                 p = (code or "unknown")
                 action_totals[action] += 1
                 per_param_actions[p][action] += 1
                 if idx % batch_size == 0:
                     session.commit()
-                    inserted_total += batch_size
 
             session.commit()
-            inserted_total += len(measurements)
+            classified_total += len(measurements)
             processed_locations += 1
             print(
-                f"Inserted {len(measurements)} measurements for location {ext_id} "
+                f"Processed {len(measurements)} measurements for location {ext_id} "
                 f"(processed {processed_locations})"
             )
 
@@ -899,7 +1110,7 @@ def import_measurements_from_locations(
     except Exception:
         throttling_metrics = None
 
-    print(f"Total inserted measurements (raw count of prepared rows): {inserted_total}")
+    print(f"Total measurements classified for database action: {classified_total}")
                                                      
     print("Summary by parameter:")
     for param, ctr in sorted(per_param_actions.items()):
@@ -912,28 +1123,34 @@ def import_measurements_from_locations(
     print(f"  inserted={action_totals.get('insert', 0)}, updated={action_totals.get('update', 0)}, skipped={action_totals.get('skip', 0)}")
 
                                     
-    payload = {
+    summary.update({
+        "devices_processed": len(processed_device_ids),
+        "devices_created": len(
+            processed_device_ids - existing_device_ids_before_import
+        ),
+        "sensors_processed": len(processed_sensor_ids),
+        "sensors_created": len(
+            processed_sensor_ids - existing_sensor_ids_before_import
+        ),
+        "measurements_inserted": action_totals.get("insert", 0),
+        "measurements_updated": action_totals.get("update", 0),
+        "measurements_skipped": (
+            action_totals.get("skip", 0)
+            + max(summary["measurements_received"] - classified_total, 0)
+        ),
         "per_parameter": {
             p: {"insert": c.get("insert", 0), "update": c.get("update", 0), "skip": c.get("skip", 0)}
             for p, c in per_param_actions.items()
         },
-        "overall": {
-            "insert": action_totals.get("insert", 0),
-            "update": action_totals.get("update", 0),
-            "skip": action_totals.get("skip", 0),
-        },
-        "prepared_rows": inserted_total,
-    }
+    })
     if throttling_metrics:
-        payload["throttling"] = throttling_metrics
+        summary["throttling"] = throttling_metrics
 
                                                          
     if summary_json:
         try:
-            out_path = Path(summary_json)
-            out_path.parent.mkdir(parents=True, exist_ok=True)
-            out_path.write_text(json.dumps(payload, indent=2))
-            print(f"Wrote summary JSON to {out_path}")
+            write_import_summary(summary, summary_json)
+            print(f"Wrote summary JSON to {summary_json}")
         except Exception as e:
             print(f"Failed to write summary JSON to {summary_json}: {e}")
 
@@ -954,7 +1171,7 @@ def import_measurements_from_locations(
         except Exception as e:
             print(f"Failed to write summary CSV to {summary_csv}: {e}")
 
-    return payload
+    return summary
 
 
 def main() -> None:
@@ -968,14 +1185,24 @@ def main() -> None:
 
     print("Starting OpenAQ import")
                                                                                                           
-    try:
-        discovery.load_plugins()
-    except Exception:
-        print("Plugin discovery in importer failed; continuing with built-in plugins")
+    plugin_report = discovery.load_plugins()
+    if plugin_report["rejected"] or plugin_report["failed"]:
+        print(
+            "QC plugin discovery completed with "
+            f"{len(plugin_report['rejected'])} rejected and "
+            f"{len(plugin_report['failed'])} failed plugin(s)"
+        )
     if args.sync_catalogs:
         print("Syncing Parameter and Unit catalogs from Sensor records...")
         sync_catalogs_from_sensors()
         return
+
+    with SessionLocal() as source_session:
+        try:
+            require_task_source_runnable(source_session, "openaq_import")
+        except ExternalSourceNotRunnable as exc:
+            print(f"OpenAQ import skipped: {exc.state.runnable_reason.value}")
+            return
     target_sensor = os.getenv("OPENAQ_TARGET_SENSOR_ID")
     api_key = _get_api_key_for_external_api("OpenAQ") or os.getenv("OPENAQ_API_KEY")
     if target_sensor:
@@ -991,21 +1218,26 @@ def main() -> None:
             except Exception:
                 pass
             sys.exit(2)
-        import_single_sensor(sid)
+        payload = new_import_summary()
+        action = import_single_sensor(sid, import_summary=payload)
                                                                              
         if args.summary_json or args.summary_csv:
                                                                                                                              
-            payload = {
-                "per_parameter": {},
-                "overall": {"insert": 0, "update": 0, "skip": 0},
-                "prepared_rows": 1,
-            }
+            payload["devices_processed"] = 1
+            payload["sensors_processed"] = 1
+            payload["target_sensor_id"] = sid
+            if action in {"insert", "update", "skip"}:
+                payload["measurements_received"] = 1
+                counter_name = {
+                    "insert": "measurements_inserted",
+                    "update": "measurements_updated",
+                    "skip": "measurements_skipped",
+                }[action]
+                payload[counter_name] = 1
             if args.summary_json:
                 try:
-                    p = Path(args.summary_json)
-                    p.parent.mkdir(parents=True, exist_ok=True)
-                    p.write_text(json.dumps(payload, indent=2))
-                    print(f"Wrote (minimal) summary JSON to {args.summary_json}")
+                    write_import_summary(payload, args.summary_json)
+                    print(f"Wrote summary JSON to {args.summary_json}")
                 except Exception as e:
                     print(f"Failed to write summary JSON: {e}")
             if args.summary_csv:

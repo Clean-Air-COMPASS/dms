@@ -1,5 +1,6 @@
+import { Trans } from 'react-i18next';
 
-import { useEffect } from 'react';
+import { useEffect, useId } from 'react';
 import type { ExternalAPI } from './api';
 import { authFetchJson } from './auth';
 
@@ -17,6 +18,7 @@ export default function OpenAQFields({
   setApiParamsText: (s: string) => void;
 }) {
   
+  const id = useId();
   void apiEditing; void setApiEditing; 
 
   const parseParams = (): any => {
@@ -97,26 +99,28 @@ export default function OpenAQFields({
   return (
     <div className="provider-fields openaq-fields">
       <div className="form-field">
-        <div>Rate Limit — Per Minute</div>
+        <label htmlFor={`${id}-minute`}><Trans ns="dataSources" i18nKey="openAQFields.text.rateLimitPerMinute" /></label>
         <input
           className="text-input"
           type="number"
           min={0}
+          id={`${id}-minute`}
           value={minuteVal}
           onChange={e => updateParam('rate_limit_per_minute', e.target.value)}
-          placeholder="e.g. 60"
+          placeholder="60"
         />
       </div>
 
       <div className="form-field">
-        <div>Rate Limit — Per Hour</div>
+        <label htmlFor={`${id}-hour`}><Trans ns="dataSources" i18nKey="openAQFields.text.rateLimitPerHour" /></label>
         <input
           className="text-input"
           type="number"
           min={0}
+          id={`${id}-hour`}
           value={hourVal}
           onChange={e => updateParam('rate_limit_per_hour', e.target.value)}
-          placeholder="e.g. 1000"
+          placeholder="1000"
         />
       </div>
     </div>

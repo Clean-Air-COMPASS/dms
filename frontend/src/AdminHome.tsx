@@ -1,28 +1,38 @@
+import i18n from './i18n';
 import { Link } from 'react-router-dom';
 import AdminPageLayout from './components/AdminPageLayout';
 
 export default function AdminHome() {
   const cards = [
-    { title: 'Devices', desc: 'Manage devices, metadata, and status.', to: '/admin/devices' },
-    { title: 'QC Rules', desc: 'Review and manage QA/QC rule sets.', to: '/admin/qc' },
-    { title: 'Data Sources', desc: 'Configure external data sources and schedules.', to: '/admin/sources' },
-    { title: 'CSV Upload', desc: 'Upload a CSV file with device measurements.', to: '/admin/uploads/csv' },
-    { title: 'System Preferences', desc: 'Manage platform-wide settings and shared service keys.', to: '/admin/system-preferences' },
-    { title: 'Users', desc: 'Manage user accounts and role assignments.', to: '/admin/users' },
-    { title: 'Events', desc: 'Inspect importer and system event logs.', to: '/admin/events' },
+    { title: i18n.t('admin:adminHome.content.devices'), desc: i18n.t('admin:adminHome.content.manageDevicesMetadataStatus'), to: '/admin/devices' },
+    { title: i18n.t('admin:adminHome.content.dataSources'), desc: i18n.t('admin:adminHome.content.configureExternalDataSourcesSchedules'), to: '/admin/sources' },
+    { title: i18n.t('admin:adminHome.content.qcRules'), desc: i18n.t('admin:adminHome.content.reviewManageQaQcRuleSets'), to: '/admin/qc' },
+    { title: i18n.t('admin:adminHome.content.emailNotifications'), desc: i18n.t('admin:adminHome.content.configureEmailNotifications'), to: '/admin/email' },
+    { title: i18n.t('admin:adminHome.content.csvUpload'), desc: i18n.t('admin:adminHome.content.uploadCsvFileDeviceMeasurements'), to: '/admin/uploads/csv' },
+    { title: i18n.t('admin:adminHome.content.events'), desc: i18n.t('admin:adminHome.content.inspectImporterSystemEventLogs'), to: '/admin/events' },
+    { title: i18n.t('admin:adminHome.content.users'), desc: i18n.t('admin:adminHome.content.manageUserAccountsRoleAssignments'), to: '/admin/users' },
+    { title: i18n.t('admin:adminHome.content.systemPreferences'), desc: i18n.t('admin:adminHome.content.managePlatformWideSettingsSharedService'), to: '/admin/system-preferences' },
   ];
 
   return (
     <AdminPageLayout
-      title="Admin"
-      description="Choose an area to manage."
+      contentClassName="admin-workspace admin-home-page"
+      title={i18n.t('admin:adminHome.tooltips.admin')}
+      description={i18n.t('admin:adminHome.accessibility.chooseAreaManage')}
     >
-      <div className="card admin-home-grid">
-        {cards.map((c) => (
+      <div className="admin-home-sections">
+        {[{ title: i18n.t('admin:workspace.operations'), cards: cards.slice(0, 6) }, { title: i18n.t('admin:workspace.platform'), cards: cards.slice(6) }].map(group => (
+          <section key={group.title}>
+            <h2>{group.title}</h2>
+            <div className="admin-home-grid">
+        {group.cards.map((c) => (
           <Link key={c.to} to={c.to} className="admin-card" style={{ textDecoration: 'none', color: 'inherit' }}>
             <h3 style={{ margin: '0 0 6px 0' }}>{c.title}</h3>
             <p className="muted" style={{ margin: 0 }}>{c.desc}</p>
           </Link>
+        ))}
+            </div>
+          </section>
         ))}
       </div>
     </AdminPageLayout>

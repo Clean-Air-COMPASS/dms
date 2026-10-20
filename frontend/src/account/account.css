@@ -1,0 +1,39 @@
+.app-root.admin-page:has(.account-page) { height: auto; min-height: 100dvh; }
+.account-page { width: 100%; max-width: 1120px; margin: 0 auto; min-width: 0; color: #172033; }
+.account-workspace { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 16px; align-items: start; }
+.account-column { display: grid; gap: 16px; min-width: 0; }
+.account-page .card { margin: 0; padding: 20px; min-width: 0; }
+.account-page h2 { font-size: 18px; font-weight: 600; margin: 0 0 16px; }
+.account-page h3, .account-verification h3 { font-size: 14px; font-weight: 650; margin: 0 0 6px; }
+.account-page p { font-size: 14px; line-height: 1.5; margin: 6px 0 12px; overflow-wrap: anywhere; }
+.account-page .account-display-name { font-size: 18px; font-weight: 600; margin-bottom: 18px; }
+.account-name-fields { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 12px; }
+.account-page .field { display: flex; flex-direction: column; gap: 6px; font-size: 14px; min-width: 0; }
+.account-page input { width: 100%; min-width: 0; border: 1px solid #cbd5e1; border-radius: 7px; padding: 9px 10px; min-height: 40px; }
+.account-actions { display: flex; align-items: center; flex-wrap: wrap; gap: 12px; font-size: 14px; }
+.account-email, .account-password { display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap; }
+.account-email { margin-top: 20px; padding-top: 16px; border-top: 1px solid #dce3eb; }
+.account-email > div { min-width: 0; }
+.account-passkeys { margin-top: 20px; padding-top: 16px; border-top: 1px solid #dce3eb; }
+.account-passkey-list { list-style: none; padding: 0; margin: 16px 0; }
+.account-passkey-list li { display: flex; justify-content: space-between; gap: 12px; align-items: center; padding: 12px 0; border-top: 1px solid #e2e8f0; }
+.account-passkey-list li > div { min-width: 0; overflow-wrap: anywhere; }
+.account-passkey-list p { margin: 3px 0; font-size: 13px; }
+.account-passkey-list strong { font-size: 14px; }
+.account-page .account-remove { color: #b42318; flex-shrink: 0; }
+.account-page :focus-visible { outline: 3px solid #064789; outline-offset: 3px; }
+.account-sensitive-form fieldset { border: 0; padding: 0; margin: 0; min-width: 0; }
+.account-sensitive-form .field + .field { margin-top: 14px; }
+.account-verification { border-top: 1px solid #dce3eb; margin-top: 20px; padding-top: 16px; }
+.account-methods { display: grid; gap: 10px; margin: 16px 0; font-size: 14px; }
+.account-methods label { display: flex; gap: 8px; align-items: center; }
+.account-methods input { width: auto; }
+.account-success { color: #17643a; }
+.account-page .btn-primary, .account-sensitive-form .btn-primary { padding: 9px 14px; min-height: 40px; border-radius: 7px; font-size: 14px; box-shadow: none; }
+@media (max-width: 800px) { .account-workspace { grid-template-columns: 1fr; } }
+@media (max-width: 540px) {
+  .account-page .card { padding: 16px; }
+  .account-name-fields { grid-template-columns: 1fr; }
+  .account-page .admin-page-header h1 { font-size: 24px; }
+  .account-page .language-selector { flex-wrap: wrap; }
+}

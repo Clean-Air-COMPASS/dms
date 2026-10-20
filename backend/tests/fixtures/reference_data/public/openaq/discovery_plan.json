@@ -1,0 +1,71 @@
+{
+  "schema_version": "2i.3",
+  "provider": "OpenAQ",
+  "endpoint": "https://api.openaq.org/v3/locations",
+  "authentication_required": true,
+  "authentication_header": "X-API-Key",
+  "credential_environment": "OPENAQ_API_KEY",
+  "absolute_request_ceiling": 3,
+  "max_pages_per_area": 1,
+  "retry_count": 0,
+  "target_parameter_codes": ["pm25", "pm10", "o3", "no2", "so2", "co"],
+  "parameter_filter": null,
+  "parameter_filter_reason": "The locations response includes sensor metadata. One unfiltered request per area permits exact client-side compatibility checks without parameter-catalog or per-location requests.",
+  "phase_2i4_proposal": {
+    "window_start": "2026-08-01T00:00:00Z",
+    "window_end": "2026-08-08T00:00:00Z",
+    "measurement_page_size": 1000,
+    "conservative_cadence_seconds": 60,
+    "rationale": "Location discovery does not expose native sensor cadence. One-minute cadence is a conservative planning ceiling until Phase 2I.4 qualifies each selected sensor's temporal metadata."
+  },
+  "reference_areas": [
+    {
+      "reference_area_code": "new_york",
+      "reference_area_name": "New York City / New York metropolitan area",
+      "coordinates": "40.7128,-74.0060",
+      "radius_m": 25000,
+      "timezone_reference": "America/New_York",
+      "query": {
+        "coordinates": "40.7128,-74.0060",
+        "radius": 25000,
+        "limit": 1000,
+        "page": 1,
+        "order_by": "id",
+        "sort_order": "asc"
+      },
+      "staging_destination": "staging/new_york.json"
+    },
+    {
+      "reference_area_code": "rio_de_janeiro",
+      "reference_area_name": "Rio de Janeiro metropolitan area",
+      "coordinates": "-22.9068,-43.1729",
+      "radius_m": 25000,
+      "timezone_reference": "America/Sao_Paulo",
+      "query": {
+        "coordinates": "-22.9068,-43.1729",
+        "radius": 25000,
+        "limit": 1000,
+        "page": 1,
+        "order_by": "id",
+        "sort_order": "asc"
+      },
+      "staging_destination": "staging/rio_de_janeiro.json"
+    },
+    {
+      "reference_area_code": "metro_manila",
+      "reference_area_name": "Metro Manila / Philippines",
+      "coordinates": "14.5995,120.9842",
+      "radius_m": 25000,
+      "timezone_reference": "Asia/Manila",
+      "query": {
+        "coordinates": "14.5995,120.9842",
+        "radius": 25000,
+        "limit": 1000,
+        "page": 1,
+        "order_by": "id",
+        "sort_order": "asc"
+      },
+      "staging_destination": "staging/metro_manila.json"
+    }
+  ]
+}

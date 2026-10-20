@@ -1,0 +1,1942 @@
+{
+  "locations": [
+    {
+      "coordinates": {
+        "latitude": -22.9084,
+        "longitude": -43.1795
+      },
+      "country": {
+        "code": "BR",
+        "id": 45,
+        "name": "Brazil"
+      },
+      "datetimeFirst": {
+        "local": "2023-04-06T13:00:00-03:00",
+        "utc": "2023-04-06T16:00:00Z"
+      },
+      "datetimeLast": {
+        "local": "2026-08-11T03:00:00-03:00",
+        "utc": "2026-08-11T06:00:00Z"
+      },
+      "distance": 699.90822981,
+      "id": 820323,
+      "instruments": [
+        {
+          "id": 2,
+          "name": "Government Monitor"
+        }
+      ],
+      "isMobile": false,
+      "isMonitor": true,
+      "licenses": [],
+      "locality": "Rio de Janeiro",
+      "name": "Centro Kunak ",
+      "owner": {
+        "id": 4,
+        "name": "Unknown Governmental Organization"
+      },
+      "provider": {
+        "id": 62,
+        "name": "Rio City Hall"
+      },
+      "sensors": [
+        {
+          "id": 14798912,
+          "name": "pm25 \u00b5g/m\u00b3",
+          "parameter": {
+            "displayName": "PM2.5",
+            "id": 2,
+            "name": "pm25",
+            "units": "\u00b5g/m\u00b3"
+          }
+        },
+        {
+          "id": 4475452,
+          "name": "co ppm",
+          "parameter": {
+            "displayName": "CO",
+            "id": 8,
+            "name": "co",
+            "units": "ppm"
+          }
+        },
+        {
+          "id": 4475460,
+          "name": "o3 \u00b5g/m\u00b3",
+          "parameter": {
+            "displayName": "O\u2083 mass",
+            "id": 3,
+            "name": "o3",
+            "units": "\u00b5g/m\u00b3"
+          }
+        },
+        {
+          "id": 6344694,
+          "name": "pm10 \u00b5g/m\u00b3",
+          "parameter": {
+            "displayName": "PM10",
+            "id": 1,
+            "name": "pm10",
+            "units": "\u00b5g/m\u00b3"
+          }
+        }
+      ],
+      "timezone": "America/Sao_Paulo"
+    },
+    {
+      "coordinates": {
+        "latitude": -22.9649,
+        "longitude": -43.1807
+      },
+      "country": {
+        "code": "BR",
+        "id": 45,
+        "name": "Brazil"
+      },
+      "datetimeFirst": {
+        "local": "2023-04-06T13:00:00-03:00",
+        "utc": "2023-04-06T16:00:00Z"
+      },
+      "datetimeLast": {
+        "local": "2026-08-11T03:00:00-03:00",
+        "utc": "2026-08-11T06:00:00Z"
+      },
+      "distance": 6483.72513294,
+      "id": 820324,
+      "instruments": [
+        {
+          "id": 2,
+          "name": "Government Monitor"
+        }
+      ],
+      "isMobile": false,
+      "isMonitor": true,
+      "licenses": [],
+      "locality": "Rio de Janeiro",
+      "name": "Copacabana",
+      "owner": {
+        "id": 4,
+        "name": "Unknown Governmental Organization"
+      },
+      "provider": {
+        "id": 62,
+        "name": "Rio City Hall"
+      },
+      "sensors": [
+        {
+          "id": 4475465,
+          "name": "o3 \u00b5g/m\u00b3",
+          "parameter": {
+            "displayName": "O\u2083 mass",
+            "id": 3,
+            "name": "o3",
+            "units": "\u00b5g/m\u00b3"
+          }
+        },
+        {
+          "id": 4475471,
+          "name": "pm10 \u00b5g/m\u00b3",
+          "parameter": {
+            "displayName": "PM10",
+            "id": 1,
+            "name": "pm10",
+            "units": "\u00b5g/m\u00b3"
+          }
+        }
+      ],
+      "timezone": "America/Sao_Paulo"
+    },
+    {
+      "coordinates": {
+        "latitude": -22.831600000000005,
+        "longitude": -43.32690000000001
+      },
+      "country": {
+        "code": "BR",
+        "id": 45,
+        "name": "Brazil"
+      },
+      "datetimeFirst": {
+        "local": "2023-04-06T13:00:00-03:00",
+        "utc": "2023-04-06T16:00:00Z"
+      },
+      "datetimeLast": {
+        "local": "2026-08-11T03:00:00-03:00",
+        "utc": "2026-08-11T06:00:00Z"
+      },
+      "distance": 17863.57982084,
+      "id": 820326,
+      "instruments": [
+        {
+          "id": 2,
+          "name": "Government Monitor"
+        }
+      ],
+      "isMobile": false,
+      "isMonitor": true,
+      "licenses": [],
+      "locality": "Rio de Janeiro",
+      "name": "Iraj\u00e1",
+      "owner": {
+        "id": 4,
+        "name": "Unknown Governmental Organization"
+      },
+      "provider": {
+        "id": 62,
+        "name": "Rio City Hall"
+      },
+      "sensors": [
+        {
+          "id": 11268993,
+          "name": "so2 \u00b5g/m\u00b3",
+          "parameter": {
+            "displayName": "SO\u2082 mass",
+            "id": 6,
+            "name": "so2",
+            "units": "\u00b5g/m\u00b3"
+          }
+        },
+        {
+          "id": 4475449,
+          "name": "co ppm",
+          "parameter": {
+            "displayName": "CO",
+            "id": 8,
+            "name": "co",
+            "units": "ppm"
+          }
+        },
+        {
+          "id": 4475454,
+          "name": "pm10 \u00b5g/m\u00b3",
+          "parameter": {
+            "displayName": "PM10",
+            "id": 1,
+            "name": "pm10",
+            "units": "\u00b5g/m\u00b3"
+          }
+        },
+        {
+          "id": 4475455,
+          "name": "no2 \u00b5g/m\u00b3",
+          "parameter": {
+            "displayName": "NO\u2082 mass",
+            "id": 5,
+            "name": "no2",
+            "units": "\u00b5g/m\u00b3"
+          }
+        },
+        {
+          "id": 4475462,
+          "name": "no \u00b5g/m\u00b3",
+          "parameter": {
+            "displayName": "NO mass",
+            "id": 19843,
+            "name": "no",
+            "units": "\u00b5g/m\u00b3"
+          }
+        },
+        {
+          "id": 4475466,
+          "name": "nox \u00b5g/m\u00b3",
+          "parameter": {
+            "displayName": "NOx mass",
+            "id": 27,
+            "name": "nox",
+            "units": "\u00b5g/m\u00b3"
+          }
+        },
+        {
+          "id": 6459542,
+          "name": "o3 \u00b5g/m\u00b3",
+          "parameter": {
+            "displayName": "O\u2083 mass",
+            "id": 3,
+            "name": "o3",
+            "units": "\u00b5g/m\u00b3"
+          }
+        },
+        {
+          "id": 6819305,
+          "name": "pm25 \u00b5g/m\u00b3",
+          "parameter": {
+            "displayName": "PM2.5",
+            "id": 2,
+            "name": "pm25",
+            "units": "\u00b5g/m\u00b3"
+          }
+        }
+      ],
+      "timezone": "America/Sao_Paulo"
+    },
+    {
+      "coordinates": {
+        "latitude": -22.8961,
+        "longitude": -43.2212
+      },
+      "country": {
+        "code": "BR",
+        "id": 45,
+        "name": "Brazil"
+      },
+      "datetimeFirst": {
+        "local": "2023-04-06T13:00:00-03:00",
+        "utc": "2023-04-06T16:00:00Z"
+      },
+      "datetimeLast": {
+        "local": "2024-12-09T08:00:00-03:00",
+        "utc": "2024-12-09T11:00:00Z"
+      },
+      "distance": 5095.12944783,
+      "id": 820328,
+      "instruments": [
+        {
+          "id": 2,
+          "name": "Government Monitor"
+        }
+      ],
+      "isMobile": false,
+      "isMonitor": true,
+      "licenses": [],
+      "locality": "Rio de Janeiro",
+      "name": "S\u00e3o Crist\u00f3v\u00e3o",
+      "owner": {
+        "id": 4,
+        "name": "Unknown Governmental Organization"
+      },
+      "provider": {
+        "id": 62,
+        "name": "Rio City Hall"
+      },
+      "sensors": [
+        {
+          "id": 4475456,
+          "name": "pm10 \u00b5g/m\u00b3",
+          "parameter": {
+            "displayName": "PM10",
+            "id": 1,
+            "name": "pm10",
+            "units": "\u00b5g/m\u00b3"
+          }
+        },
+        {
+          "id": 4475463,
+          "name": "o3 \u00b5g/m\u00b3",
+          "parameter": {
+            "displayName": "O\u2083 mass",
+            "id": 3,
+            "name": "o3",
+            "units": "\u00b5g/m\u00b3"
+          }
+        }
+      ],
+      "timezone": "America/Sao_Paulo"
+    },
+    {
+      "coordinates": {
+        "latitude": -22.9244,
+        "longitude": -43.2326
+      },
+      "country": {
+        "code": "BR",
+        "id": 45,
+        "name": "Brazil"
+      },
+      "datetimeFirst": {
+        "local": "2023-04-06T13:00:00-03:00",
+        "utc": "2023-04-06T16:00:00Z"
+      },
+      "datetimeLast": {
+        "local": "2026-08-11T03:00:00-03:00",
+        "utc": "2026-08-11T06:00:00Z"
+      },
+      "distance": 6427.05927023,
+      "id": 820329,
+      "instruments": [
+        {
+          "id": 2,
+          "name": "Government Monitor"
+        }
+      ],
+      "isMobile": false,
+      "isMonitor": true,
+      "licenses": [],
+      "locality": "Rio de Janeiro",
+      "name": "Tijuca",
+      "owner": {
+        "id": 4,
+        "name": "Unknown Governmental Organization"
+      },
+      "provider": {
+        "id": 62,
+        "name": "Rio City Hall"
+      },
+      "sensors": [
+        {
+          "id": 4475445,
+          "name": "pm10 \u00b5g/m\u00b3",
+          "parameter": {
+            "displayName": "PM10",
+            "id": 1,
+            "name": "pm10",
+            "units": "\u00b5g/m\u00b3"
+          }
+        },
+        {
+          "id": 4475446,
+          "name": "no \u00b5g/m\u00b3",
+          "parameter": {
+            "displayName": "NO mass",
+            "id": 19843,
+            "name": "no",
+            "units": "\u00b5g/m\u00b3"
+          }
+        },
+        {
+          "id": 4475447,
+          "name": "o3 \u00b5g/m\u00b3",
+          "parameter": {
+            "displayName": "O\u2083 mass",
+            "id": 3,
+            "name": "o3",
+            "units": "\u00b5g/m\u00b3"
+          }
+        },
+        {
+          "id": 4475448,
+          "name": "no2 \u00b5g/m\u00b3",
+          "parameter": {
+            "displayName": "NO\u2082 mass",
+            "id": 5,
+            "name": "no2",
+            "units": "\u00b5g/m\u00b3"
+          }
+        },
+        {
+          "id": 4475458,
+          "name": "nox \u00b5g/m\u00b3",
+          "parameter": {
+            "displayName": "NOx mass",
+            "id": 27,
+            "name": "nox",
+            "units": "\u00b5g/m\u00b3"
+          }
+        }
+      ],
+      "timezone": "America/Sao_Paulo"
+    },
+    {
+      "coordinates": {
+        "latitude": -22.8834,
+        "longitude": -43.3546
+      },
+      "country": {
+        "code": "BR",
+        "id": 45,
+        "name": "Brazil"
+      },
+      "datetimeFirst": {
+        "local": "2025-07-17T15:00:00-03:00",
+        "utc": "2025-07-17T18:00:00Z"
+      },
+      "datetimeLast": {
+        "local": "2026-08-11T03:00:00-03:00",
+        "utc": "2026-08-11T06:00:00Z"
+      },
+      "distance": 18821.94871339,
+      "id": 5110472,
+      "instruments": [
+        {
+          "id": 2,
+          "name": "Government Monitor"
+        }
+      ],
+      "isMobile": false,
+      "isMonitor": true,
+      "licenses": [],
+      "locality": "Rio de Janeiro",
+      "name": "Campinho",
+      "owner": {
+        "id": 4,
+        "name": "Unknown Governmental Organization"
+      },
+      "provider": {
+        "id": 62,
+        "name": "Rio City Hall"
+      },
+      "sensors": [
+        {
+          "id": 13626663,
+          "name": "pm25 \u00b5g/m\u00b3",
+          "parameter": {
+            "displayName": "PM2.5",
+            "id": 2,
+            "name": "pm25",
+            "units": "\u00b5g/m\u00b3"
+          }
+        },
+        {
+          "id": 13626666,
+          "name": "pm10 \u00b5g/m\u00b3",
+          "parameter": {
+            "displayName": "PM10",
+            "id": 1,
+            "name": "pm10",
+            "units": "\u00b5g/m\u00b3"
+          }
+        }
+      ],
+      "timezone": "America/Sao_Paulo"
+    },
+    {
+      "coordinates": {
+        "latitude": -22.8769,
+        "longitude": -43.323
+      },
+      "country": {
+        "code": "BR",
+        "id": 45,
+        "name": "Brazil"
+      },
+      "datetimeFirst": {
+        "local": "2025-07-17T15:00:00-03:00",
+        "utc": "2025-07-17T18:00:00Z"
+      },
+      "datetimeLast": {
+        "local": "2026-08-11T03:00:00-03:00",
+        "utc": "2026-08-11T06:00:00Z"
+      },
+      "distance": 15752.79868574,
+      "id": 5110473,
+      "instruments": [
+        {
+          "id": 2,
+          "name": "Government Monitor"
+        }
+      ],
+      "isMobile": false,
+      "isMonitor": true,
+      "licenses": [],
+      "locality": "Rio de Janeiro",
+      "name": "Engenheiro Leal",
+      "owner": {
+        "id": 4,
+        "name": "Unknown Governmental Organization"
+      },
+      "provider": {
+        "id": 62,
+        "name": "Rio City Hall"
+      },
+      "sensors": [
+        {
+          "id": 13626665,
+          "name": "pm10 \u00b5g/m\u00b3",
+          "parameter": {
+            "displayName": "PM10",
+            "id": 1,
+            "name": "pm10",
+            "units": "\u00b5g/m\u00b3"
+          }
+        },
+        {
+          "id": 13668682,
+          "name": "pm25 \u00b5g/m\u00b3",
+          "parameter": {
+            "displayName": "PM2.5",
+            "id": 2,
+            "name": "pm25",
+            "units": "\u00b5g/m\u00b3"
+          }
+        }
+      ],
+      "timezone": "America/Sao_Paulo"
+    },
+    {
+      "coordinates": {
+        "latitude": -22.9035,
+        "longitude": -43.1879
+      },
+      "country": {
+        "code": "BR",
+        "id": 45,
+        "name": "Brazil"
+      },
+      "datetimeFirst": {
+        "local": "2025-07-17T15:00:00-03:00",
+        "utc": "2025-07-17T18:00:00Z"
+      },
+      "datetimeLast": {
+        "local": "2026-08-11T03:00:00-03:00",
+        "utc": "2026-08-11T06:00:00Z"
+      },
+      "distance": 1581.70782421,
+      "id": 5110474,
+      "instruments": [
+        {
+          "id": 2,
+          "name": "Government Monitor"
+        }
+      ],
+      "isMobile": false,
+      "isMonitor": true,
+      "licenses": [],
+      "locality": "Rio de Janeiro",
+      "name": "Presidente Vargas",
+      "owner": {
+        "id": 4,
+        "name": "Unknown Governmental Organization"
+      },
+      "provider": {
+        "id": 62,
+        "name": "Rio City Hall"
+      },
+      "sensors": [
+        {
+          "id": 13626662,
+          "name": "pm25 \u00b5g/m\u00b3",
+          "parameter": {
+            "displayName": "PM2.5",
+            "id": 2,
+            "name": "pm25",
+            "units": "\u00b5g/m\u00b3"
+          }
+        },
+        {
+          "id": 13626664,
+          "name": "pm10 \u00b5g/m\u00b3",
+          "parameter": {
+            "displayName": "PM10",
+            "id": 1,
+            "name": "pm10",
+            "units": "\u00b5g/m\u00b3"
+          }
+        }
+      ],
+      "timezone": "America/Sao_Paulo"
+    },
+    {
+      "coordinates": {
+        "latitude": -22.9081,
+        "longitude": -43.1865
+      },
+      "country": {
+        "code": "BR",
+        "id": 45,
+        "name": "Brazil"
+      },
+      "datetimeFirst": {
+        "local": "2025-07-17T15:00:00-03:00",
+        "utc": "2025-07-17T18:00:00Z"
+      },
+      "datetimeLast": {
+        "local": "2026-08-11T03:00:00-03:00",
+        "utc": "2026-08-11T06:00:00Z"
+      },
+      "distance": 1402.66293435,
+      "id": 5110511,
+      "instruments": [
+        {
+          "id": 2,
+          "name": "Government Monitor"
+        }
+      ],
+      "isMobile": false,
+      "isMonitor": true,
+      "licenses": [],
+      "locality": "Rio de Janeiro",
+      "name": "Campo de Santana",
+      "owner": {
+        "id": 4,
+        "name": "Unknown Governmental Organization"
+      },
+      "provider": {
+        "id": 62,
+        "name": "Rio City Hall"
+      },
+      "sensors": [
+        {
+          "id": 13626932,
+          "name": "pm25 \u00b5g/m\u00b3",
+          "parameter": {
+            "displayName": "PM2.5",
+            "id": 2,
+            "name": "pm25",
+            "units": "\u00b5g/m\u00b3"
+          }
+        },
+        {
+          "id": 13626934,
+          "name": "pm10 \u00b5g/m\u00b3",
+          "parameter": {
+            "displayName": "PM10",
+            "id": 1,
+            "name": "pm10",
+            "units": "\u00b5g/m\u00b3"
+          }
+        }
+      ],
+      "timezone": "America/Sao_Paulo"
+    },
+    {
+      "coordinates": {
+        "latitude": -22.8915,
+        "longitude": -43.3248
+      },
+      "country": {
+        "code": "BR",
+        "id": 45,
+        "name": "Brazil"
+      },
+      "datetimeFirst": {
+        "local": "2025-07-17T15:00:00-03:00",
+        "utc": "2025-07-17T18:00:00Z"
+      },
+      "datetimeLast": {
+        "local": "2026-08-11T03:00:00-03:00",
+        "utc": "2026-08-11T06:00:00Z"
+      },
+      "distance": 15676.55218732,
+      "id": 5110512,
+      "instruments": [
+        {
+          "id": 2,
+          "name": "Government Monitor"
+        }
+      ],
+      "isMobile": false,
+      "isMonitor": true,
+      "licenses": [],
+      "locality": "Rio de Janeiro",
+      "name": "Quintino",
+      "owner": {
+        "id": 4,
+        "name": "Unknown Governmental Organization"
+      },
+      "provider": {
+        "id": 62,
+        "name": "Rio City Hall"
+      },
+      "sensors": [
+        {
+          "id": 13626931,
+          "name": "pm25 \u00b5g/m\u00b3",
+          "parameter": {
+            "displayName": "PM2.5",
+            "id": 2,
+            "name": "pm25",
+            "units": "\u00b5g/m\u00b3"
+          }
+        },
+        {
+          "id": 13626933,
+          "name": "pm10 \u00b5g/m\u00b3",
+          "parameter": {
+            "displayName": "PM10",
+            "id": 1,
+            "name": "pm10",
+            "units": "\u00b5g/m\u00b3"
+          }
+        }
+      ],
+      "timezone": "America/Sao_Paulo"
+    },
+    {
+      "coordinates": {
+        "latitude": -22.8849,
+        "longitude": -43.3276
+      },
+      "country": {
+        "code": "BR",
+        "id": 45,
+        "name": "Brazil"
+      },
+      "datetimeFirst": {
+        "local": "2025-07-17T15:00:00-03:00",
+        "utc": "2025-07-17T18:00:00Z"
+      },
+      "datetimeLast": {
+        "local": "2026-08-11T03:00:00-03:00",
+        "utc": "2026-08-11T06:00:00Z"
+      },
+      "distance": 16056.59557239,
+      "id": 5110513,
+      "instruments": [
+        {
+          "id": 2,
+          "name": "Government Monitor"
+        }
+      ],
+      "isMobile": false,
+      "isMonitor": true,
+      "licenses": [],
+      "locality": "Rio de Janeiro",
+      "name": "Cascadura ",
+      "owner": {
+        "id": 4,
+        "name": "Unknown Governmental Organization"
+      },
+      "provider": {
+        "id": 62,
+        "name": "Rio City Hall"
+      },
+      "sensors": [
+        {
+          "id": 13626936,
+          "name": "pm25 \u00b5g/m\u00b3",
+          "parameter": {
+            "displayName": "PM2.5",
+            "id": 2,
+            "name": "pm25",
+            "units": "\u00b5g/m\u00b3"
+          }
+        },
+        {
+          "id": 13675687,
+          "name": "pm10 \u00b5g/m\u00b3",
+          "parameter": {
+            "displayName": "PM10",
+            "id": 1,
+            "name": "pm10",
+            "units": "\u00b5g/m\u00b3"
+          }
+        }
+      ],
+      "timezone": "America/Sao_Paulo"
+    },
+    {
+      "coordinates": {
+        "latitude": -22.8776,
+        "longitude": -43.3374
+      },
+      "country": {
+        "code": "BR",
+        "id": 45,
+        "name": "Brazil"
+      },
+      "datetimeFirst": {
+        "local": "2025-07-17T15:00:00-03:00",
+        "utc": "2025-07-17T18:00:00Z"
+      },
+      "datetimeLast": {
+        "local": "2026-08-11T03:00:00-03:00",
+        "utc": "2026-08-11T06:00:00Z"
+      },
+      "distance": 17185.29414363,
+      "id": 5110514,
+      "instruments": [
+        {
+          "id": 2,
+          "name": "Government Monitor"
+        }
+      ],
+      "isMobile": false,
+      "isMonitor": true,
+      "licenses": [],
+      "locality": "Rio de Janeiro",
+      "name": "Madureira",
+      "owner": {
+        "id": 4,
+        "name": "Unknown Governmental Organization"
+      },
+      "provider": {
+        "id": 62,
+        "name": "Rio City Hall"
+      },
+      "sensors": [
+        {
+          "id": 13626935,
+          "name": "pm10 \u00b5g/m\u00b3",
+          "parameter": {
+            "displayName": "PM10",
+            "id": 1,
+            "name": "pm10",
+            "units": "\u00b5g/m\u00b3"
+          }
+        },
+        {
+          "id": 13668937,
+          "name": "pm25 \u00b5g/m\u00b3",
+          "parameter": {
+            "displayName": "PM2.5",
+            "id": 2,
+            "name": "pm25",
+            "units": "\u00b5g/m\u00b3"
+          }
+        }
+      ],
+      "timezone": "America/Sao_Paulo"
+    },
+    {
+      "coordinates": {
+        "latitude": -22.913,
+        "longitude": -43.1702
+      },
+      "country": {
+        "code": "BR",
+        "id": 45,
+        "name": "Brazil"
+      },
+      "datetimeFirst": {
+        "local": "2025-09-01T12:00:00-03:00",
+        "utc": "2025-09-01T15:00:00Z"
+      },
+      "datetimeLast": {
+        "local": "2026-08-11T03:00:00-03:00",
+        "utc": "2026-08-11T06:00:00Z"
+      },
+      "distance": 740.37308989,
+      "id": 5636852,
+      "instruments": [
+        {
+          "id": 2,
+          "name": "Government Monitor"
+        }
+      ],
+      "isMobile": false,
+      "isMonitor": true,
+      "licenses": [],
+      "locality": "Rio de Janeiro",
+      "name": "MAM",
+      "owner": {
+        "id": 4,
+        "name": "Unknown Governmental Organization"
+      },
+      "provider": {
+        "id": 62,
+        "name": "Rio City Hall"
+      },
+      "sensors": [
+        {
+          "id": 14012772,
+          "name": "pm10 \u00b5g/m\u00b3",
+          "parameter": {
+            "displayName": "PM10",
+            "id": 1,
+            "name": "pm10",
+            "units": "\u00b5g/m\u00b3"
+          }
+        },
+        {
+          "id": 14021533,
+          "name": "pm25 \u00b5g/m\u00b3",
+          "parameter": {
+            "displayName": "PM2.5",
+            "id": 2,
+            "name": "pm25",
+            "units": "\u00b5g/m\u00b3"
+          }
+        }
+      ],
+      "timezone": "America/Sao_Paulo"
+    },
+    {
+      "coordinates": {
+        "latitude": -22.9014,
+        "longitude": -43.173
+      },
+      "country": {
+        "code": "BR",
+        "id": 45,
+        "name": "Brazil"
+      },
+      "datetimeFirst": {
+        "local": "2025-09-01T13:00:00-03:00",
+        "utc": "2025-09-01T16:00:00Z"
+      },
+      "datetimeLast": {
+        "local": "2026-08-11T03:00:00-03:00",
+        "utc": "2026-08-11T06:00:00Z"
+      },
+      "distance": 598.09842266,
+      "id": 5636888,
+      "instruments": [
+        {
+          "id": 2,
+          "name": "Government Monitor"
+        }
+      ],
+      "isMobile": false,
+      "isMonitor": true,
+      "licenses": [],
+      "locality": "Rio de Janeiro",
+      "name": "Pra\u00e7a XV",
+      "owner": {
+        "id": 4,
+        "name": "Unknown Governmental Organization"
+      },
+      "provider": {
+        "id": 62,
+        "name": "Rio City Hall"
+      },
+      "sensors": [
+        {
+          "id": 14013033,
+          "name": "pm25 \u00b5g/m\u00b3",
+          "parameter": {
+            "displayName": "PM2.5",
+            "id": 2,
+            "name": "pm25",
+            "units": "\u00b5g/m\u00b3"
+          }
+        },
+        {
+          "id": 14013034,
+          "name": "pm10 \u00b5g/m\u00b3",
+          "parameter": {
+            "displayName": "PM10",
+            "id": 1,
+            "name": "pm10",
+            "units": "\u00b5g/m\u00b3"
+          }
+        }
+      ],
+      "timezone": "America/Sao_Paulo"
+    },
+    {
+      "coordinates": {
+        "latitude": -22.866,
+        "longitude": -43.3403
+      },
+      "country": {
+        "code": "BR",
+        "id": 45,
+        "name": "Brazil"
+      },
+      "datetimeFirst": {
+        "local": "2025-09-02T15:00:00-03:00",
+        "utc": "2025-09-02T18:00:00Z"
+      },
+      "datetimeLast": {
+        "local": "2026-08-11T03:00:00-03:00",
+        "utc": "2026-08-11T06:00:00Z"
+      },
+      "distance": 17760.92656176,
+      "id": 5648811,
+      "instruments": [
+        {
+          "id": 2,
+          "name": "Government Monitor"
+        }
+      ],
+      "isMobile": false,
+      "isMonitor": true,
+      "licenses": [],
+      "locality": "Rio de Janeiro",
+      "name": "Parque Madureira",
+      "owner": {
+        "id": 4,
+        "name": "Unknown Governmental Organization"
+      },
+      "provider": {
+        "id": 62,
+        "name": "Rio City Hall"
+      },
+      "sensors": [
+        {
+          "id": 14021288,
+          "name": "pm10 \u00b5g/m\u00b3",
+          "parameter": {
+            "displayName": "PM10",
+            "id": 1,
+            "name": "pm10",
+            "units": "\u00b5g/m\u00b3"
+          }
+        },
+        {
+          "id": 14035548,
+          "name": "pm25 \u00b5g/m\u00b3",
+          "parameter": {
+            "displayName": "PM2.5",
+            "id": 2,
+            "name": "pm25",
+            "units": "\u00b5g/m\u00b3"
+          }
+        }
+      ],
+      "timezone": "America/Sao_Paulo"
+    },
+    {
+      "coordinates": {
+        "latitude": -22.8881,
+        "longitude": -43.2962
+      },
+      "country": {
+        "code": "BR",
+        "id": 45,
+        "name": "Brazil"
+      },
+      "datetimeFirst": {
+        "local": "2025-12-04T17:00:00-03:00",
+        "utc": "2025-12-04T20:00:00Z"
+      },
+      "datetimeLast": {
+        "local": "2026-08-11T03:00:00-03:00",
+        "utc": "2026-08-11T06:00:00Z"
+      },
+      "distance": 12818.93800709,
+      "id": 6152580,
+      "instruments": [
+        {
+          "id": 2,
+          "name": "Government Monitor"
+        }
+      ],
+      "isMobile": false,
+      "isMonitor": true,
+      "licenses": [],
+      "locality": "Rio de Janeiro",
+      "name": "Aboli\u00e7\u00e3o ",
+      "owner": {
+        "id": 4,
+        "name": "Unknown Governmental Organization"
+      },
+      "provider": {
+        "id": 62,
+        "name": "Rio City Hall"
+      },
+      "sensors": [
+        {
+          "id": 14798913,
+          "name": "pm10 \u00b5g/m\u00b3",
+          "parameter": {
+            "displayName": "PM10",
+            "id": 1,
+            "name": "pm10",
+            "units": "\u00b5g/m\u00b3"
+          }
+        },
+        {
+          "id": 14798920,
+          "name": "pm25 \u00b5g/m\u00b3",
+          "parameter": {
+            "displayName": "PM2.5",
+            "id": 2,
+            "name": "pm25",
+            "units": "\u00b5g/m\u00b3"
+          }
+        }
+      ],
+      "timezone": "America/Sao_Paulo"
+    },
+    {
+      "coordinates": {
+        "latitude": -22.9923,
+        "longitude": -43.3669
+      },
+      "country": {
+        "code": "BR",
+        "id": 45,
+        "name": "Brazil"
+      },
+      "datetimeFirst": {
+        "local": "2025-12-04T17:00:00-03:00",
+        "utc": "2025-12-04T20:00:00Z"
+      },
+      "datetimeLast": {
+        "local": "2026-08-11T03:00:00-03:00",
+        "utc": "2026-08-11T06:00:00Z"
+      },
+      "distance": 22034.84084417,
+      "id": 6152581,
+      "instruments": [
+        {
+          "id": 2,
+          "name": "Government Monitor"
+        }
+      ],
+      "isMobile": false,
+      "isMonitor": true,
+      "licenses": [],
+      "locality": "Rio de Janeiro",
+      "name": "Barra da Tijuca",
+      "owner": {
+        "id": 4,
+        "name": "Unknown Governmental Organization"
+      },
+      "provider": {
+        "id": 62,
+        "name": "Rio City Hall"
+      },
+      "sensors": [
+        {
+          "id": 14798896,
+          "name": "pm25 \u00b5g/m\u00b3",
+          "parameter": {
+            "displayName": "PM2.5",
+            "id": 2,
+            "name": "pm25",
+            "units": "\u00b5g/m\u00b3"
+          }
+        },
+        {
+          "id": 14798927,
+          "name": "pm10 \u00b5g/m\u00b3",
+          "parameter": {
+            "displayName": "PM10",
+            "id": 1,
+            "name": "pm10",
+            "units": "\u00b5g/m\u00b3"
+          }
+        }
+      ],
+      "timezone": "America/Sao_Paulo"
+    },
+    {
+      "coordinates": {
+        "latitude": -22.8802,
+        "longitude": -43.2268
+      },
+      "country": {
+        "code": "BR",
+        "id": 45,
+        "name": "Brazil"
+      },
+      "datetimeFirst": {
+        "local": "2025-12-04T17:00:00-03:00",
+        "utc": "2025-12-04T20:00:00Z"
+      },
+      "datetimeLast": {
+        "local": "2026-08-01T12:00:00-03:00",
+        "utc": "2026-08-01T15:00:00Z"
+      },
+      "distance": 6265.9046005,
+      "id": 6152582,
+      "instruments": [
+        {
+          "id": 2,
+          "name": "Government Monitor"
+        }
+      ],
+      "isMobile": false,
+      "isMonitor": true,
+      "licenses": [],
+      "locality": "Rio de Janeiro",
+      "name": "Caju",
+      "owner": {
+        "id": 4,
+        "name": "Unknown Governmental Organization"
+      },
+      "provider": {
+        "id": 62,
+        "name": "Rio City Hall"
+      },
+      "sensors": [
+        {
+          "id": 14798938,
+          "name": "pm10 \u00b5g/m\u00b3",
+          "parameter": {
+            "displayName": "PM10",
+            "id": 1,
+            "name": "pm10",
+            "units": "\u00b5g/m\u00b3"
+          }
+        },
+        {
+          "id": 14798940,
+          "name": "pm25 \u00b5g/m\u00b3",
+          "parameter": {
+            "displayName": "PM2.5",
+            "id": 2,
+            "name": "pm25",
+            "units": "\u00b5g/m\u00b3"
+          }
+        }
+      ],
+      "timezone": "America/Sao_Paulo"
+    },
+    {
+      "coordinates": {
+        "latitude": -22.8316,
+        "longitude": -43.3267
+      },
+      "country": {
+        "code": "BR",
+        "id": 45,
+        "name": "Brazil"
+      },
+      "datetimeFirst": {
+        "local": "2025-12-04T17:00:00-03:00",
+        "utc": "2025-12-04T20:00:00Z"
+      },
+      "datetimeLast": {
+        "local": "2026-08-11T03:00:00-03:00",
+        "utc": "2026-08-11T06:00:00Z"
+      },
+      "distance": 17845.4249309,
+      "id": 6152586,
+      "instruments": [
+        {
+          "id": 2,
+          "name": "Government Monitor"
+        }
+      ],
+      "isMobile": false,
+      "isMonitor": true,
+      "licenses": [],
+      "locality": "Rio de Janeiro",
+      "name": "Iraj\u00e1 Aurassure",
+      "owner": {
+        "id": 4,
+        "name": "Unknown Governmental Organization"
+      },
+      "provider": {
+        "id": 62,
+        "name": "Rio City Hall"
+      },
+      "sensors": [
+        {
+          "id": 14798898,
+          "name": "o3 \u00b5g/m\u00b3",
+          "parameter": {
+            "displayName": "O\u2083 mass",
+            "id": 3,
+            "name": "o3",
+            "units": "\u00b5g/m\u00b3"
+          }
+        },
+        {
+          "id": 14798909,
+          "name": "pm25 \u00b5g/m\u00b3",
+          "parameter": {
+            "displayName": "PM2.5",
+            "id": 2,
+            "name": "pm25",
+            "units": "\u00b5g/m\u00b3"
+          }
+        },
+        {
+          "id": 14798926,
+          "name": "pm10 \u00b5g/m\u00b3",
+          "parameter": {
+            "displayName": "PM10",
+            "id": 1,
+            "name": "pm10",
+            "units": "\u00b5g/m\u00b3"
+          }
+        },
+        {
+          "id": 14798934,
+          "name": "no2 \u00b5g/m\u00b3",
+          "parameter": {
+            "displayName": "NO\u2082 mass",
+            "id": 5,
+            "name": "no2",
+            "units": "\u00b5g/m\u00b3"
+          }
+        }
+      ],
+      "timezone": "America/Sao_Paulo"
+    },
+    {
+      "coordinates": {
+        "latitude": -22.9614,
+        "longitude": -43.2035
+      },
+      "country": {
+        "code": "BR",
+        "id": 45,
+        "name": "Brazil"
+      },
+      "datetimeFirst": {
+        "local": "2025-12-04T17:00:00-03:00",
+        "utc": "2025-12-04T20:00:00Z"
+      },
+      "datetimeLast": {
+        "local": "2026-08-11T03:00:00-03:00",
+        "utc": "2026-08-11T06:00:00Z"
+      },
+      "distance": 6812.67518841,
+      "id": 6152587,
+      "instruments": [
+        {
+          "id": 2,
+          "name": "Government Monitor"
+        }
+      ],
+      "isMobile": false,
+      "isMonitor": true,
+      "licenses": [],
+      "locality": "Rio de Janeiro",
+      "name": "Lagoa",
+      "owner": {
+        "id": 4,
+        "name": "Unknown Governmental Organization"
+      },
+      "provider": {
+        "id": 62,
+        "name": "Rio City Hall"
+      },
+      "sensors": [
+        {
+          "id": 14798907,
+          "name": "pm10 \u00b5g/m\u00b3",
+          "parameter": {
+            "displayName": "PM10",
+            "id": 1,
+            "name": "pm10",
+            "units": "\u00b5g/m\u00b3"
+          }
+        },
+        {
+          "id": 14798915,
+          "name": "no2 \u00b5g/m\u00b3",
+          "parameter": {
+            "displayName": "NO\u2082 mass",
+            "id": 5,
+            "name": "no2",
+            "units": "\u00b5g/m\u00b3"
+          }
+        },
+        {
+          "id": 14798916,
+          "name": "pm25 \u00b5g/m\u00b3",
+          "parameter": {
+            "displayName": "PM2.5",
+            "id": 2,
+            "name": "pm25",
+            "units": "\u00b5g/m\u00b3"
+          }
+        },
+        {
+          "id": 14798928,
+          "name": "o3 \u00b5g/m\u00b3",
+          "parameter": {
+            "displayName": "O\u2083 mass",
+            "id": 3,
+            "name": "o3",
+            "units": "\u00b5g/m\u00b3"
+          }
+        }
+      ],
+      "timezone": "America/Sao_Paulo"
+    },
+    {
+      "coordinates": {
+        "latitude": -22.8161,
+        "longitude": -43.3608
+      },
+      "country": {
+        "code": "BR",
+        "id": 45,
+        "name": "Brazil"
+      },
+      "datetimeFirst": {
+        "local": "2025-12-04T17:00:00-03:00",
+        "utc": "2025-12-04T20:00:00Z"
+      },
+      "datetimeLast": {
+        "local": "2026-08-11T03:00:00-03:00",
+        "utc": "2026-08-11T06:00:00Z"
+      },
+      "distance": 21742.6940393,
+      "id": 6152588,
+      "instruments": [
+        {
+          "id": 2,
+          "name": "Government Monitor"
+        }
+      ],
+      "isMobile": false,
+      "isMonitor": true,
+      "licenses": [],
+      "locality": "Rio de Janeiro",
+      "name": "Pavuna",
+      "owner": {
+        "id": 4,
+        "name": "Unknown Governmental Organization"
+      },
+      "provider": {
+        "id": 62,
+        "name": "Rio City Hall"
+      },
+      "sensors": [
+        {
+          "id": 14798918,
+          "name": "pm10 \u00b5g/m\u00b3",
+          "parameter": {
+            "displayName": "PM10",
+            "id": 1,
+            "name": "pm10",
+            "units": "\u00b5g/m\u00b3"
+          }
+        },
+        {
+          "id": 14798936,
+          "name": "pm25 \u00b5g/m\u00b3",
+          "parameter": {
+            "displayName": "PM2.5",
+            "id": 2,
+            "name": "pm25",
+            "units": "\u00b5g/m\u00b3"
+          }
+        }
+      ],
+      "timezone": "America/Sao_Paulo"
+    },
+    {
+      "coordinates": {
+        "latitude": -22.842,
+        "longitude": -43.2708
+      },
+      "country": {
+        "code": "BR",
+        "id": 45,
+        "name": "Brazil"
+      },
+      "datetimeFirst": {
+        "local": "2025-12-04T17:00:00-03:00",
+        "utc": "2025-12-04T20:00:00Z"
+      },
+      "datetimeLast": {
+        "local": "2026-06-21T03:00:00-03:00",
+        "utc": "2026-06-21T06:00:00Z"
+      },
+      "distance": 12345.965933,
+      "id": 6152590,
+      "instruments": [
+        {
+          "id": 2,
+          "name": "Government Monitor"
+        }
+      ],
+      "isMobile": false,
+      "isMonitor": true,
+      "licenses": [],
+      "locality": "Rio de Janeiro",
+      "name": "Penha",
+      "owner": {
+        "id": 4,
+        "name": "Unknown Governmental Organization"
+      },
+      "provider": {
+        "id": 62,
+        "name": "Rio City Hall"
+      },
+      "sensors": [
+        {
+          "id": 14798897,
+          "name": "pm25 \u00b5g/m\u00b3",
+          "parameter": {
+            "displayName": "PM2.5",
+            "id": 2,
+            "name": "pm25",
+            "units": "\u00b5g/m\u00b3"
+          }
+        },
+        {
+          "id": 14798911,
+          "name": "pm10 \u00b5g/m\u00b3",
+          "parameter": {
+            "displayName": "PM10",
+            "id": 1,
+            "name": "pm10",
+            "units": "\u00b5g/m\u00b3"
+          }
+        }
+      ],
+      "timezone": "America/Sao_Paulo"
+    },
+    {
+      "coordinates": {
+        "latitude": -22.8601,
+        "longitude": -43.2685
+      },
+      "country": {
+        "code": "BR",
+        "id": 45,
+        "name": "Brazil"
+      },
+      "datetimeFirst": {
+        "local": "2025-12-04T17:00:00-03:00",
+        "utc": "2025-12-04T20:00:00Z"
+      },
+      "datetimeLast": {
+        "local": "2026-08-11T03:00:00-03:00",
+        "utc": "2026-08-11T06:00:00Z"
+      },
+      "distance": 11089.33740747,
+      "id": 6152591,
+      "instruments": [
+        {
+          "id": 2,
+          "name": "Government Monitor"
+        }
+      ],
+      "isMobile": false,
+      "isMonitor": true,
+      "licenses": [],
+      "locality": "Rio de Janeiro",
+      "name": "Ramos",
+      "owner": {
+        "id": 4,
+        "name": "Unknown Governmental Organization"
+      },
+      "provider": {
+        "id": 62,
+        "name": "Rio City Hall"
+      },
+      "sensors": [
+        {
+          "id": 14798925,
+          "name": "pm25 \u00b5g/m\u00b3",
+          "parameter": {
+            "displayName": "PM2.5",
+            "id": 2,
+            "name": "pm25",
+            "units": "\u00b5g/m\u00b3"
+          }
+        },
+        {
+          "id": 14798939,
+          "name": "pm10 \u00b5g/m\u00b3",
+          "parameter": {
+            "displayName": "PM10",
+            "id": 1,
+            "name": "pm10",
+            "units": "\u00b5g/m\u00b3"
+          }
+        }
+      ],
+      "timezone": "America/Sao_Paulo"
+    },
+    {
+      "coordinates": {
+        "latitude": -22.9009,
+        "longitude": -43.2522
+      },
+      "country": {
+        "code": "BR",
+        "id": 45,
+        "name": "Brazil"
+      },
+      "datetimeFirst": {
+        "local": "2025-12-04T17:00:00-03:00",
+        "utc": "2025-12-04T20:00:00Z"
+      },
+      "datetimeLast": {
+        "local": "2026-07-29T15:00:00-03:00",
+        "utc": "2026-07-29T18:00:00Z"
+      },
+      "distance": 8161.97817085,
+      "id": 6152594,
+      "instruments": [
+        {
+          "id": 2,
+          "name": "Government Monitor"
+        }
+      ],
+      "isMobile": false,
+      "isMonitor": true,
+      "licenses": [],
+      "locality": "Rio de Janeiro",
+      "name": "Rocha",
+      "owner": {
+        "id": 4,
+        "name": "Unknown Governmental Organization"
+      },
+      "provider": {
+        "id": 62,
+        "name": "Rio City Hall"
+      },
+      "sensors": [
+        {
+          "id": 14798906,
+          "name": "pm10 \u00b5g/m\u00b3",
+          "parameter": {
+            "displayName": "PM10",
+            "id": 1,
+            "name": "pm10",
+            "units": "\u00b5g/m\u00b3"
+          }
+        },
+        {
+          "id": 14798910,
+          "name": "pm25 \u00b5g/m\u00b3",
+          "parameter": {
+            "displayName": "PM2.5",
+            "id": 2,
+            "name": "pm25",
+            "units": "\u00b5g/m\u00b3"
+          }
+        }
+      ],
+      "timezone": "America/Sao_Paulo"
+    },
+    {
+      "coordinates": {
+        "latitude": -22.9896,
+        "longitude": -43.2527
+      },
+      "country": {
+        "code": "BR",
+        "id": 45,
+        "name": "Brazil"
+      },
+      "datetimeFirst": {
+        "local": "2025-12-04T17:00:00-03:00",
+        "utc": "2025-12-04T20:00:00Z"
+      },
+      "datetimeLast": {
+        "local": "2026-08-11T03:00:00-03:00",
+        "utc": "2026-08-11T06:00:00Z"
+      },
+      "distance": 12290.85831253,
+      "id": 6152595,
+      "instruments": [
+        {
+          "id": 2,
+          "name": "Government Monitor"
+        }
+      ],
+      "isMobile": false,
+      "isMonitor": true,
+      "licenses": [],
+      "locality": "Rio de Janeiro",
+      "name": "Rocinha",
+      "owner": {
+        "id": 4,
+        "name": "Unknown Governmental Organization"
+      },
+      "provider": {
+        "id": 62,
+        "name": "Rio City Hall"
+      },
+      "sensors": [
+        {
+          "id": 14798899,
+          "name": "pm25 \u00b5g/m\u00b3",
+          "parameter": {
+            "displayName": "PM2.5",
+            "id": 2,
+            "name": "pm25",
+            "units": "\u00b5g/m\u00b3"
+          }
+        },
+        {
+          "id": 14798937,
+          "name": "pm10 \u00b5g/m\u00b3",
+          "parameter": {
+            "displayName": "PM10",
+            "id": 1,
+            "name": "pm10",
+            "units": "\u00b5g/m\u00b3"
+          }
+        }
+      ],
+      "timezone": "America/Sao_Paulo"
+    },
+    {
+      "coordinates": {
+        "latitude": -22.9196,
+        "longitude": -43.3594
+      },
+      "country": {
+        "code": "BR",
+        "id": 45,
+        "name": "Brazil"
+      },
+      "datetimeFirst": {
+        "local": "2025-12-04T17:00:00-03:00",
+        "utc": "2025-12-04T20:00:00Z"
+      },
+      "datetimeLast": {
+        "local": "2026-08-11T03:00:00-03:00",
+        "utc": "2026-08-11T06:00:00Z"
+      },
+      "distance": 19185.0939973,
+      "id": 6152598,
+      "instruments": [
+        {
+          "id": 2,
+          "name": "Government Monitor"
+        }
+      ],
+      "isMobile": false,
+      "isMonitor": true,
+      "licenses": [],
+      "locality": "Rio de Janeiro",
+      "name": "Tanque",
+      "owner": {
+        "id": 4,
+        "name": "Unknown Governmental Organization"
+      },
+      "provider": {
+        "id": 62,
+        "name": "Rio City Hall"
+      },
+      "sensors": [
+        {
+          "id": 14798908,
+          "name": "pm25 \u00b5g/m\u00b3",
+          "parameter": {
+            "displayName": "PM2.5",
+            "id": 2,
+            "name": "pm25",
+            "units": "\u00b5g/m\u00b3"
+          }
+        },
+        {
+          "id": 14798919,
+          "name": "pm10 \u00b5g/m\u00b3",
+          "parameter": {
+            "displayName": "PM10",
+            "id": 1,
+            "name": "pm10",
+            "units": "\u00b5g/m\u00b3"
+          }
+        }
+      ],
+      "timezone": "America/Sao_Paulo"
+    },
+    {
+      "coordinates": {
+        "latitude": -22.9244,
+        "longitude": -43.2322
+      },
+      "country": {
+        "code": "BR",
+        "id": 45,
+        "name": "Brazil"
+      },
+      "datetimeFirst": {
+        "local": "2025-12-26T02:00:00-03:00",
+        "utc": "2025-12-26T05:00:00Z"
+      },
+      "datetimeLast": {
+        "local": "2026-08-11T03:00:00-03:00",
+        "utc": "2026-08-11T06:00:00Z"
+      },
+      "distance": 6387.96933493,
+      "id": 6178275,
+      "instruments": [
+        {
+          "id": 2,
+          "name": "Government Monitor"
+        }
+      ],
+      "isMobile": false,
+      "isMonitor": true,
+      "licenses": [],
+      "locality": "Rio de Janeiro",
+      "name": "Tijuca Aurassure",
+      "owner": {
+        "id": 4,
+        "name": "Unknown Governmental Organization"
+      },
+      "provider": {
+        "id": 62,
+        "name": "Rio City Hall"
+      },
+      "sensors": [
+        {
+          "id": 14990321,
+          "name": "pm10 \u00b5g/m\u00b3",
+          "parameter": {
+            "displayName": "PM10",
+            "id": 1,
+            "name": "pm10",
+            "units": "\u00b5g/m\u00b3"
+          }
+        },
+        {
+          "id": 14990322,
+          "name": "pm25 \u00b5g/m\u00b3",
+          "parameter": {
+            "displayName": "PM2.5",
+            "id": 2,
+            "name": "pm25",
+            "units": "\u00b5g/m\u00b3"
+          }
+        }
+      ],
+      "timezone": "America/Sao_Paulo"
+    },
+    {
+      "coordinates": {
+        "latitude": -22.9663,
+        "longitude": -43.3956
+      },
+      "country": {
+        "code": "BR",
+        "id": 45,
+        "name": "Brazil"
+      },
+      "datetimeFirst": {
+        "local": "2026-01-13T08:00:00-03:00",
+        "utc": "2026-01-13T11:00:00Z"
+      },
+      "datetimeLast": {
+        "local": "2026-07-20T04:00:00-03:00",
+        "utc": "2026-07-20T07:00:00Z"
+      },
+      "distance": 23773.80982424,
+      "id": 6199572,
+      "instruments": [
+        {
+          "id": 2,
+          "name": "Government Monitor"
+        }
+      ],
+      "isMobile": false,
+      "isMonitor": true,
+      "licenses": [],
+      "locality": "Rio de Janeiro",
+      "name": "Jacarepagu\u00e1",
+      "owner": {
+        "id": 4,
+        "name": "Unknown Governmental Organization"
+      },
+      "provider": {
+        "id": 62,
+        "name": "Rio City Hall"
+      },
+      "sensors": [
+        {
+          "id": 15149559,
+          "name": "pm25 \u00b5g/m\u00b3",
+          "parameter": {
+            "displayName": "PM2.5",
+            "id": 2,
+            "name": "pm25",
+            "units": "\u00b5g/m\u00b3"
+          }
+        },
+        {
+          "id": 15149560,
+          "name": "pm10 \u00b5g/m\u00b3",
+          "parameter": {
+            "displayName": "PM10",
+            "id": 1,
+            "name": "pm10",
+            "units": "\u00b5g/m\u00b3"
+          }
+        }
+      ],
+      "timezone": "America/Sao_Paulo"
+    }
+  ],
+  "provider": "OpenAQ",
+  "reference_area_code": "rio_de_janeiro",
+  "reference_area_name": "Rio de Janeiro metropolitan area",
+  "request": {
+    "endpoint": "https://api.openaq.org/v3/locations",
+    "executed_at": "2026-08-11T06:52:54.248334Z",
+    "query": {
+      "coordinates": "-22.9068,-43.1729",
+      "limit": 1000,
+      "order_by": "id",
+      "page": 1,
+      "radius": 25000,
+      "sort_order": "asc"
+    }
+  },
+  "response_meta": {
+    "found": 28,
+    "limit": 1000,
+    "page": 1,
+    "result_truncated_by_request_ceiling": false,
+    "returned": 28
+  },
+  "schema_version": "2i.3",
+  "timezone_reference": "America/Sao_Paulo"
+}

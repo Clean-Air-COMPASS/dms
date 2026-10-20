@@ -6,7 +6,7 @@ from typing import Callable, Iterable, List
 
 from fastapi import Depends, HTTPException, status
 from fastapi.security import HTTPAuthorizationCredentials, HTTPBearer
-from jose import JWTError
+from jwt.exceptions import InvalidTokenError as JWTError
 from pydantic import BaseModel, ConfigDict
 from sqlalchemy.orm import Session
 
@@ -23,6 +23,7 @@ class CurrentUser(BaseModel):
     email: str
     roles: List[str]
     scopes: List[str]
+    preferred_language_code: str | None = None
     token_jti: uuid.UUID
     token_exp: datetime
 
@@ -89,6 +90,7 @@ def get_current_user(
         email=user.email,
         roles=roles,
         scopes=scopes,
+        preferred_language_code=user.preferred_language_code,
         token_jti=token_jti,
         token_exp=token_exp,
     )

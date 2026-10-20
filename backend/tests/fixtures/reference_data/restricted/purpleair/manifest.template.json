@@ -1,0 +1,28 @@
+{
+  "provider": "PurpleAir",
+  "provider_ids": [],
+  "fields": ["pm2.5_atm", "pm10.0_atm"],
+  "average": 0,
+  "retry_count": 0,
+  "window_start": null,
+  "window_end": null,
+  "expected_frequency_seconds": 120,
+  "rows_per_page": 1000,
+  "metadata_request_count": 0,
+  "metadata_expected_rows": 0,
+  "metadata_fields": [],
+  "paid_provider": true,
+  "pricing": {
+    "verified_at": null,
+    "history_endpoint_base_points": null,
+    "history_field_points": {
+      "pm2.5_atm": null,
+      "pm10.0_atm": null
+    },
+    "metadata_endpoint_base_points": null,
+    "metadata_field_points": {},
+    "safety_margin_percent": 10
+  },
+  "access_classification": "restricted_private_not_approved_for_public_redistribution",
+  "output_fixture_paths": ["manifest.json", "measurements.jsonl"]
+}

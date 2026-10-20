@@ -1,0 +1,60 @@
+{
+  "landingPage": {
+    "text": {
+      "18": "1 de cada 8",
+      "aqDataPlatform": "Plataforma de datos de calidad del aire",
+      "collaborativeCommunityInformedPlatformCollectingManaging": "Una plataforma colaborativa e informada por la comunidad para recopilar, gestionar y visualizar datos de medición de la calidad del aire, lo que empodera a comunidades, investigadores y organizaciones de todo el mundo.",
+      "worldBreathesUnhealthyAir": "del mundo respira aire insalubre",
+      "prematureDeathsGloballyLinkedAirPollution": "muertes prematuras en todo el mundo vinculadas a la contaminación del aire",
+      "open": "Código abierto",
+      "sourcePlatformGlobalCollaboration": "plataforma para la colaboración mundial",
+      "aggregateMeasurementsMultipleSourcesOpenAq": "Reúna mediciones de múltiples fuentes —OpenAQ, PurpleAir y otras— en un repositorio de datos unificado y con control de calidad. Consulte datos históricos y en tiempo real.",
+      "customizableOpenSourceDataManagementSystem": "Un sistema de gestión de datos personalizable y de código abierto que fomenta la colaboración, reduce la redundancia y mejora la accesibilidad para los esfuerzos globales por la calidad del aire.",
+      "builtInputGlobalCommunityPracticeShared": "Construido con aportes de una comunidad global de práctica. El aprendizaje compartido acelera el progreso y ayuda a superar los obstáculos de la gestión de datos para un uso más eficaz de la información sobre la calidad del aire.",
+      "cleanAirCompassProjectEmergedCritical": "El proyecto Clean Air COMPASS surgió para atender una necesidad mundial urgente: gestionar eficazmente los datos de calidad del aire. Los sistemas existentes resultan insuficientes a medida que aumentan los esfuerzos de monitoreo de gobiernos, organizaciones comunitarias y otras instituciones.",
+      "proprietaryCustomBuiltSolutionsCanCostly": "Las soluciones patentadas o personalizadas pueden ser costosas, opacas e ineficientes. Esta iniciativa aborda directamente estos puntos débiles al ofrecer un sistema de gestión de datos (DMS) de código abierto personalizable, nacido de la retroalimentación global para satisfacer las necesidades expresadas.",
+      "led": "Dirigido por",
+      "missionPartnersAmpSeedFunding": "Socios de la misión y financiamiento inicial",
+      "naturalResourcesDefenseCouncilNrdcOpen": "Natural Resources Defense Council (NRDC), OpenAQ y Spheros Environmental, con financiamiento inicial de Clean Air Fund.",
+      "viewRealTimeAirQualityData": "Vea datos de calidad del aire en tiempo real desde dispositivos de monitoreo de todo el mundo en nuestro mapa interactivo.",
+      "accessTransparentQualityControlledAirQuality": "Acceda a datos transparentes y controlados sobre la calidad del aire para comprender los niveles de contaminación locales y abogar por un aire más limpio.",
+      "leverageStandardizedMultiSourceDataStudies": "Aproveche datos estandarizados de múltiples fuentes para estudios, con control de calidad integrado y períodos de agregación flexibles.",
+      "deployOpenSourceDmsWithoutVendor": "Implemente un DMS de código abierto sin dependencia de un proveedor, personalizable según su red de monitoreo y sus necesidades de generación de informes.",
+      "integrateRegulatoryLowCostSensorData": "Integre datos de sensores regulatorios y de bajo costo en una plataforma unificada para decisiones políticas y alertas de salud pública.",
+      "aqDataPlatform2": "Plataforma de datos de calidad del aire",
+      "partCleanAirCompassInitiative": "Parte de la iniciativa Clean Air COMPASS",
+      "cleanAirCompass": "Clean Air COMPASS"
+    },
+    "actions": {
+      "cleanAirCompass": "por Clean Air COMPASS",
+      "openMap": "Abrir mapa",
+      "exploreMap": "Explorar el mapa",
+      "getInvolved": "Participar",
+      "launchMap": "Iniciar el mapa",
+      "cleanAirCompass2": "Clean Air COMPASS",
+      "about": "Acerca de",
+      "participate": "Participar",
+      "gitHub": "GitHub"
+    },
+    "headings": {
+      "openSourceAirQuality": "Calidad del aire de código abierto",
+      "dataManagement": "Gestión de datos",
+      "whyPlatformMatters": "Por qué es importante esta plataforma",
+      "airQualityData": "Datos de calidad del aire",
+      "openSource": "Código abierto",
+      "communityInformed": "Informado por la comunidad",
+      "aboutCleanAirCompass": "Acerca de Clean Air COMPASS",
+      "readyExplore": "¿Listo para explorar?",
+      "whoBenefits": "¿Quién se beneficia?",
+      "communities": "Comunidades",
+      "researchers": "Investigadores",
+      "organizations": "Organizaciones",
+      "governments": "Gobiernos"
+    },
+    "accessibility": {
+      "naturalResourcesDefenseCouncil": "Natural Resources Defense Council",
+      "spherosEnvironmental": "Spheros Environmental",
+      "cleanAirFund": "Clean Air Fund"
+    }
+  }
+}

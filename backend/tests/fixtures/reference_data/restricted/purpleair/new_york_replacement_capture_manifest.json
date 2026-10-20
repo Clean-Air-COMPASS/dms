@@ -1,0 +1,80 @@
+{
+  "schema_version": "2i.4c-new-york-replacement-preflight",
+  "purpose": "Replace only the empty New York reference capture after separate paid-capture approval.",
+  "provider": "PurpleAir",
+  "reference_sensors": [
+    {
+      "reference_area_code": "new_york",
+      "reference_area_name": "New York City / New York metropolitan area",
+      "sensor_id": "159361",
+      "replaces_sensor_id": "198733",
+      "selection_status": "manually_supplied_replacement_candidate"
+    }
+  ],
+  "provider_ids": [],
+  "fields": [
+    "pm2.5_atm",
+    "pm10.0_atm"
+  ],
+  "average": 0,
+  "history_endpoint_template": "https://api.purpleair.com/v1/sensors/{sensor_id}/history",
+  "window_start": "2026-08-08T00:00:00Z",
+  "window_end": "2026-08-11T00:00:00Z",
+  "expected_frequency_seconds": 120,
+  "measurement_duration_seconds": 120,
+  "source_aggregation_duration_seconds": 120,
+  "measurement_timestamp_semantics": "provider_received_at",
+  "expected_provider_rows": 2160,
+  "history_request_capacity_rows": 21600,
+  "rows_per_page": 21600,
+  "history_request_ceiling": 1,
+  "metadata_request_count": 0,
+  "metadata_expected_rows": 0,
+  "metadata_fields": [],
+  "discovery_request_count": 0,
+  "retry_count": 0,
+  "paid_provider": true,
+  "pricing": {
+    "verified_at": "2026-08-11T21:25:00-07:00",
+    "history_endpoint_base_points": 2,
+    "history_field_points": {
+      "pm2.5_atm": 2,
+      "pm10.0_atm": 2
+    },
+    "metadata_endpoint_base_points": null,
+    "metadata_field_points": {},
+    "safety_margin_percent": 10,
+    "safety_margin_status": "approved"
+  },
+  "hard_max_points": 9507,
+  "preserved_existing_capture": {
+    "authorization_manifest": "capture_manifest.json",
+    "authorization_manifest_sha256": "c3a2a23290958b7818c497315f1b157ece44ce8b2c60d1f53e2f4809d7392d4f",
+    "frozen_manifest": "manifest.json",
+    "frozen_manifest_sha256": "d3f58eb14987a11201339df5a049fa675fed51279c0596069de981c131d151f8",
+    "frozen_measurements": "measurements.jsonl",
+    "frozen_measurements_sha256": "1db1a48b34ec8b2ea3752d26c5fb39a7e6c657d7d1550c410ad03d8caad28d40",
+    "capture_report": "capture_report.json",
+    "capture_report_sha256": "e0bd24a77b6a9425b3daafd13fd578d84f832f08f22392c7e3937f3aa23296b8",
+    "original_new_york_sensor_id": "198733",
+    "original_new_york_capture_status": "http_200_zero_provider_rows",
+    "original_new_york_staged_response": "capture_staging/sensor-198733.json",
+    "original_new_york_staged_response_sha256": "691ba7b0849e051ab91950b918294633589d73d495bf474b449fb238005c039c",
+    "rio_sensor_id": "175407",
+    "rio_staged_response": "capture_staging/sensor-175407.json",
+    "rio_staged_response_sha256": "e34d9ed493184b76729c8045745e74fca7a359a0592a6d1539c5aebafde320fd",
+    "metro_manila_sensor_id": "99177",
+    "metro_manila_staged_response": "capture_staging/sensor-99177.json",
+    "metro_manila_staged_response_sha256": "e928e1d9ab51a54904a7836bd18f901c1574effff789e4d7b5e56d79c577f24d"
+  },
+  "access_classification": "restricted_private_not_approved_for_public_redistribution",
+  "output_fixture_paths": [
+    "restricted/purpleair/new_york_replacement/manifest.json",
+    "restricted/purpleair/new_york_replacement/measurements.jsonl",
+    "restricted/purpleair/new_york_replacement/capture_report.json"
+  ],
+  "preflight_only": true,
+  "live_capture_authorized": false,
+  "automatic_refresh": false,
+  "scheduled_capture": false
+}

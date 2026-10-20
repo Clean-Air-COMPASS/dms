@@ -1,0 +1,2 @@
+# Development-only Python correctness checks. Keep Ruff out of runtime images.
+ruff==0.17.1

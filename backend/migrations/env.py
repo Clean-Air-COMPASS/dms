@@ -45,6 +45,11 @@ def run_migrations_online() -> None:
             compare_server_default=True
         )
         with context.begin_transaction():
+            # Capture once, before revisions run. An unfinished older setup is
+            # still an upgrade, not a new installation eligible for Demo defaults.
+            config.attributes["is_new_installation"] = not bool(
+                context.get_context().get_current_heads()
+            )
             context.run_migrations()
 
 if context.is_offline_mode():

@@ -1,8 +1,12 @@
+import { formatOperationalTimestamp } from './utils/timezone';
+import { Trans } from 'react-i18next';
+import i18n from './i18n';
 import { useEffect, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { deleteExternalAPI, listExternalAPIs } from './api';
 import type { ExternalAPI } from './api';
 import AdminPageLayout from './components/AdminPageLayout';
+import { formatJobRunStatus } from './jobRunPresentation';
 
 export default function AdminSourcesList() {
   const [apis, setApis] = useState<ExternalAPI[]>([]);
@@ -19,25 +23,24 @@ export default function AdminSourcesList() {
         const shouldBypassCache = /(?:^|[?&])(fresh|refresh)=/i.test(location.search || '');
         const items = await listExternalAPIs(shouldBypassCache ? { skipCache: true } : undefined);
         setApis(items || []);
-      } catch (e:any) {
-        setErr(String(e?.message || e));
+      } catch {
+        setErr(i18n.t('common:errors.loadDataSources'));
       } finally {
         setLoading(false);
       }
     })();
-  // Re-run when the URL search changes so we can pick up a forced refresh
   }, [location.search]);
 
   const handleDelete = async (api: ExternalAPI) => {
-    if (!api.external_api_id || (api.device_count ?? 0) > 0) return;
-    if (!confirm(`Delete data source "${api.name}"?`)) return;
+    if (!api.external_api_id || !api.can_delete) return;
+    if (!confirm(i18n.t('dataSources:adminSourcesList.dialogs.deleteDataSource', { name: api.name }))) return;
     setDeletingId(api.external_api_id);
     setErr(null);
     try {
       await deleteExternalAPI(api.external_api_id);
       setApis((prev) => prev.filter((item) => item.external_api_id !== api.external_api_id));
-    } catch (e:any) {
-      setErr(String(e?.message || e));
+    } catch {
+      setErr(i18n.t('common:errors.deleteDataSource'));
     } finally {
       setDeletingId(null);
     }
@@ -45,46 +48,65 @@ export default function AdminSourcesList() {
 
   return (
     <AdminPageLayout
-      title="Data Sources"
-      description="Configure external data sources."
+      title={i18n.t('dataSources:adminSourcesList.tooltips.dataSources')}
+      description={i18n.t('dataSources:adminSourcesList.accessibility.configureExternalDataSources')}
       breadcrumbs={[
-        { label: 'Admin', to: '/admin' },
-        { label: 'Data Sources' },
+        { label: i18n.t('dataSources:adminSourcesList.content.admin'), to: '/admin' },
+        { label: i18n.t('dataSources:adminSourcesList.content.dataSources') },
       ]}
-      contentClassName="sources-admin-page"
+      contentClassName="admin-workspace sources-admin-page"
     >
-      {loading && <div className="info-banner">Loading…</div>}
-      {err && <div className="error-banner">{err}</div>}
+      {loading && <div className="info-banner" role="status"><Trans ns="common" i18nKey="states.loading" /></div>}
+      {err && <div className="error-banner" role="alert">{err}</div>}
       {!loading && !err && (
         <div className="card table-card">
           <div className="table-responsive">
             <table className="admin-table">
               <thead>
                 <tr>
-                  <th>Name</th>
-                  <th>Status</th>
-                  <th>Devices</th>
+                  <th><Trans ns="dataSources" i18nKey="adminSourcesList.columns.dataSource" /></th>
+                  <th><Trans ns="dataSources" i18nKey="adminSourcesList.columns.enabled" /></th>
+                  <th><Trans ns="dataSources" i18nKey="adminSourcesList.columns.devices" /></th>
+                  <th><Trans ns="dataSources" i18nKey="adminSourcesList.columns.lastImport" /></th>
+                  <th><Trans ns="common" i18nKey="fields.status" /></th>
                   <th />
                 </tr>
               </thead>
               <tbody>
                 {apis.map(a => (
                   <tr key={a.external_api_id}>
-                    <td>
-                      <Link to={`/admin/sources/${a.external_api_id}`} className="device-link" aria-label={`Open ${a.name} view`}>
+                    <td data-label={i18n.t('dataSources:adminSourcesList.columns.dataSource')}>
+                      <Link to={`/admin/sources/${a.external_api_id}`} className="device-link" aria-label={i18n.t('dataSources:adminSourcesList.accessibility.openDataSource', { name: a.name })}>
                         {a.name}
-                      </Link></td>
-                    <td>{a.is_active === false ? 'Inactive' : 'Active'}</td>
-                    <td>{a.device_count ?? 0}</td>
+                      </Link>
+                      {a.provider_code === 'demo' && <p className="source-demo-help">{i18n.t('dataSources:demo.listDescription')}</p>}
+                      {a.provider_code === 'demo' && <p className="source-demo-help">{i18n.t('dataSources:demo.disableHelp')}</p>}
+                    </td>
+                    <td data-label={i18n.t('dataSources:adminSourcesList.columns.enabled')}>
+                      <div className="source-state-stack">
+                        <span className={`status-badge ${a.enabled ? 'active' : 'disabled'}`}>{i18n.t(a.enabled ? 'admin:workspace.enabled' : 'admin:workspace.disabled')}</span>
+                        <span>{i18n.t(`admin:workspace.sourceState.${a.runnable_reason ?? 'unknown'}`)}</span>
+                        <span>{i18n.t(a.requires_credential === false ? 'dataSources:credentialFree' : a.has_api_key === undefined ? 'admin:workspace.credentialUnknown' : a.has_api_key ? 'admin:workspace.credentialStored' : 'admin:workspace.credentialMissing')}</span>
+                      </div>
+                    </td>
+                    <td data-label={i18n.t('dataSources:adminSourcesList.columns.devices')}>{a.device_count ?? 0}</td>
+                    <td data-label={i18n.t('dataSources:adminSourcesList.columns.lastImport')} className="source-last-import">
+                      {a.latest_import?.started_at
+                        ? formatOperationalTimestamp(a.latest_import.started_at)
+                        : '—'}
+                    </td>
+                    <td data-label={i18n.t('common:fields.status')} className={`source-run-status source-run-status-${a.latest_import?.status ?? 'never'}`}>
+                      {formatJobRunStatus(a.latest_import?.status)}
+                    </td>
                     <td style={{whiteSpace:'nowrap'}}>
-                      {(a.device_count ?? 0) === 0 && (
+                      {a.can_delete && (
                         <button
                           type="button"
                           className="btn btn-danger small"
                           onClick={() => void handleDelete(a)}
                           disabled={deletingId === a.external_api_id}
                         >
-                          {deletingId === a.external_api_id ? 'Deleting…' : 'Delete'}
+                          {deletingId === a.external_api_id ? i18n.t('dataSources:adminSourcesList.actions.deleting') : i18n.t('common:actions.delete')}
                         </button>
                       )}
                     </td>
@@ -92,7 +114,7 @@ export default function AdminSourcesList() {
                 ))}
                 {apis.length === 0 && (
                   <tr>
-                    <td colSpan={6} className="muted">No data sources configured.</td>
+                    <td colSpan={6} className="muted"><Trans ns="dataSources" i18nKey="adminSourcesList.text.noDataSourcesConfigured" /></td>
                   </tr>
                 )}
               </tbody>

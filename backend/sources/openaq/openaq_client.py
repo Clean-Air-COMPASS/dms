@@ -143,7 +143,11 @@ class APIClient:
 
 def _get_rate_limiter_from_db(name: str = "OpenAQ") -> RateLimiter:
     with SessionLocal() as session:
-        api_row = session.scalars(select(models.ExternalAPI).where(models.ExternalAPI.name == name)).one_or_none()
+        api_row = session.scalars(
+            select(models.ExternalAPI).where(
+                models.ExternalAPI.provider_code == name.strip().lower()
+            )
+        ).one_or_none()
         if api_row:
             params = getattr(api_row, "params", {}) or {}
             pm = params.get("rate_limit_per_minute", 60)

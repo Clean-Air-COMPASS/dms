@@ -1,0 +1,60 @@
+{
+  "landingPage": {
+    "text": {
+      "18": "1 in 8",
+      "aqDataPlatform": "AQ Data Platform",
+      "collaborativeCommunityInformedPlatformCollectingManaging": "A collaborative, community-informed platform for collecting, managing, and visualizing air quality measurement data—empowering communities, researchers, and organizations worldwide.",
+      "worldBreathesUnhealthyAir": "of the world breathes unhealthy air",
+      "prematureDeathsGloballyLinkedAirPollution": "premature deaths globally linked to air pollution",
+      "open": "Open",
+      "sourcePlatformGlobalCollaboration": "source platform for global collaboration",
+      "aggregateMeasurementsMultipleSourcesOpenAq": "Aggregate measurements from multiple sources—OpenAQ, PurpleAir, and more—into a unified, quality-controlled data repository. Real-time and historical data at your fingertips.",
+      "customizableOpenSourceDataManagementSystem": "A customizable, open-source data management system that fosters collaboration, reduces redundancy, and enhances accessibility for global air quality efforts.",
+      "builtInputGlobalCommunityPracticeShared": "Built with input from a global community of practice. Shared learning accelerates progress, helping overcome data management hurdles for more effective use of air quality information.",
+      "cleanAirCompassProjectEmergedCritical": "The Clean Air COMPASS project emerged from a critical global need: effective air quality data management. Existing systems are falling short as monitoring efforts by governments, community-based organizations, and other institutions increase.",
+      "proprietaryCustomBuiltSolutionsCanCostly": "Proprietary or custom-built solutions can be costly, opaque, and inefficient. This initiative directly addresses these pain points by offering a customizable open-source Data Management System (DMS), born from global feedback to meet expressed needs.",
+      "led": "Led By",
+      "missionPartnersAmpSeedFunding": "Mission partners & seed funding",
+      "naturalResourcesDefenseCouncilNrdcOpen": "Natural Resources Defense Council (NRDC), OpenAQ, and Spheros Environmental, with seed funding from the Clean Air Fund.",
+      "viewRealTimeAirQualityData": "View real-time air quality data from monitoring devices around the world on our interactive map.",
+      "accessTransparentQualityControlledAirQuality": "Access transparent, quality-controlled air quality data to understand local pollution levels and advocate for cleaner air.",
+      "leverageStandardizedMultiSourceDataStudies": "Leverage standardized, multi-source data for studies, with built-in QA/QC and flexible aggregation periods.",
+      "deployOpenSourceDmsWithoutVendor": "Deploy an open-source DMS without vendor lock-in, customizable to your monitoring network and reporting needs.",
+      "integrateRegulatoryLowCostSensorData": "Integrate regulatory and low-cost sensor data into a unified platform for policy decisions and public health alerts.",
+      "aqDataPlatform2": "AQ Data Platform",
+      "partCleanAirCompassInitiative": "Part of the Clean Air COMPASS initiative",
+      "cleanAirCompass": "Clean Air COMPASS"
+    },
+    "actions": {
+      "cleanAirCompass": "by Clean Air COMPASS",
+      "openMap": "Open Map",
+      "exploreMap": "Explore the Map",
+      "getInvolved": "Get Involved",
+      "launchMap": "Launch the Map",
+      "cleanAirCompass2": "Clean Air COMPASS",
+      "about": "About",
+      "participate": "Participate",
+      "gitHub": "GitHub"
+    },
+    "headings": {
+      "openSourceAirQuality": "Open-Source Air Quality",
+      "dataManagement": "Data Management",
+      "whyPlatformMatters": "Why This Platform Matters",
+      "airQualityData": "Air Quality Data",
+      "openSource": "Open Source",
+      "communityInformed": "Community-Informed",
+      "aboutCleanAirCompass": "About Clean Air COMPASS",
+      "readyExplore": "Ready to Explore?",
+      "whoBenefits": "Who Benefits",
+      "communities": "Communities",
+      "researchers": "Researchers",
+      "organizations": "Organizations",
+      "governments": "Governments"
+    },
+    "accessibility": {
+      "naturalResourcesDefenseCouncil": "Natural Resources Defense Council",
+      "spherosEnvironmental": "Spheros Environmental",
+      "cleanAirFund": "Clean Air Fund"
+    }
+  }
+}

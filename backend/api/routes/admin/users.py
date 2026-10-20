@@ -7,20 +7,29 @@ All endpoints require `users:write` scope.
 from __future__ import annotations
 
 import uuid
+from datetime import datetime, timezone
 from typing import List, Optional
 
-from fastapi import APIRouter, Depends, HTTPException, status
-from pydantic import BaseModel, EmailStr
-from sqlalchemy import select, func
-from sqlalchemy.orm import Session, joinedload
+from fastapi import APIRouter, Depends, HTTPException, Request, Response, status
+from pydantic import BaseModel
+from sqlalchemy import select
+from sqlalchemy.orm import Session
+from sqlalchemy.exc import IntegrityError
 
+from api.account_schemas import AccountRoute
 from api.auth_deps import CurrentUser, get_current_user, require_scopes
 from db import get_session
 from models import Role, User, UserRole
 from services.auth import hash_password, validate_password_policy
+from services.user_identity import CanonicalEmail, ProfileName
+from services.event_log import add_event
+from services.password_reset import (
+    PasswordResetError, RESET_EXPIRY_MINUTES, audit_reset, create_reset_link,
+    recovery_readiness, send_reset_email,
+)
 
 
-router = APIRouter(prefix="/admin/users", tags=["admin-users"])
+router = APIRouter(prefix="/admin/users", tags=["admin-users"], route_class=AccountRoute)
 
 
                           
@@ -36,11 +45,17 @@ class UserOut(BaseModel):
     """User response for list/detail views."""
     user_id: str
     email: str
+    first_name: str | None
+    last_name: str | None
+    display_name: str
     org_id: str
     is_active: bool
     created_at: Optional[str] = None
     updated_at: Optional[str] = None
     roles: List[str]
+    failed_login_count: int = 0
+    last_failed_login_at: Optional[str] = None
+    locked_until: Optional[str] = None
 
     class Config:
         from_attributes = True
@@ -48,7 +63,9 @@ class UserOut(BaseModel):
 
 class UserCreateRequest(BaseModel):
     """Request body for creating a new user."""
-    email: EmailStr
+    email: CanonicalEmail
+    first_name: ProfileName = None
+    last_name: ProfileName = None
     password: str
     org_id: Optional[str] = None
     roles: List[str] = []
@@ -57,7 +74,9 @@ class UserCreateRequest(BaseModel):
 
 class UserUpdateRequest(BaseModel):
     """Request body for updating an existing user."""
-    email: Optional[EmailStr] = None
+    email: Optional[CanonicalEmail] = None
+    first_name: ProfileName = None
+    last_name: ProfileName = None
     password: Optional[str] = None
     is_active: Optional[bool] = None
     roles: Optional[List[str]] = None
@@ -67,6 +86,9 @@ class UserCreateResponse(BaseModel):
     """Response after creating a user."""
     user_id: str
     email: str
+    first_name: str | None
+    last_name: str | None
+    display_name: str
     org_id: str
     is_active: bool
     roles: List[str]
@@ -79,11 +101,17 @@ def _user_to_dict(user: User, roles: List[str]) -> dict:
     return {
         "user_id": str(user.user_id),
         "email": user.email,
+        "first_name": user.first_name,
+        "last_name": user.last_name,
+        "display_name": user.display_name,
         "org_id": str(user.org_id),
         "is_active": user.is_active,
         "created_at": user.created_at.isoformat() if user.created_at else None,
         "updated_at": user.updated_at.isoformat() if user.updated_at else None,
         "roles": roles,
+        "failed_login_count": user.failed_login_count,
+        "last_failed_login_at": user.last_failed_at.isoformat() if user.last_failed_at else None,
+        "locked_until": user.locked_until.isoformat() if user.locked_until else None,
     }
 
 
@@ -190,6 +218,71 @@ def list_roles(
     ]
 
 
+@router.get("/password-reset/readiness")
+def password_reset_readiness(session: Session = Depends(get_session)):
+    return {"email_delivery_ready": recovery_readiness(session)}
+
+
+@router.post("/{user_id}/password-reset-link")
+def password_reset_link(
+    user_id: uuid.UUID, request: Request, response: Response, session: Session = Depends(get_session),
+    actor: CurrentUser = Depends(require_scopes(["users:write"])),
+):
+    response.headers["Cache-Control"] = "no-store"
+    try:
+        link, token, user = create_reset_link(session, user_id, actor, request=request)
+    except PasswordResetError as exc:
+        code = str(exc)
+        error_status = {"user_not_found": 404, "reset_origin_invalid": 400}.get(code, 503)
+        raise HTTPException(error_status, detail=code) from None
+    audit_reset(session, "password_reset_link_created", user, actor)
+    session.commit()
+    return {"reset_url": link, "expires_at": token.expires_at.isoformat(), "expires_in_minutes": RESET_EXPIRY_MINUTES}
+
+
+@router.post("/{user_id}/password-reset-email")
+def password_reset_email(
+    user_id: uuid.UUID, request: Request, session: Session = Depends(get_session),
+    actor: CurrentUser = Depends(require_scopes(["users:write"])),
+):
+    if not recovery_readiness(session):
+        raise HTTPException(409, detail="email_not_ready")
+    try:
+        link, token, user = create_reset_link(session, user_id, actor, request=request)
+    except PasswordResetError as exc:
+        code = str(exc)
+        error_status = {"user_not_found": 404, "reset_origin_invalid": 400}.get(code, 503)
+        raise HTTPException(error_status, detail=code) from None
+    try:
+        send_reset_email(session, user, link)
+    except Exception:
+        # Keep replacement invalidation, but revoke this failed-send token too.
+        # Never log a provider exception: it may contain message content.
+        token.consumed_at = datetime.now(timezone.utc)
+        audit_reset(session, "password_reset_email_failed", user, actor, severity="warning")
+        session.commit()
+        raise HTTPException(502, detail="reset_email_failed") from None
+    audit_reset(session, "password_reset_email_sent", user, actor)
+    session.commit()
+    return {"success": True, "expires_in_minutes": RESET_EXPIRY_MINUTES}
+
+
+@router.post("/{user_id}/unlock", response_model=UserOut)
+def unlock_user(
+    user_id: uuid.UUID, session: Session = Depends(get_session),
+    actor: CurrentUser = Depends(require_scopes(["users:write"])),
+):
+    user = session.get(User, user_id)
+    if user is None:
+        raise HTTPException(404, detail="User not found")
+    user.failed_login_count = 0
+    user.last_failed_at = None
+    user.locked_until = None
+    audit_reset(session, "user_account_unlocked", user, actor)
+    session.commit()
+    return UserOut(**_user_to_dict(user, _load_user_roles(session, user_id)))
+
+
 @router.get("/{user_id}", response_model=UserOut)
 def get_user(
     user_id: str,
@@ -236,7 +329,7 @@ def create_user(
     If org_id is not provided, the new user is added to the same organization
     as the current user.
     """
-    normalized_email = payload.email.lower().strip()
+    normalized_email = payload.email
 
                                    
     existing = session.execute(
@@ -270,13 +363,20 @@ def create_user(
 
     password_hash = hash_password(payload.password)
     new_user = User(
+        user_id=uuid.uuid4(),
         email=normalized_email,
+        first_name=payload.first_name,
+        last_name=payload.last_name,
         password_hash=password_hash,
         org_id=org_uuid,
         is_active=payload.is_active,
     )
     session.add(new_user)
-    session.flush()                   
+    try:
+        session.flush()
+    except IntegrityError:
+        session.rollback()
+        raise HTTPException(409, detail="A user with this email already exists") from None
 
                   
     final_roles = []
@@ -288,6 +388,9 @@ def create_user(
     return UserCreateResponse(
         user_id=str(new_user.user_id),
         email=new_user.email,
+        first_name=new_user.first_name,
+        last_name=new_user.last_name,
+        display_name=new_user.display_name,
         org_id=str(new_user.org_id),
         is_active=new_user.is_active,
         roles=final_roles,
@@ -316,7 +419,7 @@ def update_user(
         )
 
     user = session.execute(
-        select(User).where(User.user_id == user_uuid)
+        select(User).where(User.user_id == user_uuid).with_for_update()
     ).scalar_one_or_none()
 
     if not user:
@@ -327,7 +430,7 @@ def update_user(
 
                               
     if payload.email is not None:
-        normalized_email = payload.email.lower().strip()
+        normalized_email = payload.email
                                    
         existing = session.execute(
             select(User).where(
@@ -359,8 +462,21 @@ def update_user(
     if payload.roles is not None:
         _sync_user_roles(session, user.user_id, payload.roles)
 
+    changed_names = []
+    for field in ("first_name", "last_name"):
+        if field in payload.model_fields_set and getattr(user, field) != getattr(payload, field):
+            setattr(user, field, getattr(payload, field))
+            changed_names.append(field)
+    if changed_names:
+        add_event(session, event_type="profile_updated", source="admin.users",
+                  actor_user_id=current_user.user_id, actor_email=current_user.email,
+                  params={"target_user_id": str(user.user_id), "changed_fields": changed_names})
     session.add(user)
-    session.commit()
+    try:
+        session.commit()
+    except IntegrityError:
+        session.rollback()
+        raise HTTPException(409, detail="A user with this email already exists") from None
 
     roles = _load_user_roles(session, user.user_id)
     return UserOut(**_user_to_dict(user, roles))

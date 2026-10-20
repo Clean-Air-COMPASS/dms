@@ -2,26 +2,14 @@ from __future__ import annotations
 
 from datetime import datetime, timezone, timedelta
 from typing import Optional
-import os
 
-from sqlalchemy import func, select, text
+from sqlalchemy import select, text
 from sqlalchemy.orm import Session
 
-from models import Device, Sensor, Measurement, Parameter
+from models import Device
 
 
 PM25_CODE = "pm25"
-
-                  
-                                                                              
-                                                                             
-                                                                          
-           
-
-                                                                                  
-                                                                                    
-                                                                                   
-DEFAULT_MIN_HOURS = int(os.getenv("PM25_MIN_HOURS", "18"))
 
 
 def _normalize_end(end_time: Optional[datetime]) -> datetime:
@@ -35,7 +23,6 @@ def _normalize_end(end_time: Optional[datetime]) -> datetime:
 def get_pm25_rolling_24h_avg(session: Session, device_id: int, end_time: Optional[datetime] = None, min_hours: Optional[int] = None) -> Optional[float]:
     end_utc = _normalize_end(end_time)
     start_utc = end_utc - timedelta(hours=24)
-                                                                                                    
     effective_min_hours = 0
 
     sql = text(
@@ -45,6 +32,7 @@ def get_pm25_rolling_24h_avg(session: Session, device_id: int, end_time: Optiona
         " JOIN sensor s ON m.sensor_id = s.sensor_id"
         " JOIN parameter p ON s.parameter_id = p.parameter_id"
         " WHERE s.device_id = :device_id AND p.code = :pcode AND m.is_valid = true AND m.observed_at >= :start AND m.observed_at < :end"
+        " AND COALESCE(s.acquisition_metadata->>'acquisition_method', '') <> 'map_processed_history'"
         " GROUP BY m.sensor_id, hr"
         "), sensor_avg AS ("
         " SELECT sensor_id, avg(hr_avg) AS sensor_avg, count(*) AS n_hours FROM hourly GROUP BY sensor_id HAVING count(*) >= :min_hours"
@@ -64,12 +52,8 @@ def get_pm25_daily_24h_avg(session: Session, device_id: int, local_date: datetim
     tz_name: str = tz_row[0]
 
     local_day = local_date.date()
-                                                                                                    
     effective_min_hours = 0
 
-                                                                                                
-                                                                                          
-                                           
     sql = text(
         "WITH hourly AS ("
         " SELECT m.sensor_id, date_trunc('hour', (m.observed_at AT TIME ZONE :tz)) AS hr_local, avg(m.value) AS hr_avg"
@@ -77,6 +61,7 @@ def get_pm25_daily_24h_avg(session: Session, device_id: int, local_date: datetim
         " JOIN sensor s ON m.sensor_id = s.sensor_id"
         " JOIN parameter p ON s.parameter_id = p.parameter_id"
         " WHERE s.device_id = :device_id AND p.code = :pcode AND m.is_valid = true AND date_trunc('day', (m.observed_at AT TIME ZONE :tz)) = :local_day"
+        " AND COALESCE(s.acquisition_metadata->>'acquisition_method', '') <> 'map_processed_history'"
         " GROUP BY m.sensor_id, hr_local"
         "), sensor_avg AS ("
         " SELECT sensor_id, avg(hr_avg) AS sensor_avg, count(*) AS n_hours FROM hourly GROUP BY sensor_id HAVING count(*) >= :min_hours"

@@ -2,6 +2,7 @@
 
 import { API_BASE } from '../apiBase';
 import type { RefreshResponse, AuthUser, LoginResponse, LoginCredentials } from './types';
+import { ApiError, apiErrorFromResponse } from '../apiError';
 
 
 let currentAccessToken: string | null = null;
@@ -87,17 +88,57 @@ export async function fetchCurrentUser(accessToken: string): Promise<AuthUser | 
   }
 }
 
+export async function acceptPasskeySession(token: string): Promise<void> {
+  const user = await fetchCurrentUser(token);
+  if (!user) throw new Error('current_user_unavailable');
+  setAccessToken(token);
+  onAuthStateChange?.(token, user);
+}
+
+/** Publish backend identity without duplicating its display-name rules. */
+export async function refreshCurrentUser(): Promise<void> {
+  const token = getAccessToken();
+  if (!token) throw new Error('current_user_unavailable');
+  const user = await fetchCurrentUser(token);
+  if (!user) throw new ApiError({ status: 503, errorCode: 'account_refresh_failed' });
+  onAuthStateChange?.(token, user);
+}
+
+export async function updateCurrentUserProfile(first_name: string, last_name: string): Promise<void> {
+  const user = await authFetchJson<AuthUser>('/auth/me', {
+    method: 'PATCH', headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ first_name, last_name }),
+  });
+  onAuthStateChange?.(getAccessToken(), user);
+}
+
+/** Store the replacement immediately: the previous refresh session is revoked. */
+export async function acceptAccountSession(token: string): Promise<void> {
+  setAccessToken(token);
+  await refreshCurrentUser();
+}
+
+export async function updateCurrentUserPreferences(
+  preferredLanguageCode: 'en' | 'es' | null,
+): Promise<AuthUser> {
+  return authFetchJson<AuthUser>('/auth/me/preferences', {
+    method: 'PATCH',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ preferred_language_code: preferredLanguageCode }),
+  });
+}
+
 
 export type LoginResult =
   | { success: true; token: string }
   | { success: false; error: string; statusCode?: number };
 
 
-export async function login(credentials: LoginCredentials): Promise<LoginResult> {
+export async function login(credentials: LoginCredentials, receiveRefreshCookie = true): Promise<LoginResult> {
   try {
     const response = await fetch(`${API_BASE}/auth/login`, {
       method: 'POST',
-      credentials: 'include', // To receive the refresh cookie
+      credentials: receiveRefreshCookie ? 'include' : 'omit',
       headers: {
         'Content-Type': 'application/json',
       },
@@ -105,7 +146,7 @@ export async function login(credentials: LoginCredentials): Promise<LoginResult>
     });
 
     if (!response.ok) {
-      let errorMessage = 'Login failed';
+      let errorMessage = 'login_failed';
       try {
         const errorData = await response.json();
         errorMessage = errorData.detail || errorMessage;
@@ -119,7 +160,7 @@ export async function login(credentials: LoginCredentials): Promise<LoginResult>
     const data: LoginResponse = await response.json();
     return { success: true, token: data.access_token };
   } catch (err) {
-    const errorMessage = err instanceof Error ? err.message : 'Network error';
+    const errorMessage = err instanceof Error ? err.message : 'network_error';
     return { success: false, error: errorMessage };
   }
 }
@@ -217,18 +258,7 @@ export async function authFetch(path: string, init?: RequestInit): Promise<Respo
 export async function authFetchJson<T = unknown>(path: string, init?: RequestInit): Promise<T> {
   const response = await authFetch(path, init);
   
-  if (!response.ok) {
-    let errorMessage = `Request failed: ${response.status} ${response.statusText}`;
-    try {
-      const errorData = await response.json();
-      if (errorData.detail) {
-        errorMessage = errorData.detail;
-      }
-    } catch {
-      // Use default error message
-    }
-    throw new Error(errorMessage);
-  }
+  if (!response.ok) throw await apiErrorFromResponse(response);
 
   return response.json();
 }

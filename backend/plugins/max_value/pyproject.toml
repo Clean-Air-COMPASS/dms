@@ -1,0 +1,19 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "compassaq-max-value"
+version = "1.0.0"
+description = "CompassAQ reference deployment-installed maximum-value QC plugin"
+readme = "README.md"
+requires-python = ">=3.11"
+authors = [
+  {name = "CompassAQ maintainers"},
+]
+
+[project.entry-points."aq_platform.qaqc_plugins"]
+max_value = "compassaq_max_value.plugin:plugin"
+
+[tool.setuptools.packages.find]
+where = ["src"]

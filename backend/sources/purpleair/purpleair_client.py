@@ -15,6 +15,12 @@ import os
 
 import httpx                                                                
 from pydantic import TypeAdapter                                                                   
+from db import SessionLocal
+from services.provider_safety import (
+    assert_paid_provider_http_authorized,
+    paid_provider_request_scope,
+    require_purpleair_import_authorization,
+)
 
 
 
@@ -28,6 +34,7 @@ class APIClient:
         self.http_429_sleep_seconds = 0.0
 
     def get(self, url: str, **kwargs) -> httpx.Response:
+        assert_paid_provider_http_authorized("PurpleAir")
         headers = dict(self._default_headers)
         if kwargs.get("headers"):
             headers.update(kwargs["headers"])
@@ -108,6 +115,8 @@ class APIClient:
 
 @contextmanager
 def get_api_client(name: str = "PurpleAir") -> Iterator[APIClient]:
+    with SessionLocal() as safety_session:
+        authorization = require_purpleair_import_authorization(safety_session)
                                                                              
     api_key = None
     try:
@@ -120,8 +129,9 @@ def get_api_client(name: str = "PurpleAir") -> Iterator[APIClient]:
     if not api_key:
         raise RuntimeError("PURPLEAIR_API_KEY is required for PurpleAir ingestion")
     headers = {"X-API-Key": api_key}
-    with httpx.Client(timeout=30.0) as raw_client:
-        yield APIClient(raw_client, default_headers=headers)
+    with paid_provider_request_scope(authorization):
+        with httpx.Client(timeout=30.0) as raw_client:
+            yield APIClient(raw_client, default_headers=headers)
 
 
 def fetch_json(client: APIClient, url: str, params: dict | None = None, headers: dict | None = None, schema: Optional[Type[Any]] = None) -> Any | None:

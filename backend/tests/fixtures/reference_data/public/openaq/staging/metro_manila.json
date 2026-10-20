@@ -1,0 +1,5057 @@
+{
+  "locations": [
+    {
+      "coordinates": {
+        "latitude": 14.635,
+        "longitude": 121.08
+      },
+      "country": {
+        "code": "PH",
+        "id": 183,
+        "name": "Philippines"
+      },
+      "datetimeFirst": null,
+      "datetimeLast": null,
+      "distance": 11043.56859978,
+      "id": 11568,
+      "instruments": [
+        {
+          "id": 2,
+          "name": "Government Monitor"
+        }
+      ],
+      "isMobile": false,
+      "isMonitor": true,
+      "licenses": [],
+      "locality": null,
+      "name": "SPARTAN - Manila Observatory",
+      "owner": {
+        "id": 4,
+        "name": "Unknown Governmental Organization"
+      },
+      "provider": {
+        "id": 226,
+        "name": "Spartan"
+      },
+      "sensors": [
+        {
+          "id": 39285,
+          "name": "pm25 \u00b5g/m\u00b3",
+          "parameter": {
+            "displayName": "PM2.5",
+            "id": 2,
+            "name": "pm25",
+            "units": "\u00b5g/m\u00b3"
+          }
+        }
+      ],
+      "timezone": "Asia/Manila"
+    },
+    {
+      "coordinates": {
+        "latitude": 14.57711,
+        "longitude": 120.9778
+      },
+      "country": {
+        "code": "PH",
+        "id": 183,
+        "name": "Philippines"
+      },
+      "datetimeFirst": {
+        "local": "2023-09-07T05:00:00+08:00",
+        "utc": "2023-09-06T21:00:00Z"
+      },
+      "datetimeLast": {
+        "local": "2026-02-06T02:00:00+08:00",
+        "utc": "2026-02-05T18:00:00Z"
+      },
+      "distance": 2571.53120816,
+      "id": 1543132,
+      "instruments": [
+        {
+          "id": 2,
+          "name": "Government Monitor"
+        }
+      ],
+      "isMobile": false,
+      "isMonitor": true,
+      "licenses": [
+        {
+          "attribution": {
+            "name": "Unknown Governmental Organization",
+            "url": null
+          },
+          "dateFrom": "2016-01-30",
+          "dateTo": null,
+          "id": 33,
+          "name": "US Public Domain"
+        }
+      ],
+      "locality": "N/A",
+      "name": "Manila",
+      "owner": {
+        "id": 4,
+        "name": "Unknown Governmental Organization"
+      },
+      "provider": {
+        "id": 119,
+        "name": "AirNow"
+      },
+      "sensors": [
+        {
+          "id": 6909373,
+          "name": "pm25 \u00b5g/m\u00b3",
+          "parameter": {
+            "displayName": "PM2.5",
+            "id": 2,
+            "name": "pm25",
+            "units": "\u00b5g/m\u00b3"
+          }
+        }
+      ],
+      "timezone": "Asia/Manila"
+    },
+    {
+      "coordinates": {
+        "latitude": 14.536036,
+        "longitude": 120.985543
+      },
+      "country": {
+        "code": "PH",
+        "id": 183,
+        "name": "Philippines"
+      },
+      "datetimeFirst": {
+        "local": "2023-11-16T18:00:00+08:00",
+        "utc": "2023-11-16T10:00:00Z"
+      },
+      "datetimeLast": {
+        "local": "2023-12-29T22:00:00+08:00",
+        "utc": "2023-12-29T14:00:00Z"
+      },
+      "distance": 7023.43754965,
+      "id": 1845518,
+      "instruments": [
+        {
+          "id": 7,
+          "name": "Unknown AirGradient Sensor"
+        }
+      ],
+      "isMobile": false,
+      "isMonitor": false,
+      "licenses": [
+        {
+          "attribution": {
+            "name": "Unknown Person",
+            "url": null
+          },
+          "dateFrom": "2023-07-15",
+          "dateTo": null,
+          "id": 41,
+          "name": "CC BY 4.0"
+        }
+      ],
+      "locality": null,
+      "name": "Mall of Asia Sensor",
+      "owner": {
+        "id": 11509,
+        "name": "Unknown Person"
+      },
+      "provider": {
+        "id": 66,
+        "name": "AirGradient"
+      },
+      "sensors": [
+        {
+          "id": 7411741,
+          "name": "pm25 \u00b5g/m\u00b3",
+          "parameter": {
+            "displayName": "PM2.5",
+            "id": 2,
+            "name": "pm25",
+            "units": "\u00b5g/m\u00b3"
+          }
+        },
+        {
+          "id": 7411742,
+          "name": "temperature c",
+          "parameter": {
+            "displayName": "Temperature (C)",
+            "id": 100,
+            "name": "temperature",
+            "units": "c"
+          }
+        }
+      ],
+      "timezone": "Asia/Manila"
+    },
+    {
+      "coordinates": {
+        "latitude": 14.639479,
+        "longitude": 121.032469
+      },
+      "country": {
+        "code": "PH",
+        "id": 183,
+        "name": "Philippines"
+      },
+      "datetimeFirst": {
+        "local": "2023-11-16T22:00:00+08:00",
+        "utc": "2023-11-16T14:00:00Z"
+      },
+      "datetimeLast": {
+        "local": "2024-01-31T16:00:00+08:00",
+        "utc": "2024-01-31T08:00:00Z"
+      },
+      "distance": 6827.2641711,
+      "id": 1846215,
+      "instruments": [
+        {
+          "id": 7,
+          "name": "Unknown AirGradient Sensor"
+        }
+      ],
+      "isMobile": false,
+      "isMonitor": false,
+      "licenses": [
+        {
+          "attribution": {
+            "name": "Unknown Person",
+            "url": null
+          },
+          "dateFrom": "2023-07-15",
+          "dateTo": null,
+          "id": 41,
+          "name": "CC BY 4.0"
+        }
+      ],
+      "locality": null,
+      "name": "South Triangle, Quezon City",
+      "owner": {
+        "id": 11509,
+        "name": "Unknown Person"
+      },
+      "provider": {
+        "id": 66,
+        "name": "AirGradient"
+      },
+      "sensors": [
+        {
+          "id": 7412719,
+          "name": "temperature c",
+          "parameter": {
+            "displayName": "Temperature (C)",
+            "id": 100,
+            "name": "temperature",
+            "units": "c"
+          }
+        },
+        {
+          "id": 7412720,
+          "name": "pm25 \u00b5g/m\u00b3",
+          "parameter": {
+            "displayName": "PM2.5",
+            "id": 2,
+            "name": "pm25",
+            "units": "\u00b5g/m\u00b3"
+          }
+        }
+      ],
+      "timezone": "Asia/Manila"
+    },
+    {
+      "coordinates": {
+        "latitude": 14.58594,
+        "longitude": 121.02932
+      },
+      "country": {
+        "code": "PH",
+        "id": 183,
+        "name": "Philippines"
+      },
+      "datetimeFirst": {
+        "local": "2024-04-25T00:00:00+08:00",
+        "utc": "2024-04-24T16:00:00Z"
+      },
+      "datetimeLast": {
+        "local": "2024-09-18T21:06:00+08:00",
+        "utc": "2024-09-18T13:06:00Z"
+      },
+      "distance": 5087.98153435,
+      "id": 2812750,
+      "instruments": [
+        {
+          "id": 4,
+          "name": "Clarity Sensor"
+        }
+      ],
+      "isMobile": false,
+      "isMonitor": false,
+      "licenses": [
+        {
+          "attribution": {
+            "name": "Clarity",
+            "url": null
+          },
+          "dateFrom": "2021-10-20",
+          "dateTo": null,
+          "id": 38,
+          "name": "CC0 1.0"
+        }
+      ],
+      "locality": null,
+      "name": "Demo Unit 1",
+      "owner": {
+        "id": 9,
+        "name": "Clarity"
+      },
+      "provider": {
+        "id": 166,
+        "name": "Clarity"
+      },
+      "sensors": [
+        {
+          "id": 8967443,
+          "name": "pm25 \u00b5g/m\u00b3",
+          "parameter": {
+            "displayName": "PM2.5",
+            "id": 2,
+            "name": "pm25",
+            "units": "\u00b5g/m\u00b3"
+          }
+        }
+      ],
+      "timezone": "Asia/Manila"
+    },
+    {
+      "coordinates": {
+        "latitude": 14.58853,
+        "longitude": 121.05822
+      },
+      "country": {
+        "code": "PH",
+        "id": 183,
+        "name": "Philippines"
+      },
+      "datetimeFirst": {
+        "local": "2024-08-13T11:05:59+08:00",
+        "utc": "2024-08-13T03:05:59Z"
+      },
+      "datetimeLast": {
+        "local": "2026-08-11T06:58:21+08:00",
+        "utc": "2026-08-10T22:58:21Z"
+      },
+      "distance": 8067.53812863,
+      "id": 3015285,
+      "instruments": [
+        {
+          "id": 4,
+          "name": "Clarity Sensor"
+        }
+      ],
+      "isMobile": false,
+      "isMonitor": false,
+      "licenses": [
+        {
+          "attribution": {
+            "name": "Clarity",
+            "url": null
+          },
+          "dateFrom": "2021-10-20",
+          "dateTo": null,
+          "id": 38,
+          "name": "CC0 1.0"
+        }
+      ],
+      "locality": null,
+      "name": "Ortigas",
+      "owner": {
+        "id": 9,
+        "name": "Clarity"
+      },
+      "provider": {
+        "id": 166,
+        "name": "Clarity"
+      },
+      "sensors": [
+        {
+          "id": 10253230,
+          "name": "pm25 \u00b5g/m\u00b3",
+          "parameter": {
+            "displayName": "PM2.5",
+            "id": 2,
+            "name": "pm25",
+            "units": "\u00b5g/m\u00b3"
+          }
+        }
+      ],
+      "timezone": "Asia/Manila"
+    },
+    {
+      "coordinates": {
+        "latitude": 14.63525,
+        "longitude": 121.07784
+      },
+      "country": {
+        "code": "PH",
+        "id": 183,
+        "name": "Philippines"
+      },
+      "datetimeFirst": {
+        "local": "2024-08-22T12:16:37+08:00",
+        "utc": "2024-08-22T04:16:37Z"
+      },
+      "datetimeLast": {
+        "local": "2026-08-11T07:01:47+08:00",
+        "utc": "2026-08-10T23:01:47Z"
+      },
+      "distance": 10836.44623933,
+      "id": 3027756,
+      "instruments": [
+        {
+          "id": 4,
+          "name": "Clarity Sensor"
+        }
+      ],
+      "isMobile": false,
+      "isMonitor": false,
+      "licenses": [
+        {
+          "attribution": {
+            "name": "Clarity",
+            "url": null
+          },
+          "dateFrom": "2021-10-20",
+          "dateTo": null,
+          "id": 38,
+          "name": "CC0 1.0"
+        }
+      ],
+      "locality": null,
+      "name": "NASA GSFC Rutgers Calib. N12",
+      "owner": {
+        "id": 9,
+        "name": "Clarity"
+      },
+      "provider": {
+        "id": 166,
+        "name": "Clarity"
+      },
+      "sensors": [
+        {
+          "id": 10346948,
+          "name": "pm25 \u00b5g/m\u00b3",
+          "parameter": {
+            "displayName": "PM2.5",
+            "id": 2,
+            "name": "pm25",
+            "units": "\u00b5g/m\u00b3"
+          }
+        }
+      ],
+      "timezone": "Asia/Manila"
+    },
+    {
+      "coordinates": {
+        "latitude": 14.5235999,
+        "longitude": 121.1645249
+      },
+      "country": {
+        "code": "PH",
+        "id": 183,
+        "name": "Philippines"
+      },
+      "datetimeFirst": {
+        "local": "2025-01-11T15:00:00+08:00",
+        "utc": "2025-01-11T07:00:00Z"
+      },
+      "datetimeLast": {
+        "local": "2025-07-13T08:00:00+08:00",
+        "utc": "2025-07-13T00:00:00Z"
+      },
+      "distance": 21169.93096787,
+      "id": 3364093,
+      "instruments": [
+        {
+          "id": 7,
+          "name": "Unknown AirGradient Sensor"
+        }
+      ],
+      "isMobile": false,
+      "isMonitor": false,
+      "licenses": [
+        {
+          "attribution": {
+            "name": "Unknown Person",
+            "url": null
+          },
+          "dateFrom": "2023-07-15",
+          "dateTo": null,
+          "id": 41,
+          "name": "CC BY 4.0"
+        }
+      ],
+      "locality": null,
+      "name": "Binangonan",
+      "owner": {
+        "id": 11509,
+        "name": "Unknown Person"
+      },
+      "provider": {
+        "id": 66,
+        "name": "AirGradient"
+      },
+      "sensors": [
+        {
+          "id": 11990313,
+          "name": "pm1 \u00b5g/m\u00b3",
+          "parameter": {
+            "displayName": "PM1",
+            "id": 19,
+            "name": "pm1",
+            "units": "\u00b5g/m\u00b3"
+          }
+        },
+        {
+          "id": 11990315,
+          "name": "pm25 \u00b5g/m\u00b3",
+          "parameter": {
+            "displayName": "PM2.5",
+            "id": 2,
+            "name": "pm25",
+            "units": "\u00b5g/m\u00b3"
+          }
+        },
+        {
+          "id": 11990319,
+          "name": "relativehumidity %",
+          "parameter": {
+            "displayName": "RH",
+            "id": 98,
+            "name": "relativehumidity",
+            "units": "%"
+          }
+        },
+        {
+          "id": 11990335,
+          "name": "pm10 \u00b5g/m\u00b3",
+          "parameter": {
+            "displayName": "PM10",
+            "id": 1,
+            "name": "pm10",
+            "units": "\u00b5g/m\u00b3"
+          }
+        },
+        {
+          "id": 11990343,
+          "name": "um003 particles/cm\u00b3",
+          "parameter": {
+            "displayName": "PM0.3 count",
+            "id": 125,
+            "name": "um003",
+            "units": "particles/cm\u00b3"
+          }
+        },
+        {
+          "id": 11990345,
+          "name": "temperature c",
+          "parameter": {
+            "displayName": "Temperature (C)",
+            "id": 100,
+            "name": "temperature",
+            "units": "c"
+          }
+        }
+      ],
+      "timezone": "Asia/Manila"
+    },
+    {
+      "coordinates": {
+        "latitude": 14.5377,
+        "longitude": 121.00094
+      },
+      "country": {
+        "code": "PH",
+        "id": 183,
+        "name": "Philippines"
+      },
+      "datetimeFirst": {
+        "local": "2025-01-16T07:06:43+08:00",
+        "utc": "2025-01-15T23:06:43Z"
+      },
+      "datetimeLast": {
+        "local": "2026-05-01T13:04:55+08:00",
+        "utc": "2026-05-01T05:04:55Z"
+      },
+      "distance": 7071.79086173,
+      "id": 3370071,
+      "instruments": [
+        {
+          "id": 4,
+          "name": "Clarity Sensor"
+        }
+      ],
+      "isMobile": false,
+      "isMonitor": false,
+      "licenses": [
+        {
+          "attribution": {
+            "name": "Clarity",
+            "url": null
+          },
+          "dateFrom": "2021-10-20",
+          "dateTo": null,
+          "id": 38,
+          "name": "CC0 1.0"
+        }
+      ],
+      "locality": null,
+      "name": "Pasay-Taft",
+      "owner": {
+        "id": 9,
+        "name": "Clarity"
+      },
+      "provider": {
+        "id": 166,
+        "name": "Clarity"
+      },
+      "sensors": [
+        {
+          "id": 12034965,
+          "name": "pm25 \u00b5g/m\u00b3",
+          "parameter": {
+            "displayName": "PM2.5",
+            "id": 2,
+            "name": "pm25",
+            "units": "\u00b5g/m\u00b3"
+          }
+        }
+      ],
+      "timezone": "Asia/Manila"
+    },
+    {
+      "coordinates": {
+        "latitude": 14.61071,
+        "longitude": 121.05484
+      },
+      "country": {
+        "code": "PH",
+        "id": 183,
+        "name": "Philippines"
+      },
+      "datetimeFirst": {
+        "local": "2025-01-16T07:04:42+08:00",
+        "utc": "2025-01-15T23:04:42Z"
+      },
+      "datetimeLast": {
+        "local": "2025-05-22T11:37:30+08:00",
+        "utc": "2025-05-22T03:37:30Z"
+      },
+      "distance": 7711.53112124,
+      "id": 3370072,
+      "instruments": [
+        {
+          "id": 4,
+          "name": "Clarity Sensor"
+        }
+      ],
+      "isMobile": false,
+      "isMonitor": false,
+      "licenses": [
+        {
+          "attribution": {
+            "name": "Clarity",
+            "url": null
+          },
+          "dateFrom": "2021-10-20",
+          "dateTo": null,
+          "id": 38,
+          "name": "CC0 1.0"
+        }
+      ],
+      "locality": null,
+      "name": "Boni Serrano",
+      "owner": {
+        "id": 9,
+        "name": "Clarity"
+      },
+      "provider": {
+        "id": 166,
+        "name": "Clarity"
+      },
+      "sensors": [
+        {
+          "id": 12034966,
+          "name": "pm25 \u00b5g/m\u00b3",
+          "parameter": {
+            "displayName": "PM2.5",
+            "id": 2,
+            "name": "pm25",
+            "units": "\u00b5g/m\u00b3"
+          }
+        }
+      ],
+      "timezone": "Asia/Manila"
+    },
+    {
+      "coordinates": {
+        "latitude": 14.58455,
+        "longitude": 121.01877
+      },
+      "country": {
+        "code": "PH",
+        "id": 183,
+        "name": "Philippines"
+      },
+      "datetimeFirst": {
+        "local": "2025-01-16T08:05:21+08:00",
+        "utc": "2025-01-16T00:05:21Z"
+      },
+      "datetimeLast": {
+        "local": "2026-08-11T07:01:53+08:00",
+        "utc": "2026-08-10T23:01:53Z"
+      },
+      "distance": 4075.73594638,
+      "id": 3370151,
+      "instruments": [
+        {
+          "id": 4,
+          "name": "Clarity Sensor"
+        }
+      ],
+      "isMobile": false,
+      "isMonitor": false,
+      "licenses": [
+        {
+          "attribution": {
+            "name": "Clarity",
+            "url": null
+          },
+          "dateFrom": "2021-10-20",
+          "dateTo": null,
+          "id": 38,
+          "name": "CC0 1.0"
+        }
+      ],
+      "locality": null,
+      "name": "Mandaluyong City",
+      "owner": {
+        "id": 9,
+        "name": "Clarity"
+      },
+      "provider": {
+        "id": 166,
+        "name": "Clarity"
+      },
+      "sensors": [
+        {
+          "id": 12035571,
+          "name": "pm25 \u00b5g/m\u00b3",
+          "parameter": {
+            "displayName": "PM2.5",
+            "id": 2,
+            "name": "pm25",
+            "units": "\u00b5g/m\u00b3"
+          }
+        }
+      ],
+      "timezone": "Asia/Manila"
+    },
+    {
+      "coordinates": {
+        "latitude": 14.47822,
+        "longitude": 120.98664
+      },
+      "country": {
+        "code": "PH",
+        "id": 183,
+        "name": "Philippines"
+      },
+      "datetimeFirst": {
+        "local": "2025-04-07T21:04:13+08:00",
+        "utc": "2025-04-07T13:04:13Z"
+      },
+      "datetimeLast": {
+        "local": "2026-05-19T02:06:54+08:00",
+        "utc": "2026-05-18T18:06:54Z"
+      },
+      "distance": 13421.51559714,
+      "id": 3990424,
+      "instruments": [
+        {
+          "id": 4,
+          "name": "Clarity Sensor"
+        }
+      ],
+      "isMobile": false,
+      "isMonitor": false,
+      "licenses": [
+        {
+          "attribution": {
+            "name": "Clarity",
+            "url": null
+          },
+          "dateFrom": "2021-10-20",
+          "dateTo": null,
+          "id": 38,
+          "name": "CC0 1.0"
+        }
+      ],
+      "locality": null,
+      "name": "C5 Ext. Las Pinas",
+      "owner": {
+        "id": 9,
+        "name": "Clarity"
+      },
+      "provider": {
+        "id": 166,
+        "name": "Clarity"
+      },
+      "sensors": [
+        {
+          "id": 12707935,
+          "name": "pm25 \u00b5g/m\u00b3",
+          "parameter": {
+            "displayName": "PM2.5",
+            "id": 2,
+            "name": "pm25",
+            "units": "\u00b5g/m\u00b3"
+          }
+        }
+      ],
+      "timezone": "Asia/Manila"
+    },
+    {
+      "coordinates": {
+        "latitude": 14.57863,
+        "longitude": 121.05675
+      },
+      "country": {
+        "code": "PH",
+        "id": 183,
+        "name": "Philippines"
+      },
+      "datetimeFirst": {
+        "local": "2025-04-07T21:03:35+08:00",
+        "utc": "2025-04-07T13:03:35Z"
+      },
+      "datetimeLast": {
+        "local": "2026-08-11T07:05:31+08:00",
+        "utc": "2026-08-10T23:05:31Z"
+      },
+      "distance": 8151.40142307,
+      "id": 3990425,
+      "instruments": [
+        {
+          "id": 4,
+          "name": "Clarity Sensor"
+        }
+      ],
+      "isMobile": false,
+      "isMonitor": false,
+      "licenses": [
+        {
+          "attribution": {
+            "name": "Clarity",
+            "url": null
+          },
+          "dateFrom": "2021-10-20",
+          "dateTo": null,
+          "id": 38,
+          "name": "CC0 1.0"
+        }
+      ],
+      "locality": null,
+      "name": "Along Shaw Blvd.",
+      "owner": {
+        "id": 9,
+        "name": "Clarity"
+      },
+      "provider": {
+        "id": 166,
+        "name": "Clarity"
+      },
+      "sensors": [
+        {
+          "id": 12707934,
+          "name": "pm25 \u00b5g/m\u00b3",
+          "parameter": {
+            "displayName": "PM2.5",
+            "id": 2,
+            "name": "pm25",
+            "units": "\u00b5g/m\u00b3"
+          }
+        }
+      ],
+      "timezone": "Asia/Manila"
+    },
+    {
+      "coordinates": {
+        "latitude": 14.45627,
+        "longitude": 121.04569
+      },
+      "country": {
+        "code": "PH",
+        "id": 183,
+        "name": "Philippines"
+      },
+      "datetimeFirst": {
+        "local": "2025-04-07T21:02:15+08:00",
+        "utc": "2025-04-07T13:02:15Z"
+      },
+      "datetimeLast": {
+        "local": "2026-08-11T07:02:32+08:00",
+        "utc": "2026-08-10T23:02:32Z"
+      },
+      "distance": 17177.60060718,
+      "id": 3990426,
+      "instruments": [
+        {
+          "id": 4,
+          "name": "Clarity Sensor"
+        }
+      ],
+      "isMobile": false,
+      "isMonitor": false,
+      "licenses": [
+        {
+          "attribution": {
+            "name": "Clarity",
+            "url": null
+          },
+          "dateFrom": "2021-10-20",
+          "dateTo": null,
+          "id": 38,
+          "name": "CC0 1.0"
+        }
+      ],
+      "locality": null,
+      "name": "Near Sucat Interchange/Exit",
+      "owner": {
+        "id": 9,
+        "name": "Clarity"
+      },
+      "provider": {
+        "id": 166,
+        "name": "Clarity"
+      },
+      "sensors": [
+        {
+          "id": 12707936,
+          "name": "pm25 \u00b5g/m\u00b3",
+          "parameter": {
+            "displayName": "PM2.5",
+            "id": 2,
+            "name": "pm25",
+            "units": "\u00b5g/m\u00b3"
+          }
+        }
+      ],
+      "timezone": "Asia/Manila"
+    },
+    {
+      "coordinates": {
+        "latitude": 14.56637517989103,
+        "longitude": 120.9922368328637
+      },
+      "country": {
+        "code": "PH",
+        "id": 183,
+        "name": "Philippines"
+      },
+      "datetimeFirst": {
+        "local": "2025-04-14T18:00:00+08:00",
+        "utc": "2025-04-14T10:00:00Z"
+      },
+      "datetimeLast": {
+        "local": "2026-01-01T13:00:00+08:00",
+        "utc": "2026-01-01T05:00:00Z"
+      },
+      "distance": 3766.01130251,
+      "id": 4049149,
+      "instruments": [
+        {
+          "id": 24,
+          "name": "AirGradient Open Air Generation 1 (O-1PST)"
+        }
+      ],
+      "isMobile": false,
+      "isMonitor": false,
+      "licenses": [
+        {
+          "attribution": {
+            "name": "EarthLab",
+            "url": null
+          },
+          "dateFrom": "2023-07-15",
+          "dateTo": null,
+          "id": 41,
+          "name": "CC BY 4.0"
+        }
+      ],
+      "locality": null,
+      "name": "STRC",
+      "owner": {
+        "id": 16757,
+        "name": "EarthLab"
+      },
+      "provider": {
+        "id": 66,
+        "name": "AirGradient"
+      },
+      "sensors": [
+        {
+          "id": 12775715,
+          "name": "pm1 \u00b5g/m\u00b3",
+          "parameter": {
+            "displayName": "PM1",
+            "id": 19,
+            "name": "pm1",
+            "units": "\u00b5g/m\u00b3"
+          }
+        },
+        {
+          "id": 12775716,
+          "name": "pm25 \u00b5g/m\u00b3",
+          "parameter": {
+            "displayName": "PM2.5",
+            "id": 2,
+            "name": "pm25",
+            "units": "\u00b5g/m\u00b3"
+          }
+        },
+        {
+          "id": 12775717,
+          "name": "relativehumidity %",
+          "parameter": {
+            "displayName": "RH",
+            "id": 98,
+            "name": "relativehumidity",
+            "units": "%"
+          }
+        },
+        {
+          "id": 12775718,
+          "name": "temperature c",
+          "parameter": {
+            "displayName": "Temperature (C)",
+            "id": 100,
+            "name": "temperature",
+            "units": "c"
+          }
+        },
+        {
+          "id": 12775719,
+          "name": "um003 particles/cm\u00b3",
+          "parameter": {
+            "displayName": "PM0.3 count",
+            "id": 125,
+            "name": "um003",
+            "units": "particles/cm\u00b3"
+          }
+        }
+      ],
+      "timezone": "Asia/Manila"
+    },
+    {
+      "coordinates": {
+        "latitude": 14.65744,
+        "longitude": 120.98362
+      },
+      "country": {
+        "code": "PH",
+        "id": 183,
+        "name": "Philippines"
+      },
+      "datetimeFirst": {
+        "local": "2025-05-26T13:06:11+08:00",
+        "utc": "2025-05-26T05:06:11Z"
+      },
+      "datetimeLast": {
+        "local": "2026-08-11T07:06:13+08:00",
+        "utc": "2026-08-10T23:06:13Z"
+      },
+      "distance": 6411.08351788,
+      "id": 4526987,
+      "instruments": [
+        {
+          "id": 4,
+          "name": "Clarity Sensor"
+        }
+      ],
+      "isMobile": false,
+      "isMonitor": false,
+      "licenses": [
+        {
+          "attribution": {
+            "name": "Clarity",
+            "url": null
+          },
+          "dateFrom": "2021-10-20",
+          "dateTo": null,
+          "id": 38,
+          "name": "CC0 1.0"
+        }
+      ],
+      "locality": null,
+      "name": "Monumento, Caloocan",
+      "owner": {
+        "id": 9,
+        "name": "Clarity"
+      },
+      "provider": {
+        "id": 166,
+        "name": "Clarity"
+      },
+      "sensors": [
+        {
+          "id": 13153271,
+          "name": "pm25 \u00b5g/m\u00b3",
+          "parameter": {
+            "displayName": "PM2.5",
+            "id": 2,
+            "name": "pm25",
+            "units": "\u00b5g/m\u00b3"
+          }
+        }
+      ],
+      "timezone": "Asia/Manila"
+    },
+    {
+      "coordinates": {
+        "latitude": 14.63842,
+        "longitude": 121.0767
+      },
+      "country": {
+        "code": "PH",
+        "id": 183,
+        "name": "Philippines"
+      },
+      "datetimeFirst": {
+        "local": "2025-05-26T13:01:40+08:00",
+        "utc": "2025-05-26T05:01:40Z"
+      },
+      "datetimeLast": {
+        "local": "2026-08-11T06:18:52+08:00",
+        "utc": "2026-08-10T22:18:52Z"
+      },
+      "distance": 10856.4169627,
+      "id": 4526988,
+      "instruments": [
+        {
+          "id": 4,
+          "name": "Clarity Sensor"
+        }
+      ],
+      "isMobile": false,
+      "isMonitor": false,
+      "licenses": [
+        {
+          "attribution": {
+            "name": "Clarity",
+            "url": null
+          },
+          "dateFrom": "2021-10-20",
+          "dateTo": null,
+          "id": 38,
+          "name": "CC0 1.0"
+        }
+      ],
+      "locality": null,
+      "name": "Near Katipunan Ave., Quezon City",
+      "owner": {
+        "id": 9,
+        "name": "Clarity"
+      },
+      "provider": {
+        "id": 166,
+        "name": "Clarity"
+      },
+      "sensors": [
+        {
+          "id": 13153272,
+          "name": "pm25 \u00b5g/m\u00b3",
+          "parameter": {
+            "displayName": "PM2.5",
+            "id": 2,
+            "name": "pm25",
+            "units": "\u00b5g/m\u00b3"
+          }
+        }
+      ],
+      "timezone": "Asia/Manila"
+    },
+    {
+      "coordinates": {
+        "latitude": 14.52917,
+        "longitude": 120.98988
+      },
+      "country": {
+        "code": "PH",
+        "id": 183,
+        "name": "Philippines"
+      },
+      "datetimeFirst": {
+        "local": "2025-05-26T13:07:55+08:00",
+        "utc": "2025-05-26T05:07:55Z"
+      },
+      "datetimeLast": {
+        "local": "2026-08-11T07:00:08+08:00",
+        "utc": "2026-08-10T23:00:08Z"
+      },
+      "distance": 7805.666645,
+      "id": 4526989,
+      "instruments": [
+        {
+          "id": 4,
+          "name": "Clarity Sensor"
+        }
+      ],
+      "isMobile": false,
+      "isMonitor": false,
+      "licenses": [
+        {
+          "attribution": {
+            "name": "Clarity",
+            "url": null
+          },
+          "dateFrom": "2021-10-20",
+          "dateTo": null,
+          "id": 38,
+          "name": "CC0 1.0"
+        }
+      ],
+      "locality": null,
+      "name": "Bradco Ave. cor Macapagal",
+      "owner": {
+        "id": 9,
+        "name": "Clarity"
+      },
+      "provider": {
+        "id": 166,
+        "name": "Clarity"
+      },
+      "sensors": [
+        {
+          "id": 13153270,
+          "name": "pm25 \u00b5g/m\u00b3",
+          "parameter": {
+            "displayName": "PM2.5",
+            "id": 2,
+            "name": "pm25",
+            "units": "\u00b5g/m\u00b3"
+          }
+        }
+      ],
+      "timezone": "Asia/Manila"
+    },
+    {
+      "coordinates": {
+        "latitude": 14.6354,
+        "longitude": 121.0779
+      },
+      "country": {
+        "code": "PH",
+        "id": 183,
+        "name": "Philippines"
+      },
+      "datetimeFirst": {
+        "local": "2025-05-30T15:00:00+08:00",
+        "utc": "2025-05-30T07:00:00Z"
+      },
+      "datetimeLast": {
+        "local": "2026-08-11T14:00:00+08:00",
+        "utc": "2026-08-11T06:00:00Z"
+      },
+      "distance": 10848.52747664,
+      "id": 4565934,
+      "instruments": [
+        {
+          "id": 22,
+          "name": "AirGradient ONE Generation 9 (I-9PSL-DE)"
+        }
+      ],
+      "isMobile": false,
+      "isMonitor": false,
+      "licenses": [
+        {
+          "attribution": {
+            "name": "Manila Observatory",
+            "url": null
+          },
+          "dateFrom": "2023-07-15",
+          "dateTo": null,
+          "id": 41,
+          "name": "CC BY 4.0"
+        }
+      ],
+      "locality": null,
+      "name": "Manila Observatory",
+      "owner": {
+        "id": 16824,
+        "name": "Manila Observatory"
+      },
+      "provider": {
+        "id": 66,
+        "name": "AirGradient"
+      },
+      "sensors": [
+        {
+          "id": 13191002,
+          "name": "pm1 \u00b5g/m\u00b3",
+          "parameter": {
+            "displayName": "PM1",
+            "id": 19,
+            "name": "pm1",
+            "units": "\u00b5g/m\u00b3"
+          }
+        },
+        {
+          "id": 13191003,
+          "name": "pm25 \u00b5g/m\u00b3",
+          "parameter": {
+            "displayName": "PM2.5",
+            "id": 2,
+            "name": "pm25",
+            "units": "\u00b5g/m\u00b3"
+          }
+        },
+        {
+          "id": 13191004,
+          "name": "relativehumidity %",
+          "parameter": {
+            "displayName": "RH",
+            "id": 98,
+            "name": "relativehumidity",
+            "units": "%"
+          }
+        },
+        {
+          "id": 13191005,
+          "name": "temperature c",
+          "parameter": {
+            "displayName": "Temperature (C)",
+            "id": 100,
+            "name": "temperature",
+            "units": "c"
+          }
+        },
+        {
+          "id": 13191006,
+          "name": "um003 particles/cm\u00b3",
+          "parameter": {
+            "displayName": "PM0.3 count",
+            "id": 125,
+            "name": "um003",
+            "units": "particles/cm\u00b3"
+          }
+        }
+      ],
+      "timezone": "Asia/Manila"
+    },
+    {
+      "coordinates": {
+        "latitude": 14.63666,
+        "longitude": 120.96414
+      },
+      "country": {
+        "code": "PH",
+        "id": 183,
+        "name": "Philippines"
+      },
+      "datetimeFirst": {
+        "local": "2025-06-19T21:12:25+08:00",
+        "utc": "2025-06-19T13:12:25Z"
+      },
+      "datetimeLast": {
+        "local": "2026-08-11T07:02:47+08:00",
+        "utc": "2026-08-10T23:02:47Z"
+      },
+      "distance": 4644.99524233,
+      "id": 4795495,
+      "instruments": [
+        {
+          "id": 4,
+          "name": "Clarity Sensor"
+        }
+      ],
+      "isMobile": false,
+      "isMonitor": false,
+      "licenses": [
+        {
+          "attribution": {
+            "name": "Clarity",
+            "url": null
+          },
+          "dateFrom": "2021-10-20",
+          "dateTo": null,
+          "id": 38,
+          "name": "CC0 1.0"
+        }
+      ],
+      "locality": null,
+      "name": "Barangay San Rafael Hall",
+      "owner": {
+        "id": 9,
+        "name": "Clarity"
+      },
+      "provider": {
+        "id": 166,
+        "name": "Clarity"
+      },
+      "sensors": [
+        {
+          "id": 13370885,
+          "name": "pm25 \u00b5g/m\u00b3",
+          "parameter": {
+            "displayName": "PM2.5",
+            "id": 2,
+            "name": "pm25",
+            "units": "\u00b5g/m\u00b3"
+          }
+        }
+      ],
+      "timezone": "Asia/Manila"
+    },
+    {
+      "coordinates": {
+        "latitude": 14.66963,
+        "longitude": 120.94676
+      },
+      "country": {
+        "code": "PH",
+        "id": 183,
+        "name": "Philippines"
+      },
+      "datetimeFirst": {
+        "local": "2025-06-19T21:10:40+08:00",
+        "utc": "2025-06-19T13:10:40Z"
+      },
+      "datetimeLast": {
+        "local": "2026-08-11T06:57:40+08:00",
+        "utc": "2026-08-10T22:57:40Z"
+      },
+      "distance": 8745.24259885,
+      "id": 4795496,
+      "instruments": [
+        {
+          "id": 4,
+          "name": "Clarity Sensor"
+        }
+      ],
+      "isMobile": false,
+      "isMonitor": false,
+      "licenses": [
+        {
+          "attribution": {
+            "name": "Clarity",
+            "url": null
+          },
+          "dateFrom": "2021-10-20",
+          "dateTo": null,
+          "id": 38,
+          "name": "CC0 1.0"
+        }
+      ],
+      "locality": null,
+      "name": "Gen. Luna St. corner Gov. Pascual Ave.",
+      "owner": {
+        "id": 9,
+        "name": "Clarity"
+      },
+      "provider": {
+        "id": 166,
+        "name": "Clarity"
+      },
+      "sensors": [
+        {
+          "id": 13370884,
+          "name": "pm25 \u00b5g/m\u00b3",
+          "parameter": {
+            "displayName": "PM2.5",
+            "id": 2,
+            "name": "pm25",
+            "units": "\u00b5g/m\u00b3"
+          }
+        }
+      ],
+      "timezone": "Asia/Manila"
+    },
+    {
+      "coordinates": {
+        "latitude": 14.69397,
+        "longitude": 121.00919
+      },
+      "country": {
+        "code": "PH",
+        "id": 183,
+        "name": "Philippines"
+      },
+      "datetimeFirst": {
+        "local": "2025-06-19T21:09:31+08:00",
+        "utc": "2025-06-19T13:09:31Z"
+      },
+      "datetimeLast": {
+        "local": "2026-08-11T07:05:35+08:00",
+        "utc": "2026-08-10T23:05:35Z"
+      },
+      "distance": 10793.7605694,
+      "id": 4795497,
+      "instruments": [
+        {
+          "id": 4,
+          "name": "Clarity Sensor"
+        }
+      ],
+      "isMobile": false,
+      "isMonitor": false,
+      "licenses": [
+        {
+          "attribution": {
+            "name": "Clarity",
+            "url": null
+          },
+          "dateFrom": "2021-10-20",
+          "dateTo": null,
+          "id": 38,
+          "name": "CC0 1.0"
+        }
+      ],
+      "locality": null,
+      "name": "3S Center Ugong",
+      "owner": {
+        "id": 9,
+        "name": "Clarity"
+      },
+      "provider": {
+        "id": 166,
+        "name": "Clarity"
+      },
+      "sensors": [
+        {
+          "id": 13370886,
+          "name": "pm25 \u00b5g/m\u00b3",
+          "parameter": {
+            "displayName": "PM2.5",
+            "id": 2,
+            "name": "pm25",
+            "units": "\u00b5g/m\u00b3"
+          }
+        }
+      ],
+      "timezone": "Asia/Manila"
+    },
+    {
+      "coordinates": {
+        "latitude": 14.69158,
+        "longitude": 120.97246
+      },
+      "country": {
+        "code": "PH",
+        "id": 183,
+        "name": "Philippines"
+      },
+      "datetimeFirst": {
+        "local": "2025-06-19T21:08:30+08:00",
+        "utc": "2025-06-19T13:08:30Z"
+      },
+      "datetimeLast": {
+        "local": "2026-07-06T16:52:36+08:00",
+        "utc": "2026-07-06T08:52:36Z"
+      },
+      "distance": 10266.41435921,
+      "id": 4795498,
+      "instruments": [
+        {
+          "id": 4,
+          "name": "Clarity Sensor"
+        }
+      ],
+      "isMobile": false,
+      "isMonitor": false,
+      "licenses": [
+        {
+          "attribution": {
+            "name": "Clarity",
+            "url": null
+          },
+          "dateFrom": "2021-10-20",
+          "dateTo": null,
+          "id": 38,
+          "name": "CC0 1.0"
+        }
+      ],
+      "locality": null,
+      "name": "Valenzuela CENRO (ARCA North)",
+      "owner": {
+        "id": 9,
+        "name": "Clarity"
+      },
+      "provider": {
+        "id": 166,
+        "name": "Clarity"
+      },
+      "sensors": [
+        {
+          "id": 13370881,
+          "name": "pm25 \u00b5g/m\u00b3",
+          "parameter": {
+            "displayName": "PM2.5",
+            "id": 2,
+            "name": "pm25",
+            "units": "\u00b5g/m\u00b3"
+          }
+        }
+      ],
+      "timezone": "Asia/Manila"
+    },
+    {
+      "coordinates": {
+        "latitude": 14.66916,
+        "longitude": 120.97576
+      },
+      "country": {
+        "code": "PH",
+        "id": 183,
+        "name": "Philippines"
+      },
+      "datetimeFirst": {
+        "local": "2025-06-19T21:06:20+08:00",
+        "utc": "2025-06-19T13:06:20Z"
+      },
+      "datetimeLast": {
+        "local": "2026-08-11T06:51:54+08:00",
+        "utc": "2026-08-10T22:51:54Z"
+      },
+      "distance": 7760.99014018,
+      "id": 4795499,
+      "instruments": [
+        {
+          "id": 4,
+          "name": "Clarity Sensor"
+        }
+      ],
+      "isMobile": false,
+      "isMonitor": false,
+      "licenses": [
+        {
+          "attribution": {
+            "name": "Clarity",
+            "url": null
+          },
+          "dateFrom": "2021-10-20",
+          "dateTo": null,
+          "id": 38,
+          "name": "CC0 1.0"
+        }
+      ],
+      "locality": null,
+      "name": "Malabon Action Center",
+      "owner": {
+        "id": 9,
+        "name": "Clarity"
+      },
+      "provider": {
+        "id": 166,
+        "name": "Clarity"
+      },
+      "sensors": [
+        {
+          "id": 13370882,
+          "name": "pm25 \u00b5g/m\u00b3",
+          "parameter": {
+            "displayName": "PM2.5",
+            "id": 2,
+            "name": "pm25",
+            "units": "\u00b5g/m\u00b3"
+          }
+        }
+      ],
+      "timezone": "Asia/Manila"
+    },
+    {
+      "coordinates": {
+        "latitude": 14.67508,
+        "longitude": 120.93989
+      },
+      "country": {
+        "code": "PH",
+        "id": 183,
+        "name": "Philippines"
+      },
+      "datetimeFirst": {
+        "local": "2025-06-19T21:03:48+08:00",
+        "utc": "2025-06-19T13:03:48Z"
+      },
+      "datetimeLast": {
+        "local": "2026-08-11T06:53:16+08:00",
+        "utc": "2026-08-10T22:53:16Z"
+      },
+      "distance": 9629.06022989,
+      "id": 4795500,
+      "instruments": [
+        {
+          "id": 4,
+          "name": "Clarity Sensor"
+        }
+      ],
+      "isMobile": false,
+      "isMonitor": false,
+      "licenses": [
+        {
+          "attribution": {
+            "name": "Clarity",
+            "url": null
+          },
+          "dateFrom": "2021-10-20",
+          "dateTo": null,
+          "id": 38,
+          "name": "CC0 1.0"
+        }
+      ],
+      "locality": null,
+      "name": "Barangay Tanza 2 Hall",
+      "owner": {
+        "id": 9,
+        "name": "Clarity"
+      },
+      "provider": {
+        "id": 166,
+        "name": "Clarity"
+      },
+      "sensors": [
+        {
+          "id": 13370883,
+          "name": "pm25 \u00b5g/m\u00b3",
+          "parameter": {
+            "displayName": "PM2.5",
+            "id": 2,
+            "name": "pm25",
+            "units": "\u00b5g/m\u00b3"
+          }
+        }
+      ],
+      "timezone": "Asia/Manila"
+    },
+    {
+      "coordinates": {
+        "latitude": 14.56746,
+        "longitude": 121.03929
+      },
+      "country": {
+        "code": "PH",
+        "id": 183,
+        "name": "Philippines"
+      },
+      "datetimeFirst": {
+        "local": "2025-06-20T02:15:11+08:00",
+        "utc": "2025-06-19T18:15:11Z"
+      },
+      "datetimeLast": {
+        "local": "2026-08-11T06:55:17+08:00",
+        "utc": "2026-08-10T22:55:17Z"
+      },
+      "distance": 6914.24042297,
+      "id": 4797637,
+      "instruments": [
+        {
+          "id": 4,
+          "name": "Clarity Sensor"
+        }
+      ],
+      "isMobile": false,
+      "isMonitor": false,
+      "licenses": [
+        {
+          "attribution": {
+            "name": "Clarity",
+            "url": null
+          },
+          "dateFrom": "2021-10-20",
+          "dateTo": null,
+          "id": 38,
+          "name": "CC0 1.0"
+        }
+      ],
+      "locality": null,
+      "name": "J.P. Rizal Avenue corner Camia",
+      "owner": {
+        "id": 9,
+        "name": "Clarity"
+      },
+      "provider": {
+        "id": 166,
+        "name": "Clarity"
+      },
+      "sensors": [
+        {
+          "id": 13372946,
+          "name": "pm25 \u00b5g/m\u00b3",
+          "parameter": {
+            "displayName": "PM2.5",
+            "id": 2,
+            "name": "pm25",
+            "units": "\u00b5g/m\u00b3"
+          }
+        }
+      ],
+      "timezone": "Asia/Manila"
+    },
+    {
+      "coordinates": {
+        "latitude": 14.58655,
+        "longitude": 121.02549
+      },
+      "country": {
+        "code": "PH",
+        "id": 183,
+        "name": "Philippines"
+      },
+      "datetimeFirst": {
+        "local": "2025-06-20T02:14:31+08:00",
+        "utc": "2025-06-19T18:14:31Z"
+      },
+      "datetimeLast": {
+        "local": "2026-08-11T06:56:10+08:00",
+        "utc": "2026-08-10T22:56:10Z"
+      },
+      "distance": 4674.08607105,
+      "id": 4797638,
+      "instruments": [
+        {
+          "id": 4,
+          "name": "Clarity Sensor"
+        }
+      ],
+      "isMobile": false,
+      "isMonitor": false,
+      "licenses": [
+        {
+          "attribution": {
+            "name": "Clarity",
+            "url": null
+          },
+          "dateFrom": "2021-10-20",
+          "dateTo": null,
+          "id": 38,
+          "name": "CC0 1.0"
+        }
+      ],
+      "locality": null,
+      "name": "Mandaluyong Elementary School",
+      "owner": {
+        "id": 9,
+        "name": "Clarity"
+      },
+      "provider": {
+        "id": 166,
+        "name": "Clarity"
+      },
+      "sensors": [
+        {
+          "id": 13372963,
+          "name": "pm25 \u00b5g/m\u00b3",
+          "parameter": {
+            "displayName": "PM2.5",
+            "id": 2,
+            "name": "pm25",
+            "units": "\u00b5g/m\u00b3"
+          }
+        }
+      ],
+      "timezone": "Asia/Manila"
+    },
+    {
+      "coordinates": {
+        "latitude": 14.75097,
+        "longitude": 121.02042
+      },
+      "country": {
+        "code": "PH",
+        "id": 183,
+        "name": "Philippines"
+      },
+      "datetimeFirst": {
+        "local": "2025-06-20T02:14:16+08:00",
+        "utc": "2025-06-19T18:14:16Z"
+      },
+      "datetimeLast": {
+        "local": "2026-08-11T07:00:09+08:00",
+        "utc": "2026-08-10T23:00:09Z"
+      },
+      "distance": 17207.56975434,
+      "id": 4797639,
+      "instruments": [
+        {
+          "id": 4,
+          "name": "Clarity Sensor"
+        }
+      ],
+      "isMobile": false,
+      "isMonitor": false,
+      "licenses": [
+        {
+          "attribution": {
+            "name": "Clarity",
+            "url": null
+          },
+          "dateFrom": "2021-10-20",
+          "dateTo": null,
+          "id": 38,
+          "name": "CC0 1.0"
+        }
+      ],
+      "locality": null,
+      "name": "Caloocan Sports Complex",
+      "owner": {
+        "id": 9,
+        "name": "Clarity"
+      },
+      "provider": {
+        "id": 166,
+        "name": "Clarity"
+      },
+      "sensors": [
+        {
+          "id": 13372956,
+          "name": "pm25 \u00b5g/m\u00b3",
+          "parameter": {
+            "displayName": "PM2.5",
+            "id": 2,
+            "name": "pm25",
+            "units": "\u00b5g/m\u00b3"
+          }
+        }
+      ],
+      "timezone": "Asia/Manila"
+    },
+    {
+      "coordinates": {
+        "latitude": 14.5688,
+        "longitude": 121.01795
+      },
+      "country": {
+        "code": "PH",
+        "id": 183,
+        "name": "Philippines"
+      },
+      "datetimeFirst": {
+        "local": "2025-06-20T02:10:51+08:00",
+        "utc": "2025-06-19T18:10:51Z"
+      },
+      "datetimeLast": {
+        "local": "2026-08-11T07:02:53+08:00",
+        "utc": "2026-08-10T23:02:53Z"
+      },
+      "distance": 4976.35834461,
+      "id": 4797640,
+      "instruments": [
+        {
+          "id": 4,
+          "name": "Clarity Sensor"
+        }
+      ],
+      "isMobile": false,
+      "isMonitor": false,
+      "licenses": [
+        {
+          "attribution": {
+            "name": "Clarity",
+            "url": null
+          },
+          "dateFrom": "2021-10-20",
+          "dateTo": null,
+          "id": 38,
+          "name": "CC0 1.0"
+        }
+      ],
+      "locality": null,
+      "name": "Kalayaan Avenue  - South Avenue Intersection",
+      "owner": {
+        "id": 9,
+        "name": "Clarity"
+      },
+      "provider": {
+        "id": 166,
+        "name": "Clarity"
+      },
+      "sensors": [
+        {
+          "id": 13372965,
+          "name": "pm25 \u00b5g/m\u00b3",
+          "parameter": {
+            "displayName": "PM2.5",
+            "id": 2,
+            "name": "pm25",
+            "units": "\u00b5g/m\u00b3"
+          }
+        }
+      ],
+      "timezone": "Asia/Manila"
+    },
+    {
+      "coordinates": {
+        "latitude": 14.56383,
+        "longitude": 121.05797
+      },
+      "country": {
+        "code": "PH",
+        "id": 183,
+        "name": "Philippines"
+      },
+      "datetimeFirst": {
+        "local": "2025-06-20T02:11:27+08:00",
+        "utc": "2025-06-19T18:11:27Z"
+      },
+      "datetimeLast": {
+        "local": "2026-08-11T07:04:51+08:00",
+        "utc": "2026-08-10T23:04:51Z"
+      },
+      "distance": 8875.04418153,
+      "id": 4797641,
+      "instruments": [
+        {
+          "id": 4,
+          "name": "Clarity Sensor"
+        }
+      ],
+      "isMobile": false,
+      "isMonitor": false,
+      "licenses": [
+        {
+          "attribution": {
+            "name": "Clarity",
+            "url": null
+          },
+          "dateFrom": "2021-10-20",
+          "dateTo": null,
+          "id": 38,
+          "name": "CC0 1.0"
+        }
+      ],
+      "locality": null,
+      "name": "Unnamed (DNVBA1576 \u2192 AL739RG7)",
+      "owner": {
+        "id": 9,
+        "name": "Clarity"
+      },
+      "provider": {
+        "id": 166,
+        "name": "Clarity"
+      },
+      "sensors": [
+        {
+          "id": 13372958,
+          "name": "pm25 \u00b5g/m\u00b3",
+          "parameter": {
+            "displayName": "PM2.5",
+            "id": 2,
+            "name": "pm25",
+            "units": "\u00b5g/m\u00b3"
+          }
+        }
+      ],
+      "timezone": "Asia/Manila"
+    },
+    {
+      "coordinates": {
+        "latitude": 14.54848,
+        "longitude": 121.00053
+      },
+      "country": {
+        "code": "PH",
+        "id": 183,
+        "name": "Philippines"
+      },
+      "datetimeFirst": {
+        "local": "2025-06-20T02:11:06+08:00",
+        "utc": "2025-06-19T18:11:06Z"
+      },
+      "datetimeLast": {
+        "local": "2026-08-11T07:03:10+08:00",
+        "utc": "2026-08-10T23:03:10Z"
+      },
+      "distance": 5913.0082206,
+      "id": 4797642,
+      "instruments": [
+        {
+          "id": 4,
+          "name": "Clarity Sensor"
+        }
+      ],
+      "isMobile": false,
+      "isMonitor": false,
+      "licenses": [
+        {
+          "attribution": {
+            "name": "Clarity",
+            "url": null
+          },
+          "dateFrom": "2021-10-20",
+          "dateTo": null,
+          "id": 38,
+          "name": "CC0 1.0"
+        }
+      ],
+      "locality": null,
+      "name": "Santa Clara - Pasay City General Hospital",
+      "owner": {
+        "id": 9,
+        "name": "Clarity"
+      },
+      "provider": {
+        "id": 166,
+        "name": "Clarity"
+      },
+      "sensors": [
+        {
+          "id": 13372952,
+          "name": "pm25 \u00b5g/m\u00b3",
+          "parameter": {
+            "displayName": "PM2.5",
+            "id": 2,
+            "name": "pm25",
+            "units": "\u00b5g/m\u00b3"
+          }
+        }
+      ],
+      "timezone": "Asia/Manila"
+    },
+    {
+      "coordinates": {
+        "latitude": 14.54939,
+        "longitude": 121.07264
+      },
+      "country": {
+        "code": "PH",
+        "id": 183,
+        "name": "Philippines"
+      },
+      "datetimeFirst": {
+        "local": "2025-06-20T02:09:33+08:00",
+        "utc": "2025-06-19T18:09:33Z"
+      },
+      "datetimeLast": {
+        "local": "2026-08-11T06:49:50+08:00",
+        "utc": "2026-08-10T22:49:50Z"
+      },
+      "distance": 11025.75618101,
+      "id": 4797643,
+      "instruments": [
+        {
+          "id": 4,
+          "name": "Clarity Sensor"
+        }
+      ],
+      "isMobile": false,
+      "isMonitor": false,
+      "licenses": [
+        {
+          "attribution": {
+            "name": "Clarity",
+            "url": null
+          },
+          "dateFrom": "2021-10-20",
+          "dateTo": null,
+          "id": 38,
+          "name": "CC0 1.0"
+        }
+      ],
+      "locality": null,
+      "name": "Sto. Rosario Bridge",
+      "owner": {
+        "id": 9,
+        "name": "Clarity"
+      },
+      "provider": {
+        "id": 166,
+        "name": "Clarity"
+      },
+      "sensors": [
+        {
+          "id": 13372944,
+          "name": "pm25 \u00b5g/m\u00b3",
+          "parameter": {
+            "displayName": "PM2.5",
+            "id": 2,
+            "name": "pm25",
+            "units": "\u00b5g/m\u00b3"
+          }
+        }
+      ],
+      "timezone": "Asia/Manila"
+    },
+    {
+      "coordinates": {
+        "latitude": 14.55157,
+        "longitude": 120.98649
+      },
+      "country": {
+        "code": "PH",
+        "id": 183,
+        "name": "Philippines"
+      },
+      "datetimeFirst": {
+        "local": "2025-06-20T02:06:31+08:00",
+        "utc": "2025-06-19T18:06:31Z"
+      },
+      "datetimeLast": {
+        "local": "2026-08-11T07:05:49+08:00",
+        "utc": "2026-08-10T23:05:49Z"
+      },
+      "distance": 5308.93547587,
+      "id": 4797644,
+      "instruments": [
+        {
+          "id": 4,
+          "name": "Clarity Sensor"
+        }
+      ],
+      "isMobile": false,
+      "isMonitor": false,
+      "licenses": [
+        {
+          "attribution": {
+            "name": "Clarity",
+            "url": null
+          },
+          "dateFrom": "2021-10-20",
+          "dateTo": null,
+          "id": 38,
+          "name": "CC0 1.0"
+        }
+      ],
+      "locality": null,
+      "name": "World Trade Center",
+      "owner": {
+        "id": 9,
+        "name": "Clarity"
+      },
+      "provider": {
+        "id": 166,
+        "name": "Clarity"
+      },
+      "sensors": [
+        {
+          "id": 13372968,
+          "name": "pm25 \u00b5g/m\u00b3",
+          "parameter": {
+            "displayName": "PM2.5",
+            "id": 2,
+            "name": "pm25",
+            "units": "\u00b5g/m\u00b3"
+          }
+        }
+      ],
+      "timezone": "Asia/Manila"
+    },
+    {
+      "coordinates": {
+        "latitude": 14.56838,
+        "longitude": 121.02845
+      },
+      "country": {
+        "code": "PH",
+        "id": 183,
+        "name": "Philippines"
+      },
+      "datetimeFirst": {
+        "local": "2025-06-20T02:08:27+08:00",
+        "utc": "2025-06-19T18:08:27Z"
+      },
+      "datetimeLast": {
+        "local": "2026-08-11T06:52:52+08:00",
+        "utc": "2026-08-10T22:52:52Z"
+      },
+      "distance": 5881.46777044,
+      "id": 4797645,
+      "instruments": [
+        {
+          "id": 4,
+          "name": "Clarity Sensor"
+        }
+      ],
+      "isMobile": false,
+      "isMonitor": false,
+      "licenses": [
+        {
+          "attribution": {
+            "name": "Clarity",
+            "url": null
+          },
+          "dateFrom": "2021-10-20",
+          "dateTo": null,
+          "id": 38,
+          "name": "CC0 1.0"
+        }
+      ],
+      "locality": null,
+      "name": "J.P. Rizal Avenue corner Pertierra",
+      "owner": {
+        "id": 9,
+        "name": "Clarity"
+      },
+      "provider": {
+        "id": 166,
+        "name": "Clarity"
+      },
+      "sensors": [
+        {
+          "id": 13372950,
+          "name": "pm25 \u00b5g/m\u00b3",
+          "parameter": {
+            "displayName": "PM2.5",
+            "id": 2,
+            "name": "pm25",
+            "units": "\u00b5g/m\u00b3"
+          }
+        }
+      ],
+      "timezone": "Asia/Manila"
+    },
+    {
+      "coordinates": {
+        "latitude": 14.60399,
+        "longitude": 121.02781
+      },
+      "country": {
+        "code": "PH",
+        "id": 183,
+        "name": "Philippines"
+      },
+      "datetimeFirst": {
+        "local": "2025-06-20T02:07:54+08:00",
+        "utc": "2025-06-19T18:07:54Z"
+      },
+      "datetimeLast": {
+        "local": "2026-08-11T06:51:58+08:00",
+        "utc": "2026-08-10T22:51:58Z"
+      },
+      "distance": 4725.03434401,
+      "id": 4797646,
+      "instruments": [
+        {
+          "id": 4,
+          "name": "Clarity Sensor"
+        }
+      ],
+      "isMobile": false,
+      "isMonitor": false,
+      "licenses": [
+        {
+          "attribution": {
+            "name": "Clarity",
+            "url": null
+          },
+          "dateFrom": "2021-10-20",
+          "dateTo": null,
+          "id": 38,
+          "name": "CC0 1.0"
+        }
+      ],
+      "locality": null,
+      "name": "San Juan Mini Park",
+      "owner": {
+        "id": 9,
+        "name": "Clarity"
+      },
+      "provider": {
+        "id": 166,
+        "name": "Clarity"
+      },
+      "sensors": [
+        {
+          "id": 13372945,
+          "name": "pm25 \u00b5g/m\u00b3",
+          "parameter": {
+            "displayName": "PM2.5",
+            "id": 2,
+            "name": "pm25",
+            "units": "\u00b5g/m\u00b3"
+          }
+        }
+      ],
+      "timezone": "Asia/Manila"
+    },
+    {
+      "coordinates": {
+        "latitude": 14.6341,
+        "longitude": 121.09803
+      },
+      "country": {
+        "code": "PH",
+        "id": 183,
+        "name": "Philippines"
+      },
+      "datetimeFirst": {
+        "local": "2025-06-20T02:07:06+08:00",
+        "utc": "2025-06-19T18:07:06Z"
+      },
+      "datetimeLast": {
+        "local": "2026-08-11T06:50:46+08:00",
+        "utc": "2026-08-10T22:50:46Z"
+      },
+      "distance": 12847.63591624,
+      "id": 4797647,
+      "instruments": [
+        {
+          "id": 4,
+          "name": "Clarity Sensor"
+        }
+      ],
+      "isMobile": false,
+      "isMonitor": false,
+      "licenses": [
+        {
+          "attribution": {
+            "name": "Clarity",
+            "url": null
+          },
+          "dateFrom": "2021-10-20",
+          "dateTo": null,
+          "id": 38,
+          "name": "CC0 1.0"
+        }
+      ],
+      "locality": null,
+      "name": "Marikina Sports Complex",
+      "owner": {
+        "id": 9,
+        "name": "Clarity"
+      },
+      "provider": {
+        "id": 166,
+        "name": "Clarity"
+      },
+      "sensors": [
+        {
+          "id": 13372955,
+          "name": "pm25 \u00b5g/m\u00b3",
+          "parameter": {
+            "displayName": "PM2.5",
+            "id": 2,
+            "name": "pm25",
+            "units": "\u00b5g/m\u00b3"
+          }
+        }
+      ],
+      "timezone": "Asia/Manila"
+    },
+    {
+      "coordinates": {
+        "latitude": 14.51769,
+        "longitude": 120.99638
+      },
+      "country": {
+        "code": "PH",
+        "id": 183,
+        "name": "Philippines"
+      },
+      "datetimeFirst": {
+        "local": "2025-06-20T02:08:18+08:00",
+        "utc": "2025-06-19T18:08:18Z"
+      },
+      "datetimeLast": {
+        "local": "2026-08-11T06:58:55+08:00",
+        "utc": "2026-08-10T22:58:55Z"
+      },
+      "distance": 9146.5007544,
+      "id": 4797648,
+      "instruments": [
+        {
+          "id": 4,
+          "name": "Clarity Sensor"
+        }
+      ],
+      "isMobile": false,
+      "isMonitor": false,
+      "licenses": [
+        {
+          "attribution": {
+            "name": "Clarity",
+            "url": null
+          },
+          "dateFrom": "2021-10-20",
+          "dateTo": null,
+          "id": 38,
+          "name": "CC0 1.0"
+        }
+      ],
+      "locality": null,
+      "name": "Barangay Tambo - Quirino Avenue",
+      "owner": {
+        "id": 9,
+        "name": "Clarity"
+      },
+      "provider": {
+        "id": 166,
+        "name": "Clarity"
+      },
+      "sensors": [
+        {
+          "id": 13372947,
+          "name": "pm25 \u00b5g/m\u00b3",
+          "parameter": {
+            "displayName": "PM2.5",
+            "id": 2,
+            "name": "pm25",
+            "units": "\u00b5g/m\u00b3"
+          }
+        }
+      ],
+      "timezone": "Asia/Manila"
+    },
+    {
+      "coordinates": {
+        "latitude": 14.52904,
+        "longitude": 121.00472
+      },
+      "country": {
+        "code": "PH",
+        "id": 183,
+        "name": "Philippines"
+      },
+      "datetimeFirst": {
+        "local": "2025-06-20T02:07:53+08:00",
+        "utc": "2025-06-19T18:07:53Z"
+      },
+      "datetimeLast": {
+        "local": "2026-08-11T06:55:24+08:00",
+        "utc": "2026-08-10T22:55:24Z"
+      },
+      "distance": 8103.57041457,
+      "id": 4797649,
+      "instruments": [
+        {
+          "id": 4,
+          "name": "Clarity Sensor"
+        }
+      ],
+      "isMobile": false,
+      "isMonitor": false,
+      "licenses": [
+        {
+          "attribution": {
+            "name": "Clarity",
+            "url": null
+          },
+          "dateFrom": "2021-10-20",
+          "dateTo": null,
+          "id": 38,
+          "name": "CC0 1.0"
+        }
+      ],
+      "locality": null,
+      "name": "Aurora Boulevard (Tramo) - Andrews Avenue",
+      "owner": {
+        "id": 9,
+        "name": "Clarity"
+      },
+      "provider": {
+        "id": 166,
+        "name": "Clarity"
+      },
+      "sensors": [
+        {
+          "id": 13372961,
+          "name": "pm25 \u00b5g/m\u00b3",
+          "parameter": {
+            "displayName": "PM2.5",
+            "id": 2,
+            "name": "pm25",
+            "units": "\u00b5g/m\u00b3"
+          }
+        }
+      ],
+      "timezone": "Asia/Manila"
+    },
+    {
+      "coordinates": {
+        "latitude": 14.5457,
+        "longitude": 121.06514
+      },
+      "country": {
+        "code": "PH",
+        "id": 183,
+        "name": "Philippines"
+      },
+      "datetimeFirst": {
+        "local": "2025-06-20T02:05:38+08:00",
+        "utc": "2025-06-19T18:05:38Z"
+      },
+      "datetimeLast": {
+        "local": "2026-08-11T06:50:13+08:00",
+        "utc": "2026-08-10T22:50:13Z"
+      },
+      "distance": 10559.87319892,
+      "id": 4797650,
+      "instruments": [
+        {
+          "id": 4,
+          "name": "Clarity Sensor"
+        }
+      ],
+      "isMobile": false,
+      "isMonitor": false,
+      "licenses": [
+        {
+          "attribution": {
+            "name": "Clarity",
+            "url": null
+          },
+          "dateFrom": "2021-10-20",
+          "dateTo": null,
+          "id": 38,
+          "name": "CC0 1.0"
+        }
+      ],
+      "locality": null,
+      "name": "Pateros Bridge",
+      "owner": {
+        "id": 9,
+        "name": "Clarity"
+      },
+      "provider": {
+        "id": 166,
+        "name": "Clarity"
+      },
+      "sensors": [
+        {
+          "id": 13372959,
+          "name": "pm25 \u00b5g/m\u00b3",
+          "parameter": {
+            "displayName": "PM2.5",
+            "id": 2,
+            "name": "pm25",
+            "units": "\u00b5g/m\u00b3"
+          }
+        }
+      ],
+      "timezone": "Asia/Manila"
+    },
+    {
+      "coordinates": {
+        "latitude": 14.60346,
+        "longitude": 121.04448
+      },
+      "country": {
+        "code": "PH",
+        "id": 183,
+        "name": "Philippines"
+      },
+      "datetimeFirst": {
+        "local": "2025-06-20T02:06:07+08:00",
+        "utc": "2025-06-19T18:06:07Z"
+      },
+      "datetimeLast": {
+        "local": "2026-08-11T06:56:16+08:00",
+        "utc": "2026-08-10T22:56:16Z"
+      },
+      "distance": 6509.75673246,
+      "id": 4797651,
+      "instruments": [
+        {
+          "id": 4,
+          "name": "Clarity Sensor"
+        }
+      ],
+      "isMobile": false,
+      "isMonitor": false,
+      "licenses": [
+        {
+          "attribution": {
+            "name": "Clarity",
+            "url": null
+          },
+          "dateFrom": "2021-10-20",
+          "dateTo": null,
+          "id": 38,
+          "name": "CC0 1.0"
+        }
+      ],
+      "locality": null,
+      "name": "Ortigas Avenue-Roosevelt Intersection",
+      "owner": {
+        "id": 9,
+        "name": "Clarity"
+      },
+      "provider": {
+        "id": 166,
+        "name": "Clarity"
+      },
+      "sensors": [
+        {
+          "id": 13372951,
+          "name": "pm25 \u00b5g/m\u00b3",
+          "parameter": {
+            "displayName": "PM2.5",
+            "id": 2,
+            "name": "pm25",
+            "units": "\u00b5g/m\u00b3"
+          }
+        }
+      ],
+      "timezone": "Asia/Manila"
+    },
+    {
+      "coordinates": {
+        "latitude": 14.71405,
+        "longitude": 121.00088
+      },
+      "country": {
+        "code": "PH",
+        "id": 183,
+        "name": "Philippines"
+      },
+      "datetimeFirst": {
+        "local": "2025-06-20T02:06:39+08:00",
+        "utc": "2025-06-19T18:06:39Z"
+      },
+      "datetimeLast": {
+        "local": "2026-08-11T06:56:35+08:00",
+        "utc": "2026-08-10T22:56:35Z"
+      },
+      "distance": 12801.15550894,
+      "id": 4797652,
+      "instruments": [
+        {
+          "id": 4,
+          "name": "Clarity Sensor"
+        }
+      ],
+      "isMobile": false,
+      "isMonitor": false,
+      "licenses": [
+        {
+          "attribution": {
+            "name": "Clarity",
+            "url": null
+          },
+          "dateFrom": "2021-10-20",
+          "dateTo": null,
+          "id": 38,
+          "name": "CC0 1.0"
+        }
+      ],
+      "locality": null,
+      "name": "3S Center Bagbaguin",
+      "owner": {
+        "id": 9,
+        "name": "Clarity"
+      },
+      "provider": {
+        "id": 166,
+        "name": "Clarity"
+      },
+      "sensors": [
+        {
+          "id": 13372964,
+          "name": "pm25 \u00b5g/m\u00b3",
+          "parameter": {
+            "displayName": "PM2.5",
+            "id": 2,
+            "name": "pm25",
+            "units": "\u00b5g/m\u00b3"
+          }
+        }
+      ],
+      "timezone": "Asia/Manila"
+    },
+    {
+      "coordinates": {
+        "latitude": 14.44481,
+        "longitude": 121.04586
+      },
+      "country": {
+        "code": "PH",
+        "id": 183,
+        "name": "Philippines"
+      },
+      "datetimeFirst": {
+        "local": "2025-06-20T02:05:45+08:00",
+        "utc": "2025-06-19T18:05:45Z"
+      },
+      "datetimeLast": {
+        "local": "2026-08-11T07:01:57+08:00",
+        "utc": "2026-08-10T23:01:57Z"
+      },
+      "distance": 18360.6047007,
+      "id": 4797653,
+      "instruments": [
+        {
+          "id": 4,
+          "name": "Clarity Sensor"
+        }
+      ],
+      "isMobile": false,
+      "isMonitor": false,
+      "licenses": [
+        {
+          "attribution": {
+            "name": "Clarity",
+            "url": null
+          },
+          "dateFrom": "2021-10-20",
+          "dateTo": null,
+          "id": 38,
+          "name": "CC0 1.0"
+        }
+      ],
+      "locality": null,
+      "name": "Barangay Buli - Concepcion Street",
+      "owner": {
+        "id": 9,
+        "name": "Clarity"
+      },
+      "provider": {
+        "id": 166,
+        "name": "Clarity"
+      },
+      "sensors": [
+        {
+          "id": 13372967,
+          "name": "pm25 \u00b5g/m\u00b3",
+          "parameter": {
+            "displayName": "PM2.5",
+            "id": 2,
+            "name": "pm25",
+            "units": "\u00b5g/m\u00b3"
+          }
+        }
+      ],
+      "timezone": "Asia/Manila"
+    },
+    {
+      "coordinates": {
+        "latitude": 14.45671,
+        "longitude": 121.03519
+      },
+      "country": {
+        "code": "PH",
+        "id": 183,
+        "name": "Philippines"
+      },
+      "datetimeFirst": {
+        "local": "2025-06-20T02:06:05+08:00",
+        "utc": "2025-06-19T18:06:05Z"
+      },
+      "datetimeLast": {
+        "local": "2026-08-11T07:06:42+08:00",
+        "utc": "2026-08-10T23:06:42Z"
+      },
+      "distance": 16727.49108821,
+      "id": 4797654,
+      "instruments": [
+        {
+          "id": 4,
+          "name": "Clarity Sensor"
+        }
+      ],
+      "isMobile": false,
+      "isMonitor": false,
+      "licenses": [
+        {
+          "attribution": {
+            "name": "Clarity",
+            "url": null
+          },
+          "dateFrom": "2021-10-20",
+          "dateTo": null,
+          "id": 38,
+          "name": "CC0 1.0"
+        }
+      ],
+      "locality": null,
+      "name": "Barangay San Antonio - Para\u00f1aque-Sucat Road (Shopwise)",
+      "owner": {
+        "id": 9,
+        "name": "Clarity"
+      },
+      "provider": {
+        "id": 166,
+        "name": "Clarity"
+      },
+      "sensors": [
+        {
+          "id": 13372948,
+          "name": "pm25 \u00b5g/m\u00b3",
+          "parameter": {
+            "displayName": "PM2.5",
+            "id": 2,
+            "name": "pm25",
+            "units": "\u00b5g/m\u00b3"
+          }
+        }
+      ],
+      "timezone": "Asia/Manila"
+    },
+    {
+      "coordinates": {
+        "latitude": 14.5507,
+        "longitude": 121.02221
+      },
+      "country": {
+        "code": "PH",
+        "id": 183,
+        "name": "Philippines"
+      },
+      "datetimeFirst": {
+        "local": "2025-06-20T02:04:43+08:00",
+        "utc": "2025-06-19T18:04:43Z"
+      },
+      "datetimeLast": {
+        "local": "2026-08-11T07:00:26+08:00",
+        "utc": "2026-08-10T23:00:26Z"
+      },
+      "distance": 6777.24041038,
+      "id": 4797655,
+      "instruments": [
+        {
+          "id": 4,
+          "name": "Clarity Sensor"
+        }
+      ],
+      "isMobile": false,
+      "isMonitor": false,
+      "licenses": [
+        {
+          "attribution": {
+            "name": "Clarity",
+            "url": null
+          },
+          "dateFrom": "2021-10-20",
+          "dateTo": null,
+          "id": 38,
+          "name": "CC0 1.0"
+        }
+      ],
+      "locality": null,
+      "name": "Makati Avenue  - Antonio Arnaiz Avenue Intersection",
+      "owner": {
+        "id": 9,
+        "name": "Clarity"
+      },
+      "provider": {
+        "id": 166,
+        "name": "Clarity"
+      },
+      "sensors": [
+        {
+          "id": 13372962,
+          "name": "pm25 \u00b5g/m\u00b3",
+          "parameter": {
+            "displayName": "PM2.5",
+            "id": 2,
+            "name": "pm25",
+            "units": "\u00b5g/m\u00b3"
+          }
+        }
+      ],
+      "timezone": "Asia/Manila"
+    },
+    {
+      "coordinates": {
+        "latitude": 14.56127,
+        "longitude": 121.02799
+      },
+      "country": {
+        "code": "PH",
+        "id": 183,
+        "name": "Philippines"
+      },
+      "datetimeFirst": {
+        "local": "2025-06-20T02:02:38+08:00",
+        "utc": "2025-06-19T18:02:38Z"
+      },
+      "datetimeLast": {
+        "local": "2026-08-11T07:06:09+08:00",
+        "utc": "2026-08-10T23:06:09Z"
+      },
+      "distance": 6337.07499718,
+      "id": 4797657,
+      "instruments": [
+        {
+          "id": 4,
+          "name": "Clarity Sensor"
+        }
+      ],
+      "isMobile": false,
+      "isMonitor": false,
+      "licenses": [
+        {
+          "attribution": {
+            "name": "Clarity",
+            "url": null
+          },
+          "dateFrom": "2021-10-20",
+          "dateTo": null,
+          "id": 38,
+          "name": "CC0 1.0"
+        }
+      ],
+      "locality": null,
+      "name": "Makati Avenue - Buendia Avenue Intersection",
+      "owner": {
+        "id": 9,
+        "name": "Clarity"
+      },
+      "provider": {
+        "id": 166,
+        "name": "Clarity"
+      },
+      "sensors": [
+        {
+          "id": 13372949,
+          "name": "pm25 \u00b5g/m\u00b3",
+          "parameter": {
+            "displayName": "PM2.5",
+            "id": 2,
+            "name": "pm25",
+            "units": "\u00b5g/m\u00b3"
+          }
+        }
+      ],
+      "timezone": "Asia/Manila"
+    },
+    {
+      "coordinates": {
+        "latitude": 14.66115,
+        "longitude": 121.12476
+      },
+      "country": {
+        "code": "PH",
+        "id": 183,
+        "name": "Philippines"
+      },
+      "datetimeFirst": {
+        "local": "2025-06-20T02:02:20+08:00",
+        "utc": "2025-06-19T18:02:20Z"
+      },
+      "datetimeLast": {
+        "local": "2026-08-11T06:53:53+08:00",
+        "utc": "2026-08-10T22:53:53Z"
+      },
+      "distance": 16608.39639069,
+      "id": 4797658,
+      "instruments": [
+        {
+          "id": 4,
+          "name": "Clarity Sensor"
+        }
+      ],
+      "isMobile": false,
+      "isMonitor": false,
+      "licenses": [
+        {
+          "attribution": {
+            "name": "Clarity",
+            "url": null
+          },
+          "dateFrom": "2021-10-20",
+          "dateTo": null,
+          "id": 38,
+          "name": "CC0 1.0"
+        }
+      ],
+      "locality": null,
+      "name": "Barangay Fortune - Santan Street",
+      "owner": {
+        "id": 9,
+        "name": "Clarity"
+      },
+      "provider": {
+        "id": 166,
+        "name": "Clarity"
+      },
+      "sensors": [
+        {
+          "id": 13372953,
+          "name": "pm25 \u00b5g/m\u00b3",
+          "parameter": {
+            "displayName": "PM2.5",
+            "id": 2,
+            "name": "pm25",
+            "units": "\u00b5g/m\u00b3"
+          }
+        }
+      ],
+      "timezone": "Asia/Manila"
+    },
+    {
+      "coordinates": {
+        "latitude": 14.64443,
+        "longitude": 120.98409
+      },
+      "country": {
+        "code": "PH",
+        "id": 183,
+        "name": "Philippines"
+      },
+      "datetimeFirst": {
+        "local": "2025-06-20T02:00:14+08:00",
+        "utc": "2025-06-19T18:00:14Z"
+      },
+      "datetimeLast": {
+        "local": "2026-08-11T06:54:08+08:00",
+        "utc": "2026-08-10T22:54:08Z"
+      },
+      "distance": 4971.29717654,
+      "id": 4797659,
+      "instruments": [
+        {
+          "id": 4,
+          "name": "Clarity Sensor"
+        }
+      ],
+      "isMobile": false,
+      "isMonitor": false,
+      "licenses": [
+        {
+          "attribution": {
+            "name": "Clarity",
+            "url": null
+          },
+          "dateFrom": "2021-10-20",
+          "dateTo": null,
+          "id": 38,
+          "name": "CC0 1.0"
+        }
+      ],
+      "locality": null,
+      "name": "C3 Road (5th Avenue) - Rizal Avenue Extension",
+      "owner": {
+        "id": 9,
+        "name": "Clarity"
+      },
+      "provider": {
+        "id": 166,
+        "name": "Clarity"
+      },
+      "sensors": [
+        {
+          "id": 13372957,
+          "name": "pm25 \u00b5g/m\u00b3",
+          "parameter": {
+            "displayName": "PM2.5",
+            "id": 2,
+            "name": "pm25",
+            "units": "\u00b5g/m\u00b3"
+          }
+        }
+      ],
+      "timezone": "Asia/Manila"
+    },
+    {
+      "coordinates": {
+        "latitude": 14.71071,
+        "longitude": 120.99545
+      },
+      "country": {
+        "code": "PH",
+        "id": 183,
+        "name": "Philippines"
+      },
+      "datetimeFirst": {
+        "local": "2025-06-20T02:00:40+08:00",
+        "utc": "2025-06-19T18:00:40Z"
+      },
+      "datetimeLast": {
+        "local": "2026-08-11T07:00:52+08:00",
+        "utc": "2026-08-10T23:00:52Z"
+      },
+      "distance": 12364.405119,
+      "id": 4797660,
+      "instruments": [
+        {
+          "id": 4,
+          "name": "Clarity Sensor"
+        }
+      ],
+      "isMobile": false,
+      "isMonitor": false,
+      "licenses": [
+        {
+          "attribution": {
+            "name": "Clarity",
+            "url": null
+          },
+          "dateFrom": "2021-10-20",
+          "dateTo": null,
+          "id": 38,
+          "name": "CC0 1.0"
+        }
+      ],
+      "locality": null,
+      "name": "3S Center Paso De Blas",
+      "owner": {
+        "id": 9,
+        "name": "Clarity"
+      },
+      "provider": {
+        "id": 166,
+        "name": "Clarity"
+      },
+      "sensors": [
+        {
+          "id": 13372954,
+          "name": "pm25 \u00b5g/m\u00b3",
+          "parameter": {
+            "displayName": "PM2.5",
+            "id": 2,
+            "name": "pm25",
+            "units": "\u00b5g/m\u00b3"
+          }
+        }
+      ],
+      "timezone": "Asia/Manila"
+    },
+    {
+      "coordinates": {
+        "latitude": 14.58734,
+        "longitude": 121.04665
+      },
+      "country": {
+        "code": "PH",
+        "id": 183,
+        "name": "Philippines"
+      },
+      "datetimeFirst": {
+        "local": "2025-06-20T02:00:43+08:00",
+        "utc": "2025-06-19T18:00:43Z"
+      },
+      "datetimeLast": {
+        "local": "2026-08-11T06:52:59+08:00",
+        "utc": "2026-08-10T22:52:59Z"
+      },
+      "distance": 6862.23971865,
+      "id": 4797661,
+      "instruments": [
+        {
+          "id": 4,
+          "name": "Clarity Sensor"
+        }
+      ],
+      "isMobile": false,
+      "isMonitor": false,
+      "licenses": [
+        {
+          "attribution": {
+            "name": "Clarity",
+            "url": null
+          },
+          "dateFrom": "2021-10-20",
+          "dateTo": null,
+          "id": 38,
+          "name": "CC0 1.0"
+        }
+      ],
+      "locality": null,
+      "name": "Old Wack Wack Road corner Shaw Boulevard",
+      "owner": {
+        "id": 9,
+        "name": "Clarity"
+      },
+      "provider": {
+        "id": 166,
+        "name": "Clarity"
+      },
+      "sensors": [
+        {
+          "id": 13372966,
+          "name": "pm25 \u00b5g/m\u00b3",
+          "parameter": {
+            "displayName": "PM2.5",
+            "id": 2,
+            "name": "pm25",
+            "units": "\u00b5g/m\u00b3"
+          }
+        }
+      ],
+      "timezone": "Asia/Manila"
+    },
+    {
+      "coordinates": {
+        "latitude": 14.59083,
+        "longitude": 121.07037
+      },
+      "country": {
+        "code": "PH",
+        "id": 183,
+        "name": "Philippines"
+      },
+      "datetimeFirst": {
+        "local": "2025-07-05T13:51:42+08:00",
+        "utc": "2025-07-05T05:51:42Z"
+      },
+      "datetimeLast": {
+        "local": "2026-08-11T07:03:21+08:00",
+        "utc": "2026-08-10T23:03:21Z"
+      },
+      "distance": 9334.25595829,
+      "id": 4963739,
+      "instruments": [
+        {
+          "id": 4,
+          "name": "Clarity Sensor"
+        }
+      ],
+      "isMobile": false,
+      "isMonitor": false,
+      "licenses": [
+        {
+          "attribution": {
+            "name": "Clarity",
+            "url": null
+          },
+          "dateFrom": "2021-10-20",
+          "dateTo": null,
+          "id": 38,
+          "name": "CC0 1.0"
+        }
+      ],
+      "locality": null,
+      "name": "ASMPH",
+      "owner": {
+        "id": 9,
+        "name": "Clarity"
+      },
+      "provider": {
+        "id": 166,
+        "name": "Clarity"
+      },
+      "sensors": [
+        {
+          "id": 13516723,
+          "name": "pm25 \u00b5g/m\u00b3",
+          "parameter": {
+            "displayName": "PM2.5",
+            "id": 2,
+            "name": "pm25",
+            "units": "\u00b5g/m\u00b3"
+          }
+        }
+      ],
+      "timezone": "Asia/Manila"
+    },
+    {
+      "coordinates": {
+        "latitude": 14.6227,
+        "longitude": 121.0528
+      },
+      "country": {
+        "code": "PH",
+        "id": 183,
+        "name": "Philippines"
+      },
+      "datetimeFirst": {
+        "local": "2025-09-30T16:00:00+08:00",
+        "utc": "2025-09-30T08:00:00Z"
+      },
+      "datetimeLast": {
+        "local": "2025-10-01T13:00:00+08:00",
+        "utc": "2025-10-01T05:00:00Z"
+      },
+      "distance": 7824.198778,
+      "id": 5963700,
+      "instruments": [
+        {
+          "id": 7,
+          "name": "Unknown AirGradient Sensor"
+        }
+      ],
+      "isMobile": false,
+      "isMonitor": false,
+      "licenses": [
+        {
+          "attribution": {
+            "name": "AirGradient",
+            "url": null
+          },
+          "dateFrom": "2023-07-15",
+          "dateTo": null,
+          "id": 41,
+          "name": "CC BY 4.0"
+        }
+      ],
+      "locality": null,
+      "name": "313_Cubao",
+      "owner": {
+        "id": 12,
+        "name": "AirGradient"
+      },
+      "provider": {
+        "id": 66,
+        "name": "AirGradient"
+      },
+      "sensors": [
+        {
+          "id": 14249763,
+          "name": "pm1 \u00b5g/m\u00b3",
+          "parameter": {
+            "displayName": "PM1",
+            "id": 19,
+            "name": "pm1",
+            "units": "\u00b5g/m\u00b3"
+          }
+        },
+        {
+          "id": 14249764,
+          "name": "pm25 \u00b5g/m\u00b3",
+          "parameter": {
+            "displayName": "PM2.5",
+            "id": 2,
+            "name": "pm25",
+            "units": "\u00b5g/m\u00b3"
+          }
+        },
+        {
+          "id": 14249765,
+          "name": "relativehumidity %",
+          "parameter": {
+            "displayName": "RH",
+            "id": 98,
+            "name": "relativehumidity",
+            "units": "%"
+          }
+        },
+        {
+          "id": 14249766,
+          "name": "temperature c",
+          "parameter": {
+            "displayName": "Temperature (C)",
+            "id": 100,
+            "name": "temperature",
+            "units": "c"
+          }
+        },
+        {
+          "id": 14249767,
+          "name": "um003 particles/cm\u00b3",
+          "parameter": {
+            "displayName": "PM0.3 count",
+            "id": 125,
+            "name": "um003",
+            "units": "particles/cm\u00b3"
+          }
+        }
+      ],
+      "timezone": "Asia/Manila"
+    },
+    {
+      "coordinates": {
+        "latitude": 14.5496,
+        "longitude": 121.0285
+      },
+      "country": {
+        "code": "PH",
+        "id": 183,
+        "name": "Philippines"
+      },
+      "datetimeFirst": {
+        "local": "2025-10-01T15:00:00+08:00",
+        "utc": "2025-10-01T07:00:00Z"
+      },
+      "datetimeLast": {
+        "local": "2025-10-10T09:00:00+08:00",
+        "utc": "2025-10-10T01:00:00Z"
+      },
+      "distance": 7298.78208494,
+      "id": 5974688,
+      "instruments": [
+        {
+          "id": 7,
+          "name": "Unknown AirGradient Sensor"
+        }
+      ],
+      "isMobile": false,
+      "isMonitor": false,
+      "licenses": [
+        {
+          "attribution": {
+            "name": "AirGradient",
+            "url": null
+          },
+          "dateFrom": "2023-07-15",
+          "dateTo": null,
+          "id": 41,
+          "name": "CC BY 4.0"
+        }
+      ],
+      "locality": null,
+      "name": "Ayala MRT",
+      "owner": {
+        "id": 12,
+        "name": "AirGradient"
+      },
+      "provider": {
+        "id": 66,
+        "name": "AirGradient"
+      },
+      "sensors": [
+        {
+          "id": 14258133,
+          "name": "pm1 \u00b5g/m\u00b3",
+          "parameter": {
+            "displayName": "PM1",
+            "id": 19,
+            "name": "pm1",
+            "units": "\u00b5g/m\u00b3"
+          }
+        },
+        {
+          "id": 14258134,
+          "name": "pm25 \u00b5g/m\u00b3",
+          "parameter": {
+            "displayName": "PM2.5",
+            "id": 2,
+            "name": "pm25",
+            "units": "\u00b5g/m\u00b3"
+          }
+        },
+        {
+          "id": 14258135,
+          "name": "relativehumidity %",
+          "parameter": {
+            "displayName": "RH",
+            "id": 98,
+            "name": "relativehumidity",
+            "units": "%"
+          }
+        },
+        {
+          "id": 14258136,
+          "name": "temperature c",
+          "parameter": {
+            "displayName": "Temperature (C)",
+            "id": 100,
+            "name": "temperature",
+            "units": "c"
+          }
+        },
+        {
+          "id": 14258137,
+          "name": "um003 particles/cm\u00b3",
+          "parameter": {
+            "displayName": "PM0.3 count",
+            "id": 125,
+            "name": "um003",
+            "units": "particles/cm\u00b3"
+          }
+        }
+      ],
+      "timezone": "Asia/Manila"
+    },
+    {
+      "coordinates": {
+        "latitude": 14.688555,
+        "longitude": 120.970708
+      },
+      "country": {
+        "code": "PH",
+        "id": 183,
+        "name": "Philippines"
+      },
+      "datetimeFirst": {
+        "local": "2025-10-01T16:00:00+08:00",
+        "utc": "2025-10-01T08:00:00Z"
+      },
+      "datetimeLast": {
+        "local": "2026-08-11T14:00:00+08:00",
+        "utc": "2026-08-11T06:00:00Z"
+      },
+      "distance": 9960.13381472,
+      "id": 5975180,
+      "instruments": [
+        {
+          "id": 24,
+          "name": "AirGradient Open Air Generation 1 (O-1PST)"
+        }
+      ],
+      "isMobile": false,
+      "isMonitor": false,
+      "licenses": [
+        {
+          "attribution": {
+            "name": "DLSU",
+            "url": null
+          },
+          "dateFrom": "2023-07-15",
+          "dateTo": null,
+          "id": 41,
+          "name": "CC BY 4.0"
+        }
+      ],
+      "locality": null,
+      "name": "Valenzuela",
+      "owner": {
+        "id": 22715,
+        "name": "DLSU"
+      },
+      "provider": {
+        "id": 66,
+        "name": "AirGradient"
+      },
+      "sensors": [
+        {
+          "id": 14258420,
+          "name": "pm1 \u00b5g/m\u00b3",
+          "parameter": {
+            "displayName": "PM1",
+            "id": 19,
+            "name": "pm1",
+            "units": "\u00b5g/m\u00b3"
+          }
+        },
+        {
+          "id": 14258421,
+          "name": "pm25 \u00b5g/m\u00b3",
+          "parameter": {
+            "displayName": "PM2.5",
+            "id": 2,
+            "name": "pm25",
+            "units": "\u00b5g/m\u00b3"
+          }
+        },
+        {
+          "id": 14258422,
+          "name": "relativehumidity %",
+          "parameter": {
+            "displayName": "RH",
+            "id": 98,
+            "name": "relativehumidity",
+            "units": "%"
+          }
+        },
+        {
+          "id": 14258423,
+          "name": "temperature c",
+          "parameter": {
+            "displayName": "Temperature (C)",
+            "id": 100,
+            "name": "temperature",
+            "units": "c"
+          }
+        },
+        {
+          "id": 14258424,
+          "name": "um003 particles/cm\u00b3",
+          "parameter": {
+            "displayName": "PM0.3 count",
+            "id": 125,
+            "name": "um003",
+            "units": "particles/cm\u00b3"
+          }
+        }
+      ],
+      "timezone": "Asia/Manila"
+    },
+    {
+      "coordinates": {
+        "latitude": 14.437546,
+        "longitude": 121.000088
+      },
+      "country": {
+        "code": "PH",
+        "id": 183,
+        "name": "Philippines"
+      },
+      "datetimeFirst": {
+        "local": "2025-10-02T09:00:00+08:00",
+        "utc": "2025-10-02T01:00:00Z"
+      },
+      "datetimeLast": {
+        "local": "2026-08-11T14:00:00+08:00",
+        "utc": "2026-08-11T06:00:00Z"
+      },
+      "distance": 18000.89983839,
+      "id": 5976206,
+      "instruments": [
+        {
+          "id": 24,
+          "name": "AirGradient Open Air Generation 1 (O-1PST)"
+        }
+      ],
+      "isMobile": false,
+      "isMonitor": false,
+      "licenses": [
+        {
+          "attribution": {
+            "name": "DLSU",
+            "url": null
+          },
+          "dateFrom": "2023-07-15",
+          "dateTo": null,
+          "id": 41,
+          "name": "CC BY 4.0"
+        }
+      ],
+      "locality": null,
+      "name": "Las Pinas",
+      "owner": {
+        "id": 22715,
+        "name": "DLSU"
+      },
+      "provider": {
+        "id": 66,
+        "name": "AirGradient"
+      },
+      "sensors": [
+        {
+          "id": 14264525,
+          "name": "pm1 \u00b5g/m\u00b3",
+          "parameter": {
+            "displayName": "PM1",
+            "id": 19,
+            "name": "pm1",
+            "units": "\u00b5g/m\u00b3"
+          }
+        },
+        {
+          "id": 14264526,
+          "name": "pm25 \u00b5g/m\u00b3",
+          "parameter": {
+            "displayName": "PM2.5",
+            "id": 2,
+            "name": "pm25",
+            "units": "\u00b5g/m\u00b3"
+          }
+        },
+        {
+          "id": 14264527,
+          "name": "relativehumidity %",
+          "parameter": {
+            "displayName": "RH",
+            "id": 98,
+            "name": "relativehumidity",
+            "units": "%"
+          }
+        },
+        {
+          "id": 14264528,
+          "name": "temperature c",
+          "parameter": {
+            "displayName": "Temperature (C)",
+            "id": 100,
+            "name": "temperature",
+            "units": "c"
+          }
+        },
+        {
+          "id": 14264529,
+          "name": "um003 particles/cm\u00b3",
+          "parameter": {
+            "displayName": "PM0.3 count",
+            "id": 125,
+            "name": "um003",
+            "units": "particles/cm\u00b3"
+          }
+        }
+      ],
+      "timezone": "Asia/Manila"
+    },
+    {
+      "coordinates": {
+        "latitude": 14.53766,
+        "longitude": 121.00039
+      },
+      "country": {
+        "code": "PH",
+        "id": 183,
+        "name": "Philippines"
+      },
+      "datetimeFirst": {
+        "local": "2025-10-03T07:00:00+08:00",
+        "utc": "2025-10-02T23:00:00Z"
+      },
+      "datetimeLast": {
+        "local": "2026-01-19T17:00:00+08:00",
+        "utc": "2026-01-19T09:00:00Z"
+      },
+      "distance": 7061.19287602,
+      "id": 5995084,
+      "instruments": [
+        {
+          "id": 7,
+          "name": "Unknown AirGradient Sensor"
+        }
+      ],
+      "isMobile": false,
+      "isMonitor": false,
+      "licenses": [
+        {
+          "attribution": {
+            "name": "AirGradient",
+            "url": null
+          },
+          "dateFrom": "2023-07-15",
+          "dateTo": null,
+          "id": 41,
+          "name": "CC BY 4.0"
+        }
+      ],
+      "locality": null,
+      "name": "Pasay Rotonda",
+      "owner": {
+        "id": 12,
+        "name": "AirGradient"
+      },
+      "provider": {
+        "id": 66,
+        "name": "AirGradient"
+      },
+      "sensors": [
+        {
+          "id": 14272758,
+          "name": "pm1 \u00b5g/m\u00b3",
+          "parameter": {
+            "displayName": "PM1",
+            "id": 19,
+            "name": "pm1",
+            "units": "\u00b5g/m\u00b3"
+          }
+        },
+        {
+          "id": 14272759,
+          "name": "pm25 \u00b5g/m\u00b3",
+          "parameter": {
+            "displayName": "PM2.5",
+            "id": 2,
+            "name": "pm25",
+            "units": "\u00b5g/m\u00b3"
+          }
+        },
+        {
+          "id": 14272760,
+          "name": "relativehumidity %",
+          "parameter": {
+            "displayName": "RH",
+            "id": 98,
+            "name": "relativehumidity",
+            "units": "%"
+          }
+        },
+        {
+          "id": 14272761,
+          "name": "temperature c",
+          "parameter": {
+            "displayName": "Temperature (C)",
+            "id": 100,
+            "name": "temperature",
+            "units": "c"
+          }
+        },
+        {
+          "id": 14272762,
+          "name": "um003 particles/cm\u00b3",
+          "parameter": {
+            "displayName": "PM0.3 count",
+            "id": 125,
+            "name": "um003",
+            "units": "particles/cm\u00b3"
+          }
+        }
+      ],
+      "timezone": "Asia/Manila"
+    },
+    {
+      "coordinates": {
+        "latitude": 14.593565,
+        "longitude": 120.989459
+      },
+      "country": {
+        "code": "PH",
+        "id": 183,
+        "name": "Philippines"
+      },
+      "datetimeFirst": {
+        "local": "2026-01-21T11:00:00+08:00",
+        "utc": "2026-01-21T03:00:00Z"
+      },
+      "datetimeLast": {
+        "local": "2026-06-17T20:00:00+08:00",
+        "utc": "2026-06-17T12:00:00Z"
+      },
+      "distance": 867.36509999,
+      "id": 6209259,
+      "instruments": [
+        {
+          "id": 7,
+          "name": "Unknown AirGradient Sensor"
+        }
+      ],
+      "isMobile": false,
+      "isMonitor": false,
+      "licenses": [
+        {
+          "attribution": {
+            "name": "AirGradient",
+            "url": null
+          },
+          "dateFrom": "2023-07-15",
+          "dateTo": null,
+          "id": 41,
+          "name": "CC BY 4.0"
+        }
+      ],
+      "locality": null,
+      "name": "Ramon Avancena High School",
+      "owner": {
+        "id": 12,
+        "name": "AirGradient"
+      },
+      "provider": {
+        "id": 66,
+        "name": "AirGradient"
+      },
+      "sensors": [
+        {
+          "id": 15219514,
+          "name": "pm1 \u00b5g/m\u00b3",
+          "parameter": {
+            "displayName": "PM1",
+            "id": 19,
+            "name": "pm1",
+            "units": "\u00b5g/m\u00b3"
+          }
+        },
+        {
+          "id": 15219515,
+          "name": "pm25 \u00b5g/m\u00b3",
+          "parameter": {
+            "displayName": "PM2.5",
+            "id": 2,
+            "name": "pm25",
+            "units": "\u00b5g/m\u00b3"
+          }
+        },
+        {
+          "id": 15219516,
+          "name": "relativehumidity %",
+          "parameter": {
+            "displayName": "RH",
+            "id": 98,
+            "name": "relativehumidity",
+            "units": "%"
+          }
+        },
+        {
+          "id": 15219517,
+          "name": "temperature c",
+          "parameter": {
+            "displayName": "Temperature (C)",
+            "id": 100,
+            "name": "temperature",
+            "units": "c"
+          }
+        },
+        {
+          "id": 15219518,
+          "name": "um003 particles/cm\u00b3",
+          "parameter": {
+            "displayName": "PM0.3 count",
+            "id": 125,
+            "name": "um003",
+            "units": "particles/cm\u00b3"
+          }
+        }
+      ],
+      "timezone": "Asia/Manila"
+    },
+    {
+      "coordinates": {
+        "latitude": 14.7459495,
+        "longitude": 121.0101457
+      },
+      "country": {
+        "code": "PH",
+        "id": 183,
+        "name": "Philippines"
+      },
+      "datetimeFirst": {
+        "local": "2026-02-06T18:00:00+08:00",
+        "utc": "2026-02-06T10:00:00Z"
+      },
+      "datetimeLast": {
+        "local": "2026-08-11T14:00:00+08:00",
+        "utc": "2026-08-11T06:00:00Z"
+      },
+      "distance": 16443.21581797,
+      "id": 6230501,
+      "instruments": [
+        {
+          "id": 7,
+          "name": "Unknown AirGradient Sensor"
+        }
+      ],
+      "isMobile": false,
+      "isMonitor": false,
+      "licenses": [
+        {
+          "attribution": {
+            "name": "AirGradient",
+            "url": null
+          },
+          "dateFrom": "2023-07-15",
+          "dateTo": null,
+          "id": 41,
+          "name": "CC BY 4.0"
+        }
+      ],
+      "locality": null,
+      "name": "North Caloocan Nova Romania - Alora (download airgradient mobile app for realtime data)",
+      "owner": {
+        "id": 12,
+        "name": "AirGradient"
+      },
+      "provider": {
+        "id": 66,
+        "name": "AirGradient"
+      },
+      "sensors": [
+        {
+          "id": 15374904,
+          "name": "pm1 \u00b5g/m\u00b3",
+          "parameter": {
+            "displayName": "PM1",
+            "id": 19,
+            "name": "pm1",
+            "units": "\u00b5g/m\u00b3"
+          }
+        },
+        {
+          "id": 15374905,
+          "name": "pm25 \u00b5g/m\u00b3",
+          "parameter": {
+            "displayName": "PM2.5",
+            "id": 2,
+            "name": "pm25",
+            "units": "\u00b5g/m\u00b3"
+          }
+        },
+        {
+          "id": 15374906,
+          "name": "relativehumidity %",
+          "parameter": {
+            "displayName": "RH",
+            "id": 98,
+            "name": "relativehumidity",
+            "units": "%"
+          }
+        },
+        {
+          "id": 15374907,
+          "name": "temperature c",
+          "parameter": {
+            "displayName": "Temperature (C)",
+            "id": 100,
+            "name": "temperature",
+            "units": "c"
+          }
+        },
+        {
+          "id": 15374908,
+          "name": "um003 particles/cm\u00b3",
+          "parameter": {
+            "displayName": "PM0.3 count",
+            "id": 125,
+            "name": "um003",
+            "units": "particles/cm\u00b3"
+          }
+        }
+      ],
+      "timezone": "Asia/Manila"
+    },
+    {
+      "coordinates": {
+        "latitude": 14.65568,
+        "longitude": 121.11149
+      },
+      "country": {
+        "code": "PH",
+        "id": 183,
+        "name": "Philippines"
+      },
+      "datetimeFirst": {
+        "local": "2026-03-09T16:00:00+08:00",
+        "utc": "2026-03-09T08:00:00Z"
+      },
+      "datetimeLast": {
+        "local": "2026-03-09T17:00:00+08:00",
+        "utc": "2026-03-09T09:00:00Z"
+      },
+      "distance": 15056.5421124,
+      "id": 6265529,
+      "instruments": [
+        {
+          "id": 7,
+          "name": "Unknown AirGradient Sensor"
+        }
+      ],
+      "isMobile": false,
+      "isMonitor": false,
+      "licenses": [
+        {
+          "attribution": {
+            "name": "AirGradient",
+            "url": null
+          },
+          "dateFrom": "2023-07-15",
+          "dateTo": null,
+          "id": 41,
+          "name": "CC BY 4.0"
+        }
+      ],
+      "locality": null,
+      "name": "Marikina",
+      "owner": {
+        "id": 12,
+        "name": "AirGradient"
+      },
+      "provider": {
+        "id": 66,
+        "name": "AirGradient"
+      },
+      "sensors": [
+        {
+          "id": 15636039,
+          "name": "pm1 \u00b5g/m\u00b3",
+          "parameter": {
+            "displayName": "PM1",
+            "id": 19,
+            "name": "pm1",
+            "units": "\u00b5g/m\u00b3"
+          }
+        },
+        {
+          "id": 15636040,
+          "name": "pm25 \u00b5g/m\u00b3",
+          "parameter": {
+            "displayName": "PM2.5",
+            "id": 2,
+            "name": "pm25",
+            "units": "\u00b5g/m\u00b3"
+          }
+        },
+        {
+          "id": 15636041,
+          "name": "relativehumidity %",
+          "parameter": {
+            "displayName": "RH",
+            "id": 98,
+            "name": "relativehumidity",
+            "units": "%"
+          }
+        },
+        {
+          "id": 15636042,
+          "name": "temperature c",
+          "parameter": {
+            "displayName": "Temperature (C)",
+            "id": 100,
+            "name": "temperature",
+            "units": "c"
+          }
+        },
+        {
+          "id": 15636043,
+          "name": "um003 particles/cm\u00b3",
+          "parameter": {
+            "displayName": "PM0.3 count",
+            "id": 125,
+            "name": "um003",
+            "units": "particles/cm\u00b3"
+          }
+        }
+      ],
+      "timezone": "Asia/Manila"
+    },
+    {
+      "coordinates": {
+        "latitude": 14.558248,
+        "longitude": 120.993386
+      },
+      "country": {
+        "code": "PH",
+        "id": 183,
+        "name": "Philippines"
+      },
+      "datetimeFirst": {
+        "local": "2026-03-18T11:00:00+08:00",
+        "utc": "2026-03-18T03:00:00Z"
+      },
+      "datetimeLast": {
+        "local": "2026-05-18T18:00:00+08:00",
+        "utc": "2026-05-18T10:00:00Z"
+      },
+      "distance": 4670.416828,
+      "id": 6275863,
+      "instruments": [
+        {
+          "id": 7,
+          "name": "Unknown AirGradient Sensor"
+        }
+      ],
+      "isMobile": false,
+      "isMonitor": false,
+      "licenses": [
+        {
+          "attribution": {
+            "name": "AirGradient",
+            "url": null
+          },
+          "dateFrom": "2023-07-15",
+          "dateTo": null,
+          "id": 41,
+          "name": "CC BY 4.0"
+        }
+      ],
+      "locality": null,
+      "name": "pasay city",
+      "owner": {
+        "id": 12,
+        "name": "AirGradient"
+      },
+      "provider": {
+        "id": 66,
+        "name": "AirGradient"
+      },
+      "sensors": [
+        {
+          "id": 15712747,
+          "name": "pm1 \u00b5g/m\u00b3",
+          "parameter": {
+            "displayName": "PM1",
+            "id": 19,
+            "name": "pm1",
+            "units": "\u00b5g/m\u00b3"
+          }
+        },
+        {
+          "id": 15712748,
+          "name": "pm25 \u00b5g/m\u00b3",
+          "parameter": {
+            "displayName": "PM2.5",
+            "id": 2,
+            "name": "pm25",
+            "units": "\u00b5g/m\u00b3"
+          }
+        },
+        {
+          "id": 15712749,
+          "name": "relativehumidity %",
+          "parameter": {
+            "displayName": "RH",
+            "id": 98,
+            "name": "relativehumidity",
+            "units": "%"
+          }
+        },
+        {
+          "id": 15712750,
+          "name": "temperature c",
+          "parameter": {
+            "displayName": "Temperature (C)",
+            "id": 100,
+            "name": "temperature",
+            "units": "c"
+          }
+        },
+        {
+          "id": 15712751,
+          "name": "um003 particles/cm\u00b3",
+          "parameter": {
+            "displayName": "PM0.3 count",
+            "id": 125,
+            "name": "um003",
+            "units": "particles/cm\u00b3"
+          }
+        }
+      ],
+      "timezone": "Asia/Manila"
+    },
+    {
+      "coordinates": {
+        "latitude": 14.630765,
+        "longitude": 120.967483
+      },
+      "country": {
+        "code": "PH",
+        "id": 183,
+        "name": "Philippines"
+      },
+      "datetimeFirst": {
+        "local": "2026-03-25T14:00:00+08:00",
+        "utc": "2026-03-25T06:00:00Z"
+      },
+      "datetimeLast": {
+        "local": "2026-03-25T14:00:00+08:00",
+        "utc": "2026-03-25T06:00:00Z"
+      },
+      "distance": 3900.10488961,
+      "id": 6284033,
+      "instruments": [
+        {
+          "id": 7,
+          "name": "Unknown AirGradient Sensor"
+        }
+      ],
+      "isMobile": false,
+      "isMonitor": false,
+      "licenses": [
+        {
+          "attribution": {
+            "name": "AirGradient",
+            "url": null
+          },
+          "dateFrom": "2023-07-15",
+          "dateTo": null,
+          "id": 41,
+          "name": "CC BY 4.0"
+        }
+      ],
+      "locality": null,
+      "name": "Timoteo Paez Integrated High School",
+      "owner": {
+        "id": 12,
+        "name": "AirGradient"
+      },
+      "provider": {
+        "id": 66,
+        "name": "AirGradient"
+      },
+      "sensors": [
+        {
+          "id": 15772599,
+          "name": "pm1 \u00b5g/m\u00b3",
+          "parameter": {
+            "displayName": "PM1",
+            "id": 19,
+            "name": "pm1",
+            "units": "\u00b5g/m\u00b3"
+          }
+        },
+        {
+          "id": 15772600,
+          "name": "pm25 \u00b5g/m\u00b3",
+          "parameter": {
+            "displayName": "PM2.5",
+            "id": 2,
+            "name": "pm25",
+            "units": "\u00b5g/m\u00b3"
+          }
+        },
+        {
+          "id": 15772601,
+          "name": "relativehumidity %",
+          "parameter": {
+            "displayName": "RH",
+            "id": 98,
+            "name": "relativehumidity",
+            "units": "%"
+          }
+        },
+        {
+          "id": 15772602,
+          "name": "temperature c",
+          "parameter": {
+            "displayName": "Temperature (C)",
+            "id": 100,
+            "name": "temperature",
+            "units": "c"
+          }
+        },
+        {
+          "id": 15772603,
+          "name": "um003 particles/cm\u00b3",
+          "parameter": {
+            "displayName": "PM0.3 count",
+            "id": 125,
+            "name": "um003",
+            "units": "particles/cm\u00b3"
+          }
+        }
+      ],
+      "timezone": "Asia/Manila"
+    },
+    {
+      "coordinates": {
+        "latitude": 14.58385,
+        "longitude": 121.01645
+      },
+      "country": {
+        "code": "PH",
+        "id": 183,
+        "name": "Philippines"
+      },
+      "datetimeFirst": {
+        "local": "2026-04-11T16:06:31+08:00",
+        "utc": "2026-04-11T08:06:31Z"
+      },
+      "datetimeLast": {
+        "local": "2026-08-11T07:06:09+08:00",
+        "utc": "2026-08-10T23:06:09Z"
+      },
+      "distance": 3882.52683949,
+      "id": 6303934,
+      "instruments": [
+        {
+          "id": 4,
+          "name": "Clarity Sensor"
+        }
+      ],
+      "isMobile": false,
+      "isMonitor": false,
+      "licenses": [
+        {
+          "attribution": {
+            "name": "Clarity",
+            "url": null
+          },
+          "dateFrom": "2021-10-20",
+          "dateTo": null,
+          "id": 38,
+          "name": "CC0 1.0"
+        }
+      ],
+      "locality": null,
+      "name": "Sta. Ana Hospital",
+      "owner": {
+        "id": 9,
+        "name": "Clarity"
+      },
+      "provider": {
+        "id": 166,
+        "name": "Clarity"
+      },
+      "sensors": [
+        {
+          "id": 15922108,
+          "name": "pm25 \u00b5g/m\u00b3",
+          "parameter": {
+            "displayName": "PM2.5",
+            "id": 2,
+            "name": "pm25",
+            "units": "\u00b5g/m\u00b3"
+          }
+        }
+      ],
+      "timezone": "Asia/Manila"
+    },
+    {
+      "coordinates": {
+        "latitude": 14.61825,
+        "longitude": 120.97142
+      },
+      "country": {
+        "code": "PH",
+        "id": 183,
+        "name": "Philippines"
+      },
+      "datetimeFirst": {
+        "local": "2026-04-11T16:03:48+08:00",
+        "utc": "2026-04-11T08:03:48Z"
+      },
+      "datetimeLast": {
+        "local": "2026-08-11T06:59:32+08:00",
+        "utc": "2026-08-10T22:59:32Z"
+      },
+      "distance": 2489.9716571,
+      "id": 6303935,
+      "instruments": [
+        {
+          "id": 4,
+          "name": "Clarity Sensor"
+        }
+      ],
+      "isMobile": false,
+      "isMonitor": false,
+      "licenses": [
+        {
+          "attribution": {
+            "name": "Clarity",
+            "url": null
+          },
+          "dateFrom": "2021-10-20",
+          "dateTo": null,
+          "id": 38,
+          "name": "CC0 1.0"
+        }
+      ],
+      "locality": null,
+      "name": "Near Puregold Tayuman",
+      "owner": {
+        "id": 9,
+        "name": "Clarity"
+      },
+      "provider": {
+        "id": 166,
+        "name": "Clarity"
+      },
+      "sensors": [
+        {
+          "id": 15922109,
+          "name": "pm25 \u00b5g/m\u00b3",
+          "parameter": {
+            "displayName": "PM2.5",
+            "id": 2,
+            "name": "pm25",
+            "units": "\u00b5g/m\u00b3"
+          }
+        }
+      ],
+      "timezone": "Asia/Manila"
+    },
+    {
+      "coordinates": {
+        "latitude": 14.59064,
+        "longitude": 120.97112
+      },
+      "country": {
+        "code": "PH",
+        "id": 183,
+        "name": "Philippines"
+      },
+      "datetimeFirst": {
+        "local": "2026-04-11T16:02:31+08:00",
+        "utc": "2026-04-11T08:02:31Z"
+      },
+      "datetimeLast": {
+        "local": "2026-08-11T07:06:29+08:00",
+        "utc": "2026-08-10T23:06:29Z"
+      },
+      "distance": 1716.78339816,
+      "id": 6303936,
+      "instruments": [
+        {
+          "id": 4,
+          "name": "Clarity Sensor"
+        }
+      ],
+      "isMobile": false,
+      "isMonitor": false,
+      "licenses": [
+        {
+          "attribution": {
+            "name": "Clarity",
+            "url": null
+          },
+          "dateFrom": "2021-10-20",
+          "dateTo": null,
+          "id": 38,
+          "name": "CC0 1.0"
+        }
+      ],
+      "locality": null,
+      "name": "Anda Circle",
+      "owner": {
+        "id": 9,
+        "name": "Clarity"
+      },
+      "provider": {
+        "id": 166,
+        "name": "Clarity"
+      },
+      "sensors": [
+        {
+          "id": 15922106,
+          "name": "pm25 \u00b5g/m\u00b3",
+          "parameter": {
+            "displayName": "PM2.5",
+            "id": 2,
+            "name": "pm25",
+            "units": "\u00b5g/m\u00b3"
+          }
+        }
+      ],
+      "timezone": "Asia/Manila"
+    },
+    {
+      "coordinates": {
+        "latitude": 14.59871,
+        "longitude": 120.98947
+      },
+      "country": {
+        "code": "PH",
+        "id": 183,
+        "name": "Philippines"
+      },
+      "datetimeFirst": {
+        "local": "2026-04-11T16:06:45+08:00",
+        "utc": "2026-04-11T08:06:45Z"
+      },
+      "datetimeLast": {
+        "local": "2026-08-11T07:00:40+08:00",
+        "utc": "2026-08-10T23:00:40Z"
+      },
+      "distance": 574.5215526,
+      "id": 6303937,
+      "instruments": [
+        {
+          "id": 4,
+          "name": "Clarity Sensor"
+        }
+      ],
+      "isMobile": false,
+      "isMonitor": false,
+      "licenses": [
+        {
+          "attribution": {
+            "name": "Clarity",
+            "url": null
+          },
+          "dateFrom": "2021-10-20",
+          "dateTo": null,
+          "id": 38,
+          "name": "CC0 1.0"
+        }
+      ],
+      "locality": null,
+      "name": "San Sebastian Residences",
+      "owner": {
+        "id": 9,
+        "name": "Clarity"
+      },
+      "provider": {
+        "id": 166,
+        "name": "Clarity"
+      },
+      "sensors": [
+        {
+          "id": 15922107,
+          "name": "pm25 \u00b5g/m\u00b3",
+          "parameter": {
+            "displayName": "PM2.5",
+            "id": 2,
+            "name": "pm25",
+            "units": "\u00b5g/m\u00b3"
+          }
+        }
+      ],
+      "timezone": "Asia/Manila"
+    },
+    {
+      "coordinates": {
+        "latitude": 14.569,
+        "longitude": 120.98366
+      },
+      "country": {
+        "code": "PH",
+        "id": 183,
+        "name": "Philippines"
+      },
+      "datetimeFirst": {
+        "local": "2026-05-07T15:05:38+08:00",
+        "utc": "2026-05-07T07:05:38Z"
+      },
+      "datetimeLast": {
+        "local": "2026-08-11T07:05:23+08:00",
+        "utc": "2026-08-10T23:05:23Z"
+      },
+      "distance": 3375.16540118,
+      "id": 6338564,
+      "instruments": [
+        {
+          "id": 4,
+          "name": "Clarity Sensor"
+        }
+      ],
+      "isMobile": false,
+      "isMonitor": false,
+      "licenses": [
+        {
+          "attribution": {
+            "name": "Clarity",
+            "url": null
+          },
+          "dateFrom": "2021-10-20",
+          "dateTo": null,
+          "id": 38,
+          "name": "CC0 1.0"
+        }
+      ],
+      "locality": null,
+      "name": "Rajah Sulayman Park",
+      "owner": {
+        "id": 9,
+        "name": "Clarity"
+      },
+      "provider": {
+        "id": 166,
+        "name": "Clarity"
+      },
+      "sensors": [
+        {
+          "id": 16181084,
+          "name": "pm25 \u00b5g/m\u00b3",
+          "parameter": {
+            "displayName": "PM2.5",
+            "id": 2,
+            "name": "pm25",
+            "units": "\u00b5g/m\u00b3"
+          }
+        }
+      ],
+      "timezone": "Asia/Manila"
+    },
+    {
+      "coordinates": {
+        "latitude": 14.676664,
+        "longitude": 121.095814
+      },
+      "country": {
+        "code": "PH",
+        "id": 183,
+        "name": "Philippines"
+      },
+      "datetimeFirst": {
+        "local": "2026-05-09T07:00:00+08:00",
+        "utc": "2026-05-08T23:00:00Z"
+      },
+      "datetimeLast": {
+        "local": "2026-08-11T14:00:00+08:00",
+        "utc": "2026-08-11T06:00:00Z"
+      },
+      "distance": 14746.97518081,
+      "id": 6340868,
+      "instruments": [
+        {
+          "id": 7,
+          "name": "Unknown AirGradient Sensor"
+        }
+      ],
+      "isMobile": false,
+      "isMonitor": false,
+      "licenses": [
+        {
+          "attribution": {
+            "name": "AirGradient",
+            "url": null
+          },
+          "dateFrom": "2023-07-15",
+          "dateTo": null,
+          "id": 41,
+          "name": "CC BY 4.0"
+        }
+      ],
+      "locality": null,
+      "name": "Tivoli",
+      "owner": {
+        "id": 12,
+        "name": "AirGradient"
+      },
+      "provider": {
+        "id": 66,
+        "name": "AirGradient"
+      },
+      "sensors": [
+        {
+          "id": 16198442,
+          "name": "pm1 \u00b5g/m\u00b3",
+          "parameter": {
+            "displayName": "PM1",
+            "id": 19,
+            "name": "pm1",
+            "units": "\u00b5g/m\u00b3"
+          }
+        },
+        {
+          "id": 16198443,
+          "name": "pm25 \u00b5g/m\u00b3",
+          "parameter": {
+            "displayName": "PM2.5",
+            "id": 2,
+            "name": "pm25",
+            "units": "\u00b5g/m\u00b3"
+          }
+        },
+        {
+          "id": 16198444,
+          "name": "relativehumidity %",
+          "parameter": {
+            "displayName": "RH",
+            "id": 98,
+            "name": "relativehumidity",
+            "units": "%"
+          }
+        },
+        {
+          "id": 16198445,
+          "name": "temperature c",
+          "parameter": {
+            "displayName": "Temperature (C)",
+            "id": 100,
+            "name": "temperature",
+            "units": "c"
+          }
+        },
+        {
+          "id": 16198446,
+          "name": "um003 particles/cm\u00b3",
+          "parameter": {
+            "displayName": "PM0.3 count",
+            "id": 125,
+            "name": "um003",
+            "units": "particles/cm\u00b3"
+          }
+        }
+      ],
+      "timezone": "Asia/Manila"
+    },
+    {
+      "coordinates": {
+        "latitude": 14.58828,
+        "longitude": 121.05896
+      },
+      "country": {
+        "code": "PH",
+        "id": 183,
+        "name": "Philippines"
+      },
+      "datetimeFirst": {
+        "local": "2026-06-02T15:00:24+08:00",
+        "utc": "2026-06-02T07:00:24Z"
+      },
+      "datetimeLast": {
+        "local": "2026-06-03T14:04:58+08:00",
+        "utc": "2026-06-03T06:04:58Z"
+      },
+      "distance": 8150.54667953,
+      "id": 6384709,
+      "instruments": [
+        {
+          "id": 4,
+          "name": "Clarity Sensor"
+        }
+      ],
+      "isMobile": false,
+      "isMonitor": false,
+      "licenses": [
+        {
+          "attribution": {
+            "name": "Clarity",
+            "url": null
+          },
+          "dateFrom": "2021-10-20",
+          "dateTo": null,
+          "id": 38,
+          "name": "CC0 1.0"
+        }
+      ],
+      "locality": null,
+      "name": "ADB Courtyard (Demo)",
+      "owner": {
+        "id": 9,
+        "name": "Clarity"
+      },
+      "provider": {
+        "id": 166,
+        "name": "Clarity"
+      },
+      "sensors": [
+        {
+          "id": 16482922,
+          "name": "pm25 \u00b5g/m\u00b3",
+          "parameter": {
+            "displayName": "PM2.5",
+            "id": 2,
+            "name": "pm25",
+            "units": "\u00b5g/m\u00b3"
+          }
+        }
+      ],
+      "timezone": "Asia/Manila"
+    },
+    {
+      "coordinates": {
+        "latitude": 14.576655,
+        "longitude": 121.070464
+      },
+      "country": {
+        "code": "PH",
+        "id": 183,
+        "name": "Philippines"
+      },
+      "datetimeFirst": {
+        "local": "2026-06-07T14:00:00+08:00",
+        "utc": "2026-06-07T06:00:00Z"
+      },
+      "datetimeLast": {
+        "local": "2026-08-11T14:00:00+08:00",
+        "utc": "2026-08-11T06:00:00Z"
+      },
+      "distance": 9632.80710694,
+      "id": 6391974,
+      "instruments": [
+        {
+          "id": 7,
+          "name": "Unknown AirGradient Sensor"
+        }
+      ],
+      "isMobile": false,
+      "isMonitor": false,
+      "licenses": [
+        {
+          "attribution": {
+            "name": "AirGradient",
+            "url": null
+          },
+          "dateFrom": "2023-07-15",
+          "dateTo": null,
+          "id": 41,
+          "name": "CC BY 4.0"
+        }
+      ],
+      "locality": null,
+      "name": "Valle1",
+      "owner": {
+        "id": 12,
+        "name": "AirGradient"
+      },
+      "provider": {
+        "id": 66,
+        "name": "AirGradient"
+      },
+      "sensors": [
+        {
+          "id": 16536688,
+          "name": "pm1 \u00b5g/m\u00b3",
+          "parameter": {
+            "displayName": "PM1",
+            "id": 19,
+            "name": "pm1",
+            "units": "\u00b5g/m\u00b3"
+          }
+        },
+        {
+          "id": 16536689,
+          "name": "pm25 \u00b5g/m\u00b3",
+          "parameter": {
+            "displayName": "PM2.5",
+            "id": 2,
+            "name": "pm25",
+            "units": "\u00b5g/m\u00b3"
+          }
+        },
+        {
+          "id": 16536690,
+          "name": "relativehumidity %",
+          "parameter": {
+            "displayName": "RH",
+            "id": 98,
+            "name": "relativehumidity",
+            "units": "%"
+          }
+        },
+        {
+          "id": 16536691,
+          "name": "temperature c",
+          "parameter": {
+            "displayName": "Temperature (C)",
+            "id": 100,
+            "name": "temperature",
+            "units": "c"
+          }
+        },
+        {
+          "id": 16536692,
+          "name": "um003 particles/cm\u00b3",
+          "parameter": {
+            "displayName": "PM0.3 count",
+            "id": 125,
+            "name": "um003",
+            "units": "particles/cm\u00b3"
+          }
+        }
+      ],
+      "timezone": "Asia/Manila"
+    },
+    {
+      "coordinates": {
+        "latitude": 14.55612,
+        "longitude": 121.02236
+      },
+      "country": {
+        "code": "PH",
+        "id": 183,
+        "name": "Philippines"
+      },
+      "datetimeFirst": {
+        "local": "2026-06-08T12:02:19+08:00",
+        "utc": "2026-06-08T04:02:19Z"
+      },
+      "datetimeLast": {
+        "local": "2026-08-11T07:03:32+08:00",
+        "utc": "2026-08-10T23:03:32Z"
+      },
+      "distance": 6320.35200198,
+      "id": 6393360,
+      "instruments": [
+        {
+          "id": 4,
+          "name": "Clarity Sensor"
+        }
+      ],
+      "isMobile": false,
+      "isMonitor": false,
+      "licenses": [
+        {
+          "attribution": {
+            "name": "Clarity",
+            "url": null
+          },
+          "dateFrom": "2021-10-20",
+          "dateTo": null,
+          "id": 38,
+          "name": "CC0 1.0"
+        }
+      ],
+      "locality": null,
+      "name": "Ayala Ave.",
+      "owner": {
+        "id": 9,
+        "name": "Clarity"
+      },
+      "provider": {
+        "id": 166,
+        "name": "Clarity"
+      },
+      "sensors": [
+        {
+          "id": 16547006,
+          "name": "pm25 \u00b5g/m\u00b3",
+          "parameter": {
+            "displayName": "PM2.5",
+            "id": 2,
+            "name": "pm25",
+            "units": "\u00b5g/m\u00b3"
+          }
+        }
+      ],
+      "timezone": "Asia/Manila"
+    }
+  ],
+  "provider": "OpenAQ",
+  "reference_area_code": "metro_manila",
+  "reference_area_name": "Metro Manila / Philippines",
+  "request": {
+    "endpoint": "https://api.openaq.org/v3/locations",
+    "executed_at": "2026-08-11T06:52:54.644340Z",
+    "query": {
+      "coordinates": "14.5995,120.9842",
+      "limit": 1000,
+      "order_by": "id",
+      "page": 1,
+      "radius": 25000,
+      "sort_order": "asc"
+    }
+  },
+  "response_meta": {
+    "found": 69,
+    "limit": 1000,
+    "page": 1,
+    "result_truncated_by_request_ceiling": false,
+    "returned": 69
+  },
+  "schema_version": "2i.3",
+  "timezone_reference": "Asia/Manila"
+}

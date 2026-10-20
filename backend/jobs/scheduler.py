@@ -2,168 +2,203 @@
 
 Reads JobSchedule rows, computes next run times via cron expressions, uses
 Postgres advisory locks to ensure only one runner executes a job at a time,
-invokes the OpenAQ importer as a subprocess, and records JobRun status.
+invokes the selected importer as a subprocess, and records JobRun status.
 
 Environment variables:
 - SCHEDULER_TICK_SECONDS: poll interval (default: 15)
-- SCHEDULER_CREATE_DEFAULT: if '1', create a default top-of-hour schedule
-  for task 'openaq_import' when none exists.
+- SCHEDULER_IMPORT_MAX_RUNTIME_SECONDS: scheduled importer ceiling (default: 21600)
 """
 
 from __future__ import annotations
 
 import os
-import json
 import time
-import subprocess
-from datetime import datetime, timezone
-from typing import Dict, Optional
+from datetime import datetime, timedelta, timezone
+from typing import Dict, Final
 
 from croniter import croniter
 from sqlalchemy import select, text, func
 from sqlalchemy.orm import Session
 
 from db import SessionLocal
-from models import JobSchedule, JobRun
+from models import JobExecutionTrigger, JobRun, JobSchedule, JobStatus
+from jobs.import_runner import ImporterTimedOut, run_importer
+from jobs.locking import advisory_unlock, try_advisory_lock
+from jobs.source_activation import (
+    create_job_run_if_source_runnable,
+    initial_source_import_is_due,
+    scheduled_run_started_since,
+)
+from jobs.stale_runs import (
+    SCHEDULE_ADMISSION_RECOVERY_REASON,
+    SCHEDULER_RESTART_RECOVERY_REASON,
+    recover_orphaned_scheduled_runs,
+)
+from services.external_sources import (
+    ExternalSourceNotRunnable,
+    require_task_source_runnable,
+)
+from services.administrator_summary_delivery import (
+    process_due_administrator_summary,
+)
+from services.system_settings import is_system_setup_complete
 
 
 def _now_utc() -> datetime:
     return datetime.now(timezone.utc)
 
 
-def ensure_default_schedule(session: Session) -> None:
-    """Create default top-of-hour schedules if none exist for known tasks."""
-    created = 0
-    for task in ("openaq_import", "purpleair_import", "airgradient_import"):
-        q = session.scalar(select(JobSchedule).where(JobSchedule.task == task))
-        if q:
-            continue
-        js = JobSchedule(
-            task=task,
-            cron_expr="0 * * * *",
-            timezone="UTC",
-            enabled=True,
-            params=None,
-            allow_overlap=False,
-        )
-        session.add(js)
-        session.commit()
-        created += 1
-        print(f"Created default schedule: {task} @ top of hour (UTC)")
+DEFAULT_IMPORT_MAX_RUNTIME_SECONDS: Final = 6 * 60 * 60
 
 
-def try_advisory_lock(session: Session, key: int) -> bool:
-    r = session.execute(text("SELECT pg_try_advisory_lock(:k)"), {"k": key}).scalar()
-    return bool(r)
-
-
-def advisory_unlock(session: Session, key: int) -> None:
-    try:
-        session.execute(text("SELECT pg_advisory_unlock(:k)"), {"k": key})
-    except Exception:
-        pass
-
-
-def run_importer(job_run_id: int, params: Optional[dict], task: str) -> tuple[int, Optional[dict], Optional[str]]:
-    """Run the importer for the given task and capture summary.
-
-    Returns (exit_code, summary_dict, error_message)
-    """
-    summary_path = f"/app/tmp/scheduler_run_{job_run_id}.json"
-    os.makedirs("/app/tmp", exist_ok=True)
-
-                                                                 
-    module = (
-        "sources.openaq.importer"
-        if task == "openaq_import"
-        else "sources.purpleair.importer"
-        if task == "purpleair_import"
-        else "sources.airgradient.importer"
-        if task == "airgradient_import"
-        else None
+def _scheduled_import_max_runtime_seconds() -> int:
+    configured_value = os.getenv(
+        "SCHEDULER_IMPORT_MAX_RUNTIME_SECONDS",
+        str(DEFAULT_IMPORT_MAX_RUNTIME_SECONDS),
     )
-    if not module:
-                                                   
-        return 1, None, f"Unknown task: {task}"
-    cmd = ["python", "-m", module, "--summary-json", summary_path]
-                                                                               
-    env = os.environ.copy()
-    try:
-        if params and isinstance(params, dict):
-            api_key = params.get("api_key")
-            if api_key:
-                if task == "openaq_import":
-                    env["OPENAQ_API_KEY"] = str(api_key)
-                elif task == "purpleair_import":
-                    env["PURPLEAIR_API_KEY"] = str(api_key)
-                elif task == "airgradient_import":
-                    env["AIRGRADIENT_API_KEY"] = str(api_key)
-    except Exception:
-        pass
+    timeout_seconds = int(configured_value)
+    if timeout_seconds <= 0:
+        raise ValueError("SCHEDULER_IMPORT_MAX_RUNTIME_SECONDS must be positive")
+    return timeout_seconds
 
-                                                                      
-                                                                             
 
-    print(f"[scheduler] Starting importer for run {job_run_id} ({task}): {' '.join(cmd)}")
-    proc = subprocess.run(cmd, cwd="/app", capture_output=True, text=True, env=env)
+def _recover_orphaned_runs_on_startup() -> None:
+    """Reconcile prior scheduled owners one schedule at a time under its lock."""
+    with SessionLocal() as session:
+        schedule_ids = session.scalars(
+            select(JobRun.job_schedule_id)
+            .where(
+                JobRun.finished_at == None,
+                JobRun.status == JobStatus.RUNNING.value,
+                JobRun.execution_trigger == JobExecutionTrigger.SCHEDULED.value,
+            )
+            .distinct()
+            .order_by(JobRun.job_schedule_id)
+        ).all()
 
-    summary: Optional[dict] = None
-    if os.path.exists(summary_path):
-        try:
-            with open(summary_path, "r", encoding="utf-8") as f:
-                summary = json.load(f)
-        except Exception:
-            summary = None
-
-    err = None
-    if proc.returncode != 0:
-        err = (proc.stderr or proc.stdout or "Importer failed").strip()[:2000]
-
-    return proc.returncode, summary, err
+    for job_schedule_id in schedule_ids:
+        with SessionLocal() as session:
+            job_schedule = session.get(JobSchedule, job_schedule_id)
+            if job_schedule is None:
+                continue
+            lock_connection = session.get_bind().connect()
+            lock_acquired = False
+            try:
+                lock_acquired = try_advisory_lock(
+                    lock_connection,
+                    int(job_schedule_id),
+                )
+                if not lock_acquired:
+                    continue
+                recovered_ids = recover_orphaned_scheduled_runs(
+                    session,
+                    job_schedule,
+                    recovered_at=_now_utc(),
+                    recovery_reason=SCHEDULER_RESTART_RECOVERY_REASON,
+                )
+                if recovered_ids:
+                    print(
+                        "[scheduler] Recovered interrupted job_run(s) on startup: "
+                        + ", ".join(str(job_run_id) for job_run_id in recovered_ids)
+                    )
+            finally:
+                if lock_acquired:
+                    advisory_unlock(lock_connection, int(job_schedule_id))
+                lock_connection.close()
 
 
 def main() -> None:
 
     tick = int(os.getenv("SCHEDULER_TICK_SECONDS", "15"))
-    create_default = os.getenv("SCHEDULER_CREATE_DEFAULT", "1") == "1"
-
+    import_max_runtime_seconds = _scheduled_import_max_runtime_seconds()
                                                                                      
     next_due: Dict[int, datetime] = {}
     cron_seen: Dict[int, str] = {}
+    startup_recovery_pending = True
+    waiting_for_setup = False
 
-                                                                           
-    with SessionLocal() as session:
-                                                                               
-        incomplete_runs = session.scalars(
-            select(JobRun).where(JobRun.finished_at == None, JobRun.status == "running")
-        ).all()
-        for jr in incomplete_runs:
-            jr.finished_at = _now_utc()
-            jr.status = "failed"
-            jr.error_message = "Scheduler was interrupted and did not complete this run. Marked as failed on startup."
-            session.add(jr)
-        if incomplete_runs:
-            session.commit()
-            print(f"[scheduler] Marked {len(incomplete_runs)} incomplete job_run(s) as failed on startup.")
-
-        if create_default:
-            try:
-                ensure_default_schedule(session)
-            except Exception as e:
-                print(f"[scheduler] ensure_default_schedule error: {e}")
-
-    print(f"[scheduler] Loop started; tick={tick}s")
+    print(
+        f"[scheduler] Loop started; tick={tick}s; "
+        f"import_max_runtime={import_max_runtime_seconds}s"
+    )
 
     while True:
         try:
-            with SessionLocal() as session:
-                jobs = session.scalars(select(JobSchedule).where(JobSchedule.enabled == True)).all()
+            with SessionLocal() as setup_session:
+                setup_complete = is_system_setup_complete(setup_session)
 
+            if not setup_complete:
+                if not waiting_for_setup:
+                    print(
+                        "[scheduler] Waiting for first-run setup to be completed"
+                    )
+                waiting_for_setup = True
+                next_due.clear()
+                cron_seen.clear()
+                time.sleep(tick)
+                continue
+
+            if waiting_for_setup:
+                print("[scheduler] Setup complete; scheduled work is enabled")
+                waiting_for_setup = False
+
+            if startup_recovery_pending:
+                _recover_orphaned_runs_on_startup()
+                startup_recovery_pending = False
+
+            with SessionLocal() as session:
                 now = _now_utc()
+                try:
+                    summary_result = process_due_administrator_summary(
+                        session,
+                        now_utc=now,
+                    )
+                    if summary_result.status.value == "sent":
+                        print(
+                            "[scheduler] Administrator summary sent for "
+                            f"{summary_result.period_start_utc}–"
+                            f"{summary_result.period_end_utc}"
+                        )
+                except Exception as summary_error:
+                    # Summary failure must not prevent normal importer work in
+                    # the same polling loop.
+                    session.rollback()
+                    print(
+                        "[scheduler] Administrator summary processing error: "
+                        f"{type(summary_error).__name__}"
+                    )
+
+                jobs = session.scalars(
+                    select(JobSchedule).where(JobSchedule.enabled == True)
+                ).all()
                 for job in jobs:
+                    initial_run_due = initial_source_import_is_due(session, job)
+                    # A disabled or blocked source is normal scheduler control flow.
+                    # Advance its in-memory due time without treating the absence of a
+                    # JobRun as a missed execution on every scheduler tick.
+                    try:
+                        require_task_source_runnable(session, job.task)
+                    except ExternalSourceNotRunnable:
+                        cron_seen[job.job_schedule_id] = job.cron_expr
+                        try:
+                            next_due[job.job_schedule_id] = croniter(
+                                job.cron_expr, now
+                            ).get_next(datetime)
+                        except Exception as e:
+                            print(f"[scheduler] Invalid cron for job {job.job_schedule_id}: {e}")
+                        continue
+
+                    if initial_run_due:
+                        # JobRun is the authoritative record. A runnable schedule
+                        # with no prior run must not wait for an arbitrary cron edge.
+                        cron_seen[job.job_schedule_id] = job.cron_expr
+                        next_due[job.job_schedule_id] = now
+
                                                                                    
                     last = cron_seen.get(job.job_schedule_id)
-                    if last is None:
+                    if initial_run_due:
+                        pass
+                    elif last is None:
                                                                                                   
                         cron_seen[job.job_schedule_id] = job.cron_expr
                                                                                                      
@@ -232,14 +267,64 @@ def main() -> None:
 
                                                                                                         
                     if now >= next_due[job.job_schedule_id]:
+                        # Recheck immediately before locking and creating a JobRun in
+                        # case an administrator changed the source while it was due.
+                        try:
+                            require_task_source_runnable(session, job.task)
+                        except ExternalSourceNotRunnable:
+                            next_due[job.job_schedule_id] = croniter(
+                                job.cron_expr, next_due[job.job_schedule_id]
+                            ).get_next(datetime)
+                            continue
+
                         lock_key = int(job.job_schedule_id)
-                        if not try_advisory_lock(session, lock_key):
-                                                             
-                                                                               
+                        # Keep the session-level advisory lock on a dedicated
+                        # connection. JobRun admission commits before provider
+                        # work, which may return the ORM connection to the pool.
+                        lock_connection = session.get_bind().connect()
+                        try:
+                            lock_acquired = try_advisory_lock(
+                                lock_connection, lock_key
+                            )
+                        except Exception:
+                            lock_connection.close()
+                            raise
+                        if not lock_acquired:
+                            lock_connection.close()
                             continue
 
                         try:
-                                                                                                   
+                            recovered_ids = recover_orphaned_scheduled_runs(
+                                session,
+                                job,
+                                recovered_at=_now_utc(),
+                                recovery_reason=SCHEDULE_ADMISSION_RECOVERY_REASON,
+                            )
+                            if recovered_ids:
+                                print(
+                                    "[scheduler] Recovered interrupted job_run(s) "
+                                    f"for job {job.job_schedule_id}: "
+                                    + ", ".join(
+                                        str(job_run_id) for job_run_id in recovered_ids
+                                    )
+                                )
+
+                            occurrence_started_at = croniter(
+                                job.cron_expr,
+                                now + timedelta(microseconds=1),
+                            ).get_prev(datetime)
+                            if scheduled_run_started_since(
+                                session,
+                                job,
+                                occurrence_started_at,
+                            ):
+                                print(
+                                    "[scheduler] Cron occurrence already handled "
+                                    f"for job {job.job_schedule_id} at "
+                                    f"{occurrence_started_at.isoformat()}"
+                                )
+                                continue
+
                             if not job.allow_overlap:
                                 active = session.execute(
                                     text(
@@ -252,22 +337,36 @@ def main() -> None:
                                                                                   
                                     continue
 
-                            jr = JobRun(job_schedule_id=job.job_schedule_id, status="running", started_at=_now_utc())
-                            session.add(jr)
-                            session.commit()
+                            jr = create_job_run_if_source_runnable(
+                                session,
+                                job,
+                                initial_run_only=initial_run_due,
+                            )
+                            if jr is None:
+                                continue
 
-                            code, summary, err = run_importer(jr.job_run_id, job.params, job.task)
-
+                            try:
+                                code, summary, err = run_importer(
+                                    jr.job_run_id,
+                                    job.params,
+                                    job.task,
+                                    job_schedule_id=job.job_schedule_id,
+                                    timeout_seconds=import_max_runtime_seconds,
+                                )
+                                jr.summary = summary
+                                jr.status = "success" if code == 0 else "failed"
+                                jr.error_message = err
+                            except ImporterTimedOut as timeout_error:
+                                jr.status = JobStatus.TIMEOUT.value
+                                jr.error_message = str(timeout_error)
                             jr.finished_at = _now_utc()
-                            jr.summary = summary
-                            jr.status = "success" if code == 0 else "failed"
-                            jr.error_message = err
                             session.add(jr)
                             session.commit()
                             print(f"[scheduler] Run {jr.job_run_id} completed with status={jr.status}")
 
                         finally:
-                            advisory_unlock(session, lock_key)
+                            advisory_unlock(lock_connection, lock_key)
+                            lock_connection.close()
                                                                                                       
                             try:
                                 prev_due = next_due[job.job_schedule_id]

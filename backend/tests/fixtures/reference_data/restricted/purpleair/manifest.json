@@ -1,0 +1,871 @@
+{
+  "access_classification": "restricted_private_not_approved_for_public_redistribution",
+  "capture": {
+    "absolute_request_ceiling": 4,
+    "captured_at": "2026-08-12T05:36:09.018184Z",
+    "endpoint_template": "https://api.purpleair.com/v1/sensors/{sensor_id}/history",
+    "max_pages_per_sensor": 1,
+    "page_size": 2160,
+    "pricing": {
+      "history_endpoint_base_points": 2,
+      "history_field_points": {
+        "pm10.0_atm": 2,
+        "pm2.5_atm": 2
+      },
+      "metadata_endpoint_base_points": null,
+      "metadata_field_points": {},
+      "safety_margin_percent": 10,
+      "safety_margin_status": "approved",
+      "verified_at": "2026-08-11T21:25:00-07:00"
+    },
+    "request_count": 4,
+    "retry_count": 0,
+    "selection_manifest_sha256": "ab907e93a1f977e041d1bb1f3e03f88c8f870792781beab0370f1d105676978a",
+    "sensor_results": [
+      {
+        "calculated_points_for_returned_rows": 2,
+        "completion_status": "complete_single_request",
+        "end_boundary_rows_excluded": 0,
+        "exact_timestamp_duplicate_count": 0,
+        "failure_reason": null,
+        "http_status_code": 200,
+        "measurement_rows_preserved": 0,
+        "observed_timestamp_gap_values_seconds": [],
+        "outside_window_rows_excluded": 0,
+        "per_field_measurement_rows": {
+          "pm10.0_atm": 0,
+          "pm2.5_atm": 0
+        },
+        "provider_point_headers": {},
+        "provider_rows_preserved": 0,
+        "provider_rows_returned": 0,
+        "provider_sensor_id": "198733",
+        "reference_area_code": "new_york",
+        "requests_executed": 1
+      },
+      {
+        "calculated_points_for_returned_rows": 8614,
+        "completion_status": "complete_single_request",
+        "end_boundary_rows_excluded": 0,
+        "exact_timestamp_duplicate_count": 0,
+        "failure_reason": null,
+        "http_status_code": 200,
+        "measurement_rows_preserved": 4306,
+        "observed_timestamp_gap_values_seconds": [
+          110,
+          111,
+          113,
+          114,
+          117,
+          118,
+          119,
+          120,
+          121,
+          122,
+          123,
+          126,
+          133,
+          134,
+          235,
+          239,
+          240,
+          359,
+          366
+        ],
+        "outside_window_rows_excluded": 0,
+        "per_field_measurement_rows": {
+          "pm10.0_atm": 2153,
+          "pm2.5_atm": 2153
+        },
+        "provider_point_headers": {},
+        "provider_rows_preserved": 2153,
+        "provider_rows_returned": 2153,
+        "provider_sensor_id": "175407",
+        "reference_area_code": "rio_de_janeiro",
+        "requests_executed": 1
+      },
+      {
+        "calculated_points_for_returned_rows": 8626,
+        "completion_status": "complete_single_request",
+        "end_boundary_rows_excluded": 0,
+        "exact_timestamp_duplicate_count": 0,
+        "failure_reason": null,
+        "http_status_code": 200,
+        "measurement_rows_preserved": 4312,
+        "observed_timestamp_gap_values_seconds": [
+          109,
+          110,
+          113,
+          114,
+          116,
+          117,
+          118,
+          119,
+          120,
+          121,
+          122,
+          123,
+          124,
+          126,
+          127,
+          128,
+          130,
+          131,
+          135,
+          138,
+          164,
+          237,
+          240
+        ],
+        "outside_window_rows_excluded": 0,
+        "per_field_measurement_rows": {
+          "pm10.0_atm": 2156,
+          "pm2.5_atm": 2156
+        },
+        "provider_point_headers": {},
+        "provider_rows_preserved": 2156,
+        "provider_rows_returned": 2156,
+        "provider_sensor_id": "99177",
+        "reference_area_code": "metro_manila",
+        "requests_executed": 1
+      },
+      {
+        "calculated_points_for_returned_rows": 8642,
+        "completion_status": "complete_single_request",
+        "end_boundary_rows_excluded": 0,
+        "exact_timestamp_duplicate_count": 0,
+        "failure_reason": null,
+        "http_status_code": 200,
+        "measurement_rows_preserved": 4320,
+        "observed_timestamp_gap_values_seconds": [
+          117,
+          118,
+          119,
+          120,
+          121,
+          122,
+          123,
+          124
+        ],
+        "outside_window_rows_excluded": 0,
+        "per_field_measurement_rows": {
+          "pm10.0_atm": 2160,
+          "pm2.5_atm": 2160
+        },
+        "provider_point_headers": {},
+        "provider_rows_preserved": 2160,
+        "provider_rows_returned": 2160,
+        "provider_sensor_id": "159361",
+        "reference_area_code": "new_york",
+        "replacement_for_sensor_id": "198733",
+        "requests_executed": 1
+      }
+    ],
+    "source_discovery_commit": "8b881cc10b8b8c84d7e62639eba121d7d0d4cd6c",
+    "window_end": "2026-08-11T00:00:00Z",
+    "window_start": "2026-08-08T00:00:00Z"
+  },
+  "capture_history": [
+    {
+      "archived_capture_report": "capture_history/phase_2i4c/capture_report.json",
+      "archived_manifest": "capture_history/phase_2i4c/manifest.json",
+      "archived_measurements": "capture_history/phase_2i4c/measurements.jsonl",
+      "capture": {
+        "absolute_request_ceiling": 3,
+        "captured_at": "2026-08-12T04:45:18.621458Z",
+        "endpoint_template": "https://api.purpleair.com/v1/sensors/{sensor_id}/history",
+        "max_pages_per_sensor": 1,
+        "page_size": 2160,
+        "pricing": {
+          "history_endpoint_base_points": 2,
+          "history_field_points": {
+            "pm10.0_atm": 2,
+            "pm2.5_atm": 2
+          },
+          "metadata_endpoint_base_points": null,
+          "metadata_field_points": {},
+          "safety_margin_percent": 10,
+          "safety_margin_status": "approved",
+          "verified_at": "2026-08-11T21:25:00-07:00"
+        },
+        "request_count": 3,
+        "retry_count": 0,
+        "selection_manifest_sha256": "c3a2a23290958b7818c497315f1b157ece44ce8b2c60d1f53e2f4809d7392d4f",
+        "sensor_results": [
+          {
+            "calculated_points_for_returned_rows": 2,
+            "completion_status": "complete_single_request",
+            "end_boundary_rows_excluded": 0,
+            "exact_timestamp_duplicate_count": 0,
+            "failure_reason": null,
+            "http_status_code": 200,
+            "measurement_rows_preserved": 0,
+            "observed_timestamp_gap_values_seconds": [],
+            "outside_window_rows_excluded": 0,
+            "per_field_measurement_rows": {
+              "pm10.0_atm": 0,
+              "pm2.5_atm": 0
+            },
+            "provider_point_headers": {},
+            "provider_rows_preserved": 0,
+            "provider_rows_returned": 0,
+            "provider_sensor_id": "198733",
+            "reference_area_code": "new_york",
+            "requests_executed": 1
+          },
+          {
+            "calculated_points_for_returned_rows": 8614,
+            "completion_status": "complete_single_request",
+            "end_boundary_rows_excluded": 0,
+            "exact_timestamp_duplicate_count": 0,
+            "failure_reason": null,
+            "http_status_code": 200,
+            "measurement_rows_preserved": 4306,
+            "observed_timestamp_gap_values_seconds": [
+              110,
+              111,
+              113,
+              114,
+              117,
+              118,
+              119,
+              120,
+              121,
+              122,
+              123,
+              126,
+              133,
+              134,
+              235,
+              239,
+              240,
+              359,
+              366
+            ],
+            "outside_window_rows_excluded": 0,
+            "per_field_measurement_rows": {
+              "pm10.0_atm": 2153,
+              "pm2.5_atm": 2153
+            },
+            "provider_point_headers": {},
+            "provider_rows_preserved": 2153,
+            "provider_rows_returned": 2153,
+            "provider_sensor_id": "175407",
+            "reference_area_code": "rio_de_janeiro",
+            "requests_executed": 1
+          },
+          {
+            "calculated_points_for_returned_rows": 8626,
+            "completion_status": "complete_single_request",
+            "end_boundary_rows_excluded": 0,
+            "exact_timestamp_duplicate_count": 0,
+            "failure_reason": null,
+            "http_status_code": 200,
+            "measurement_rows_preserved": 4312,
+            "observed_timestamp_gap_values_seconds": [
+              109,
+              110,
+              113,
+              114,
+              116,
+              117,
+              118,
+              119,
+              120,
+              121,
+              122,
+              123,
+              124,
+              126,
+              127,
+              128,
+              130,
+              131,
+              135,
+              138,
+              164,
+              237,
+              240
+            ],
+            "outside_window_rows_excluded": 0,
+            "per_field_measurement_rows": {
+              "pm10.0_atm": 2156,
+              "pm2.5_atm": 2156
+            },
+            "provider_point_headers": {},
+            "provider_rows_preserved": 2156,
+            "provider_rows_returned": 2156,
+            "provider_sensor_id": "99177",
+            "reference_area_code": "metro_manila",
+            "requests_executed": 1
+          }
+        ],
+        "source_discovery_commit": "8b881cc10b8b8c84d7e62639eba121d7d0d4cd6c",
+        "window_end": "2026-08-11T00:00:00Z",
+        "window_start": "2026-08-08T00:00:00Z"
+      },
+      "capture_kind": "original_phase_2i4c_three_sensor_capture",
+      "frozen_manifest_sha256_before_replacement": "d3f58eb14987a11201339df5a049fa675fed51279c0596069de981c131d151f8",
+      "frozen_measurements_sha256_before_replacement": "1db1a48b34ec8b2ea3752d26c5fb39a7e6c657d7d1550c410ad03d8caad28d40"
+    },
+    {
+      "authorization_manifest_sha256": "ab907e93a1f977e041d1bb1f3e03f88c8f870792781beab0370f1d105676978a",
+      "capture_kind": "phase_2i4c2_new_york_replacement",
+      "captured_at": "2026-08-12T05:36:09.018184Z",
+      "endpoint_template": "https://api.purpleair.com/v1/sensors/{sensor_id}/history",
+      "pricing": {
+        "history_endpoint_base_points": 2,
+        "history_field_points": {
+          "pm10.0_atm": 2,
+          "pm2.5_atm": 2
+        },
+        "metadata_endpoint_base_points": null,
+        "metadata_field_points": {},
+        "safety_margin_percent": 10,
+        "safety_margin_status": "approved",
+        "verified_at": "2026-08-11T21:25:00-07:00"
+      },
+      "replaces_zero_row_sensor_id": "198733",
+      "request_count": 1,
+      "retry_count": 0,
+      "sensor_results": [
+        {
+          "calculated_points_for_returned_rows": 8642,
+          "completion_status": "complete_single_request",
+          "end_boundary_rows_excluded": 0,
+          "exact_timestamp_duplicate_count": 0,
+          "failure_reason": null,
+          "http_status_code": 200,
+          "measurement_rows_preserved": 4320,
+          "observed_timestamp_gap_values_seconds": [
+            117,
+            118,
+            119,
+            120,
+            121,
+            122,
+            123,
+            124
+          ],
+          "outside_window_rows_excluded": 0,
+          "per_field_measurement_rows": {
+            "pm10.0_atm": 2160,
+            "pm2.5_atm": 2160
+          },
+          "provider_point_headers": {},
+          "provider_rows_preserved": 2160,
+          "provider_rows_returned": 2160,
+          "provider_sensor_id": "159361",
+          "reference_area_code": "new_york",
+          "replacement_for_sensor_id": "198733",
+          "requests_executed": 1
+        }
+      ],
+      "window_end": "2026-08-11T00:00:00Z",
+      "window_start": "2026-08-08T00:00:00Z"
+    }
+  ],
+  "dataset_id": "purpleair_phase_2i4c2_2026-08-08_2026-08-11",
+  "devices": [
+    {
+      "external_id": "198733",
+      "fixture_ref": "purpleair-device-198733",
+      "friendly_name": "Kiddie Science",
+      "hardware_provider": "PurpleAir",
+      "latitude": null,
+      "longitude": null,
+      "name": "Kiddie Science",
+      "provider_name": "PurpleAir",
+      "reference_area_ref": "new_york",
+      "source_metadata": {
+        "active_reference_sensor": false,
+        "identification_source": {
+          "accessed_on": "2026-08-11",
+          "evidence": "The public station page maps Kiddie Science in Brooklyn to Purple Air sensor 198733 and reports 299 recent comparison samples.",
+          "kind": "non_provider_public_station_page",
+          "url": "https://aqicn.org/station/validation/@457600/"
+        },
+        "known_limitations": [
+          "Exact sensor-marker coordinates were not exposed by the non-paid source and are intentionally not inferred.",
+          "Public visibility and recent reporting must be manually reconfirmed on the PurpleAir map before paid capture approval."
+        ],
+        "metadata_request_performed": false,
+        "provider_sensor_id": "198733",
+        "reference_capture_status": "historical_http_200_zero_row_attempt",
+        "selection_status": "selected_from_non_paid_public_evidence"
+      },
+      "timezone": "America/New_York"
+    },
+    {
+      "external_id": "175407",
+      "fixture_ref": "purpleair-device-175407",
+      "friendly_name": "LQA PUC RIO",
+      "hardware_provider": "PurpleAir",
+      "latitude": -22.979204,
+      "longitude": -43.23326,
+      "name": "LQA PUC RIO",
+      "provider_name": "PurpleAir",
+      "reference_area_ref": "rio_de_janeiro",
+      "source_metadata": {
+        "active_reference_sensor": true,
+        "identification_source": {
+          "accessed_on": "2026-08-11",
+          "evidence": "The local CompassAQ database already contains PurpleAir device 175407 as LQA PUC RIO with these coordinates and timezone.",
+          "kind": "existing_compass_aq_device_record",
+          "url": null
+        },
+        "known_limitations": [
+          "Public visibility and recent reporting must be manually reconfirmed on the PurpleAir map before paid capture approval."
+        ],
+        "metadata_request_performed": false,
+        "provider_sensor_id": "175407",
+        "selection_status": "selected_from_existing_local_configuration"
+      },
+      "timezone": "America/Sao_Paulo"
+    },
+    {
+      "external_id": "99177",
+      "fixture_ref": "purpleair-device-99177",
+      "friendly_name": null,
+      "hardware_provider": "PurpleAir",
+      "latitude": null,
+      "longitude": null,
+      "name": "PurpleAir 99177 (provider name not supplied)",
+      "provider_name": "PurpleAir",
+      "reference_area_ref": "metro_manila",
+      "source_metadata": {
+        "active_reference_sensor": true,
+        "identification_source": {
+          "accessed_on": "2026-08-11",
+          "evidence": "The user manually confirmed PurpleAir sensor 99177 as the approved Metro Manila reference sensor for Phase 2I.4B.",
+          "kind": "manually_supplied_sensor_id",
+          "url": null
+        },
+        "known_limitations": [
+          "Device name and exact coordinates were not manually supplied and remain unknown; no PurpleAir request was made to obtain them."
+        ],
+        "metadata_request_performed": false,
+        "provider_sensor_id": "99177",
+        "selection_status": "selected_from_manually_supplied_id"
+      },
+      "timezone": "Asia/Manila"
+    },
+    {
+      "external_id": "159361",
+      "fixture_ref": "purpleair-device-159361",
+      "friendly_name": null,
+      "hardware_provider": "PurpleAir",
+      "latitude": null,
+      "longitude": null,
+      "name": "PurpleAir 159361 (provider name not supplied)",
+      "provider_name": "PurpleAir",
+      "reference_area_ref": "new_york",
+      "source_metadata": {
+        "active_reference_sensor": true,
+        "metadata_request_performed": false,
+        "provider_sensor_id": "159361",
+        "replaces_zero_row_sensor_id": "198733",
+        "selection_status": "manually_supplied_replacement_candidate"
+      },
+      "timezone": "America/New_York"
+    }
+  ],
+  "known_limitations": [
+    "This restricted fixture is not approved for public redistribution.",
+    "No metadata request was authorized; unknown device names or coordinates remain unknown.",
+    "PurpleAir time_stamp is preserved as provider_received_at and is not treated as a documented interval boundary.",
+    "No provider validity flags were supplied by this history response; records retain an explicit not-supplied status.",
+    "New York sensor 198733 returned HTTP 200 with zero provider rows; that attempt remains preserved in capture_history.",
+    "New York replacement sensor 159361 was selected manually; no metadata or discovery request was authorized."
+  ],
+  "license": {
+    "attribution": "PurpleAir and the sensor owners identified in source metadata",
+    "redistribution_approved": false,
+    "status": "restricted_private_not_approved_for_public_redistribution"
+  },
+  "measurements_file": "measurements.jsonl",
+  "measurements_sha256": "aba35bb8e380a2e3343af724fa565b849f717f3783b006d9512405af3cd55028",
+  "origin": {
+    "captured_at": "2026-08-12T05:36:09.018184Z",
+    "description": "Original Phase 2I.4C capture plus the approved Phase 2I.4C.2 New York replacement capture.",
+    "origin_kind": "provider_capture"
+  },
+  "provenance": {
+    "created_by": "CompassAQ Phase 2I.4C and Phase 2I.4C.2 bounded paid captures",
+    "methodology": "Exact allowlisted PurpleAir history requests with average=0; source values and provider-received timestamps preserved without conversion, AQI, correction, interpolation, or invented metadata.",
+    "source_reference": "new_york_replacement_capture_manifest.json"
+  },
+  "provider": "PurpleAir",
+  "provider_chain": [
+    {
+      "provider": "PurpleAir",
+      "role": "origin"
+    },
+    {
+      "provider": "CompassAQ frozen fixture",
+      "role": "fixture"
+    }
+  ],
+  "provider_profile": "purpleair_2m",
+  "reference_area": {
+    "description": "New York, Rio de Janeiro, and Metro Manila allowlisted sensors.",
+    "name": "Phase 2I.4C approved PurpleAir reference areas",
+    "timezone": "UTC"
+  },
+  "reference_areas": [
+    {
+      "active_provider_sensor_id": "159361",
+      "description": "Approved Phase 2I.4C PurpleAir reference area.",
+      "fixture_ref": "new_york",
+      "name": "New York City / New York metropolitan area",
+      "timezone": "America/New_York"
+    },
+    {
+      "active_provider_sensor_id": "175407",
+      "description": "Approved Phase 2I.4C PurpleAir reference area.",
+      "fixture_ref": "rio_de_janeiro",
+      "name": "Rio de Janeiro metropolitan area",
+      "timezone": "America/Sao_Paulo"
+    },
+    {
+      "active_provider_sensor_id": "99177",
+      "description": "Approved Phase 2I.4C PurpleAir reference area.",
+      "fixture_ref": "metro_manila",
+      "name": "Metro Manila / Philippines",
+      "timezone": "Asia/Manila"
+    }
+  ],
+  "schema_version": "2i.1",
+  "sensors": [
+    {
+      "aggregation_period_code": "2m",
+      "capture_statistics": {
+        "measurement_rows_preserved": 0,
+        "provider_field": "pm2.5_atm",
+        "provider_sensor_id": "198733"
+      },
+      "device_ref": "purpleair-device-198733",
+      "expected_frequency_seconds": 120,
+      "external_sensor_id": "198733:pm2.5_atm",
+      "fixture_ref": "purpleair-198733-pm25",
+      "hardware_provider": "PurpleAir",
+      "measurement_duration_seconds": 120,
+      "measurement_metadata_managed_by": "reference_fixture_loader",
+      "measurement_metadata_status": "provider_documented",
+      "measurement_timestamp_semantics": "provider_received_at",
+      "parameter_code": "pm25",
+      "provider_parameter_name": "pm2.5_atm",
+      "provider_unit": "µg/m³",
+      "source_aggregation_duration_seconds": 120,
+      "temporal_qualification": {
+        "expected_frequency_seconds": 120,
+        "observed_timestamp_gap_values_seconds": [],
+        "status": "provider_documented",
+        "timestamp_semantics": "provider_received_at"
+      },
+      "unit_code": "ug_m3"
+    },
+    {
+      "aggregation_period_code": "2m",
+      "capture_statistics": {
+        "measurement_rows_preserved": 0,
+        "provider_field": "pm10.0_atm",
+        "provider_sensor_id": "198733"
+      },
+      "device_ref": "purpleair-device-198733",
+      "expected_frequency_seconds": 120,
+      "external_sensor_id": "198733:pm10.0_atm",
+      "fixture_ref": "purpleair-198733-pm10",
+      "hardware_provider": "PurpleAir",
+      "measurement_duration_seconds": 120,
+      "measurement_metadata_managed_by": "reference_fixture_loader",
+      "measurement_metadata_status": "provider_documented",
+      "measurement_timestamp_semantics": "provider_received_at",
+      "parameter_code": "pm10",
+      "provider_parameter_name": "pm10.0_atm",
+      "provider_unit": "µg/m³",
+      "source_aggregation_duration_seconds": 120,
+      "temporal_qualification": {
+        "expected_frequency_seconds": 120,
+        "observed_timestamp_gap_values_seconds": [],
+        "status": "provider_documented",
+        "timestamp_semantics": "provider_received_at"
+      },
+      "unit_code": "ug_m3"
+    },
+    {
+      "aggregation_period_code": "2m",
+      "capture_statistics": {
+        "measurement_rows_preserved": 2153,
+        "provider_field": "pm2.5_atm",
+        "provider_sensor_id": "175407"
+      },
+      "device_ref": "purpleair-device-175407",
+      "expected_frequency_seconds": 120,
+      "external_sensor_id": "175407:pm2.5_atm",
+      "fixture_ref": "purpleair-175407-pm25",
+      "hardware_provider": "PurpleAir",
+      "measurement_duration_seconds": 120,
+      "measurement_metadata_managed_by": "reference_fixture_loader",
+      "measurement_metadata_status": "provider_documented",
+      "measurement_timestamp_semantics": "provider_received_at",
+      "parameter_code": "pm25",
+      "provider_parameter_name": "pm2.5_atm",
+      "provider_unit": "µg/m³",
+      "source_aggregation_duration_seconds": 120,
+      "temporal_qualification": {
+        "expected_frequency_seconds": 120,
+        "observed_timestamp_gap_values_seconds": [
+          110,
+          111,
+          113,
+          114,
+          117,
+          118,
+          119,
+          120,
+          121,
+          122,
+          123,
+          126,
+          133,
+          134,
+          235,
+          239,
+          240,
+          359,
+          366
+        ],
+        "status": "provider_documented",
+        "timestamp_semantics": "provider_received_at"
+      },
+      "unit_code": "ug_m3"
+    },
+    {
+      "aggregation_period_code": "2m",
+      "capture_statistics": {
+        "measurement_rows_preserved": 2153,
+        "provider_field": "pm10.0_atm",
+        "provider_sensor_id": "175407"
+      },
+      "device_ref": "purpleair-device-175407",
+      "expected_frequency_seconds": 120,
+      "external_sensor_id": "175407:pm10.0_atm",
+      "fixture_ref": "purpleair-175407-pm10",
+      "hardware_provider": "PurpleAir",
+      "measurement_duration_seconds": 120,
+      "measurement_metadata_managed_by": "reference_fixture_loader",
+      "measurement_metadata_status": "provider_documented",
+      "measurement_timestamp_semantics": "provider_received_at",
+      "parameter_code": "pm10",
+      "provider_parameter_name": "pm10.0_atm",
+      "provider_unit": "µg/m³",
+      "source_aggregation_duration_seconds": 120,
+      "temporal_qualification": {
+        "expected_frequency_seconds": 120,
+        "observed_timestamp_gap_values_seconds": [
+          110,
+          111,
+          113,
+          114,
+          117,
+          118,
+          119,
+          120,
+          121,
+          122,
+          123,
+          126,
+          133,
+          134,
+          235,
+          239,
+          240,
+          359,
+          366
+        ],
+        "status": "provider_documented",
+        "timestamp_semantics": "provider_received_at"
+      },
+      "unit_code": "ug_m3"
+    },
+    {
+      "aggregation_period_code": "2m",
+      "capture_statistics": {
+        "measurement_rows_preserved": 2156,
+        "provider_field": "pm2.5_atm",
+        "provider_sensor_id": "99177"
+      },
+      "device_ref": "purpleair-device-99177",
+      "expected_frequency_seconds": 120,
+      "external_sensor_id": "99177:pm2.5_atm",
+      "fixture_ref": "purpleair-99177-pm25",
+      "hardware_provider": "PurpleAir",
+      "measurement_duration_seconds": 120,
+      "measurement_metadata_managed_by": "reference_fixture_loader",
+      "measurement_metadata_status": "provider_documented",
+      "measurement_timestamp_semantics": "provider_received_at",
+      "parameter_code": "pm25",
+      "provider_parameter_name": "pm2.5_atm",
+      "provider_unit": "µg/m³",
+      "source_aggregation_duration_seconds": 120,
+      "temporal_qualification": {
+        "expected_frequency_seconds": 120,
+        "observed_timestamp_gap_values_seconds": [
+          109,
+          110,
+          113,
+          114,
+          116,
+          117,
+          118,
+          119,
+          120,
+          121,
+          122,
+          123,
+          124,
+          126,
+          127,
+          128,
+          130,
+          131,
+          135,
+          138,
+          164,
+          237,
+          240
+        ],
+        "status": "provider_documented",
+        "timestamp_semantics": "provider_received_at"
+      },
+      "unit_code": "ug_m3"
+    },
+    {
+      "aggregation_period_code": "2m",
+      "capture_statistics": {
+        "measurement_rows_preserved": 2156,
+        "provider_field": "pm10.0_atm",
+        "provider_sensor_id": "99177"
+      },
+      "device_ref": "purpleair-device-99177",
+      "expected_frequency_seconds": 120,
+      "external_sensor_id": "99177:pm10.0_atm",
+      "fixture_ref": "purpleair-99177-pm10",
+      "hardware_provider": "PurpleAir",
+      "measurement_duration_seconds": 120,
+      "measurement_metadata_managed_by": "reference_fixture_loader",
+      "measurement_metadata_status": "provider_documented",
+      "measurement_timestamp_semantics": "provider_received_at",
+      "parameter_code": "pm10",
+      "provider_parameter_name": "pm10.0_atm",
+      "provider_unit": "µg/m³",
+      "source_aggregation_duration_seconds": 120,
+      "temporal_qualification": {
+        "expected_frequency_seconds": 120,
+        "observed_timestamp_gap_values_seconds": [
+          109,
+          110,
+          113,
+          114,
+          116,
+          117,
+          118,
+          119,
+          120,
+          121,
+          122,
+          123,
+          124,
+          126,
+          127,
+          128,
+          130,
+          131,
+          135,
+          138,
+          164,
+          237,
+          240
+        ],
+        "status": "provider_documented",
+        "timestamp_semantics": "provider_received_at"
+      },
+      "unit_code": "ug_m3"
+    },
+    {
+      "aggregation_period_code": "2m",
+      "capture_statistics": {
+        "measurement_rows_preserved": 2160,
+        "provider_field": "pm2.5_atm",
+        "provider_sensor_id": "159361"
+      },
+      "device_ref": "purpleair-device-159361",
+      "expected_frequency_seconds": 120,
+      "external_sensor_id": "159361:pm2.5_atm",
+      "fixture_ref": "purpleair-159361-pm25",
+      "hardware_provider": "PurpleAir",
+      "measurement_duration_seconds": 120,
+      "measurement_metadata_managed_by": "reference_fixture_loader",
+      "measurement_metadata_status": "provider_documented",
+      "measurement_timestamp_semantics": "provider_received_at",
+      "parameter_code": "pm25",
+      "provider_parameter_name": "pm2.5_atm",
+      "provider_unit": "µg/m³",
+      "source_aggregation_duration_seconds": 120,
+      "temporal_qualification": {
+        "expected_frequency_seconds": 120,
+        "observed_timestamp_gap_values_seconds": [
+          117,
+          118,
+          119,
+          120,
+          121,
+          122,
+          123,
+          124
+        ],
+        "status": "provider_documented",
+        "timestamp_semantics": "provider_received_at"
+      },
+      "unit_code": "ug_m3"
+    },
+    {
+      "aggregation_period_code": "2m",
+      "capture_statistics": {
+        "measurement_rows_preserved": 2160,
+        "provider_field": "pm10.0_atm",
+        "provider_sensor_id": "159361"
+      },
+      "device_ref": "purpleair-device-159361",
+      "expected_frequency_seconds": 120,
+      "external_sensor_id": "159361:pm10.0_atm",
+      "fixture_ref": "purpleair-159361-pm10",
+      "hardware_provider": "PurpleAir",
+      "measurement_duration_seconds": 120,
+      "measurement_metadata_managed_by": "reference_fixture_loader",
+      "measurement_metadata_status": "provider_documented",
+      "measurement_timestamp_semantics": "provider_received_at",
+      "parameter_code": "pm10",
+      "provider_parameter_name": "pm10.0_atm",
+      "provider_unit": "µg/m³",
+      "source_aggregation_duration_seconds": 120,
+      "temporal_qualification": {
+        "expected_frequency_seconds": 120,
+        "observed_timestamp_gap_values_seconds": [
+          117,
+          118,
+          119,
+          120,
+          121,
+          122,
+          123,
+          124
+        ],
+        "status": "provider_documented",
+        "timestamp_semantics": "provider_received_at"
+      },
+      "unit_code": "ug_m3"
+    }
+  ]
+}

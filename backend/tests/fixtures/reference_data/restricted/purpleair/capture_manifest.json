@@ -1,0 +1,131 @@
+{
+  "schema_version": "2i.4b",
+  "provider": "PurpleAir",
+  "reference_sensors": [
+    {
+      "provider": "PurpleAir",
+      "reference_area_code": "new_york",
+      "reference_area_name": "New York City / New York metropolitan area",
+      "reference_area_center": {
+        "latitude": 40.7128,
+        "longitude": -74.006
+      },
+      "reference_area_radius_m": 25000,
+      "sensor_id": "198733",
+      "device_name": "Kiddie Science",
+      "latitude": null,
+      "longitude": null,
+      "timezone": "America/New_York",
+      "selection_status": "selected_from_non_paid_public_evidence",
+      "identification_source": {
+        "kind": "non_provider_public_station_page",
+        "url": "https://aqicn.org/station/validation/@457600/",
+        "accessed_on": "2026-08-11",
+        "evidence": "The public station page maps Kiddie Science in Brooklyn to Purple Air sensor 198733 and reports 299 recent comparison samples."
+      },
+      "known_limitations": [
+        "Exact sensor-marker coordinates were not exposed by the non-paid source and are intentionally not inferred.",
+        "Public visibility and recent reporting must be manually reconfirmed on the PurpleAir map before paid capture approval."
+      ]
+    },
+    {
+      "provider": "PurpleAir",
+      "reference_area_code": "rio_de_janeiro",
+      "reference_area_name": "Rio de Janeiro metropolitan area",
+      "reference_area_center": {
+        "latitude": -22.9068,
+        "longitude": -43.1729
+      },
+      "reference_area_radius_m": 25000,
+      "sensor_id": "175407",
+      "device_name": "LQA PUC RIO",
+      "latitude": -22.979204,
+      "longitude": -43.23326,
+      "timezone": "America/Sao_Paulo",
+      "selection_status": "selected_from_existing_local_configuration",
+      "identification_source": {
+        "kind": "existing_compass_aq_device_record",
+        "url": null,
+        "accessed_on": "2026-08-11",
+        "evidence": "The local CompassAQ database already contains PurpleAir device 175407 as LQA PUC RIO with these coordinates and timezone."
+      },
+      "known_limitations": [
+        "Public visibility and recent reporting must be manually reconfirmed on the PurpleAir map before paid capture approval."
+      ]
+    },
+    {
+      "provider": "PurpleAir",
+      "reference_area_code": "metro_manila",
+      "reference_area_name": "Metro Manila / Philippines",
+      "reference_area_center": {
+        "latitude": 14.5995,
+        "longitude": 120.9842
+      },
+      "reference_area_radius_m": 25000,
+      "sensor_id": "99177",
+      "device_name": null,
+      "latitude": null,
+      "longitude": null,
+      "timezone": "Asia/Manila",
+      "selection_status": "selected_from_manually_supplied_id",
+      "identification_source": {
+        "kind": "manually_supplied_sensor_id",
+        "url": null,
+        "accessed_on": "2026-08-11",
+        "evidence": "The user manually confirmed PurpleAir sensor 99177 as the approved Metro Manila reference sensor for Phase 2I.4B."
+      },
+      "known_limitations": [
+        "Device name and exact coordinates were not manually supplied and remain unknown; no PurpleAir request was made to obtain them."
+      ]
+    }
+  ],
+  "provider_ids": [],
+  "fields": [
+    "pm2.5_atm",
+    "pm10.0_atm"
+  ],
+  "average": 0,
+  "history_endpoint_template": "https://api.purpleair.com/v1/sensors/{sensor_id}/history",
+  "window_start": "2026-08-08T00:00:00Z",
+  "window_end": "2026-08-11T00:00:00Z",
+  "expected_frequency_seconds": 120,
+  "measurement_duration_seconds": 120,
+  "source_aggregation_duration_seconds": 120,
+  "measurement_timestamp_semantics": "provider_received_at",
+  "history_request_capacity_rows": 21600,
+  "history_request_capacity_source": "PurpleAir documents a 30-day per-request limit for real-time history; 30 days at two-minute cadence is 21600 rows.",
+  "history_request_capacity_source_url": "https://community.purpleair.com/t/loop-api-calls-for-historical-data/4623",
+  "measurement_semantics_source_url": "https://community.purpleair.com/t/how-to-get-historical-sensor-data-step-by-step-using-the-data-download-tool/11934",
+  "rows_per_page": 21600,
+  "metadata_request_count": 0,
+  "metadata_expected_rows": 0,
+  "metadata_fields": [],
+  "retry_count": 0,
+  "paid_provider": true,
+  "pricing": {
+    "verified_at": "2026-08-11T21:25:00-07:00",
+    "history_endpoint_base_points": 2,
+    "history_field_points": {
+      "pm2.5_atm": 2,
+      "pm10.0_atm": 2
+    },
+    "metadata_endpoint_base_points": null,
+    "metadata_field_points": {},
+    "safety_margin_percent": 10,
+    "safety_margin_status": "approved"
+  },
+  "paid_capture_approval_requirements": [
+    "ENABLE_PAID_API_IMPORTS=true",
+    "--allow-provider-api",
+    "--allow-paid-api",
+    "--confirm-manifest-sha <exact SHA-256>",
+    "--max-purpleair-points <approved ceiling>"
+  ],
+  "access_classification": "restricted_private_not_approved_for_public_redistribution",
+  "output_fixture_paths": [
+    "restricted/purpleair/manifest.json",
+    "restricted/purpleair/measurements.jsonl"
+  ],
+  "automatic_refresh": false,
+  "scheduled_capture": false
+}

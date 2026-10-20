@@ -1,0 +1,160 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://compassaq.local/schemas/reference-expected-results-2i5.json",
+  "title": "CompassAQ analyst-reviewed reference expectation bundle",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "artifact_kind",
+    "dataset_name",
+    "access_classification",
+    "dataset_id",
+    "source_measurements_sha256",
+    "source_facts_file",
+    "source_facts_sha256",
+    "worksheet_file",
+    "worksheet_sha256",
+    "cases"
+  ],
+  "properties": {
+    "schema_version": {"const": "2i.5-expected-1"},
+    "artifact_kind": {"const": "analyst_approved_expectations"},
+    "dataset_name": {"enum": ["openaq", "purpleair"]},
+    "access_classification": {"type": "string", "minLength": 1},
+    "dataset_id": {"type": "string", "minLength": 1},
+    "source_measurements_sha256": {"$ref": "#/$defs/sha256"},
+    "source_facts_file": {"type": "string", "minLength": 1},
+    "source_facts_sha256": {"$ref": "#/$defs/sha256"},
+    "worksheet_file": {"type": "string", "minLength": 1},
+    "worksheet_sha256": {"$ref": "#/$defs/sha256"},
+    "cases": {
+      "type": "array",
+      "minItems": 1,
+      "items": {"$ref": "#/$defs/case"}
+    }
+  },
+  "$defs": {
+    "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "decimal": {"type": "string", "pattern": "^-?(0|[1-9][0-9]*)(\\.[0-9]+)?$"},
+    "observation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["sensor_ref", "observed_at", "value", "unit", "assignment"],
+      "properties": {
+        "sensor_ref": {"type": "string"},
+        "provider_observation_ref": {"type": ["string", "null"]},
+        "source_page": {"type": ["integer", "null"], "minimum": 1},
+        "source_result_index": {"type": ["integer", "null"], "minimum": 0},
+        "provider_period": {"type": ["object", "null"]},
+        "provider_timestamp": {"type": ["integer", "number", "string", "null"]},
+        "is_valid": {"type": ["boolean", "null"]},
+        "qc_flags": {"type": ["object", "null"]},
+        "qc_version": {"type": ["string", "null"]},
+        "observed_at": {"type": "string", "format": "date-time"},
+        "value": {"$ref": "#/$defs/decimal"},
+        "unit": {"type": "string"},
+        "assignment": {"enum": ["included", "excluded"]},
+        "assigned_anchor": {"type": ["string", "null"], "format": "date-time"},
+        "exclusion_reason": {"type": ["string", "null"]}
+      }
+    },
+    "case": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "case_id",
+        "calculation_type",
+        "source",
+        "input_window",
+        "source_observations",
+        "completeness",
+        "methodology",
+        "derivation",
+        "expected",
+        "review"
+      ],
+      "properties": {
+        "case_id": {"type": "string", "minLength": 1},
+        "calculation_type": {"type": "string", "minLength": 1},
+        "source": {"type": "object"},
+        "input_window": {"type": "object"},
+        "source_observations": {
+          "type": "array",
+          "items": {"$ref": "#/$defs/observation"}
+        },
+        "completeness": {
+          "type": "object",
+          "required": [
+            "numerator",
+            "denominator",
+            "required_count",
+            "fraction",
+            "missing_positions",
+            "duplicate_positions",
+            "off_frequency_positions",
+            "status"
+          ],
+          "properties": {
+            "numerator": {"type": "integer", "minimum": 0},
+            "denominator": {"type": "integer", "minimum": 0},
+            "required_count": {"type": ["integer", "null"], "minimum": 0},
+            "fraction": {"type": ["string", "null"]},
+            "missing_positions": {"type": "array", "items": {"type": "string"}},
+            "duplicate_positions": {"type": "array", "items": {"type": "string"}},
+            "off_frequency_positions": {"type": "array", "items": {"type": "string"}},
+            "status": {"type": "string"}
+          }
+        },
+        "methodology": {
+          "type": "object",
+          "required": ["methodology_code", "methodology_version", "reference_ids"],
+          "properties": {
+            "methodology_code": {"type": "string"},
+            "methodology_version": {"type": "string"},
+            "reference_ids": {"type": "array", "items": {"type": "string"}}
+          }
+        },
+        "derivation": {
+          "type": "object",
+          "required": ["steps", "absolute_tolerance"],
+          "properties": {
+            "steps": {"type": "array", "items": {"type": "object"}},
+            "absolute_tolerance": {"const": "0.000000000001"}
+          }
+        },
+        "expected": {
+          "type": "object",
+          "required": ["availability", "numeric_result", "category_code", "exclusion_reason", "coverage_status"],
+          "properties": {
+            "availability": {"enum": ["available", "unavailable", "not_applicable"]},
+            "numeric_result": {"type": ["integer", "string", "null"]},
+            "category_code": {"type": ["string", "null"]},
+            "category_label": {"type": ["string", "null"]},
+            "exclusion_reason": {"type": ["string", "null"]},
+            "coverage_status": {"type": "string"},
+            "aggregation_period": {"type": ["string", "null"]},
+            "observed_at": {"type": ["string", "null"], "format": "date-time"},
+            "normalized_concentration": {"type": ["string", "null"]},
+            "normalized_unit": {"type": ["string", "null"]},
+            "dominant_pollutants": {"type": "array", "items": {"type": "string"}},
+            "api_visible_fields": {"type": "object"}
+          }
+        },
+        "review": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["status", "reviewer", "reviewed_at", "derivation_sha256", "comments", "approval_decision"],
+          "properties": {
+            "status": {"enum": ["candidate", "approved", "rejected"]},
+            "reviewer": {"type": ["string", "null"]},
+            "reviewed_at": {"type": ["string", "null"], "format": "date-time"},
+            "derivation_sha256": {"type": ["string", "null"], "pattern": "^[0-9a-f]{64}$"},
+            "comments": {"type": "string"},
+            "approval_decision": {"enum": ["pending", "approved", "rejected"]}
+          }
+        }
+      }
+    }
+  }
+}

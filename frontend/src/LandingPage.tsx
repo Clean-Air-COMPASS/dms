@@ -1,12 +1,27 @@
+import { Trans, useTranslation } from 'react-i18next';
+import i18n from './i18n';
 import { Link } from 'react-router-dom';
 import cleanAirFundLogo from './assets/logos/clean-air-fund-logo.svg';
-import nrdcLogo from './assets/logos/nrdc-logo.png';
+import nrdcLogo from './assets/logos/nrdc-logo.webp';
 import openAqLogo from './assets/logos/openaq-logo.svg';
-import sonomaTechnologyLogo from './assets/logos/sonoma-technology-logo.svg';
+import spherosEnvironmentalLogo from './assets/logos/spheros-environmental-logo.webp';
 import './LandingPage.css';
+import LanguageSelector from './components/LanguageSelector';
+import {
+  FALLBACK_LANGUAGE_CODE,
+  writeAnonymousLanguagePreference,
+  type SupportedLanguageCode,
+} from './i18n/languagePreferences';
 
 
 function LandingPage() {
+  useTranslation();
+
+  function selectAnonymousLanguage(languageCode: SupportedLanguageCode): void {
+    writeAnonymousLanguagePreference(window.localStorage, languageCode);
+    void i18n.changeLanguage(languageCode);
+  }
+
   return (
     <div className="landing-page">
       
@@ -14,27 +29,24 @@ function LandingPage() {
         <div className="landing-container">
           <div className="landing-nav">
               <div className="landing-logo">
-              <span className="logo-text">AQ Data Platform</span>
+              <span className="logo-text"><Trans ns="landing" i18nKey="landingPage.text.aqDataPlatform" /></span>
               <a
                 href="https://cleanaircompass.org"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="logo-badge"
               >
-                by Clean Air COMPASS
-              </a>
+                <Trans ns="landing" i18nKey="landingPage.actions.cleanAirCompass" /></a>
             </div>
             <nav className="landing-nav-links">
-              <a
-                href="https://cleanaircompass.org/about"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                About COMPASS
-              </a>
+              <LanguageSelector
+                id="landing-language-selector"
+                value={(i18n.resolvedLanguage as SupportedLanguageCode) ?? FALLBACK_LANGUAGE_CODE}
+                onChange={selectAnonymousLanguage}
+                hideWhenSingleLanguage
+              />
               <Link to="/map" className="nav-cta">
-                Open Map
-              </Link>
+                <Trans ns="landing" i18nKey="landingPage.actions.openMap" /></Link>
             </nav>
           </div>
         </div>
@@ -45,27 +57,20 @@ function LandingPage() {
         <div className="landing-container">
           <div className="hero-content">
             <h1 className="hero-title">
-              Open-Source Air Quality
-              <br />
-              Data Management
-            </h1>
+              <Trans ns="landing" i18nKey="landingPage.headings.openSourceAirQuality" /><br />
+              <Trans ns="landing" i18nKey="landingPage.headings.dataManagement" /></h1>
             <p className="hero-subtitle">
-              A collaborative, community-informed platform for collecting,
-              managing, and visualizing air quality measurement data—empowering
-              communities, researchers, and organizations worldwide.
-            </p>
+              <Trans ns="landing" i18nKey="landingPage.text.collaborativeCommunityInformedPlatformCollectingManaging" /></p>
             <div className="hero-actions">
               <Link to="/map" className="btn-primary">
-                Explore the Map
-              </Link>
+                <Trans ns="landing" i18nKey="landingPage.actions.exploreMap" /></Link>
               <a
                 href="https://cleanaircompass.org/participate"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="btn-secondary"
               >
-                Get Involved
-              </a>
+                <Trans ns="landing" i18nKey="landingPage.actions.getInvolved" /></a>
             </div>
           </div>
         </div>
@@ -78,20 +83,17 @@ function LandingPage() {
             <div className="stat-item">
               <span className="stat-number">99%</span>
               <span className="stat-label">
-                of the world breathes unhealthy air
-              </span>
+                <Trans ns="landing" i18nKey="landingPage.text.worldBreathesUnhealthyAir" /></span>
             </div>
             <div className="stat-item">
-              <span className="stat-number">1 in 8</span>
+              <span className="stat-number"><Trans ns="landing" i18nKey="landingPage.text.18" /></span>
               <span className="stat-label">
-                premature deaths globally linked to air pollution
-              </span>
+                <Trans ns="landing" i18nKey="landingPage.text.prematureDeathsGloballyLinkedAirPollution" /></span>
             </div>
             <div className="stat-item">
-              <span className="stat-number">Open</span>
+              <span className="stat-number"><Trans ns="landing" i18nKey="landingPage.text.open" /></span>
               <span className="stat-label">
-                source platform for global collaboration
-              </span>
+                <Trans ns="landing" i18nKey="landingPage.text.sourcePlatformGlobalCollaboration" /></span>
             </div>
           </div>
         </div>
@@ -100,7 +102,7 @@ function LandingPage() {
       
       <section className="features-section">
         <div className="landing-container">
-          <h2 className="section-title">Why This Platform Matters</h2>
+          <h2 className="section-title"><Trans ns="landing" i18nKey="landingPage.headings.whyPlatformMatters" /></h2>
           <div className="features-grid">
             <article className="feature-card">
               <div className="feature-icon" aria-hidden="true">
@@ -116,12 +118,9 @@ function LandingPage() {
                   <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
                 </svg>
               </div>
-              <h3 className="feature-title">Air Quality Data</h3>
+              <h3 className="feature-title"><Trans ns="landing" i18nKey="landingPage.headings.airQualityData" /></h3>
               <p className="feature-description">
-                Aggregate measurements from multiple sources—OpenAQ, PurpleAir,
-                and more—into a unified, quality-controlled data repository.
-                Real-time and historical data at your fingertips.
-              </p>
+                <Trans ns="landing" i18nKey="landingPage.text.aggregateMeasurementsMultipleSourcesOpenAq" /></p>
             </article>
 
             <article className="feature-card">
@@ -143,12 +142,9 @@ function LandingPage() {
                   <line x1="12" y1="22.08" x2="12" y2="12" />
                 </svg>
               </div>
-              <h3 className="feature-title">Open Source</h3>
+              <h3 className="feature-title"><Trans ns="landing" i18nKey="landingPage.headings.openSource" /></h3>
               <p className="feature-description">
-                A customizable, open-source data management system that fosters
-                collaboration, reduces redundancy, and enhances accessibility
-                for global air quality efforts.
-              </p>
+                <Trans ns="landing" i18nKey="landingPage.text.customizableOpenSourceDataManagementSystem" /></p>
             </article>
 
             <article className="feature-card">
@@ -168,12 +164,9 @@ function LandingPage() {
                   <path d="M16 3.13a4 4 0 0 1 0 7.75" />
                 </svg>
               </div>
-              <h3 className="feature-title">Community-Informed</h3>
+              <h3 className="feature-title"><Trans ns="landing" i18nKey="landingPage.headings.communityInformed" /></h3>
               <p className="feature-description">
-                Built with input from a global community of practice. Shared
-                learning accelerates progress, helping overcome data management
-                hurdles for more effective use of air quality information.
-              </p>
+                <Trans ns="landing" i18nKey="landingPage.text.builtInputGlobalCommunityPracticeShared" /></p>
             </article>
           </div>
         </div>
@@ -184,19 +177,11 @@ function LandingPage() {
         <div className="landing-container">
           <div className="about-grid">
             <div className="about-content">
-              <h2 className="section-title">About Clean Air COMPASS</h2>
+              <h2 className="section-title"><Trans ns="landing" i18nKey="landingPage.headings.aboutCleanAirCompass" /></h2>
               <p>
-                The Clean Air COMPASS project emerged from a critical global
-                need: effective air quality data management. Existing systems
-                are falling short as monitoring efforts by governments,
-                community-based organizations, and other institutions increase.
-              </p>
+                <Trans ns="landing" i18nKey="landingPage.text.cleanAirCompassProjectEmergedCritical" /></p>
               <p>
-                Proprietary or custom-built solutions can be costly, opaque,
-                and inefficient. This initiative directly addresses these pain
-                points by offering a customizable open-source Data Management
-                System (DMS), born from global feedback to meet expressed needs.
-              </p>
+                <Trans ns="landing" i18nKey="landingPage.text.proprietaryCustomBuiltSolutionsCanCostly" /></p>
               <section
                 className="landing-led-by mt-8 rounded-xl bg-white/90 p-6 shadow-md ring-1 ring-[#e1e9f5]"
                 aria-labelledby="led-by-title"
@@ -208,63 +193,59 @@ function LandingPage() {
                       id="led-by-title"
                       className="text-xs font-semibold uppercase tracking-[0.14em] text-[#0a4d86]"
                     >
-                      Led By
-                    </span>
+                      <Trans ns="landing" i18nKey="landingPage.text.led" /></span>
                     <span className="rounded-full bg-[#e8f1fb] px-3 py-1 text-[11px] font-medium text-[#1f2d3d]">
-                      Mission partners &amp; seed funding
-                    </span>
+                      <Trans ns="landing" i18nKey="landingPage.text.missionPartnersAmpSeedFunding" /></span>
                   </div>
                   <p className="text-sm text-[#1f2937]">
-                    Natural Resources Defense Council (NRDC), OpenAQ, and Sonoma
-                    Technology, Inc., with seed funding from the Clean Air Fund.
-                  </p>
+                    <Trans ns="landing" i18nKey="landingPage.text.naturalResourcesDefenseCouncilNrdcOpen" /></p>
                   <div className="grid grid-cols-2 gap-3 sm:grid-cols-4 md:gap-4">
                     <a
                       href="https://www.nrdc.org/"
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="group flex items-center justify-center rounded-lg border border-[#e6edf7] bg-white/80 p-3 transition duration-200 hover:-translate-y-0.5 hover:shadow-[0_10px_25px_rgba(6,71,137,0.08)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0b5fff] focus-visible:ring-offset-2 focus-visible:ring-offset-white"
+                      className="partner-logo-card group flex items-center justify-center rounded-lg border border-[#e6edf7] bg-white/80 p-3 transition duration-200 hover:-translate-y-0.5 hover:shadow-[0_10px_25px_rgba(6,71,137,0.08)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0b5fff] focus-visible:ring-offset-2 focus-visible:ring-offset-white"
                     >
                       <img
                         src={nrdcLogo}
-                        alt="Natural Resources Defense Council"
-                        className="h-16 w-auto max-w-[170px] object-contain"
+                        alt={i18n.t('landing:landingPage.accessibility.naturalResourcesDefenseCouncil')}
+                        className="partner-logo partner-logo--nrdc"
                       />
                     </a>
                     <a
                       href="https://openaq.org/"
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="group flex items-center justify-center rounded-lg border border-[#e6edf7] bg-white/80 p-3 transition duration-200 hover:-translate-y-0.5 hover:shadow-[0_10px_25px_rgba(6,71,137,0.08)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0b5fff] focus-visible:ring-offset-2 focus-visible:ring-offset-white"
+                      className="partner-logo-card group flex items-center justify-center rounded-lg border border-[#e6edf7] bg-white/80 p-3 transition duration-200 hover:-translate-y-0.5 hover:shadow-[0_10px_25px_rgba(6,71,137,0.08)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0b5fff] focus-visible:ring-offset-2 focus-visible:ring-offset-white"
                       >
                       <img
                         src={openAqLogo}
                         alt="OpenAQ"
-                        className="h-14 w-auto max-w-[160px] object-contain"
+                        className="partner-logo partner-logo--openaq"
                       />
                     </a>
                     <a
-                      href="https://www.sonomatech.com/"
+                      href="https://spherosenv.com/"
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="group flex items-center justify-center rounded-lg border border-[#e6edf7] bg-white/80 p-3 transition duration-200 hover:-translate-y-0.5 hover:shadow-[0_10px_25px_rgba(6,71,137,0.08)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0b5fff] focus-visible:ring-offset-2 focus-visible:ring-offset-white"
+                      className="partner-logo-card group flex items-center justify-center rounded-lg border border-[#e6edf7] bg-white/80 p-3 transition duration-200 hover:-translate-y-0.5 hover:shadow-[0_10px_25px_rgba(6,71,137,0.08)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0b5fff] focus-visible:ring-offset-2 focus-visible:ring-offset-white"
                       >
                       <img
-                        src={sonomaTechnologyLogo}
-                        alt="Sonoma Technology"
-                        className="h-14 w-auto max-w-[170px] object-contain"
+                        src={spherosEnvironmentalLogo}
+                        alt={i18n.t('landing:landingPage.accessibility.spherosEnvironmental')}
+                        className="partner-logo partner-logo--spheros"
                       />
                     </a>
                     <a
                       href="https://www.cleanairfund.org/"
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="group flex items-center justify-center rounded-lg border border-[#e6edf7] bg-white/80 p-3 transition duration-200 hover:-translate-y-0.5 hover:shadow-[0_10px_25px_rgba(6,71,137,0.08)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0b5fff] focus-visible:ring-offset-2 focus-visible:ring-offset-white"
+                      className="partner-logo-card group flex items-center justify-center rounded-lg border border-[#e6edf7] bg-white/80 p-3 transition duration-200 hover:-translate-y-0.5 hover:shadow-[0_10px_25px_rgba(6,71,137,0.08)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0b5fff] focus-visible:ring-offset-2 focus-visible:ring-offset-white"
                     >
                       <img
                         src={cleanAirFundLogo}
-                        alt="Clean Air Fund"
-                        className="h-12 w-auto max-w-[150px] object-contain"
+                        alt={i18n.t('landing:landingPage.accessibility.cleanAirFund')}
+                        className="partner-logo partner-logo--clean-air-fund"
                       />
                     </a>
                   </div>
@@ -273,14 +254,11 @@ function LandingPage() {
             </div>
             <div className="about-cta">
               <div className="cta-card">
-                <h3>Ready to Explore?</h3>
+                <h3><Trans ns="landing" i18nKey="landingPage.headings.readyExplore" /></h3>
                 <p>
-                  View real-time air quality data from monitoring devices
-                  around the world on our interactive map.
-                </p>
+                  <Trans ns="landing" i18nKey="landingPage.text.viewRealTimeAirQualityData" /></p>
                 <Link to="/map" className="btn-primary btn-large">
-                  Launch the Map
-                </Link>
+                  <Trans ns="landing" i18nKey="landingPage.actions.launchMap" /></Link>
               </div>
             </div>
           </div>
@@ -290,35 +268,27 @@ function LandingPage() {
       
       <section className="benefits-section">
         <div className="landing-container">
-          <h2 className="section-title">Who Benefits</h2>
+          <h2 className="section-title"><Trans ns="landing" i18nKey="landingPage.headings.whoBenefits" /></h2>
           <div className="benefits-grid">
             <div className="benefit-item">
-              <h4>Communities</h4>
+              <h4><Trans ns="landing" i18nKey="landingPage.headings.communities" /></h4>
               <p>
-                Access transparent, quality-controlled air quality data to
-                understand local pollution levels and advocate for cleaner air.
-              </p>
+                <Trans ns="landing" i18nKey="landingPage.text.accessTransparentQualityControlledAirQuality" /></p>
             </div>
             <div className="benefit-item">
-              <h4>Researchers</h4>
+              <h4><Trans ns="landing" i18nKey="landingPage.headings.researchers" /></h4>
               <p>
-                Leverage standardized, multi-source data for studies, with
-                built-in QA/QC and flexible aggregation periods.
-              </p>
+                <Trans ns="landing" i18nKey="landingPage.text.leverageStandardizedMultiSourceDataStudies" /></p>
             </div>
             <div className="benefit-item">
-              <h4>Organizations</h4>
+              <h4><Trans ns="landing" i18nKey="landingPage.headings.organizations" /></h4>
               <p>
-                Deploy an open-source DMS without vendor lock-in, customizable
-                to your monitoring network and reporting needs.
-              </p>
+                <Trans ns="landing" i18nKey="landingPage.text.deployOpenSourceDmsWithoutVendor" /></p>
             </div>
             <div className="benefit-item">
-              <h4>Governments</h4>
+              <h4><Trans ns="landing" i18nKey="landingPage.headings.governments" /></h4>
               <p>
-                Integrate regulatory and low-cost sensor data into a unified
-                platform for policy decisions and public health alerts.
-              </p>
+                <Trans ns="landing" i18nKey="landingPage.text.integrateRegulatoryLowCostSensorData" /></p>
             </div>
           </div>
         </div>
@@ -329,10 +299,9 @@ function LandingPage() {
         <div className="landing-container">
           <div className="footer-content">
             <div className="footer-brand">
-              <span className="footer-logo">AQ Data Platform</span>
+              <span className="footer-logo"><Trans ns="landing" i18nKey="landingPage.text.aqDataPlatform2" /></span>
               <p className="footer-tagline">
-                Part of the Clean Air COMPASS initiative
-              </p>
+                <Trans ns="landing" i18nKey="landingPage.text.partCleanAirCompassInitiative" /></p>
             </div>
             <div className="footer-links">
               <a
@@ -340,33 +309,29 @@ function LandingPage() {
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                Clean Air COMPASS
-              </a>
+                <Trans ns="landing" i18nKey="landingPage.actions.cleanAirCompass2" /></a>
               <a
                 href="https://cleanaircompass.org/about"
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                About
-              </a>
+                <Trans ns="landing" i18nKey="landingPage.actions.about" /></a>
               <a
                 href="https://cleanaircompass.org/participate"
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                Participate
-              </a>
+                <Trans ns="landing" i18nKey="landingPage.actions.participate" /></a>
               <a
                 href="https://github.com/clean-air-compass"
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                GitHub
-              </a>
+                <Trans ns="landing" i18nKey="landingPage.actions.gitHub" /></a>
             </div>
           </div>
           <div className="footer-bottom">
-            <p>© {new Date().getFullYear()} Clean Air COMPASS</p>
+            <p>© {new Date().getFullYear()} {' '}<Trans ns="landing" i18nKey="landingPage.text.cleanAirCompass" /></p>
           </div>
         </div>
       </footer>

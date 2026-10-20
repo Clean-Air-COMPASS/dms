@@ -1,3 +1,5 @@
+import { Trans } from 'react-i18next';
+import i18n from '../i18n';
 import * as React from 'react';
 import { copyToClipboard, formatCoordinates } from '../utils/clipboard';
 
@@ -42,11 +44,11 @@ const CopyableCoordinates: React.FC<CopyableCoordinatesProps> = ({
       onKeyDown={handleKeyDown}
       role={canCopy ? 'button' : undefined}
       tabIndex={canCopy ? 0 : undefined}
-      title={canCopy ? 'Click to copy coordinates' : undefined}
-      aria-label={canCopy ? `Copy coordinates: ${coordsText}` : undefined}
+      title={canCopy ? i18n.t('map:copyableCoordinates.text.clickCopyCoordinates') : undefined}
+      aria-label={canCopy ? i18n.t('map:copyableCoordinates.accessibility.copyCoordinates', { coordinates: coordsText }) : undefined}
     >
       {copied ? (
-        <span className="copied-feedback">Copied!</span>
+        <span className="copied-feedback"><Trans ns="map" i18nKey="copyableCoordinates.text.copied" /></span>
       ) : (
         coordsText
       )}

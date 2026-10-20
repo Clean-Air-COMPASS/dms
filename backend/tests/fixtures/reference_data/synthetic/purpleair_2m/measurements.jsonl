@@ -1,0 +1,11 @@
+{"sensor_ref":"complete_pm25","observed_at":"2026-07-01T00:02:00Z","value":12.0,"repeat_count":30,"interval_seconds":120}
+{"sensor_ref":"threshold_pm25","observed_at":"2026-07-01T01:02:00Z","value":12.0,"repeat_count":23,"interval_seconds":120}
+{"sensor_ref":"insufficient_pm25","observed_at":"2026-07-01T02:02:00Z","value":12.0,"repeat_count":22,"interval_seconds":120}
+{"sensor_ref":"missing_pm25","observed_at":"2026-07-01T03:02:00Z","value":12.0,"repeat_count":10,"interval_seconds":120}
+{"sensor_ref":"missing_pm25","observed_at":"2026-07-01T03:32:00Z","value":12.0,"repeat_count":10,"interval_seconds":120}
+{"sensor_ref":"duplicate_pm25","observed_at":"2026-07-01T04:02:00Z","value":12.0}
+{"sensor_ref":"duplicate_pm25","observed_at":"2026-07-01T04:02:30Z","value":12.0,"qc_flags":{"fixture_case":"drifted_duplicate_interval"}}
+{"sensor_ref":"invalid_pm25","observed_at":"2026-07-01T05:02:00Z","value":12.0,"is_valid":false,"qc_flags":{"fixture_case":"invalid_observation"},"qc_version":"synthetic-2i.1"}
+{"sensor_ref":"off_frequency_pm25","observed_at":"2026-07-01T06:00:59Z","value":12.0,"qc_flags":{"fixture_case":"off_frequency_observation"}}
+{"sensor_ref":"unknown_native_pm25","observed_at":"2026-07-01T07:02:00Z","value":12.0,"repeat_count":3,"interval_seconds":120}
+{"sensor_ref":"aggregation_pm25","observed_at":"2026-07-02T00:00:00Z","value":10.0,"repeat_count":720,"interval_seconds":120}

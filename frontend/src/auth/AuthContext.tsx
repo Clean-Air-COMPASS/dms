@@ -10,7 +10,24 @@ import {
   fetchCurrentUser,
   login as authClientLogin,
   logout as authClientLogout,
+  updateCurrentUserPreferences,
 } from './authClient';
+import i18n, {
+  resolveAuthenticatedLanguage,
+  writeAnonymousLanguagePreference,
+  type SupportedLanguageCode,
+} from '../i18n';
+
+async function applyAuthenticatedLanguage(user: AuthUser): Promise<void> {
+  const languageCode = resolveAuthenticatedLanguage(
+    user.preferred_language_code,
+    user.system_default_language_code,
+  );
+  if (typeof window !== 'undefined') {
+    writeAnonymousLanguagePreference(window.localStorage, languageCode);
+  }
+  await i18n.changeLanguage(languageCode);
+}
 
 
 export function AuthProvider({ children }: { children: React.ReactNode }) {
@@ -22,8 +39,9 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   });
 
   
-  const handleAuthStateChange = useCallback((token: string | null, user: AuthUser | null) => {
+  const handleAuthStateChange = useCallback(async (token: string | null, user: AuthUser | null) => {
     if (token && user) {
+      await applyAuthenticatedLanguage(user);
       setAuthState({
         isAuthenticated: true,
         user,
@@ -59,6 +77,8 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
           if (cancelled) return;
 
           if (user) {
+            await applyAuthenticatedLanguage(user);
+            if (cancelled) return;
             setAuthState({
               isAuthenticated: true,
               user,
@@ -123,6 +143,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       const user = await fetchCurrentUser(token);
       
       if (user) {
+        await applyAuthenticatedLanguage(user);
         setAuthState({
           isAuthenticated: true,
           user,
@@ -139,7 +160,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
           accessToken: null,
           isLoading: false,
         });
-        return { success: false, error: 'Failed to fetch user information' };
+        return { success: false, error: 'current_user_unavailable' };
       }
     } else {
       setAuthState((prev) => ({ ...prev, isLoading: false }));
@@ -158,6 +179,14 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       accessToken: null,
       isLoading: false,
     });
+  }, []);
+
+  const setPreferredLanguageCode = useCallback(async (
+    languageCode: SupportedLanguageCode | null,
+  ): Promise<void> => {
+    const updatedUser = await updateCurrentUserPreferences(languageCode);
+    await applyAuthenticatedLanguage(updatedUser);
+    setAuthState((currentState) => ({ ...currentState, user: updatedUser }));
   }, []);
 
   
@@ -183,10 +212,11 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     ...authState,
     login,
     logout,
+    setPreferredLanguageCode,
     hasScope,
     hasAnyScope,
     hasAllScopes,
-  }), [authState, login, logout, hasScope, hasAnyScope, hasAllScopes]);
+  }), [authState, login, logout, setPreferredLanguageCode, hasScope, hasAnyScope, hasAllScopes]);
 
   return (
     <AuthContext.Provider value={contextValue}>

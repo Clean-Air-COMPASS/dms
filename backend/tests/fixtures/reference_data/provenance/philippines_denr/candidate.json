@@ -1,0 +1,73 @@
+{
+  "bundle_status": "candidate_awaiting_analyst_approval",
+  "cases": [
+    {
+      "block_valid_hour_counts": [8, 8, 8],
+      "calculation_status": "calculated",
+      "category_code": "unhealthy_for_sensitive_groups",
+      "eligibility_status": "eligible",
+      "maximum_consecutive_missing_hours": 0,
+      "normalized_concentration": "37.25",
+      "numeric_value": "111.39",
+      "parameter_code": "pm25",
+      "preprocessed_concentration": "37.2",
+      "represented_local_date": "2026-08-02",
+      "sensor_ref": "openaq-sensor-13191003",
+      "utc_window_ended_at": "2026-08-02T16:00:00Z",
+      "utc_window_started_at": "2026-08-01T16:00:00Z",
+      "valid_hour_count": 24
+    },
+    {
+      "block_valid_hour_counts": [8, 8, 8],
+      "calculation_status": "calculated",
+      "category_code": "good",
+      "eligibility_status": "eligible",
+      "maximum_consecutive_missing_hours": 0,
+      "normalized_concentration": "15.91425116310892172961138478",
+      "numeric_value": "31.80",
+      "parameter_code": "pm25",
+      "preprocessed_concentration": "15.9",
+      "represented_local_date": "2026-08-09",
+      "sensor_ref": "purpleair-99177-pm25",
+      "utc_window_ended_at": "2026-08-09T16:00:00Z",
+      "utc_window_started_at": "2026-08-08T16:00:00Z",
+      "valid_hour_count": 24
+    },
+    {
+      "block_valid_hour_counts": [8, 8, 8],
+      "calculation_status": "calculated",
+      "category_code": "good",
+      "eligibility_status": "eligible",
+      "maximum_consecutive_missing_hours": 0,
+      "normalized_concentration": "21.13126778872468527640941434",
+      "numeric_value": "19.44",
+      "parameter_code": "pm10",
+      "preprocessed_concentration": "21",
+      "represented_local_date": "2026-08-09",
+      "sensor_ref": "purpleair-99177-pm10",
+      "utc_window_ended_at": "2026-08-09T16:00:00Z",
+      "utc_window_started_at": "2026-08-08T16:00:00Z",
+      "valid_hour_count": 24
+    }
+  ],
+  "explicit_absences": {
+    "openaq_manila_gases": ["so2", "o3", "co", "no2"],
+    "openaq_manila_pm10": true,
+    "purpleair_manila_gases": ["so2", "o3", "co", "no2"]
+  },
+  "methodology_code": "philippines_denr_aqi",
+  "methodology_version": "denr_emb_aqi_2021",
+  "provenance": {
+    "direct_airgradient_api_capture": false,
+    "hardware_model": "AirGradient ONE Generation 9",
+    "hardware_provider": "AirGradient",
+    "owner": "Manila Observatory",
+    "regulatory_monitor_conformance_claimed": false,
+    "transport_provider": "OpenAQ"
+  },
+  "provider_calls": 0,
+  "source_hashes": {
+    "openaq_measurements_sha256": "dd93fda403acb4ad59e6819977c3e157c36203e12447617345fc0edd5c9d8ed3",
+    "purpleair_measurements_sha256": "aba35bb8e380a2e3343af724fa565b849f717f3783b006d9512405af3cd55028"
+  }
+}

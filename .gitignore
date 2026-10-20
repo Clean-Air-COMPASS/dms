@@ -24,7 +24,6 @@ dist/
 # Local environments and secrets
 .env
 .env.*
-!.env.template.example
 frontend/.env
 frontend/.env.local
 frontend/.env.*.local
@@ -35,6 +34,7 @@ venv/
 # Local data, dumps, logs, and temp outputs
 tmp/
 backend/tmp/
+artifacts/
 *.tmp
 *.log
 *.bak

@@ -1,0 +1,376 @@
+{
+  "standards": {
+    "eeaEuropean": "European Air Quality Index",
+    "usEpa": "U.S. EPA AQI",
+    "philippinesDenr": "Philippines Air Quality Index"
+  },
+  "categories": {
+    "good": "Good",
+    "fair": "Fair",
+    "moderate": "Moderate",
+    "poor": "Poor",
+    "veryPoor": "Very poor",
+    "extremelyPoor": "Extremely poor",
+    "unhealthyForSensitiveGroups": "Unhealthy for Sensitive Groups",
+    "unhealthy": "Unhealthy",
+    "veryUnhealthy": "Very Unhealthy",
+    "hazardous": "Hazardous",
+    "acutelyUnhealthy": "Acutely Unhealthy",
+    "emergency": "Emergency"
+  },
+  "common": {
+    "none": "None",
+    "unavailable": "Unavailable",
+    "notAvailable": "Not available"
+  },
+  "coverage": {
+    "complete": "Complete",
+    "partial": "Partial",
+    "none": "No coverage",
+    "partialPollutant": ", partial pollutant coverage"
+  },
+  "messages": {
+    "numericValueAbovePublishedRange": "Numeric AQI unavailable above the published range."
+  },
+  "unknown": {
+    "category": "Unknown category ({{code}})",
+    "standard": "AQI standard {{code}}",
+    "product": "AQI product {{code}}",
+    "aggregation": "Aggregation {{code}}"
+  },
+  "products": {
+    "eeaOverallHourly": "Overall hourly European AQI",
+    "eeaPm25Hourly": "PM2.5 hourly European AQI",
+    "eeaPm10Hourly": "PM10 hourly European AQI",
+    "eeaOzoneHourly": "O₃ hourly European AQI",
+    "eeaNitrogenDioxideHourly": "NO₂ hourly European AQI",
+    "eeaSulfurDioxideHourly": "SO₂ hourly European AQI",
+    "usEpaPm25Nowcast": "PM2.5 NowCast AQI",
+    "usEpaPm10Nowcast": "PM10 NowCast AQI",
+    "usEpaOzoneLatest": "Ozone AQI",
+    "usEpaCarbonMonoxideLatest": "Carbon Monoxide AQI",
+    "usEpaNitrogenDioxideLatest": "Nitrogen Dioxide AQI",
+    "usEpaSulfurDioxideLatest": "Sulfur Dioxide AQI",
+    "usEpaPm25CompletedDay": "U.S. EPA PM2.5 Completed-Day AQI",
+    "usEpaPm10CompletedDay": "U.S. EPA PM10 Completed-Day AQI",
+    "philippinesPm25CompletedDay": "Philippine DENR PM2.5 Completed-Day AQI",
+    "philippinesPm10CompletedDay": "Philippine DENR PM10 Completed-Day AQI",
+    "philippinesSo2CompletedDay": "Philippine DENR SO₂ Completed-Day AQI",
+    "philippinesOzoneLatest": "Philippine DENR O₃ AQI",
+    "philippinesCarbonMonoxideLatest": "Philippine DENR CO AQI",
+    "philippinesNitrogenDioxideLatest": "Philippine DENR NO₂ AQI"
+  },
+  "completedDayPresentation": {
+    "errors": {
+      "invalidRange": "Choose a valid start and end represented local date.",
+      "startAfterEnd": "Start date must be on or before end date.",
+      "rangeTooLong_one": "Date range cannot exceed {{count}} represented local day.",
+      "rangeTooLong_other": "Date range cannot exceed {{count}} represented local days."
+    },
+    "hourCounts": {
+      "expectedUnavailable": "{{valid}} available; expected count not available",
+      "requiredUnavailable": "required count not available",
+      "required": "{{required}} required",
+      "summary": "{{valid}} of {{expected}} available; {{requiredText}}"
+    },
+    "status": {
+      "calculated": "Calculated",
+      "calculatedAbove500": "Calculated · Above AQI 500",
+      "unavailable": "AQI unavailable",
+      "valueUnavailable": "AQI value unavailable"
+    },
+    "tooltip": {
+      "aqi": "AQI {{value}}",
+      "aqiWithCategory": "AQI {{value}} — {{category}}",
+      "dailyConcentration": "Daily concentration: {{concentration}}",
+      "hourlyConcentrations": "Hourly concentrations: {{counts}}",
+      "coverage": "Coverage: {{status}}"
+    }
+  },
+  "marker": {
+    "partial": "{{category}} · Partial",
+    "device": "Device {{id}}",
+    "accessibleLabel": "{{device}}: {{product}} {{category}}{{coverage}}"
+  },
+  "interval": {
+    "utcRange": "{{start}} – {{end}}"
+  },
+  "aggregation": {
+    "native": "{{aggregation}} (native)",
+    "rawLatest": "Raw/latest",
+    "oneMinute": "1-minute",
+    "twoMinute": "2-minute",
+    "fiveMinute": "5-minute",
+    "fifteenMinute": "15-minute",
+    "nowCastTwelveHour": "12-hour NowCast",
+    "selectedOzoneResult": "Selected 8-hour or 1-hour result",
+    "eightHourAverage": "8-hour average",
+    "oneHourAverage": "1-hour average",
+    "oneHourMaximum": "1-hour maximum",
+    "oneHourMaximumCappedAtAqi200": "1-hour maximum capped at AQI 200",
+    "twentyFourHourEvaluation": "24-hour evaluation",
+    "completedLocalDay": "Completed local day",
+    "twentyFourHourAverage": "24-hour average",
+    "rollingTwentyFourHourAverage": "Rolling 24-hour average",
+    "dailyAverage": "Daily average"
+  },
+  "auditFlags": {
+    "duplicateObservationInterval": "Duplicate observations were found for an expected interval.",
+    "offFrequencyObservations": "Some observations did not match the expected frequency.",
+    "invalidObservationsRejected": "Invalid observations were excluded from the completed-day result.",
+    "additionalNote": "An additional data-quality note is available."
+  },
+  "exclusionReasons": {
+    "unsupportedPollutant": "Unsupported pollutant",
+    "unsupportedUnit": "Unsupported unit",
+    "unsupportedAveragingPeriod": "Unsupported averaging period",
+    "unsupportedProduct": "This AQI product is not supported",
+    "invalidConcentration": "Invalid concentration",
+    "incompleteHour": "The hourly concentration is incomplete",
+    "missingMeasurements": "Measurements are unavailable",
+    "hourlyConcentrationUnavailable": "Hourly concentration is unavailable",
+    "hourlyAveragingInformationUnavailable": "Hourly averaging information is unavailable",
+    "unsupportedInputAveragingPeriod": "Input averaging period is not supported",
+    "unsupportedInputFrequency": "Input reading frequency is not supported",
+    "conversionNotSupported": "Mass-to-mixing-ratio conversion is not supported without temperature and pressure",
+    "expectedFrequencyUnavailable": "Expected reading frequency is unavailable",
+    "unsupportedDurationFrequency": "Reading duration or frequency metadata is missing or unsupported",
+    "timestampSemanticsUnknown": "Reading time meaning is unavailable",
+    "hourlyCompletenessNotMet": "Not enough readings for a complete hour",
+    "duplicateObservationInterval": "Duplicate readings were found for an expected interval",
+    "offFrequencyObservations": "Readings do not match the expected frequency",
+    "noValidObservations": "No valid readings are available",
+    "insufficientRecentHours": "Not enough complete recent hours for NowCast",
+    "noEligibleSensorStream": "No sensor stream has enough eligible data",
+    "deviceTimezoneMissing": "The device timezone is missing",
+    "deviceTimezoneInvalid": "The device timezone is invalid",
+    "completedLocalDayUnavailable": "The completed local day is unavailable",
+    "dailyCompletenessNotMet": "Not enough eligible hourly concentrations for the completed day",
+    "noValidHourlyConcentrations": "No valid hourly concentrations are available for the completed day",
+    "unsupportedDailyPollutant": "This pollutant is not supported for completed-day AQI",
+    "unsupportedDailyMethodology": "This completed-day method is not supported",
+    "completedDayMethodologyNotImplemented": "This completed-day method is not implemented",
+    "noEligiblePollutants": "No eligible pollutants",
+    "ozoneOneHourNotApplicable": "The one-hour ozone AQI does not apply below 0.125 ppm",
+    "ozoneEightHourNotApplicable": "The eight-hour ozone AQI scale does not apply above 0.200 ppm",
+    "rollingEightHourCompletenessNotMet": "The eight-hour window does not meet its coverage rule",
+    "noApplicableOzoneCandidate": "No applicable ozone AQI candidate is available",
+    "publishedBreakpointGap": "The concentration falls in a gap between published breakpoints",
+    "subindexNotDefined": "The official table does not define an AQI for this concentration",
+    "rollingTwentyFourHourCompletenessNotMet": "The 24-hour evaluation window does not meet its coverage rule",
+    "sulfurDioxideOneHourNotApplicable": "The one-hour sulfur dioxide table is not applicable",
+    "sulfurDioxideTwentyFourHourNotApplicable": "The 24-hour sulfur dioxide table is not applicable",
+    "noApplicableSulfurDioxideCandidate": "No applicable sulfur dioxide AQI candidate is available"
+  },
+  "aqiLegend": {
+    "text": {
+      "aqi": "AQI",
+      "airQualityIndexAqi": "Air Quality Index (AQI)",
+      "noData": "No Data"
+    }
+  },
+  "aqiTrendCard": {
+    "counts": {
+      "availableResults_one": "{{count}} historical result available",
+      "availableResults_other": "{{count}} historical results available",
+      "unavailableIntervals_one": " · {{count}} unavailable interval",
+      "unavailableIntervals_other": " · {{count}} unavailable intervals"
+    },
+    "headings": {
+      "lastSevenDays": "Last 7 Days",
+      "lastTwentyFourHours": "Last 24 Hours"
+    },
+    "axes": {
+      "localDate": "Local date",
+      "localTime": "Time (Local)",
+      "europeanCategory": "European AQI category",
+      "aqi": "AQI"
+    },
+    "dynamic": {
+      "unavailableReason": "AQI unavailable: {{reason}}"
+    },
+    "tooltips": {
+      "resetZoom": "Reset zoom"
+    },
+    "actions": {
+      "resetZoom": "Reset Zoom"
+    },
+    "text": {
+      "loadingAqiHistory": "Loading AQI history…",
+      "historicalAqiCouldNotLoaded": "Historical AQI could not be loaded.",
+      "noHistoricalAqiValuesAvailablePeriod": "No historical AQI values are available for this period.",
+      "historicalResult": "historical result",
+      "available": "available",
+      "europeanCategoryUnavailable": "European AQI category unavailable"
+    }
+  },
+  "completedDayAqiHistory": {
+    "headings": {
+      "completedDayHistory": "Completed-day history"
+    },
+    "text": {
+      "representedDeviceLocalDate": "by represented device-local date",
+      "historyRange": "History range",
+      "startDate": "Start date",
+      "endDate": "End date",
+      "maximum": "Maximum",
+      "representedLocalDaysDatesNotReordered": "represented local days. Dates are not reordered or shortened.",
+      "waitingLatestRepresentedCompletedDateProduct": "Waiting for the latest represented completed date for this product.",
+      "loadingCompletedDayHistory": "Loading completed-day history…",
+      "historicalAqiCouldNotLoaded": "Historical AQI could not be loaded.",
+      "pleaseTryAgain": "Please try again.",
+      "noCompletedDayHistoryWasReturned": "No completed-day history was returned for this device and date range.",
+      "noCompletedDayHistoryWasReturned2": "No completed-day history was returned for this device and date range.",
+      "noCompletedDayAqiValuesAvailable": "No completed-day AQI values are available for this date range. Returned dates and reasons are shown below.",
+      "selectedRepresentedDate": "Selected represented date",
+      "aqiUnavailable": "AQI unavailable",
+      "category": "Category",
+      "dailyConcentration": "Daily concentration",
+      "hourlyConcentrations": "Hourly concentrations",
+      "coverage": "Coverage",
+      "deviceTimezone": "Device timezone",
+      "whyAqiUnavailable": "Why AQI is unavailable",
+      "dataQualityNotes": "Data-quality notes",
+      "selected2": "Selected"
+    },
+    "accessibility": {
+      "completedDayHistoryRange": "Completed-day history range",
+      "customRepresentedLocalDateRange": "Custom represented local date range",
+      "completedDayAqiHistoryTable": "Completed-day AQI history table",
+      "selectDate": "Select {{date}}"
+    },
+    "actions": {
+      "days": "days",
+      "custom": "Custom",
+      "apply": "Apply"
+    },
+    "columns": {
+      "date": "Date",
+      "aqi": "AQI",
+      "category": "Category",
+      "dailyConcentration": "Daily concentration",
+      "hourlyConcentrationsAvailable": "Hourly concentrations available"
+    }
+  },
+  "europeanAqiDetails": {
+    "dynamic": {
+      "device": "Device {{id}}",
+      "unavailableReason": "European AQI unavailable: {{reason}}."
+    },
+    "accessibility": {
+      "closePanel": "Close panel"
+    },
+    "text": {
+      "europeanAqi": "European AQI",
+      "partialCoverage": "Partial coverage",
+      "europeanAqiUnavailableInterval": "European AQI is unavailable for this interval.",
+      "aqiDetails": "AQI details",
+      "standard": "Standard",
+      "calculation": "Calculation",
+      "pollutant": "Pollutant",
+      "averagingPeriod": "Averaging period",
+      "completedHourUtc": "Completed hour (UTC)",
+      "dominantPollutant_one": "Dominant pollutant",
+      "dominantPollutant_other": "Dominant pollutants",
+      "coverage": "Coverage",
+      "available": "Available",
+      "missing": "Missing",
+      "ineligible": "Ineligible",
+      "displayQualification": "Display qualification",
+      "notEvaluated": "Not evaluated",
+      "compassAqHasNotEvaluatedEea": "CompassAQ has not evaluated the EEA station display qualification for this result.",
+      "pollutantResults": "Pollutant results ("
+    },
+    "tooltips": {
+      "deviceTimezone": "Device timezone"
+    },
+    "actions": {
+      "openFullAnalytics": "Open Full Analytics"
+    }
+  },
+  "europeanAqiLegend": {
+    "text": {
+      "unavailable": "Unavailable",
+      "title": "{{standard}} · {{product}}"
+    },
+    "accessibility": {
+      "legend": "{{standard}} legend"
+    }
+  },
+  "usEpaGasDetails": {
+    "accessibility": {
+      "calculationDetails": "{{product}} calculation details"
+    },
+    "text": {
+      "selectedBasis": "Selected basis",
+      "selectedConcentration": "Selected concentration",
+      "unavailable": "Unavailable",
+      "selectedInterval": "Selected interval",
+      "eligibleHours": "Eligible hours",
+      "of": "of",
+      "coverage": "Coverage",
+      "selectedSensor": "Selected sensor",
+      "inputUnit": "Input unit",
+      "siteLevelInformationalResultCompletedUtc": "Site-level informational result for a completed UTC interval. This is not a completed-day or reporting-area AQI, a regulatory design value, or a compliance determination.",
+      "noResultSelected": "No result selected"
+    }
+  },
+  "usEpaOzoneDetails": {
+    "accessibility": {
+      "ozoneAqiCalculationDetails": "Ozone AQI calculation details"
+    },
+    "text": {
+      "selectedBasis": "Selected basis",
+      "selectedConcentration": "Selected concentration",
+      "selectedInterval": "Selected interval",
+      "selectedCoverage": "Selected coverage",
+      "eligibleHours": "Eligible hours",
+      "of": "of",
+      "selectedSensor": "Selected sensor",
+      "inputUnit": "Input unit",
+      "ppm": "→ ppm",
+      "notApplicable": "Not applicable",
+      "coverage": "Coverage:",
+      "of2": "of",
+      "eligibleHours2": "eligible hours",
+      "appendixUZeroSubstitutionWasUsed": "Appendix U zero substitution was used for missing hours.",
+      "compassAqEvaluatesApplicable8Hour": "CompassAQ evaluates the applicable 8-hour AQI and the highest eligible 1-hour concentration in this same latest completed 8-hour UTC window, then selects the higher applicable AQI. Evaluating 1-hour ozone at every site is a precautionary CompassAQ informational policy, not a claim that official EPA reporting areas universally use a 1-hour AQI.",
+      "siteLevelInformationalResultNotEpa": "Site-level informational result. This is not EPA O₃ NowCast, a completed-day or reporting-area AQI, a regulatory design value, or a compliance determination.",
+      "noCandidateSelected": "No candidate selected"
+    }
+  },
+  "usEpaSo2Details": {
+    "accessibility": {
+      "sulfurDioxideAqiCalculationDetails": "Sulfur Dioxide AQI calculation details"
+    },
+    "text": {
+      "selectedBasis": "Selected basis",
+      "selectedConcentration": "Selected concentration",
+      "unavailable": "Unavailable",
+      "selectedInterval": "Selected interval",
+      "evaluationCoverage": "Evaluation coverage",
+      "of": "of",
+      "selectedSensor": "Selected sensor",
+      "inputUnit": "Input unit",
+      "ppb": "→ ppb",
+      "notApplicable": "Not applicable",
+      "evaluation": "Evaluation:",
+      "epaGuidanceAssignsAqi200When": "EPA guidance assigns AQI 200 when the maximum 1-hour concentration is at least 305 ppb but the 24-hour average remains below 305 ppb.",
+      "siteLevelInformationalResultTrailing24": "Site-level informational result. The trailing 24-hour UTC evaluation is a CompassAQ policy, not EPA’s completed local-standard-time day, reporting-area AQI, or a compliance determination.",
+      "noCandidateSelected": "No candidate selected"
+    }
+  },
+  "completedDayAqiHistoryChart": {
+    "accessibility": {
+      "summary_one": "{{count}} represented local date: {{calculated}} calculated and {{unavailable}} unavailable. Exact values follow in the history table.",
+      "summary_other": "{{count}} represented local dates: {{calculated}} calculated and {{unavailable}} unavailable. Exact values follow in the history table."
+    },
+    "axes": {
+      "representedLocalDate": "Represented local date"
+    },
+    "content": {
+      "calculatedAqi": "Calculated AQI",
+      "aqiUnavailable": "AQI unavailable"
+    }
+  }
+}

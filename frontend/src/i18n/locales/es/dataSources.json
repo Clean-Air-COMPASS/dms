@@ -1,0 +1,259 @@
+{
+  "adminSourceDetail": {
+    "text": {
+      "detail": "Detalle"
+    },
+    "dynamic": {
+      "source": "Fuente {{id}}"
+    },
+    "tooltips": {
+      "dataSource": "Fuente de datos"
+    },
+    "content": {
+      "admin": "Administración",
+      "dataSources": "Fuentes de datos"
+    }
+  },
+  "adminSourceForm": {
+    "validation": {
+      "apiKeyRequired": "Se requiere la clave API para {{provider}}",
+      "replacementApiKeyRequired": "Ingrese la clave API de reemplazo antes de guardar."
+    },
+    "dialogs": {
+      "deleteDataSource": "¿Eliminar la fuente de datos “{{name}}”?"
+    },
+    "text": {
+      "associatedDevices": "Dispositivos asociados",
+      "deviceLinkedSource": "dispositivo vinculado a esta fuente",
+      "devicesLinkedSource": "dispositivos vinculados a esta fuente",
+      "dataSourceConfiguration": "Configuración de fuente de datos",
+      "baseUrl": "URL base",
+      "description": "Descripción",
+      "maxLookbackHours": "Retrospección máxima (horas)",
+      "limitsImporterHistoryFetchWindow": "Limita la ventana de recuperación del historial del importador",
+      "apiKey": "Clave API",
+      "enabled": "Habilitada",
+      "credentialStored": "Credencial guardada",
+      "credentialWillBeRemoved": "La credencial guardada se eliminará cuando guarde.",
+      "enterReplacementCredential": "Ingrese una nueva credencial. La credencial guardada no cambia hasta que guarde.",
+      "credentialRequiredWhenEnabled": "Agregue una credencial antes de ejecutar una importación.",
+      "neverRun": "Nunca se ejecutó",
+      "reportingInterval": "Intervalo de informe",
+      "purpleAirProvidesNewMeasurementApproximately": "PurpleAir proporciona una nueva medición aproximadamente cada 2 minutos.",
+      "measurementPeriod": "Periodo de medición",
+      "eachImportedValueRepresents2Minute": "Cada valor importado representa un promedio de 2 minutos.",
+      "measurementTime": "Tiempo de medición",
+      "compassAqRecordsTimePurpleAir": "CompassAQ registra la hora en que PurpleAir recibió la medición.",
+      "pmMeasurementSource": "Fuente de medición de PM",
+      "compassAqImportsPurpleAirApos": "CompassAQ importa los valores de partículas de canal combinado de PurpleAir.",
+      "metadataManagement": "Gestión de metadatos",
+      "managedAutomaticallyMeasurementTimingInformationSupplied": "Se gestiona automáticamente. El importador de PurpleAir proporciona y mantiene la información temporal de las mediciones.",
+      "dataQualification": "Clasificación de los datos",
+      "purpleAirDevicesAirSensorsThey": "Los dispositivos PurpleAir son sensores de aire; no son automáticamente instrumentos regulatorios.",
+      "airGradientCredentialWorkflow": "Guardar este token de API no contacta con AirGradient. Si se selecciona importar ubicaciones vinculadas, las importaciones habilitadas descubren todas las ubicaciones del lugar autenticado. Los tokens rechazados se notifican en la ejecución y en Eventos.",
+      "airGradientReferenceWorkflow": "Las referencias públicas cubren Nueva York, Sudamérica y Metro Manila sin enviar el token. El sitio de Sudamérica está en São Paulo, la ubicación pública activa verificada más cercana a Río (a 366 km). Las coordenadas devueltas deben coincidir con la región o el sitio aprobado.",
+      "airGradientAttributionWorkflow": "CompassAQ conserva la ruta de adquisición, el colaborador o enlace del lugar cuando se proporciona y los metadatos de licencia aplicables para mostrarlos y exportarlos en CSV.",
+      "importAuthenticatedLocations": "Importar también las ubicaciones de mi cuenta de AirGradient",
+      "authenticatedLocationsHelp": "De forma predeterminada, CompassAQ importa solo las ubicaciones públicas de referencia de AirGradient integradas en CompassAQ. Marque esta casilla para importar también todas las ubicaciones asociadas con esta clave API."
+    },
+    "actions": {
+      "viewDevices": "Ver dispositivos",
+      "createSource": "Crear fuente",
+      "viewJobRuns": "Ver ejecuciones",
+      "replaceCredential": "Reemplazar credencial",
+      "removeCredential": "Eliminar credencial",
+      "keepCredential": "Conservar credencial guardada"
+    },
+    "placeholders": {
+      "apiDescription": "Descripción de API",
+      "apiKey": "Clave API",
+      "airGradientApiKey": "Clave API de AirGradient",
+      "replacementApiKey": "Nueva clave API"
+    },
+    "headings": {
+      "aboutDataSource": "Acerca de esta fuente de datos",
+      "lastImport": "Última importación",
+      "airGradientDataPaths": "Rutas de datos de AirGradient"
+    },
+    "accessibility": {
+      "storedCredential": "Credencial API guardada"
+    },
+    "notifications": {
+      "dataSourceUpdated": "Fuente de datos actualizada",
+      "createdExternalApi": "API externa creada"
+    }
+  },
+  "adminSources": {
+    "headings": {
+      "adminDataSources": "Administrador • Fuentes de datos"
+    },
+    "text": {
+      "selectDataSource": "Seleccionar fuente de datos",
+      "showingOnly": "Mostrando solo \"",
+      "sources": "\"fuentes"
+    },
+    "tooltips": {
+      "selectExternalApiSource": "Seleccionar una fuente de API externa"
+    },
+    "accessibility": {
+      "externalApiSelector": "Selector de API externa"
+    },
+    "actions": {
+      "modifySettings": "Modificar configuración",
+      "importSettings": "Configuración de importación"
+    }
+  },
+  "adminSourcesList": {
+    "tooltips": {
+      "dataSources": "Fuentes de datos"
+    },
+    "columns": {
+      "dataSource": "Fuente de datos",
+      "enabled": "Habilitada",
+      "devices": "Dispositivos",
+      "lastImport": "Última importación"
+    },
+    "text": {
+      "inactive": "Deshabilitada",
+      "active": "Habilitada",
+      "yes": "Sí",
+      "no": "No",
+      "noDataSourcesConfigured": "No hay fuentes de datos configuradas."
+    },
+    "actions": {
+      "deleting": "Eliminando…"
+    },
+    "accessibility": {
+      "configureExternalDataSources": "Administre las fuentes de datos y elija cuáles habilitar.",
+      "openDataSource": "Abrir vista {{name}}"
+    },
+    "dialogs": {
+      "deleteDataSource": "¿Eliminar la fuente de datos “{{name}}”?"
+    },
+    "content": {
+      "admin": "Administración",
+      "dataSources": "Fuentes de datos"
+    }
+  },
+  "sourceState": {
+    "disabled": "Deshabilitada",
+    "configuration_required": "Habilitada — se requiere clave API",
+    "paid_provider_requests_disabled": "Un operador deshabilitó las solicitudes al proveedor.",
+    "ready": "Habilitada — lista",
+    "unsupported_provider": "Habilitada — integración del proveedor no disponible"
+  },
+  "openAQFields": {
+    "text": {
+      "rateLimitPerMinute": "Límite de solicitudes por minuto",
+      "rateLimitPerHour": "Límite de solicitudes por hora"
+    }
+  },
+  "schedulesTab": {
+    "headings": {
+      "linkedSchedules": "Programaciones vinculadas"
+    },
+    "text": {
+      "savingScheduleDoesNotContactPurple": "Guardar una programación no contacta a PurpleAir. Para iniciar una ejecución, una programación habilitada también requiere que esté habilitado el control de acceso a la API de pago en el servidor.",
+      "noSchedulesMatchedSourceNamePattern": "Ninguna programación coincide con este patrón de nombre de fuente.",
+      "cron": "Cron",
+      "timezone": "Zona horaria",
+      "apiKey": "Clave API"
+    },
+    "placeholders": {
+      "utc": "UTC"
+    },
+    "fields": {
+      "enabled": "Activado",
+      "allowOverlap": "Permitir superposición"
+    },
+    "notifications": {
+      "scheduleUpdated": "Programación actualizada"
+    },
+    "clarity": {
+      "importTask": "Ejecutar la importación de {{name}}",
+      "sourceTask": "Ejecutar la operación de {{name}}",
+      "ready": "La programación guardada está habilitada. Esta fuente de datos está lista para ejecutarse.",
+      "off": "La programación guardada está desactivada. No hay ejecuciones automáticas programadas.",
+      "blockedDisabled": "Programación guardada. Esta fuente de datos está deshabilitada.",
+      "blocked": "Programación guardada. Esta fuente de datos no está lista para importar.",
+      "unknown": "Programación guardada. No se pudo determinar si la fuente está lista para importar.",
+      "checking": "Comprobando la frecuencia…",
+      "previewUnavailable": "La vista previa de la frecuencia no está disponible. Inténtelo de nuevo o guarde para validar la expresión.",
+      "invalidCron": "Introduzca una expresión cron válida. Por ejemplo, 0 * * * * se ejecuta cada hora.",
+      "everyMinute": "Vista previa: cada minuto (UTC).",
+      "everyMinutes_one": "Vista previa: cada {{count}} minuto (UTC).",
+      "everyMinutes_other": "Vista previa: cada {{count}} minutos (UTC).",
+      "hourly": "Vista previa: cada hora en el minuto {{minute}} (UTC).",
+      "daily": "Vista previa: todos los días a las {{time}} UTC.",
+      "custom": "Frecuencia personalizada. Las próximas horas coincidentes se muestran a continuación.",
+      "nextTimes": "Próximas horas coincidentes (si está habilitada y lista):",
+      "utcHelp": "El programador usa UTC. Una fuente recién habilitada también puede ejecutar su primera importación de inmediato.",
+      "advanced": "Configuración avanzada de horarios",
+      "cronLabel": "Horario de ejecución (cron)",
+      "cronHelp": "Controla cuándo deben realizarse las importaciones. Los cinco campos habituales son minuto, hora, día del mes, mes y día de la semana. * significa todos los valores. Los cambios se aplican al guardar.",
+      "storedTimezone": "Zona horaria almacenada",
+      "timezoneHelp": "Este valor se conserva por compatibilidad. El programador actual evalúa cron en UTC, independientemente de este ajuste.",
+      "taskIdentifier": "Identificador de tarea (diagnóstico)",
+      "enableSchedule": "Habilitar ejecuciones automáticas",
+      "overlapLabel": "Iniciar otra ejecución mientras una sigue en curso",
+      "overlapHelp": "Al habilitar esta opción, las ejecuciones programadas pueden realizarse al mismo tiempo, lo que aumenta las solicitudes al proveedor y la carga del servidor. Si está desactivada, una ejecución en curso impide iniciar otra ejecución programada.",
+      "empty": "No hay ninguna importación automática programada para esta fuente de datos.",
+      "noUpcomingTimes": "No se encontraron próximas horas coincidentes dentro del período de búsqueda del programador."
+    }
+  },
+  "adminAirGradient": {
+    "content": {
+      "admin": "Administración",
+      "dataSources": "Fuentes de datos"
+    }
+  },
+  "adminSourceOpenAQ": {
+    "content": {
+      "admin": "Administración",
+      "dataSources": "Fuentes de datos"
+    }
+  },
+  "adminSourcePurpleAir": {
+    "content": {
+      "admin": "Administración",
+      "dataSources": "Fuentes de datos"
+    }
+  },
+  "credentialFree": "Fuente integrada. No requiere cuenta, clave API ni configuración.",
+  "airgradientPublicHelp": "Las lecturas públicas de referencia y el historial procesado de 15 minutos no requieren clave API. Se necesita una clave para importar las ubicaciones de su cuenta.",
+  "airgradientOptionalCredential": "Opcional para los datos públicos de referencia.",
+  "airgradientHistoryStream": "Historial procesado de AirGradient de 15 minutos · cobertura original desconocida · no disponible para el ICA",
+  "enableSource": "Habilitar {{name}}",
+  "demo": {
+    "description": "Mientras está habilitado, Demo Data añade observaciones actuales de ejemplo sobre la calidad del aire para explorar CompassAQ. Los dispositivos y las observaciones de Demo no son datos de monitoreo real.",
+    "setupHelp": "Puede deshabilitar Demo Data después en Administración → Fuentes de datos.",
+    "disableHelp": "Al deshabilitar Demo Data, dejan de generarse nuevas observaciones de ejemplo. El historial de Demo se conserva.",
+    "saveFailed": "No se pudo guardar la configuración de la fuente. Inténtelo de nuevo.",
+    "listDescription": "Observaciones de ejemplo que se actualizan continuamente. No son datos de monitoreo real."
+  },
+  "workflow": {
+    "configuration": "Configuración de la fuente",
+    "monitoring": "Monitoreo",
+    "scheduleHeading": "Importaciones automáticas",
+    "needsConfiguration": "Requiere configuración",
+    "missingCredential": "Falta la clave API. Guarde una credencial antes de ejecutar una importación.",
+    "disabled": "Deshabilitada",
+    "enabled": "Habilitada",
+    "ready": "Lista para importar",
+    "operatorBlocked": "Un operador ha deshabilitado las solicitudes al proveedor.",
+    "unsupported": "La integración con este proveedor no está disponible.",
+    "unknown": "No se pudo determinar si la fuente está lista para importar.",
+    "finishConfiguration": "Completar configuración",
+    "configureSchedule": "Configurar importaciones automáticas",
+    "runNow": "Ejecutar importación ahora",
+    "demoAutomatic": "Demo Data genera observaciones de ejemplo automáticamente mientras está habilitada. No admite importaciones manuales.",
+    "schedule": {
+      "loading": "Cargando programación…",
+      "unavailable": "Estado de programación no disponible",
+      "none": "Sin programación automática",
+      "on": "Programación guardada · ejecuciones automáticas habilitadas",
+      "off": "Programación guardada · ejecuciones automáticas deshabilitadas"
+    },
+    "deploymentCredential": "Credencial proporcionada por la instalación"
+  }
+}

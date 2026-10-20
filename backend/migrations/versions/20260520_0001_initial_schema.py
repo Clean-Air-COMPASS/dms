@@ -54,14 +54,16 @@ def upgrade() -> None:
     op.create_table(
         "external_api",
         sa.Column("external_api_id", sa.Integer(), autoincrement=True, nullable=False),
+        sa.Column("provider_code", sa.String(length=32), nullable=True),
         sa.Column("name", sa.String(length=120), nullable=False),
         sa.Column("base_url", sa.String(length=512), nullable=True),
         sa.Column("description", sa.Text(), nullable=True),
         sa.Column("api_key", sa.String(length=256), nullable=True),
         sa.Column("params", sa.JSON(), nullable=False),
-        sa.Column("is_active", sa.Boolean(), nullable=False, server_default=sa.text("true")),
+        sa.Column("enabled", sa.Boolean(), nullable=False, server_default=sa.text("false")),
         sa.Column("created_at", sa.DateTime(timezone=True), nullable=False, server_default=sa.text("now()")),
         sa.PrimaryKeyConstraint("external_api_id"),
+        sa.UniqueConstraint("provider_code"),
         sa.UniqueConstraint("name"),
     )
 
@@ -100,6 +102,7 @@ def upgrade() -> None:
         sa.Column("system_settings_id", sa.Integer(), autoincrement=True, nullable=False),
         sa.Column("is_system_setup_complete", sa.Boolean(), nullable=False, server_default=sa.text("false")),
         sa.Column("geoapify_api_key", sa.String(length=256), nullable=True),
+        sa.Column("default_reference_devices_version", sa.String(length=64), nullable=True),
         sa.Column("created_at", sa.DateTime(timezone=True), nullable=False, server_default=sa.text("now()")),
         sa.Column("updated_at", sa.DateTime(timezone=True), nullable=False, server_default=sa.text("now()")),
         sa.PrimaryKeyConstraint("system_settings_id"),
@@ -171,7 +174,11 @@ def upgrade() -> None:
         sa.Column("created_at", sa.DateTime(timezone=True), nullable=False, server_default=sa.text("now()")),
         sa.ForeignKeyConstraint(["external_api_id"], ["external_api.external_api_id"], ondelete="RESTRICT"),
         sa.PrimaryKeyConstraint("device_id"),
-        sa.UniqueConstraint("external_id"),
+        sa.UniqueConstraint(
+            "external_api_id",
+            "external_id",
+            name="uq_device_external_api_external_id",
+        ),
     )
     op.create_index("ix_device_external_api_id", "device", ["external_api_id"], unique=False)
 
@@ -346,6 +353,11 @@ def upgrade() -> None:
         sa.ForeignKeyConstraint(["parameter_id"], ["parameter.parameter_id"], ondelete="SET NULL"),
         sa.ForeignKeyConstraint(["unit_id"], ["unit.unit_id"], ondelete="SET NULL"),
         sa.PrimaryKeyConstraint("sensor_id"),
+        sa.UniqueConstraint(
+            "device_id",
+            "external_sensor_id",
+            name="uq_sensor_device_external_sensor_id",
+        ),
     )
     op.create_index("ix_sensor_aggregation_period_id", "sensor", ["aggregation_period_id"], unique=False)
     op.create_index("ix_sensor_parameter_id", "sensor", ["parameter_id"], unique=False)
@@ -629,20 +641,24 @@ def seed_lookup_data() -> None:
     connection.execute(
         sa.text(
             """
-            INSERT INTO external_api (name, base_url, description, params)
+            INSERT INTO external_api (provider_code, name, base_url, description, params, enabled)
             VALUES
-                ('OpenAQ', 'https://api.openaq.org', 'Seeded default source: OpenAQ', '{}'::json),
+                ('openaq', 'OpenAQ', 'https://api.openaq.org', 'Built-in source: OpenAQ', '{}'::json, false),
                 (
+                    'purpleair',
                     'PurpleAir',
                     'https://api.purpleair.com/v1/sensors',
-                    'PurpleAir API default limits.',
-                    '{"max_lookback_hours": 24}'::json
+                    'Built-in source: PurpleAir',
+                    '{"max_lookback_hours": 24}'::json,
+                    false
                 ),
                 (
+                    'airgradient',
                     'AirGradient',
                     'https://api.airgradient.com/public/api',
-                    'AirGradient public API',
-                    '{}'::json
+                    'Built-in source: AirGradient',
+                    '{}'::json,
+                    false
                 )
             """
         )

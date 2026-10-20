@@ -3,14 +3,21 @@
 These helpers focus on DB-related concerns. They accept a SQLAlchemy
 session and return model instances; callers are responsible for committing.
 """
-from typing import List, Optional, Tuple, Dict
+import logging
+from dataclasses import dataclass
+from typing import Any, Dict, List, Literal, Optional, Tuple
 from datetime import datetime
 from sqlalchemy import select, text
 
 import models
-from qaqc.pipeline import run_ingest, run_ingest_detailed
+from services.device_locations import set_device_location
+from qaqc.pipeline import run_ingest_detailed
+from qaqc.persistence import apply_ingest_qc_result
 from qaqc.types import QCRecord
 import qaqc.plugins                                                  
+
+
+logger = logging.getLogger(__name__)
 try:
     from timezonefinder import TimezoneFinder
 except Exception:
@@ -44,6 +51,50 @@ UG_PER_PPM: Dict[str, float] = {
     "so2": 2620.0,         
     "co": 1145.0,          
 }
+
+# OpenAQ gas measurements must retain the provider's reported unit and value.
+# A molecular-weight factor alone cannot convert between mass concentration and
+# mixing ratio without temperature and pressure.
+AQI_GAS_PARAMETER_CODES = frozenset({"o3", "co", "no2", "so2"})
+
+
+@dataclass(frozen=True)
+class MeasurementUpsertResult:
+    """Database action plus QC outcomes produced by that same upsert."""
+
+    action: Literal["insert", "update", "skip"]
+    qc: dict[str, int] | None = None
+
+
+def _qc_counts_from_detailed_result(
+    detailed_result: dict[str, Any],
+) -> dict[str, int] | None:
+    """Summarize the QC decisions already produced by the ingest pipeline."""
+    per_plugin = detailed_result.get("per_plugin") or {}
+    if not per_plugin:
+        return None
+
+    aligned_decisions = [
+        decisions[0]
+        for decisions in per_plugin.values()
+        if decisions and decisions[0] is not None
+    ]
+    if not aligned_decisions:
+        # A resolver-known not-applicable policy leaves no decision to count.
+        # It is neither a pass nor an indeterminate evaluation.
+        return None
+    has_failed_check = any(
+        decision.is_valid is False for decision in aligned_decisions
+    )
+    has_indeterminate_check = any(
+        decision.is_valid is None for decision in aligned_decisions
+    )
+    return {
+        "evaluated": 1,
+        "passed": 1 if not has_failed_check and not has_indeterminate_check else 0,
+        "flagged": 1 if has_failed_check else 0,
+        "indeterminate": 1 if not has_failed_check and has_indeterminate_check else 0,
+    }
 
 
 def _normalize_unit_str(unit: Optional[str]) -> str:
@@ -87,6 +138,36 @@ def _canonical_unit_id(
     if fallback:
         return unit_code_map.get(fallback) or unit_symbol_map.get(fallback)
     return None
+
+
+def _openaq_import_unit_id(
+    param_code: str,
+    reported_unit: Optional[str],
+    param_default_unit: Dict[str, int],
+    unit_code_map: Dict[str, int],
+    unit_symbol_map: Dict[str, int],
+) -> Optional[int]:
+    """Preserve reported AQI-gas units; use existing defaults otherwise.
+
+    A gaseous mass concentration cannot be converted to a mixing ratio without
+    temperature and pressure. Keeping the reported unit lets the strict AQI
+    path reject unsupported conversions explicitly.
+    """
+    incoming_unit_id = None
+    if reported_unit:
+        incoming_unit_id = (
+            unit_code_map.get(reported_unit)
+            or unit_symbol_map.get(reported_unit)
+            or unit_code_map.get(_unit_kind(reported_unit) or "")
+        )
+    if (param_code or "").strip().lower() in AQI_GAS_PARAMETER_CODES:
+        return incoming_unit_id
+    return _canonical_unit_id(
+        param_code,
+        param_default_unit,
+        unit_code_map,
+        unit_symbol_map,
+    ) or incoming_unit_id
 
 
 def _conversion_factor(param_code: str, from_unit: Optional[str], to_unit: Optional[str]) -> Optional[float]:
@@ -144,11 +225,26 @@ def _convert_value_to_unit(
 def _get_external_api_id(session, name: str) -> int | None:
     """Return external_api_id for provider name, creating row if missing (minimal fields)."""
     try:
-        row = session.scalars(select(models.ExternalAPI).where(models.ExternalAPI.name == name)).one_or_none()
+        provider_code = name.strip().lower()
+        row = session.scalars(
+            select(models.ExternalAPI).where(
+                models.ExternalAPI.provider_code == provider_code
+            )
+        ).one_or_none()
         if row:
             return getattr(row, "external_api_id", None)
                                           
-        api = models.ExternalAPI(name=name)
+        provider_code = provider_code if provider_code in {
+            "openaq",
+            "purpleair",
+            "airgradient",
+        } else None
+        api = models.ExternalAPI(
+            provider_code=provider_code,
+            name=name,
+            enabled=False,
+            params={},
+        )
         session.add(api)
         session.flush()
         return getattr(api, "external_api_id", None)
@@ -182,42 +278,14 @@ def _update_device_location(
     longitude: Optional[float],
     effective_from: Optional[datetime] = None,
 ) -> None:
-    """Ensure the device location history reflects the given lat/lon.
-
-    If the latest open-ended row has the same lat/lon, do nothing.
-    Otherwise, close the previous row (set effective_to) and insert a new one.
-    """
-    if latitude is None and longitude is None:
-        return
-    ef = effective_from or datetime.utcnow()
-                                 
-    latest = None
-    try:
-        latest = session.scalars(
-            select(models.DeviceLocationHistory)
-            .where(models.DeviceLocationHistory.device_id == device.device_id)
-            .order_by(models.DeviceLocationHistory.effective_from.desc())
-            .limit(1)
-        ).one_or_none()
-    except Exception:
-        latest = None
-    if latest and latest.effective_to is None:
-                                              
-        if (latest.latitude == latitude) and (latest.longitude == longitude):
-            return
-                                                                      
-        if latest.effective_from <= ef:
-            latest.effective_to = ef
-            session.add(latest)
-                    
-    new_row = models.DeviceLocationHistory(
-        device_id=device.device_id,
+    """Compatibility wrapper for provider code using the shared writer."""
+    set_device_location(
+        session,
+        device,
         latitude=latitude,
         longitude=longitude,
-        effective_from=ef,
-        effective_to=None,
+        effective_at=effective_from,
     )
-    session.add(new_row)
 
 
 def _extract_provider_ids(it: dict) -> Tuple[Optional[str], Optional[str], Optional[str]]:
@@ -295,13 +363,19 @@ def normalize_and_upsert_from_parameter_latest(
         pid = param_map.get(p_code)
 
                                                                                     
-        canonical_uid = _canonical_unit_id(p_code, param_default_unit, unit_code_map, unit_symbol_map)
-        incoming_uid = unit_code_map.get(unit) or unit_symbol_map.get(unit) if unit else None
-        uid = canonical_uid or incoming_uid
+        uid = _openaq_import_unit_id(
+            p_code,
+            unit,
+            param_default_unit,
+            unit_code_map,
+            unit_symbol_map,
+        )
         target_code = unit_id_code_map.get(uid) if uid is not None else None
 
-                                                                
-        valf = _convert_value_to_unit(p_code, valf, unit, target_code)
+        # AQI gases retain the exact source unit. In particular, never infer a
+        # gas mass-to-mixing-ratio conversion from molecular weight alone.
+        if p_code not in AQI_GAS_PARAMETER_CODES:
+            valf = _convert_value_to_unit(p_code, valf, unit, target_code)
 
         m = models.Measurement(
             sensor_id=None,
@@ -341,9 +415,14 @@ def _upsert_device_for_external_location(
     """
     ext = str(external_id) if external_id is not None else None
     dev: Optional[models.Device] = None
-    if ext:
-        dev = session.scalars(select(models.Device).where(models.Device.external_id == ext)).one_or_none()
     api_id = _get_external_api_id(session, external_api_name)
+    if ext and api_id is not None:
+        dev = session.scalars(
+            select(models.Device).where(
+                models.Device.external_api_id == api_id,
+                models.Device.external_id == ext,
+            )
+        ).one_or_none()
     if dev:
         changed = False
         if name and not getattr(dev, "name", None):
@@ -363,16 +442,16 @@ def _upsert_device_for_external_location(
             except Exception:
                 pass
                                                                                 
-        if (getattr(dev, "latitude", None) is None and latitude is not None) or (
-            getattr(dev, "longitude", None) is None and longitude is not None
+        if dev.latitude is None and dev.longitude is None and (
+            latitude is not None or longitude is not None
         ):
-            dev.latitude = latitude if latitude is not None else dev.latitude
-            dev.longitude = longitude if longitude is not None else dev.longitude
+            set_device_location(
+                session,
+                dev,
+                latitude=latitude,
+                longitude=longitude,
+            )
             changed = True
-            try:
-                _update_device_location(session, dev, dev.latitude, dev.longitude, effective_from=None)
-            except Exception:
-                pass
         if changed:
             session.add(dev)
             session.flush()
@@ -381,18 +460,16 @@ def _upsert_device_for_external_location(
     disp_name = name or (f"openaq-location-{ext}" if ext else "openaq-device")
     dev = models.Device(name=disp_name, external_api_id=api_id or 1)
     dev.external_id = ext
-    dev.latitude = latitude
-    dev.longitude = longitude
                                                                             
     try:
         if timezone:
             dev.timezone = timezone
         else:
                                                     
-            if dev.latitude is not None and dev.longitude is not None:
+            if latitude is not None and longitude is not None:
                 try:
                     tf = TimezoneFinder()
-                    t = tf.timezone_at(lat=float(dev.latitude), lng=float(dev.longitude))
+                    t = tf.timezone_at(lat=float(latitude), lng=float(longitude))
                     if t:
                         dev.timezone = t
                 except Exception:
@@ -400,11 +477,12 @@ def _upsert_device_for_external_location(
     except Exception:
         pass
     session.add(dev)
-    session.flush()
-    try:
-        _update_device_location(session, dev, latitude, longitude, effective_from=None)
-    except Exception:
-        pass
+    set_device_location(
+        session,
+        dev,
+        latitude=latitude,
+        longitude=longitude,
+    )
     return dev
 
 
@@ -502,7 +580,11 @@ def _upsert_sensor_for_device(
             if current_uid is None:
                 sensor.unit_id = unit_id
                 session.add(sensor)
-            elif convert_unit and current_uid != unit_id:
+            elif (
+                convert_unit
+                and current_uid != unit_id
+                and (param_name or "").strip().lower() not in AQI_GAS_PARAMETER_CODES
+            ):
                                                                                       
                 unit_lookup = unit_id_code_map or {}
                 src_code = unit_lookup.get(current_uid)
@@ -526,20 +608,42 @@ def _upsert_sensor_for_device(
     return sensor
 
 
-def upsert_measurement_with_policy(
+def upsert_measurement_with_policy_detailed(
     session,
     measurement: models.Measurement,
     device: Optional[models.Device] = None,
     sensor: Optional[models.Sensor] = None,
-) -> str:
-    """Insert/update/skip a measurement based on allow_updates policy.
+) -> MeasurementUpsertResult:
+    """Insert/update/skip a measurement and return its existing QC outcome.
 
     Policy evaluation:
     - Sensor policy precedence: if Sensor.allow_updates is ALLOW -> update; DENY -> skip; INHERIT -> defer to device
     - Device policy: ALLOW -> update; DENY -> skip; INHERIT -> default skip
 
-    Returns one of: 'insert', 'update', 'skip'
+    QC runs exactly once for inserted and allowed-updated measurements. Skips do
+    not run QC because no measurement value is written.
     """
+    incoming_parameter_code = str(
+        getattr(measurement, "_parameter_code", "") or ""
+    ).strip().lower()
+    incoming_unit_id = getattr(measurement, "_unit_id", None)
+    sensor_unit_id = getattr(sensor, "unit_id", None) if sensor else None
+    if (
+        incoming_parameter_code in AQI_GAS_PARAMETER_CODES
+        and incoming_unit_id is not None
+        and sensor_unit_id is not None
+        and incoming_unit_id != sensor_unit_id
+    ):
+        logger.warning(
+            "Skipping OpenAQ %s measurement for sensor %s because reported "
+            "unit_id %s differs from stored unit_id %s",
+            incoming_parameter_code,
+            getattr(sensor, "sensor_id", None),
+            incoming_unit_id,
+            sensor_unit_id,
+        )
+        return MeasurementUpsertResult(action="skip")
+
     sid = measurement.sensor_id
     ts = measurement.observed_at
                                                                              
@@ -556,7 +660,7 @@ def upsert_measurement_with_policy(
     if not sid or not ts:
                                                       
         session.add(measurement)
-        return "insert"
+        return MeasurementUpsertResult(action="insert")
 
     existing = session.scalars(
         select(models.Measurement).where(
@@ -579,76 +683,22 @@ def upsert_measurement_with_policy(
             device_longitude=getattr(device, "longitude", None) if device else None,
             meta=None,
         )
-        detailed = run_ingest_detailed([rec], {"session": session, "aggregate_code": _effective_aggregate_code(session, sensor)})
-        overall = (detailed.get("overall") or [None])[0]
-        per = detailed.get("per_plugin", {})
-        if overall and overall.is_valid is not None:
-            measurement.is_valid = bool(overall.is_valid)
-                                                           
-        failed_checks = [name for name, lst in per.items() if lst and lst[0] and lst[0].is_valid is False]
-        if failed_checks:
-            try:
-                measurement.qc_flags = failed_checks
-            except Exception:
-                pass
-        session.add(measurement)
-        session.flush()
-                                                                                
-        try:
-            from sqlalchemy import select as sa_select
-            for name, lst in per.items():
-                dec = lst[0] if lst else None
-                if not dec:
-                    continue
-                                                              
-                mqr = session.scalars(
-                    sa_select(models.MeasurementQCResult).where(
-                        models.MeasurementQCResult.measurement_id == measurement.measurement_id,
-                        models.MeasurementQCResult.check_code == name,
-                    )
-                ).one_or_none()
-                if dec.is_valid is False:
-                    payload = models.MeasurementQCResult(
-                        measurement_id=measurement.measurement_id,
-                        parameter_id=pid,
-                        aggregate_code=_effective_aggregate_code(session, sensor),
-                        check_code=name,
-                        passed=False,
-                        details={"value": measurement.value, **(dec.patch or {})},
-                        severity=dec.severity or "error",
-                        message=dec.message or "",
-                        rule_source=(dec.patch or {}).get("source"),
-                        params_snapshot=(dec.patch or {}).get("params"),
-                        plugin_version=None,
-                        stage="ingest",
-                        qc_version=None,
-                    )
-                    if mqr:
-                                         
-                        mqr.passed = False
-                        mqr.details = payload.details
-                        mqr.severity = payload.severity
-                        mqr.message = payload.message
-                        mqr.rule_source = payload.rule_source
-                        mqr.params_snapshot = payload.params_snapshot
-                        mqr.plugin_version = payload.plugin_version
-                        mqr.stage = payload.stage
-                        mqr.qc_version = payload.qc_version
-                        session.add(mqr)
-                    else:
-                        session.add(payload)
-                else:
-                                                                                      
-                    if mqr:
-                        mqr.passed = True
-                        mqr.details = {"value": measurement.value}
-                        mqr.severity = "info"
-                        mqr.message = ""
-                        mqr.stage = "ingest"
-                        session.add(mqr)
-        except Exception:
-            pass
-        return "insert"
+        aggregate_code = _effective_aggregate_code(session, sensor)
+        detailed = run_ingest_detailed(
+            [rec], {"session": session, "aggregate_code": aggregate_code}
+        )
+        apply_ingest_qc_result(
+            session,
+            measurement,
+            pid,
+            aggregate_code,
+            detailed,
+            replace_existing=False,
+        )
+        return MeasurementUpsertResult(
+            action="insert",
+            qc=_qc_counts_from_detailed_result(detailed),
+        )
 
                                          
     decision: Optional[bool] = None
@@ -679,70 +729,37 @@ def upsert_measurement_with_policy(
             device_longitude=getattr(device, "longitude", None) if device else None,
             meta=None,
         )
-        detailed = run_ingest_detailed([rec], {"session": session, "aggregate_code": _effective_aggregate_code(session, sensor)})
-        overall = (detailed.get("overall") or [None])[0]
-        per = detailed.get("per_plugin", {})
-        if overall and overall.is_valid is not None:
-            existing.is_valid = bool(overall.is_valid)
-                              
-        failed_checks = [name for name, lst in per.items() if lst and lst[0] and lst[0].is_valid is False]
-        try:
-            existing.qc_flags = failed_checks or None
-        except Exception:
-            pass
-        session.add(existing)
-        session.flush()
-                               
-        try:
-            from sqlalchemy import select as sa_select
-            for name, lst in per.items():
-                dec = lst[0] if lst else None
-                if not dec:
-                    continue
-                mqr = session.scalars(
-                    sa_select(models.MeasurementQCResult).where(
-                        models.MeasurementQCResult.measurement_id == existing.measurement_id,
-                        models.MeasurementQCResult.check_code == name,
-                    )
-                ).one_or_none()
-                if dec.is_valid is False:
-                    payload_details = {"value": existing.value, **(dec.patch or {})}
-                    if mqr:
-                        mqr.passed = False
-                        mqr.details = payload_details
-                        mqr.severity = dec.severity or "error"
-                        mqr.message = dec.message or ""
-                        mqr.rule_source = (dec.patch or {}).get("source")
-                        mqr.params_snapshot = (dec.patch or {}).get("params")
-                        mqr.stage = "ingest"
-                        session.add(mqr)
-                    else:
-                        session.add(models.MeasurementQCResult(
-                            measurement_id=existing.measurement_id,
-                            parameter_id=pid,
-                            aggregate_code=_effective_aggregate_code(session, sensor),
-                            check_code=name,
-                            passed=False,
-                            details=payload_details,
-                            severity=dec.severity or "error",
-                            message=dec.message or "",
-                            rule_source=(dec.patch or {}).get("source"),
-                            params_snapshot=(dec.patch or {}).get("params"),
-                            plugin_version=None,
-                            stage="ingest",
-                            qc_version=None,
-                        ))
-                else:
-                    if mqr:
-                        mqr.passed = True
-                        mqr.details = {"value": existing.value}
-                        mqr.severity = "info"
-                        mqr.message = ""
-                        mqr.stage = "ingest"
-                        session.add(mqr)
-        except Exception:
-            pass
-        return "update"
+        aggregate_code = _effective_aggregate_code(session, sensor)
+        detailed = run_ingest_detailed(
+            [rec], {"session": session, "aggregate_code": aggregate_code}
+        )
+        apply_ingest_qc_result(
+            session,
+            existing,
+            pid,
+            aggregate_code,
+            detailed,
+            replace_existing=True,
+        )
+        return MeasurementUpsertResult(
+            action="update",
+            qc=_qc_counts_from_detailed_result(detailed),
+        )
 
                                        
-    return "skip"
+    return MeasurementUpsertResult(action="skip")
+
+
+def upsert_measurement_with_policy(
+    session,
+    measurement: models.Measurement,
+    device: Optional[models.Device] = None,
+    sensor: Optional[models.Sensor] = None,
+) -> str:
+    """Compatibility wrapper returning only ``insert``, ``update``, or ``skip``."""
+    return upsert_measurement_with_policy_detailed(
+        session,
+        measurement,
+        device=device,
+        sensor=sensor,
+    ).action

@@ -1,5 +1,7 @@
 import { API_BASE } from './apiBase';
 import { authFetch, authFetchJson } from './auth';
+import { apiErrorFromResponse } from './apiError';
+import type { DataAttribution } from './dataAttribution';
 
 export { API_BASE };
 
@@ -43,7 +45,7 @@ export async function fetchJson<T = unknown>(path: string, init?: FetchJsonInit)
       const res = await fetch(url, requestInit);
       if (!res.ok) {
         if (normalizedKey) delete GET_CACHE[normalizedKey];
-        throw new Error(`Request failed: ${res.status} ${res.statusText}`);
+        throw await apiErrorFromResponse(res);
       }
       return res.json() as Promise<T>;
     })();
@@ -57,113 +59,17 @@ export async function fetchJson<T = unknown>(path: string, init?: FetchJsonInit)
   
   const res = await fetch(url, requestInit);
   if (!res.ok) {
-    throw new Error(`Request failed: ${res.status} ${res.statusText}`);
+    throw await apiErrorFromResponse(res);
   }
   return res.json() as Promise<T>;
 }
 
 
-export type PluginInfo = {
-  name: string;
-  display_name?: string;
-  long_description?: string;
-  version?: string;
-  qc_api?: string;
-  param_schema?: Record<string, any> | null;
-  origin?: 'local' | 'entry_point';
-  file_path?: string | null;
-  deletable?: boolean;
-};
-
-export type QCRule = {
-  qc_rule_id: number;
-  check_code: string;
-  sensor_id?: number | null;
-  parameter_id?: number | null;
-  aggregate_code?: string | null;
-  enabled: boolean;
-  params?: Record<string, any> | null;
-  version?: number | null;
-  state?: string | null;
-  draft_params?: Record<string, any> | null;
-  created_at?: string | null;
-  updated_at?: string | null;
-};
-
-export async function listQcPlugins(): Promise<PluginInfo[]> {
-  
-  try {
-    const meta = await authFetchJson<{ plugins: PluginInfo[] }>("/admin/plugins");
-    return meta.plugins as PluginInfo[];
-  } catch {
-    return authFetchJson<PluginInfo[]>("/admin/qc/plugins");
-  }
-}
-
-export async function listQcRules(): Promise<QCRule[]> {
-  return authFetchJson<QCRule[]>("/admin/qc/rules");
-}
-
-export async function saveRuleDraft(qc_rule_id: number, draft_params: Record<string, any>): Promise<QCRule> {
-  return authFetchJson<QCRule>(`/admin/qc/rules/${qc_rule_id}/draft`, {
-    method: 'PUT',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ draft_params }),
-  });
-}
-
-export type PreviewResult = {
-  qc_rule_id: number;
-  check_code: string;
-  threshold: number;
-  since: string;
-  samples: number;
-  would_fail: number;
-  would_pass: number;
-};
-
-export async function previewRule(qc_rule_id: number, hours: number = 24): Promise<PreviewResult> {
-  return authFetchJson<PreviewResult>(`/admin/qc/rules/${qc_rule_id}/preview?hours=${encodeURIComponent(hours)}`, {
-    method: 'POST',
-  });
-}
-
-export async function activateRule(qc_rule_id: number): Promise<QCRule> {
-  return authFetchJson<QCRule>(`/admin/qc/rules/${qc_rule_id}/activate`, {
-    method: 'POST',
-  });
-}
-
-
-export async function createLocalPlugin(name: string, description?: string): Promise<any> {
-  return authFetchJson(`/admin/plugins/local`, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ name, description }),
-  });
-}
-
-export async function deletePlugin(name: string): Promise<any> {
-  return authFetchJson(`/admin/plugins/${encodeURIComponent(name)}`, {
-    method: 'DELETE',
-  });
-}
-
-export async function uploadPlugin(file: File, overwrite = false): Promise<any> {
-  const fd = new FormData();
-  fd.append('file', file);
-  const sep = overwrite ? '?overwrite=true' : '';
-  return authFetchJson(`/admin/plugins/upload${sep}`, {
-    method: 'POST',
-    body: fd,
-  });
-}
-
-export async function runImport(source: string, target_sensor_id?: string, force = false, api_key?: string): Promise<{ status: number; ok: boolean; data: any }> {
+export async function runImport(source: string, target_sensor_id?: string, force = false): Promise<{ status: number; ok: boolean; data: any }> {
   const res = await authFetch(`/admin/imports/run`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ source, target_sensor_id, force, api_key }),
+    body: JSON.stringify({ source, target_sensor_id, force }),
   });
   let data = null;
   try { data = await res.json(); } catch { data = null; }
@@ -175,8 +81,13 @@ export type CsvUploadResult = {
   message: string;
   total_records: number;
   inserted_records: number;
+  updated_records?: number;
+  skipped_records?: number;
   failed_records: number;
   errors?: string[];
+  row_errors?: { line: number; code: string; message: string }[];
+  qc?: { evaluated: number; passed: number; flagged: number; indeterminate: number };
+  event_id?: number;
 };
 
 export async function uploadMeasurementsCsv(file: File): Promise<CsvUploadResult> {
@@ -203,6 +114,12 @@ export type JobSchedule = {
   allow_overlap: boolean;
 };
 
+export type SchedulePreview = { valid: boolean; next_runs: string[] };
+
+export async function previewSchedule(cron_expr: string): Promise<SchedulePreview> {
+  return authFetchJson<SchedulePreview>(`/admin/jobs/schedule-preview?cron_expr=${encodeURIComponent(cron_expr)}`);
+}
+
 export async function listSchedules(task?: string): Promise<JobSchedule[]> {
   const q = task ? `?task=${encodeURIComponent(task)}` : '';
   return authFetchJson<JobSchedule[]>(`/admin/jobs/schedules${q}`);
@@ -225,6 +142,8 @@ export async function updateSchedule(job_schedule_id: number, payload: Partial<{
 }
 
 
+export type DeviceOperationalStatus = 'active' | 'inactive' | 'unknown';
+
 export type DeviceRecord = {
   device_id: number;
   name: string;
@@ -233,10 +152,18 @@ export type DeviceRecord = {
   external_api_id?: number | null;
   external_api_name?: string | null;
   manual_data_source_name?: string | null;
-  device_type?: string | null;
   model?: string | null;
   network?: string | null;
-  status?: string | null;
+  acquisition_path?: string | null;
+  hardware_provider_name?: string | null;
+  provider_url?: string | null;
+  contributor_name?: string | null;
+  contributor_url?: string | null;
+  license_code?: string | null;
+  license_url?: string | null;
+  license_share_alike?: boolean | null;
+  data_attribution?: DataAttribution | null;
+  status: DeviceOperationalStatus;
   owner?: string | null;
   organization?: string | null;
   description?: string | null;
@@ -248,14 +175,16 @@ export type DeviceRecord = {
   longitude?: number | null;
   timezone?: string | null;
   allow_updates?: string | null;
-  last_seen_at?: string | null;
+  last_seen_at: string | null;
   created_at?: string | null;
   is_external?: boolean;
 };
 
-export type DevicePayload = Partial<Omit<DeviceRecord, 'device_id' | 'created_at' | 'last_seen_at'>>;
+export type DevicePayload = Partial<Omit<DeviceRecord, 'device_id' | 'created_at' | 'last_seen_at' | 'status'>>;
 
 export type DeviceSensorSummary = {
+  acquisition_metadata?: { acquisition_method: string; underlying_sample_count?: number | null; underlying_coverage_seconds?: number | null } | null;
+  display_precision?: number | null;
   sensor_id: number;
   external_sensor_id?: string | null;
   aggregation_code?: string | null;
@@ -265,6 +194,12 @@ export type DeviceSensorSummary = {
   value?: number | null;
   observed_at?: string | null;
   is_valid?: boolean | null;
+  expected_frequency_seconds?: number | null;
+  measurement_duration_seconds?: number | null;
+  source_aggregation_duration_seconds?: number | null;
+  measurement_timestamp_semantics?: string | null;
+  measurement_metadata_status?: string | null;
+  measurement_metadata_managed_by?: string | null;
   
   parameter?: string | null;
   unit?: string | null;
@@ -292,6 +227,12 @@ export type DeviceSensorCreateResult = {
   external_sensor_id?: string | null;
   aggregation_code?: string | null;
   unit_id?: number | null;
+  expected_frequency_seconds?: number | null;
+  measurement_duration_seconds?: number | null;
+  source_aggregation_duration_seconds?: number | null;
+  measurement_timestamp_semantics?: string | null;
+  measurement_metadata_status?: string | null;
+  measurement_metadata_managed_by?: string | null;
 };
 
 function cleanPayload(payload: DevicePayload): Record<string, any> {
@@ -304,10 +245,11 @@ function cleanPayload(payload: DevicePayload): Record<string, any> {
   return body;
 }
 
-export async function listDevicesAdmin(filters?: Partial<{ name: string; type: string; status: string; network: string; last_seen_from: string; last_seen_to: string; page: number; page_size: number; external_device_id?: string; external_sensor_id?: string; sensor_id?: number; }>): Promise<DeviceRecord[]> {
+/** The Admin Devices API uses zero-based `page` values when `page_size` is supplied. */
+export async function listDevicesAdmin(filters?: Partial<{ name: string; search: string; status: DeviceOperationalStatus; network: string; last_seen_from: string; last_seen_to: string; page: number; page_size: number; external_device_id?: string; external_sensor_id?: string; sensor_id?: number; }>): Promise<DeviceRecord[]> {
   const params = new URLSearchParams();
   if (filters?.name) params.set('name', filters.name);
-  if (filters?.type) params.set('type', filters.type);
+  if (filters?.search) params.set('search', filters.search);
   if (filters?.status) params.set('status', filters.status);
   if (filters?.network) params.set('network', filters.network);
   if (filters?.last_seen_from) params.set('last_seen_from', filters.last_seen_from);
@@ -344,7 +286,7 @@ export async function updateDeviceAdmin(device_id: number, payload: DevicePayloa
 export async function deleteDeviceAdmin(device_id: number): Promise<void> {
   const res = await authFetch(`/admin/devices/${device_id}`, { method: 'DELETE' });
   if (!res.ok) {
-    throw new Error(`Request failed: ${res.status} ${res.statusText}`);
+    throw await apiErrorFromResponse(res);
   }
 }
 
@@ -379,20 +321,38 @@ export async function updateDeviceSensorAdmin(
 export async function deleteDeviceSensorAdmin(device_id: number, sensor_id: number): Promise<void> {
   const res = await authFetch(`/admin/devices/${device_id}/sensors/${sensor_id}`, { method: 'DELETE' });
   if (!res.ok) {
-    throw new Error(`Request failed: ${res.status} ${res.statusText}`);
+    throw await apiErrorFromResponse(res);
   }
 }
 
 
 export type ExternalAPI = {
+  credential_configured?: boolean;
   external_api_id: number;
+  provider_code?: string | null;
   name: string;
   base_url?: string | null;
   description?: string | null;
-  api_key?: string | null;
+  has_api_key?: boolean;
+  requires_credential?: boolean;
   params?: Record<string, any> | null;
-  is_active?: boolean;
+  enabled: boolean;
+  is_configured?: boolean;
+  is_runnable?: boolean;
+  runnable_reason?: 'disabled' | 'configuration_required' | 'paid_provider_requests_disabled' | 'ready' | 'unsupported_provider';
+  is_builtin?: boolean;
+  can_delete?: boolean;
   device_count?: number;
+  latest_import?: {
+    job_run_id: number;
+    job_schedule_id: number;
+    task: string;
+    status: string;
+    started_at?: string | null;
+    finished_at?: string | null;
+    summary?: Record<string, unknown> | null;
+    error_message?: string | null;
+  } | null;
 };
 
 export type PublicDataSource = {
@@ -411,7 +371,7 @@ export async function listExternalAPIs(init?: FetchJsonInit): Promise<ExternalAP
   return authFetchJson<ExternalAPI[]>(`/admin/external_apis`, requestInit);
 }
 
-export async function updateExternalAPI(external_api_id: number, payload: Partial<{ base_url: string; description: string; api_key: string; params: Record<string, any>; is_active: boolean; }>): Promise<ExternalAPI> {
+export async function updateExternalAPI(external_api_id: number, payload: Partial<{ base_url: string | null; description: string | null; api_key: string | null; params: Record<string, any>; enabled: boolean; }>): Promise<ExternalAPI> {
   return authFetchJson<ExternalAPI>(`/admin/external_apis/${external_api_id}`, {
     method: 'PUT',
     headers: { 'Content-Type': 'application/json' },
@@ -419,7 +379,7 @@ export async function updateExternalAPI(external_api_id: number, payload: Partia
   });
 }
 
-export async function createExternalAPI(payload: { name: string; base_url?: string; description?: string; api_key?: string; params?: Record<string, any>; is_active?: boolean; }): Promise<ExternalAPI> {
+export async function createExternalAPI(payload: { name: string; base_url?: string; description?: string; api_key?: string | null; params?: Record<string, any>; enabled?: boolean; }): Promise<ExternalAPI> {
   return authFetchJson<ExternalAPI>(`/admin/external_apis`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
@@ -430,14 +390,7 @@ export async function createExternalAPI(payload: { name: string; base_url?: stri
 export async function deleteExternalAPI(external_api_id: number): Promise<void> {
   const res = await authFetch(`/admin/external_apis/${external_api_id}`, { method: 'DELETE' });
   if (!res.ok) {
-    let errorMessage = `Request failed: ${res.status} ${res.statusText}`;
-    try {
-      const errorData = await res.json();
-      if (errorData.detail) errorMessage = errorData.detail;
-    } catch {
-      // keep default error
-    }
-    throw new Error(errorMessage);
+    throw await apiErrorFromResponse(res);
   }
 }
 
@@ -472,11 +425,36 @@ export type PurpleAirCreateResult = {
   sensors: { sensor_id: number; parameter_code: string; external_sensor_id: string }[];
 };
 
-export async function lookupPurpleAirSensor(sensor_index: string): Promise<PurpleAirLookupResult> {
+export type AirGradientLocation = {
+  location_id: string;
+  name: string;
+  latitude: number | null;
+  longitude: number | null;
+  timezone: string | null;
+  existing_device_id: number | null;
+};
+
+export function listAirGradientLocations() {
+  return authFetchJson<{ locations: AirGradientLocation[]; automatic_imports_enabled: boolean }>(
+    '/admin/devices/airgradient/locations',
+  );
+}
+
+export function addAirGradientLocation(location_id: string) {
+  return authFetchJson<{ device_id: number; already_exists: boolean; measurements_imported: number }>(
+    '/admin/devices/airgradient/locations', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ location_id }),
+    },
+  );
+}
+
+export async function lookupPurpleAirSensor(sensor_index: string, allow_paid_api = false): Promise<PurpleAirLookupResult> {
   return authFetchJson<PurpleAirLookupResult>('/admin/devices/purpleair/lookup', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ sensor_index }),
+    body: JSON.stringify({ sensor_index, allow_paid_api }),
   });
 }
 
@@ -554,19 +532,8 @@ export async function lookupOpenAQLocations(params: { bbox?: string; location_id
     body: JSON.stringify(params),
   });
 
-  if (res.status === 429) {
-    throw new Error('OpenAQ rate limit reached. Please try again later.');
-  }
-
   if (!res.ok) {
-    let detail = `Request failed: ${res.status}`;
-    try {
-      const err = await res.json();
-      if (err.detail) detail = err.detail;
-    } catch {
-      // ignore
-    }
-    throw new Error(detail);
+    throw await apiErrorFromResponse(res);
   }
 
   return res.json();
@@ -579,23 +546,8 @@ export async function lookupOpenAQSensor(sensor_id: string): Promise<OpenAQLooku
     body: JSON.stringify({ sensor_id }),
   });
 
-  if (res.status === 429) {
-    throw new Error('OpenAQ rate limit reached. Please try again later.');
-  }
-
-  if (res.status === 404) {
-    throw new Error('Sensor not found.');
-  }
-
   if (!res.ok) {
-    let detail = `Request failed: ${res.status}`;
-    try {
-      const err = await res.json();
-      if (err.detail) detail = err.detail;
-    } catch {
-      // ignore
-    }
-    throw new Error(detail);
+    throw await apiErrorFromResponse(res);
   }
 
   return res.json();
@@ -620,6 +572,7 @@ export type EventRecord = {
   severity: string;
   actor_user_id?: string | null;
   actor_email?: string | null;
+  actor_display_name?: string | null;
   device_id?: number | null;
   sensor_id?: number | null;
   external_sensor_id?: string | null;
@@ -630,14 +583,72 @@ export type EventRecord = {
   created_at?: string | null;
 };
 
+export type QCFailureOutcome = 'flag_for_review' | 'mark_invalid';
+export type QCFailureStatus = 'failed' | 'indeterminate';
+
+export type QCFailureRecord = {
+  measurement_qc_result_id: number;
+  qc_result_created_at: string;
+  measurement_id: number;
+  measurement_observed_at: string | null;
+  measurement_value: number;
+  measurement_is_valid: boolean;
+  device_id: number;
+  device_name: string;
+  sensor_id: number;
+  external_sensor_id: string | null;
+  data_source_id: number;
+  data_source_name: string;
+  provider_code: string | null;
+  parameter_code: string | null;
+  parameter_name: string | null;
+  unit_code: string | null;
+  unit_symbol: string | null;
+  check_code: string;
+  check_name: string;
+  plugin_version: string | null;
+  evaluation_status: QCFailureStatus;
+  failure_action: QCFailureOutcome | null;
+  reason_code: string | null;
+  message: string | null;
+  details: Record<string, unknown> | null;
+  params_snapshot: Record<string, unknown> | null;
+  rule_source: string | null;
+  policy_snapshot: Record<string, unknown> | null;
+  policy_provenance: Record<string, unknown> | null;
+};
+
+export type QCFailureListResponse = {
+  items: QCFailureRecord[];
+  total: number;
+  limit: number;
+  offset: number;
+};
+
+export type SystemStorageStatus = {
+  total_bytes: number;
+  used_bytes: number;
+  free_bytes: number;
+  percent_free: number;
+  status: 'healthy' | 'needs_attention' | 'critical';
+};
+
 export type SystemPreferencesRecord = {
   geoapify_api_key?: string | null;
+  default_language_code: 'en' | 'es';
+  system_timezone?: string;
   created_at?: string | null;
   updated_at?: string | null;
+  last_updated_by_email?: string | null;
+  last_updated_by_display_name?: string | null;
+  last_updated_by_user_id?: string | null;
+  storage?: SystemStorageStatus;
 };
 
 export type SystemPreferencesUpdatePayload = {
   geoapify_api_key?: string | null;
+  default_language_code: 'en' | 'es';
+  system_timezone: string;
 };
 
 export type JobRunRecord = {
@@ -665,6 +676,27 @@ export async function listEvents(filters?: {
   if (filters?.event_type) params.set('event_type', filters.event_type);
   const qs = params.toString();
   return authFetchJson<EventRecord[]>(`/admin/events${qs ? `?${qs}` : ''}`);
+}
+
+export async function listQCFailures(filters?: {
+  limit?: number;
+  offset?: number;
+  search?: string;
+  parameter?: string;
+  status?: QCFailureStatus;
+  outcome?: QCFailureOutcome;
+  data_source?: string;
+}): Promise<QCFailureListResponse> {
+  const params = new URLSearchParams();
+  if (filters?.limit) params.set('limit', String(filters.limit));
+  if (filters?.offset) params.set('offset', String(filters.offset));
+  if (filters?.search) params.set('search', filters.search);
+  if (filters?.parameter) params.set('parameter', filters.parameter);
+  if (filters?.status) params.set('status', filters.status);
+  if (filters?.outcome) params.set('outcome', filters.outcome);
+  if (filters?.data_source) params.set('data_source', filters.data_source);
+  const qs = params.toString();
+  return authFetchJson<QCFailureListResponse>(`/admin/events/qc-failures${qs ? `?${qs}` : ''}`);
 }
 
 export async function getSystemPreferences(): Promise<SystemPreferencesRecord> {
@@ -698,6 +730,9 @@ export async function listAllJobRuns(filters?: {
 
 
 export type UserRecord = {
+  first_name?: string | null;
+  last_name?: string | null;
+  display_name?: string;
   user_id: string;
   email: string;
   org_id: string;
@@ -729,6 +764,8 @@ export type UserCreatePayload = {
 
 
 export type UserUpdatePayload = {
+  first_name?: string | null;
+  last_name?: string | null;
   email?: string;
   password?: string;
   is_active?: boolean;
@@ -778,7 +815,8 @@ export async function unlockUser(userId: string): Promise<UserRecord> {
 
 
 export async function deleteUser(userId: string): Promise<void> {
-  await authFetchJson(`/admin/users/${encodeURIComponent(userId)}`, {
+  const response = await authFetch(`/admin/users/${encodeURIComponent(userId)}`, {
     method: 'DELETE',
   });
+  if (!response.ok) throw await apiErrorFromResponse(response);
 }

@@ -1,7 +1,12 @@
+import { roleLabel, roleDescription } from './rolePresentation';
+import { Trans } from 'react-i18next';
+import i18n from './i18n';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { createUser, listRoles, type RoleRecord } from './api';
 import AdminPageLayout from './components/AdminPageLayout';
+import PasswordStrengthIndicator from './components/PasswordStrengthIndicator';
+import './users/users.css';
 
 
 export default function AdminUserNew() {
@@ -36,7 +41,7 @@ export default function AdminUserNew() {
           setAvailableRoles(roles);
         }
       } catch {
-        // Roles fetch failed, but we can still create users without roles
+        if (!cancelled) setError(i18n.t('users:recovery.rolesLoadFailed'));
       } finally {
         if (!cancelled) {
           setLoadingRoles(false);
@@ -52,12 +57,12 @@ export default function AdminUserNew() {
   
   const validateEmail = (value: string): boolean => {
     if (!value.trim()) {
-      setEmailError('Email is required');
+      setEmailError(i18n.t('users:adminUserNew.messages.emailRequired'));
       return false;
     }
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(value)) {
-      setEmailError('Invalid email format');
+      setEmailError(i18n.t('users:adminUserNew.messages.invalidEmailFormat'));
       return false;
     }
     setEmailError(null);
@@ -67,15 +72,15 @@ export default function AdminUserNew() {
   
   const validatePassword = (): boolean => {
     if (!password) {
-      setPasswordError('Password is required');
+      setPasswordError(i18n.t('users:adminUserNew.messages.passwordRequired'));
       return false;
     }
-    if (password.length < 8) {
-      setPasswordError('Password must be at least 8 characters');
+    if (password.length < 12) {
+      setPasswordError(i18n.t('users:recovery.policy', { count: 12 }));
       return false;
     }
     if (password !== confirmPassword) {
-      setPasswordError('Passwords do not match');
+      setPasswordError(i18n.t('users:adminUserNew.messages.passwordsDoNotMatch'));
       return false;
     }
     setPasswordError(null);
@@ -119,8 +124,8 @@ export default function AdminUserNew() {
       });
       
       navigate(`/admin/users/${newUser.user_id}`, { replace: true });
-    } catch (err: unknown) {
-      const message = err instanceof Error ? err.message : 'Failed to create user';
+    } catch {
+      const message = i18n.t('common:errors.createUser');
       setError(message);
     } finally {
       setSubmitting(false);
@@ -129,137 +134,149 @@ export default function AdminUserNew() {
 
   return (
     <AdminPageLayout
-      title="Create New User"
-      description="Add a new user account to the system."
+      title={i18n.t('users:adminUserNew.tooltips.createNewUser')}
+      description={i18n.t('users:adminUserNew.accessibility.addNewUserAccountSystem')}
       breadcrumbs={[
-        { label: 'Admin', to: '/admin' },
-        { label: 'Users', to: '/admin/users' },
-        { label: 'New User' },
+        { label: i18n.t('users:adminUserNew.content.admin'), to: '/admin' },
+        { label: i18n.t('users:adminUserNew.content.users'), to: '/admin/users' },
+        { label: i18n.t('users:adminUserNew.content.newUser') },
       ]}
       contentClassName="user-new-page"
     >
-      {error && <div className="error-banner">{error}</div>}
+      {error && <div className="error-banner" role="alert">{error}</div>}
 
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} className="users-create-form">
+        <div className="users-create-grid">
         
-        <div className="card">
-          <h2>Account Details</h2>
+          <div className="card users-create-identity">
+            <h2><Trans ns="users" i18nKey="adminUserNew.headings.accountDetails" /></h2>
 
-          <div className="form-group">
-            <label className="field">
-              <span>
-                Email <span className="required">*</span>
-              </span>
-              <input
-                type="email"
-                value={email}
-                onChange={(e) => {
-                  setEmail(e.target.value);
-                  if (emailError) validateEmail(e.target.value);
-                }}
-                onBlur={() => validateEmail(email)}
-                placeholder="user@example.com"
-                disabled={submitting}
-                autoComplete="off"
-              />
-              {emailError && <span className="field-error">{emailError}</span>}
-            </label>
-          </div>
-
-          <div className="form-group">
-            <label className="field">
-              <span>
-                Password <span className="required">*</span>
-              </span>
-              <input
-                type="password"
-                value={password}
-                onChange={(e) => {
-                  setPassword(e.target.value);
-                  if (passwordError) setPasswordError(null);
-                }}
-                placeholder="Minimum 8 characters"
-                disabled={submitting}
-                autoComplete="new-password"
-              />
-            </label>
-          </div>
-
-          <div className="form-group">
-            <label className="field">
-              <span>
-                Confirm Password <span className="required">*</span>
-              </span>
-              <input
-                type="password"
-                value={confirmPassword}
-                onChange={(e) => {
-                  setConfirmPassword(e.target.value);
-                  if (passwordError) setPasswordError(null);
-                }}
-                onBlur={validatePassword}
-                placeholder="Re-enter password"
-                disabled={submitting}
-                autoComplete="new-password"
-              />
-              {passwordError && <span className="field-error">{passwordError}</span>}
-            </label>
-          </div>
-        </div>
-
-        
-        <div className="card">
-          <h2>Initial Status</h2>
-          <label className="status-toggle">
-            <input
-              type="checkbox"
-              checked={isActive}
-              onChange={(e) => setIsActive(e.target.checked)}
-              disabled={submitting}
-            />
-            <div>
-              <strong>Active</strong>
-              <span className="muted">
-                {isActive
-                  ? 'User will be able to log in immediately after creation.'
-                  : 'User will be created but cannot log in until enabled.'}
-              </span>
+            <div className="form-group">
+              <label className="field">
+                <span>
+                  <Trans ns="common" i18nKey="fields.email" /><span className="required">*</span>
+                </span>
+                <input
+                  type="email"
+                  required
+                  aria-invalid={!!emailError}
+                  aria-describedby={emailError ? 'new-user-email-error' : undefined}
+                  value={email}
+                  onChange={(e) => {
+                    setEmail(e.target.value);
+                    if (emailError) validateEmail(e.target.value);
+                  }}
+                  onBlur={() => validateEmail(email)}
+                  placeholder={i18n.t('users:adminUserNew.placeholders.userExampleCom')}
+                  disabled={submitting}
+                  autoComplete="off"
+                />
+                {emailError && <span className="field-error" id="new-user-email-error" role="alert">{emailError}</span>}
+              </label>
             </div>
-          </label>
-        </div>
 
-        
-        <div className="card">
-          <h2>Initial Roles</h2>
-          <p className="muted" style={{ marginBottom: '16px' }}>
-            Select roles to assign to this user. Roles can be modified later.
-          </p>
-          {loadingRoles ? (
-            <div className="info-banner">Loading roles…</div>
-          ) : (
-            <div className="roles-grid">
-              {availableRoles.map((role) => (
-                <label key={role.role_id} className="role-checkbox">
-                  <input
-                    type="checkbox"
-                    checked={selectedRoles.has(role.name)}
-                    onChange={() => handleRoleToggle(role.name)}
-                    disabled={submitting}
-                  />
-                  <div className="role-info">
-                    <strong>{role.name}</strong>
-                    {role.description && <span className="muted">{role.description}</span>}
-                  </div>
-                </label>
-              ))}
-              {availableRoles.length === 0 && (
-                <p className="muted">No roles available.</p>
+            <div className="form-group">
+              <label className="field">
+                <span>
+                  <Trans ns="common" i18nKey="fields.password" /><span className="required">*</span>
+                </span>
+                <input
+                  type="password"
+                  required
+                  aria-invalid={!!passwordError}
+                  aria-describedby="new-user-password-policy"
+                  value={password}
+                  onChange={(e) => {
+                    setPassword(e.target.value);
+                    if (passwordError) setPasswordError(null);
+                  }}
+                  placeholder={i18n.t('users:recovery.newPassword')}
+                  disabled={submitting}
+                  autoComplete="new-password"
+                />
+              </label>
+            </div>
+
+            <p className="muted users-password-guidance" id="new-user-password-policy">{i18n.t('users:recovery.policy', { count: 12 })}</p>
+            <PasswordStrengthIndicator password={password} email={email} showChecklist={false} />
+            <div className="form-group">
+              <label className="field">
+                <span>
+                  <Trans ns="users" i18nKey="adminUserNew.text.confirmPassword" /><span className="required">*</span>
+                </span>
+                <input
+                  type="password"
+                  required
+                  value={confirmPassword}
+                  onChange={(e) => {
+                    setConfirmPassword(e.target.value);
+                    if (passwordError) setPasswordError(null);
+                  }}
+                  onBlur={validatePassword}
+                  placeholder={i18n.t('users:adminUserNew.placeholders.reEnterPassword')}
+                  disabled={submitting}
+                  autoComplete="new-password"
+                />
+                {passwordError && <span className="field-error" role="alert">{passwordError}</span>}
+              </label>
+            </div>
+          </div>
+
+
+          <div className="users-create-access">
+            <div className="card">
+              <h2><Trans ns="users" i18nKey="adminUserNew.headings.initialStatus" /></h2>
+              <label className="status-toggle">
+                <input
+                  type="checkbox"
+                  checked={isActive}
+                  onChange={(e) => setIsActive(e.target.checked)}
+                  disabled={submitting}
+                />
+                <div>
+                  <strong><Trans ns="users" i18nKey="adminUserNew.text.active" /></strong>
+                  <span className="muted">
+                    {isActive
+                      ? i18n.t('users:adminUserNew.text.userWillAbleLogImmediatelyAfter')
+                      : i18n.t('users:adminUserNew.text.userWillCreatedButCannotLog')}
+                  </span>
+                </div>
+              </label>
+            </div>
+
+
+            <div className="card">
+              <h2><Trans ns="users" i18nKey="adminUserNew.headings.initialRoles" /></h2>
+              <p className="muted" style={{ marginBottom: '16px' }}>
+                <Trans ns="users" i18nKey="adminUserNew.text.selectRolesAssignUserRolesCan" /></p>
+              {loadingRoles ? (
+                <div className="info-banner"><Trans ns="users" i18nKey="adminUserNew.text.loadingRoles" /></div>
+              ) : (
+                <div className="roles-grid">
+                  {availableRoles.map((role) => (
+                    <label key={role.role_id} className="role-checkbox">
+                      <input
+                        type="checkbox"
+                        checked={selectedRoles.has(role.name)}
+                        onChange={() => handleRoleToggle(role.name)}
+                        disabled={submitting}
+                      />
+                      <div className="role-info">
+                        <strong>{roleLabel(role.name)}</strong>
+                        <span className="muted">{roleDescription(role.name, role.description)}</span>
+                      </div>
+                    </label>
+                  ))}
+                  {availableRoles.length === 0 && (
+                    <p className="muted"><Trans ns="users" i18nKey="adminUserNew.text.noRolesAvailable" /></p>
+                  )}
+                </div>
               )}
             </div>
-          )}
-        </div>
 
-        
+
+          </div>
+        </div>
         <div className="form-actions">
           <button
             type="button"
@@ -267,10 +284,9 @@ export default function AdminUserNew() {
             onClick={() => navigate('/admin/users')}
             disabled={submitting}
           >
-            Cancel
-          </button>
+            <Trans ns="common" i18nKey="actions.cancel" /></button>
           <button type="submit" className="btn btn-primary" disabled={submitting}>
-            {submitting ? 'Creating…' : 'Create User'}
+            {submitting ? i18n.t('users:adminUserNew.actions.creating') : i18n.t('users:adminUserNew.actions.createUser')}
           </button>
         </div>
       </form>

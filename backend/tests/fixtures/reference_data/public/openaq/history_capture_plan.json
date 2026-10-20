@@ -1,0 +1,17 @@
+{
+  "absolute_request_ceiling": 143,
+  "capture_report_output": "capture_report.json",
+  "endpoint_template": "https://api.openaq.org/v3/sensors/{sensor_id}/measurements",
+  "manifest_output": "manifest.json",
+  "max_pages_per_sensor": 11,
+  "measurements_output": "measurements.jsonl",
+  "page_size": 1000,
+  "provider": "OpenAQ",
+  "retry_count": 0,
+  "schema_version": "2i.4a",
+  "selection_manifest": "selected_reference_manifest.json",
+  "selection_manifest_sha256": "28c61c3d66c1f2a8739f56ca5812313d46c183e6b88a31482dac2c1a1e7859a2",
+  "source_discovery_commit": "0cb1ac52871b9dbcf558866d4003654f01464730",
+  "window_end": "2026-08-08T00:00:00Z",
+  "window_start": "2026-08-01T00:00:00Z"
+}

@@ -1,0 +1,479 @@
+{
+  "breadcrumbs": {
+    "admin": "Admin",
+    "qualityControl": "Quality control"
+  },
+  "sensors": {
+    "breadcrumb": "Sensors",
+    "actions": {
+      "findSensor": "Find a sensor",
+      "viewDevice": "View device",
+      "resetAll": "Reset all custom QC",
+      "resetCheck": "Reset custom settings for {{check}}",
+      "useInheritedSetting": "Use {{source}}",
+      "removeCustomSetting": "Remove custom value"
+    },
+    "search": {
+      "title": "Find a sensor",
+      "description": "Choose a sensor to see exactly what quality control applies to its next measurement.",
+      "searchLabel": "Search sensors",
+      "searchPlaceholder": "Device name, sensor identifier, parameter, or data source",
+      "filters": "Filters",
+      "parameterFilter": "Parameter",
+      "sourceFilter": "Data source",
+      "statusFilter": "QC status",
+      "allParameters": "All parameters",
+      "allSources": "All data sources",
+      "allSensors": "All sensors",
+      "customSensors": "Custom sensor QC",
+      "filterLoadError": "Some filter choices could not be loaded. Sensor search is still available.",
+      "loading": "Loading sensors…",
+      "loadError": "Sensors could not be loaded.",
+      "emptyTitle": "No sensors available",
+      "emptyDescription": "Sensors will appear here after they are added to CompassAQ.",
+      "noMatchesTitle": "No sensors match",
+      "noMatchesDescription": "Try another search or remove a filter.",
+      "resultsLabel": "Sensor quality control search results",
+      "resultRange": "Showing {{first}}–{{last}} of {{total}} sensors",
+      "previous": "Previous",
+      "next": "Next",
+      "externalIdentifier": "Sensor {{identifier}}",
+      "internalIdentifier": "Internal sensor {{identifier}}",
+      "openSensor": "Open {{parameter}} quality control for {{device}}",
+      "statusInherited": "Uses normal inherited QC",
+      "statusCustom": "Custom sensor QC",
+      "statusAdvanced": "Advanced sensor QC applies",
+      "statusCustomWithAdvanced": "Custom sensor QC · advanced setting also applies"
+    },
+    "provenance": {
+      "compassaq": "CompassAQ {{parameter}} recommendation",
+      "parameter": "{{parameter}} setting",
+      "advancedParameter": "Advanced {{parameter}} setting",
+      "source": "{{source}} {{parameter}} setting",
+      "advancedSource": "Advanced {{source}} {{parameter}} setting",
+      "customSensor": "Custom for this sensor",
+      "advancedSensor": "Advanced sensor setting",
+      "notConfigured": "No inherited setting"
+    },
+    "editor": {
+      "impact": "Only {{check}} for {{device}} changes here. Properties left inherited continue to follow the source shown beside them.",
+      "convertedUnitNote": "Values are shown in this sensor's unit ({{unit}}) using the backend's exact conversion.",
+      "sensorUnitMissing": "Add a unit to this sensor before customizing this value."
+    },
+    "detail": {
+      "loadingTitle": "Sensor quality control",
+      "loading": "Loading sensor quality control…",
+      "errorTitle": "Sensor quality control",
+      "loadError": "This sensor's quality control settings could not be loaded.",
+      "title": "{{parameter}} QC for {{device}}",
+      "description": "{{source}} · {{parameter}} · {{unit}}",
+      "sensorContext": "Sensor",
+      "externalIdentifier": "External sensor identifier: {{identifier}}",
+      "internalIdentifier": "Internal sensor identifier: {{identifier}}",
+      "customSummary_one": "{{count}} custom setting for this sensor",
+      "customSummary_other": "{{count}} custom settings for this sensor",
+      "customSummaryHelp": "Every other property remains inherited.",
+      "advancedSummary": "Advanced sensor QC applies",
+      "advancedSummaryHelp": "The effective values are shown below. Advanced settings are read-only here.",
+      "inheritedSummary": "Uses normal inherited QC",
+      "inheritedSummaryHelp": "This sensor follows its data-source, parameter, and CompassAQ settings.",
+      "advancedAlsoApplies": "An advanced time-resolution setting also applies. Ordinary sensor resets do not remove it.",
+      "checkOverview": "Sensor QC check summary",
+      "activeChecks": "Active checks",
+      "disabledChecks": "Disabled checks",
+      "attentionChecks": "Need attention",
+      "checksTitle": "What happens to incoming measurements",
+      "checksDescription": "Each property shows its effective value and where that value comes from.",
+      "customPropertyCount_one": "{{count}} custom setting",
+      "customPropertyCount_other": "{{count}} custom settings",
+      "advancedSetting": "Advanced setting",
+      "convertedUnit": "CompassAQ applies the inherited setting in this sensor's unit ({{unit}}) using an exact conversion.",
+      "internalSensorId": "Internal sensor ID",
+      "timeResolution": "Time resolution",
+      "notAvailable": "Not available",
+      "advancedDetails": "Advanced time-resolution settings are included in the effective values above but cannot be edited or reset on this page.",
+      "sensorIdentity": "Sensor {{id}}",
+      "manualPolicySource": "This is a manual monitoring location. Its inherited QC source policy is {{source}}; this policy association does not make it provider-managed."
+    },
+    "states": {
+      "noRecommendationTitle": "No CompassAQ recommendation",
+      "noRecommendationDescription": "CompassAQ does not provide an inherited {{parameter}} setting for this check. You can add a value for this sensor.",
+      "inheritedNeedsConfigurationTitle": "Inherited QC needs configuration",
+      "inheritedNeedsConfigurationDescription": "This check is missing information it needs to run. A complete sensor setting can be added here.",
+      "unitIssueTitle": "This check cannot use the sensor's unit",
+      "unitIssueBadge": "Unit not supported",
+      "unitIssueDescription": "This QC check cannot currently be applied to this sensor's unit. You can add a sensor-specific value in the sensor's unit.",
+      "invalidSensorTitle": "This sensor's custom setting cannot be applied",
+      "invalidSensorBadge": "Invalid sensor setting"
+    },
+    "confirm": {
+      "resetCheckTitle": "Reset {{check}} for this sensor?",
+      "resetCheckDescription": "This removes ordinary sensor-specific properties for this check. Each property returns to its inherited setting. Parameter, data-source, advanced time-resolution, and historical data are not changed.",
+      "resetAllTitle": "Reset all custom QC for this sensor?",
+      "resetAllDescription": "This removes all ordinary sensor-specific QC settings. Parameter, data-source, advanced time-resolution, and historical data are not changed."
+    },
+    "notices": {
+      "saved": "Sensor quality control saved.",
+      "checkReset": "This check now uses its inherited settings.",
+      "allReset": "All ordinary sensor-specific QC settings were reset.",
+      "resetError": "The sensor's custom quality control could not be reset."
+    }
+  },
+  "overview": {
+    "title": "Quality control",
+    "description": "Review the plausible ranges and data-quality checks applied to incoming measurements.",
+    "attention_one": "{{count}} parameter needs attention",
+    "attention_other": "{{count}} parameters need attention",
+    "viewAttention": "View",
+    "searchLabel": "Parameter",
+    "searchPlaceholder": "Search parameters",
+    "filterLabel": "Show",
+    "loading": "Loading quality control settings…",
+    "loadError": "Quality control settings could not be loaded.",
+    "emptyTitle": "No parameters available",
+    "emptyDescription": "Parameters will appear here after they are added to CompassAQ.",
+    "noMatchesTitle": "No parameters match",
+    "noMatchesDescription": "Try another search or status filter.",
+    "clearFilters": "Clear filters",
+    "parameterListLabel": "Quality control settings by parameter",
+    "openParameter": "Open {{parameter}} quality control settings",
+    "none": "None",
+    "sourceExceptionCount_one": "{{count}} source",
+    "sourceExceptionCount_other": "{{count}} sources",
+    "sensorExceptionCount_one": "{{count}} sensor",
+    "sensorExceptionCount_other": "{{count}} sensors",
+    "driftOffByDefault": "Off by default",
+    "driftEnabledSourceCount_one": "{{count}} source On",
+    "driftEnabledSourceCount_other": "{{count}} sources On",
+    "driftEnabledSensorCount_one": "{{count}} sensor On",
+    "driftEnabledSensorCount_other": "{{count}} sensors On",
+    "driftOnWithOverrides_one": "On · {{count}} override",
+    "driftOnWithOverrides_other": "On · {{count}} overrides",
+    "reviewResults": "Review QC results",
+    "resultsHelp": "Review flagged, invalid, and indeterminate measurements in Events → QC Failures. Expand Provenance to see the rule and policy applied to each result."
+  },
+  "filters": {
+    "all": "All parameters",
+    "customized": "Customized",
+    "hasExceptions": "Has exceptions",
+    "needsAttention": "Needs attention",
+    "needsConfiguration": "Needs configuration",
+    "unavailable": "Unavailable",
+    "noRecommendation": "No recommended range"
+  },
+  "columns": {
+    "parameter": "Parameter",
+    "minimum": "Minimum",
+    "maximum": "Maximum",
+    "baselineDrift": "Baseline drift",
+    "sensors": "Sensors",
+    "exceptions": "Exceptions",
+    "status": "Status"
+  },
+  "states": {
+    "on": "On",
+    "off": "Off",
+    "enabled": "Enabled",
+    "disabled": "Disabled",
+    "notConfigured": "Not configured",
+    "needsConfiguration": "Needs configuration",
+    "unavailable": "Unavailable",
+    "recommended": "Recommended",
+    "screeningPreset": "CompassAQ screening preset",
+    "custom": "Custom",
+    "inherited": "Inherited",
+    "noRecommendation": "No CompassAQ recommendation",
+    "defaultConfiguration": "Default configuration",
+    "recommendedPreset": "Recommended preset",
+    "noRecommendedRange": "No recommended range"
+  },
+  "actions": {
+    "retry": "Try again",
+    "refresh": "Refresh",
+    "cancel": "Cancel",
+    "saving": "Saving…",
+    "saveChanges": "Save changes",
+    "preview": "Preview impact",
+    "previewing": "Preparing preview…",
+    "customize": "Customize",
+    "edit": "Edit",
+    "editSettings": "Edit settings",
+    "reviewScreeningPreset": "Review and enable",
+    "useRecommended": "Use recommended value",
+    "useSuggestedScreeningSetting": "Use suggested screening setting",
+    "useParameterSetting": "Use {{parameter}} setting",
+    "resetCheck": "Reset check",
+    "resetCheckRecommended": "Reset this check to CompassAQ recommendations",
+    "resetCheckScreeningPreset": "Reset this check to the disabled CompassAQ screening preset",
+    "resetCheckParameter": "Reset this check to {{parameter}} settings",
+    "resetParameter": "Reset custom defaults",
+    "resetting": "Resetting…",
+    "removeException": "Remove exception"
+  },
+  "checks": {
+    "minimum": {
+      "name": "Minimum plausible value",
+      "description": "Checks for measurements below the recommended plausible range.",
+      "settings": {
+        "min": {
+          "label": "Minimum plausible value",
+          "help": "Measurements below this value fail the check."
+        }
+      }
+    },
+    "maximum": {
+      "name": "Maximum plausible value",
+      "description": "Checks for measurements above the recommended plausible range.",
+      "settings": {
+        "max": {
+          "label": "Maximum plausible value",
+          "help": "Measurements above this value fail the check."
+        }
+      }
+    },
+    "baselineDrift": {
+      "name": "Baseline drift",
+      "description": "Screens for low-end baseline changes using valid history. The indicator is normalized by the full lookback; it is not a physical slope.",
+      "effectiveSettings": "Effective baseline drift settings",
+      "suggestedSettings": "Suggested screening settings",
+      "suggestedDescription": "This screening tool is Off by default. Enable it deliberately after reviewing these settings for your sensors and operating conditions.",
+      "suggestedFailureAction": "Suggested failure action: {{action}}.",
+      "settings": {
+        "lookback_hours": {
+          "label": "Lookback hours",
+          "help": "Number of recent hours used to evaluate baseline drift."
+        },
+        "min_samples": {
+          "label": "Minimum measurements",
+          "help": "Minimum valid historical measurements, excluding the candidate. Each half of the lookback needs at least half this count, rounded up."
+        },
+        "baseline_quantile": {
+          "label": "Baseline quantile",
+          "help": "Low-end quantile used to estimate the sensor baseline."
+        },
+        "max_drift_per_day": {
+          "label": "Maximum baseline shift indicator (per day)",
+          "help": "Low-quantile shift divided by the full lookback in days. Preset values are screening references, not validated physical slope limits."
+        },
+        "direction": {
+          "label": "Direction",
+          "help": "Choose whether to check upward, downward, or both directions."
+        }
+      }
+    },
+    "unavailable": {
+      "name": "Unavailable QC check",
+      "description": "A configured QC check is not currently available."
+    }
+  },
+  "choices": {
+    "up": "Upward",
+    "down": "Downward",
+    "both": "Both directions"
+  },
+  "failureActions": {
+    "flagForReview": {
+      "label": "Flag for review",
+      "description": "Keep the measurement available and record a QC warning."
+    },
+    "markInvalid": {
+      "label": "Mark invalid",
+      "description": "Record the QC failure and exclude the measurement from normal downstream use."
+    }
+  },
+  "provenance": {
+    "recommended": "CompassAQ recommended value",
+    "screeningPreset": "Disabled CompassAQ screening preset",
+    "customParameter": "Custom for {{parameter}}",
+    "usesParameter": "Uses {{parameter}} settings",
+    "customSource": "Customized for {{source}}",
+    "customSensor": "Custom sensor setting",
+    "custom": "Custom setting"
+  },
+  "detail": {
+    "loadingTitle": "Quality control",
+    "loading": "Loading parameter settings…",
+    "errorTitle": "Quality control",
+    "loadError": "This parameter's quality control settings could not be loaded.",
+    "description_one": "Normal unit: {{unit}} · {{count}} sensor",
+    "description_other": "Normal unit: {{unit}} · {{count}} sensors",
+    "normalUnit": "Normal unit",
+    "unitDefaultsTitle": "Range settings by unit",
+    "unitDefaultsDescription": "Each supported unit has its own minimum and maximum configuration.",
+    "editingUnit": "Editing range checks for {{unit}}.",
+    "dataSourceExceptions": "Data-source exceptions",
+    "sensorExceptions": "Sensor exceptions",
+    "checksTitle": "QC checks",
+    "checksDescription": "Each check is shown with its current value, behavior, and source.",
+    "moreDetails": "More details",
+    "profileVersion": "CompassAQ recommendation profile",
+    "advancedOverrides": "Advanced aggregation settings",
+    "advancedHelp": "Advanced aggregation settings are preserved but cannot be edited in this phase.",
+    "parameterIdentity": "Parameter {{id}}",
+    "policyContext": "Parameter QC policy",
+    "effectiveUnit": "Unit to configure",
+    "parameterScope": "Parameter policy",
+    "customPolicy": "Parameter overrides saved; other settings inherit CompassAQ defaults. See each check below.",
+    "inheritedPolicy": "Inherits CompassAQ defaults. Enabled, disabled and unavailable checks are shown below.",
+    "hierarchy": "CompassAQ default → parameter override → source + parameter → sensor override. More specific settings take precedence; other properties remain inherited.",
+    "unitLimitations": "Each unit has its own policy. Exact ppm/ppb and mg/m³/µg/m³ conversions follow policy inheritance rules. Gas mass concentrations are not converted to mixing ratios.",
+    "contextTitle": "Inheritance and scientific context"
+  },
+  "checkCard": {
+    "currentSetting": "Current setting",
+    "status": "Status",
+    "uses": "Uses",
+    "whenFails": "When this check fails"
+  },
+  "editor": {
+    "parameterImpact_one": "This changes the {{parameter}} default used by up to {{count}} sensor. Data-source and sensor exceptions are not changed.",
+    "parameterImpact_other": "This changes the {{parameter}} default used by up to {{count}} sensors. Data-source and sensor exceptions are not changed.",
+    "sourceImpact_one": "This changes the {{source}} exception used by up to {{count}} sensor. Sensor-specific settings are not changed.",
+    "sourceImpact_other": "This changes the {{source}} exception used by up to {{count}} sensors. Sensor-specific settings are not changed.",
+    "parameterDisableImpact_one": "Turning off {{check}} stops this check for up to {{count}} sensor using the {{parameter}} policy. Data-source and sensor exceptions are not changed.",
+    "parameterDisableImpact_other": "Turning off {{check}} stops this check for up to {{count}} sensors using the {{parameter}} policy. Data-source and sensor exceptions are not changed.",
+    "sourceDisableImpact_one": "Turning off {{check}} stops this check for up to {{count}} sensor using the {{source}} exception. Sensor-specific settings are not changed.",
+    "sourceDisableImpact_other": "Turning off {{check}} stops this check for up to {{count}} sensors using the {{source}} exception. Sensor-specific settings are not changed.",
+    "checkState": "Check status",
+    "enableCheck": "Enable this check",
+    "unit": "Unit",
+    "unitHelp": "This range applies only to measurements in this unit or an approved exactly convertible unit.",
+    "sensorUnitHelp": "Sensor range rules use the sensor's measurement unit.",
+    "enabledHelp": "This QC check runs for measurements using this setting.",
+    "disabledHelp": "This QC check does not run for measurements using this setting.",
+    "whenFails": "When this check fails",
+    "resetValue": "Reset returns to {{value}}",
+    "saveError": "The settings could not be saved. Your edits are still here.",
+    "resetError": "The check could not be reset."
+  },
+  "validation": {
+    "unitRequired": "Select a supported unit.",
+    "required": "This value is required when the check is enabled.",
+    "number": "Enter a valid number.",
+    "integer": "Enter a whole number.",
+    "minimum": "Enter {{minimum}} or greater.",
+    "maximum": "Enter {{maximum}} or less."
+  },
+  "preview": {
+    "title": "Preview impact",
+    "eyebrow": "Proposed change",
+    "basedOn_one": "Based on {{formattedCount}} measurement from the last {{hours}} hours",
+    "basedOn_other": "Based on {{formattedCount}} measurements from the last {{hours}} hours",
+    "pass": "Would pass",
+    "warnings": "Would record a QC warning",
+    "invalid": "Of those, marked invalid",
+    "indeterminate": "Could not determine",
+    "notApplicable_one": "{{count}} measurement was disabled or not applicable for this check.",
+    "notApplicable_other": "{{count}} measurements were disabled or not applicable for this check.",
+    "indeterminateHelp": "Some measurements could not be evaluated. Saving this setting will not turn them into passing results.",
+    "truncated": "Latest {{limit}} matching measurements",
+    "noMeasurements": "No recent measurements are available to preview this change.",
+    "historyNote": "Preview only. Historical measurements are not changed.",
+    "error": "The impact preview could not be prepared."
+  },
+  "unavailable": {
+    "title": "{{check}} unavailable",
+    "description": "This QC check is not currently available on the server. Contact an administrator or review QC extensions."
+  },
+  "needsConfiguration": {
+    "title": "Recommended QC value not configured",
+    "description": "CompassAQ does not currently provide a universal recommended value for {{parameter}}."
+  },
+  "noDefault": {
+    "title": "No default range for {{unit}}",
+    "description": "No default range is configured for {{parameter}} in {{unit}}. No QC result is created unless an administrator adds an explicit range."
+  },
+  "policyIssues": {
+    "title": "Configuration needs attention",
+    "missing_required_setting": "This enabled check is missing a required setting.",
+    "missing_policy_unit": "This enabled check does not have a measurement unit.",
+    "unknown_unit": "The configured measurement unit is not recognized.",
+    "conversion_not_supported": "CompassAQ cannot safely convert between the configured and measurement units.",
+    "ambiguous_policy": "More than one setting applies at the same level.",
+    "invalid_policy_setting": "One or more configured values are invalid.",
+    "missing_failure_action": "This enabled check does not specify what happens when it fails.",
+    "generic": "This check cannot run with its current configuration."
+  },
+  "exceptions": {
+    "title": "Data-source exceptions",
+    "description": "Customize {{parameter}} only when a data source needs different QC settings.",
+    "add": "Add data-source exception",
+    "loading": "Loading data-source exceptions…",
+    "partialError": "Some data-source settings could not be loaded. The available exceptions are shown below.",
+    "none": "No data-source exceptions. All sources use the parameter settings.",
+    "customizedChecks": "Customized: {{checks}}",
+    "selectSource": "Data source",
+    "selectPlaceholder": "Select a data source",
+    "continue": "Continue"
+  },
+  "sensorOverrides": {
+    "title": "Custom sensor settings",
+    "exists_one": "{{count}} sensor has custom settings. Sensor editing is not included on this page.",
+    "exists_other": "{{count}} sensors have custom settings. Sensor editing is not included on this page.",
+    "none": "No custom sensor settings exist for this parameter.",
+    "badge": "Sensor settings exist"
+  },
+  "source": {
+    "loadingTitle": "Data-source exception",
+    "loading": "Loading data-source settings…",
+    "errorTitle": "Data-source exception",
+    "loadError": "This data-source exception could not be loaded.",
+    "title": "{{source}} {{parameter}}",
+    "description": "Review the settings {{source}} inherits and customize only what needs to differ.",
+    "dataSourceException": "Data-source exception",
+    "customSummary": "Only the settings marked Custom differ for {{source}}.",
+    "inheritedSummary": "{{source}} currently uses all {{parameter}} settings.",
+    "customizedChecks": "Customized checks",
+    "startHelp": "Choose Customize on a check to create a focused {{source}} exception. Unchanged properties continue to use {{parameter}} settings.",
+    "checksTitle": "QC checks for this source",
+    "checksDescription": "Inherited values remain connected to {{parameter}} settings.",
+    "sourceIdentity": "Source {{source}} · Parameter {{parameter}}"
+  },
+  "confirm": {
+    "resetCheckTitle": "Reset {{check}}?",
+    "resetParameterCheckDescription": "Remove the custom settings for this check and return to the CompassAQ recommendation for {{parameter}}.",
+    "resetParameterBaselineDriftDescription": "Remove the custom settings for this check and return to the disabled CompassAQ screening preset for {{parameter}}.",
+    "resetSourceCheckDescription": "Remove the {{source}} custom settings for this check and return to the {{parameter}} settings.",
+    "resetParameterTitle": "Reset custom {{parameter}} defaults?",
+    "resetParameterDescription": "This removes custom parameter defaults. Data-source, sensor, and advanced aggregation settings are not changed.",
+    "removeSourceTitle": "Remove the {{source}} exception?",
+    "removeSourceDescription": "All {{source}} settings for {{parameter}} will return to the parameter settings. Sensor and advanced aggregation settings are not changed."
+  },
+  "notices": {
+    "saved": "Quality control settings saved.",
+    "checkReset": "The check now uses its inherited settings.",
+    "parameterReset": "Custom parameter defaults were reset.",
+    "sourceRemoved": "The data-source exception was removed."
+  },
+  "extensions": {
+    "link": "QC extensions",
+    "review": "Review QC extensions",
+    "title": "QC extensions",
+    "description": "Review the QC checks installed with this CompassAQ deployment.",
+    "deploymentOwned": "QC extensions are installed and updated with the CompassAQ backend deployment. This page is read-only.",
+    "loading": "Loading QC extensions…",
+    "loadError": "QC extension information could not be loaded.",
+    "installedTitle": "Installed checks",
+    "installedDescription": "These checks are available to the quality control policy resolver.",
+    "diagnosticsTitle": "Extension diagnostics",
+    "diagnosticsDescription": "Technical deployment information for administrators troubleshooting unavailable checks.",
+    "noIssues": "No extension discovery issues were reported.",
+    "unavailableCheckTitle": "{{check}} is unavailable",
+    "unavailableCheckDescription_one": "The server cannot run this expected check. {{count}} configured customization is affected. Review the backend deployment.",
+    "unavailableCheckDescription_other": "The server cannot run this expected check. {{count}} configured customizations are affected. Review the backend deployment.",
+    "origin": "Origin",
+    "access": "Data access",
+    "version": "Version",
+    "rules": "Configured customizations",
+    "origins": {
+      "builtIn": "Built into CompassAQ",
+      "installedPackage": "Installed package",
+      "runtime": "Runtime registration"
+    },
+    "accessLevels": {
+      "policyOnly": "Resolved policy only",
+      "databaseRead": "Measurement history",
+      "databaseWrite": "Database write"
+    }
+  }
+}

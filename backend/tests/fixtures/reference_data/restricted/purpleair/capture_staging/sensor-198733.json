@@ -1,0 +1,28 @@
+{
+  "endpoint": "https://api.purpleair.com/v1/sensors/198733/history",
+  "provider": "PurpleAir",
+  "query": {
+    "average": 0,
+    "end_timestamp": 1786406400,
+    "fields": "pm2.5_atm,pm10.0_atm",
+    "start_timestamp": 1786147200
+  },
+  "response_headers": {},
+  "response_payload": {
+    "api_version": "V1.2.2-1.1.45",
+    "average": 0,
+    "data": [],
+    "end_timestamp": 1786406400,
+    "fields": [
+      "time_stamp",
+      "pm2.5_atm",
+      "pm10.0_atm"
+    ],
+    "private": 0,
+    "sensor_index": 198733,
+    "start_timestamp": 1786147200,
+    "time_stamp": 1786509917
+  },
+  "response_status_code": 200,
+  "sensor_id": "198733"
+}

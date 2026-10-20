@@ -1,15 +1,26 @@
+import { Trans, useTranslation } from 'react-i18next';
+import i18n from './i18n';
 
 
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useLocation, Link } from 'react-router-dom';
 import { useAuth } from './auth';
 import PasswordInput from './components/PasswordInput';
+import LanguageSelector from './components/LanguageSelector';
+import { WebAuthnAbortService } from '@simplewebauthn/browser';
+import { signInWithPasskeyAutofill } from './auth/passkeys';
+import {
+  FALLBACK_LANGUAGE_CODE,
+  writeAnonymousLanguagePreference,
+  type SupportedLanguageCode,
+} from './i18n/languagePreferences';
 
 interface LocationState {
   from?: { pathname: string };
 }
 
 export default function LoginPage() {
+  useTranslation();
   const navigate = useNavigate();
   const location = useLocation();
   const { login, isAuthenticated, isLoading: authLoading } = useAuth();
@@ -24,6 +35,18 @@ export default function LoginPage() {
   const locationState = location.state as LocationState | null;
   const from = locationState?.from?.pathname || '/map';
 
+  useEffect(() => {
+    if (authLoading || isAuthenticated || isSubmitting) return;
+    const controller = new AbortController();
+    void signInWithPasskeyAutofill(controller.signal).catch(() => {
+      if (!controller.signal.aborted) setError(i18n.t('auth:loginPage.messages.passkeyFailed'));
+    });
+    return () => {
+      controller.abort();
+      WebAuthnAbortService.cancelCeremony();
+    };
+  }, [authLoading, isAuthenticated, isSubmitting]);
+
   
   useEffect(() => {
     if (isAuthenticated && !authLoading) {
@@ -35,12 +58,19 @@ export default function LoginPage() {
   function sanitizeAuthError(_error: string | undefined, statusCode?: number): string {
     
     if (statusCode === 429) {
-      return 'Too many sign-in attempts. Please try again later.';
+      return i18n.t('auth:loginPage.messages.tooManyAttempts');
     }
 
     
     
-    return 'Invalid email or password.';
+    return i18n.t(statusCode === 401
+      ? 'auth:loginPage.messages.invalidCredentials'
+      : 'auth:loginPage.messages.serviceUnavailable');
+  }
+
+  function selectAnonymousLanguage(languageCode: SupportedLanguageCode): void {
+    writeAnonymousLanguagePreference(window.localStorage, languageCode);
+    void i18n.changeLanguage(languageCode);
   }
 
   
@@ -53,12 +83,12 @@ export default function LoginPage() {
     const trimmedPassword = password.trim();
 
     if (!trimmedEmail) {
-      setError('Please enter your email address');
+      setError(i18n.t('auth:loginPage.messages.pleaseEnterEmailAddress'));
       return;
     }
 
     if (!trimmedPassword) {
-      setError('Please enter your password');
+      setError(i18n.t('auth:loginPage.messages.pleaseEnterPassword'));
       return;
     }
 
@@ -102,7 +132,7 @@ export default function LoginPage() {
       <div className="min-h-screen flex items-center justify-center bg-slate-50">
         <div className="text-center">
           <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600 mx-auto mb-4"></div>
-          <p className="text-slate-600">Loading...</p>
+          <p className="text-slate-600"><Trans ns="common" i18nKey="states.loading" /></p>
         </div>
       </div>
     );
@@ -116,16 +146,16 @@ export default function LoginPage() {
           <Link to="/" className="inline-block">
             <h1 className="text-3xl font-bold text-slate-800 tracking-tight">COMPASS</h1>
           </Link>
-          <p className="text-slate-600 mt-2">Air Quality Data Platform</p>
+          <p className="text-slate-600 mt-2"><Trans ns="auth" i18nKey="loginPage.text.airQualityDataPlatform" /></p>
         </div>
 
         
         <div className="bg-white shadow-lg rounded-lg border border-slate-200 p-8">
-          <h2 className="text-xl font-semibold text-slate-800 mb-6">Sign In</h2>
+          <h2 className="text-xl font-semibold text-slate-800 mb-6"><Trans ns="common" i18nKey="actions.signIn" /></h2>
 
           
           {error && (
-            <div className="mb-4 p-3 bg-red-50 border border-red-200 rounded-md text-red-700 text-sm">
+            <div role="alert" className="mb-4 p-3 bg-red-50 border border-red-200 rounded-md text-red-700 text-sm">
               {error}
             </div>
           )}
@@ -135,8 +165,7 @@ export default function LoginPage() {
             
             <div>
               <label htmlFor="email" className="block text-sm font-medium text-slate-700 mb-1">
-                Email
-              </label>
+                <Trans ns="common" i18nKey="fields.email" /></label>
               <input
                 id="email"
                 type="email"
@@ -144,20 +173,19 @@ export default function LoginPage() {
                 onChange={(e) => setEmail(e.target.value)}
                 disabled={isSubmitting}
                 name="username"
-                autoComplete="username"
+                autoComplete="username webauthn"
                 autoFocus
                 className="w-full px-3 py-2 border border-slate-300 rounded-md shadow-sm 
                          focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500
                          disabled:bg-slate-100 disabled:cursor-not-allowed"
-                placeholder="you@example.com"
+                placeholder={i18n.t('auth:loginPage.placeholders.youExampleCom')}
               />
             </div>
 
             
             <div>
               <label htmlFor="password" className="block text-sm font-medium text-slate-700 mb-1">
-                Password
-              </label>
+                <Trans ns="common" i18nKey="fields.password" /></label>
               <PasswordInput
                 id="password"
                 name="password"
@@ -184,10 +212,9 @@ export default function LoginPage() {
               {isSubmitting ? (
                 <span className="flex items-center justify-center gap-2">
                   <span className="animate-spin rounded-full h-4 w-4 border-b-2 border-white"></span>
-                  Signing in...
-                </span>
+                  <Trans ns="auth" i18nKey="loginPage.text.signing" /></span>
               ) : (
-                'Sign In'
+                i18n.t('auth:loginPage.actions.signIn')
               )}
             </button>
           </form>
@@ -196,9 +223,14 @@ export default function LoginPage() {
         
         <div className="text-center mt-6">
           <Link to="/" className="text-sm text-slate-600 hover:text-blue-600">
-            ← Back to Home
-          </Link>
+            <Trans ns="auth" i18nKey="loginPage.actions.backHome" /></Link>
         </div>
+        <LanguageSelector
+          id="login-language-selector"
+          value={(i18n.resolvedLanguage as SupportedLanguageCode) ?? FALLBACK_LANGUAGE_CODE}
+          onChange={selectAnonymousLanguage}
+          hideWhenSingleLanguage
+        />
       </div>
     </div>
   );

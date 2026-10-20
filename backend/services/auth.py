@@ -7,15 +7,16 @@ import uuid
 from dataclasses import dataclass
 from datetime import datetime, timedelta, timezone
 from functools import lru_cache
-from pathlib import Path
 from typing import Iterable, Sequence
 
-from jose import jwt
-from jose.exceptions import JWTError
+import jwt
+from jwt.exceptions import InvalidTokenError as JWTError
 from passlib.context import CryptContext
 
+from services.runtime_secrets import get_or_create_jwt_secret
+from services.user_identity import normalize_email
 
-                                       
+
 ROLE_SCOPES: dict[str, Sequence[str]] = {
     "viewer": (
         "devices:read",
@@ -63,9 +64,9 @@ class AuthSettings:
 
 @lru_cache
 def get_auth_settings() -> AuthSettings:
-    secret_key = os.getenv("JWT_SECRET_KEY")
-    if not secret_key:
-        raise AuthError("JWT_SECRET_KEY is not configured")
+    # Advanced deployments may inject JWT_SECRET_KEY. Normal installations use
+    # one stable key generated into CompassAQ's runtime-data directory.
+    secret_key = (os.getenv("JWT_SECRET_KEY") or "").strip() or get_or_create_jwt_secret()
 
     algorithm = os.getenv("JWT_ALGORITHM", "HS256")
     issuer = os.getenv("JWT_ISSUER", "cleanaircompass-aq-api")
@@ -104,6 +105,7 @@ def hash_password(plain_password: str) -> str:
 def verify_password(plain_password: str, password_hash: str) -> bool:
     return pwd_context.verify(plain_password, password_hash)
 
+
 def validate_password_policy(
     password: str,
     *,
@@ -123,7 +125,7 @@ def validate_password_policy(
     lower = password.lower()
 
     if email:
-        normalized_email = email.lower().strip()
+        normalized_email = normalize_email(email)
         if normalized_email and normalized_email in lower:
             raise ValueError("Password must not contain the email address")
         local_part = normalized_email.split("@")[0]
@@ -189,4 +191,3 @@ def generate_refresh_token(settings: AuthSettings) -> tuple[str, str, uuid.UUID,
 
 def hash_refresh_token(raw_token: str) -> str:
     return hashlib.sha256(raw_token.encode("utf-8")).hexdigest()
-

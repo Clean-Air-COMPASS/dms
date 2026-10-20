@@ -1,0 +1,334 @@
+{
+  "navigation": {
+    "admin": "Administración"
+  },
+  "systemPreferences": {
+    "title": "Preferencias del sistema",
+    "description": "Administre la configuración de toda la plataforma utilizada por las funciones administrativas y los servicios compartidos.",
+    "states": {
+      "loading": "Cargando preferencias del sistema…",
+      "saving": "Guardando…"
+    },
+    "messages": {
+      "noChanges": "No hay cambios para guardar.",
+      "saved": "Preferencias del sistema actualizadas."
+    },
+    "geocoding": {
+      "title": "Geocodificación",
+      "description": "alimenta el proxy de búsqueda de ubicación. Deje el campo en blanco y guárdelo para borrar la clave.",
+      "apiKeyLabel": "Clave Geoapify API",
+      "apiKeyPlaceholder": "Introduzca la clave Geoapify API",
+      "apiKeyHelp": "Clave API del lado del servidor utilizada por el proxy de codificación geográfica. Deje esto en blanco y guárdelo para borrarlo."
+    },
+    "language": {
+      "help": "El idioma predeterminado que se utiliza cuando un usuario que ha iniciado sesión no ha seleccionado una anulación de cuenta."
+    },
+    "systemTimezone": {
+      "label": "Zona horaria del sistema",
+      "help": "Se utiliza como zona horaria predeterminada para informes programados y otras actividades generadas por el sistema."
+    },
+    "lastUpdated": {
+      "label": "Última actualización:",
+      "byUser": "por {{email}}"
+    },
+    "storage": {
+      "title": "Almacenamiento",
+      "description": "Capacidad de solo lectura del sistema de archivos usado por los datos persistentes de CompassAQ.",
+      "free": "Libre:",
+      "used": "Usado:",
+      "total": "Total:",
+      "statusLabel": "Estado:",
+      "status": {
+        "healthy": "Saludable",
+        "needs_attention": "Requiere atención",
+        "critical": "Crítico"
+      }
+    }
+  },
+  "adminCsvUpload": {
+    "tooltips": {
+      "csvUpload": "Carga de CSV"
+    },
+    "text": {
+      "requiredCsvHeader": "Encabezado CSV requerido:",
+      "internalsensoridDatetimeValue": "internalsensorid,datetime,value",
+      "csvIdentifier": "La columna internalsensorid debe contener el ID interno del sensor (un número). No use el ID del dispositivo, el ID externo del dispositivo ni el ID externo del sensor.",
+      "whereToFindCsvIdentifier": "Encuentre este valor en Administración → Dispositivos → abra el dispositivo → Sensores, en ID interno del sensor. Cada sensor contaminante tiene su propio ID interno del sensor.",
+      "maximumFileSize": "Los archivos CSV pueden tener hasta 5 MB. Para importaciones más grandes, divida los datos en varias cargas.",
+      "datetimeMustIso8601IfNo": "La fecha y hora debe ser ISO 8601. Si no se proporciona ninguna zona horaria en el CSV, se aplica la zona horaria del dispositivo del sensor de la base de datos.",
+      "fileMayIncludeMultipleDifferentSensor": "Un archivo puede incluir mediciones de varios sensores de contaminantes. Use una fila por medición y el ID interno del sensor correspondiente en cada fila.",
+      "exampleLabel": "Ejemplo (reemplace los ID por los ID internos del sensor que se muestran para sus sensores):",
+      "noFileSelected": "Ningún archivo seleccionado",
+      "total": "Total:",
+      "inserted": "| Insertadas:",
+      "failed": "| Fallidas:",
+      "rowErrors": "Errores por línea del archivo:",
+      "unitRequirement": "El campo value del CSV ya debe estar expresado en la unidad configurada del sensor de destino. Confirme la unidad del sensor antes de subir el archivo.",
+      "noConversion": "El formato CSV no incluye instrucciones de conversión de unidades. CompassAQ no deduce otra unidad a partir del valor numérico ni convierte el valor subido.",
+      "updated": "| Actualizadas:",
+      "skipped": "| Omitidas:",
+      "updatePolicy": "Los duplicados siguen la política de actualización del sensor y luego la del dispositivo. Heredar sin una opción Reemplazar conserva los valores existentes.",
+      "skippedExplanation": "Los duplicados omitidos conservan intencionalmente el valor existente; no son errores de importación.",
+      "timestampSemantics": "Datetime sigue el significado temporal configurado para el sensor de destino. Si el significado es desconocido, confirme con el responsable de los datos si la marca de tiempo indica el inicio del intervalo, el fin del intervalo o el instante de observación antes de interpretarlos. La importación conserva la base temporal del sensor y los requisitos del AQI.",
+      "futureTolerance": "Se rechazan las marcas de tiempo posteriores en más de 5 minutos al inicio del procesamiento del CSV. Se permite importar datos históricos.",
+      "qcExplanation": "El QC se ejecuta sobre los valores insertados y actualizados. Marcar para revisión conserva la validez; Marcar como inválido excluye la medición de los cálculos que usan solo datos válidos. Deriva de línea base debe estar habilitada y tener suficiente historial válido.",
+      "aqiMetadata": "Las cargas CSV no establecen la elegibilidad para el AQI. El AQI también requiere metadatos temporales verificados proporcionados por un importador. Los sensores añadidos manualmente con metadatos temporales desconocidos pueden almacenar mediciones, pero seguir sin ser elegibles aunque tengan suficientes filas. Consulte con su administrador sobre un importador compatible."
+    },
+    "actions": {
+      "chooseCsvFile": "Elija el archivo CSV",
+      "uploading": "Subiendo…",
+      "uploadCsv": "Subir CSV",
+      "reviewQc": "Revisar fallos de QC",
+      "reviewActivity": "Ver actividad de carga"
+    },
+    "accessibility": {
+      "uploadMeasurementsCsvFile": "Cargue mediciones desde un archivo CSV.",
+      "chooseCsvFile": "Archivo CSV"
+    },
+    "messages": {
+      "pleaseChooseCsvFileFirst": "Primero elija un archivo CSV.",
+      "fileTooLarge": "El archivo es demasiado grande. Los archivos CSV pueden tener hasta 5 MB. Elija un archivo más pequeño o divida los datos en varias cargas.",
+      "lineError": "Línea {{line}}: {{reason}}",
+      "processing": "Subiendo y comprobando las mediciones. Las comprobaciones de deriva de línea base pueden tardar un minuto o más. Mantenga esta página abierta hasta que aparezca el resultado.",
+      "elapsed": "Tiempo transcurrido: {{seconds}} segundos",
+      "uploadUnconfirmed": "No se pudo confirmar el resultado de la carga. Compruebe su conexión y revise Actividad antes de reintentar: es posible que algunas filas ya se hayan guardado. El archivo seleccionado sigue disponible para reintentar.",
+      "headerRequiredColumnNames": "El encabezado CSV debe usar estos nombres de columna obligatorios: {{columns}}.",
+      "headerUseSupportedFormat": "Use el encabezado admitido:",
+      "headerRejectedBeforeImport": "El archivo se rechazó antes de importar mediciones. Corrija el encabezado y vuelva a subirlo."
+    },
+    "content": {
+      "admin": "Administración",
+      "csvUpload": "Carga de CSV"
+    },
+    "reference": {
+      "title": "Buscar el sensor de destino",
+      "help": "Busque por nombre del dispositivo, ID del dispositivo, ID externo del dispositivo, ID del sensor, identificador externo del sensor o nombre del parámetro. Elija un dispositivo para confirmar el sensor de destino y sus metadatos.",
+      "search": "Nombre o identificador del dispositivo",
+      "deviceId": "ID del dispositivo: {{id}}",
+      "externalDeviceId": "ID externo del dispositivo: {{id}}",
+      "dataSource": "Fuente de datos: {{source}}",
+      "timezone": "Zona horaria del dispositivo: {{timezone}}",
+      "parameter": "Parámetro: {{parameter}}",
+      "sensor": "ID del sensor: {{id}} · Unidad: {{unit}}",
+      "externalSensor": "ID externo del sensor: {{id}}",
+      "aggregation": "Agregación: {{aggregation}}",
+      "error": "No se pudo cargar la referencia de sensores. Inténtelo de nuevo.",
+      "noSensors": "No hay sensores configurados para este dispositivo.",
+      "noDevices": "Ningún dispositivo o sensor coincide con esta búsqueda.",
+      "changeDevice": "Elegir otro dispositivo",
+      "viewDevice": "Ver dispositivo",
+      "limit": "Se muestran hasta 20 dispositivos por página. Refine la búsqueda para encontrar el destino.",
+      "paginationLabel": "Páginas de referencia de dispositivos",
+      "page": "Página {{page}}",
+      "timestamp": "Significado temporal: {{semantics}}",
+      "duration": "Duración de la medición (segundos): {{seconds}}",
+      "frequency": "Intervalo esperado entre muestras (segundos): {{seconds}}",
+      "semantics": {
+        "interval_start": "Inicio del intervalo",
+        "interval_end": "Fin del intervalo",
+        "observation_instant": "Instante de observación",
+        "provider_received_at": "Hora de recepción del proveedor",
+        "hour_start": "Inicio de la hora",
+        "hour_end": "Fin de la hora",
+        "unknown": "Desconocido — confirme los metadatos del sensor"
+      }
+    },
+    "summary": {
+      "success": "Se completó el procesamiento del CSV.",
+      "partial": "Se procesaron algunas filas; otras fallaron. Revise los recuentos y los errores por línea.",
+      "failed": "No se procesó ninguna fila. Revise los recuentos y los errores por línea.",
+      "qc": "QC: {{evaluated}} evaluadas · {{passed}} aprobadas · {{flagged}} fallos de evaluación · {{indeterminate}} sin evaluación posible"
+    },
+    "rowReasons": {
+      "sensor_required": "Se requiere el ID interno del sensor.",
+      "sensor_invalid": "El ID interno del sensor debe ser un número.",
+      "sensor_not_found": "No se encontró el sensor. Confirme su ID interno.",
+      "value_required": "Se requiere el valor de la medición.",
+      "value_invalid": "El valor de la medición debe ser un número finito.",
+      "datetime_required": "Se requiere Datetime.",
+      "datetime_invalid": "Datetime debe tener formato ISO 8601.",
+      "timezone_missing": "Incluya un desplazamiento de zona horaria o configure la zona horaria del dispositivo.",
+      "timezone_invalid": "Corrija la zona horaria del dispositivo o incluya un desplazamiento de zona horaria.",
+      "timestamp_future": "La marca de tiempo supera la tolerancia futura permitida (5 minutos). Revise la fecha, la zona horaria y el reloj del dispositivo.",
+      "extra_columns": "El registro tiene más campos que el encabezado CSV. Revise los delimitadores.",
+      "write_conflict": "La medición cambió durante la importación. Reintente esta línea.",
+      "import_failed": "No se pudo guardar la medición. Contacte con un administrador."
+    }
+  },
+  "adminHome": {
+    "tooltips": {
+      "admin": "Administración"
+    },
+    "accessibility": {
+      "chooseAreaManage": "Elija un área para administrar."
+    },
+    "content": {
+      "devices": "Dispositivos",
+      "manageDevicesMetadataStatus": "Administre dispositivos, metadatos y estados.",
+      "dataSources": "Fuentes de datos",
+      "configureExternalDataSourcesSchedules": "Configurar fuentes de datos externas y programaciones.",
+      "qcRules": "Control de calidad",
+      "reviewManageQaQcRuleSets": "Revise rangos de control de calidad recomendados, ajustes personalizados y excepciones.",
+      "emailNotifications": "Correo y notificaciones",
+      "configureEmailNotifications": "Configure la entrega de correo, los destinatarios administradores y las pruebas de entrega.",
+      "csvUpload": "Carga de CSV",
+      "uploadCsvFileDeviceMeasurements": "Cargue un archivo CSV con mediciones de dispositivos.",
+      "events": "Eventos",
+      "inspectImporterSystemEventLogs": "Inspeccionar los registros de eventos del sistema y del importador.",
+      "users": "Usuarios",
+      "manageUserAccountsRoleAssignments": "Administrar cuentas de usuario y asignaciones de roles.",
+      "systemPreferences": "Preferencias del sistema",
+      "managePlatformWideSettingsSharedService": "Administre la configuración de toda la plataforma y las claves de servicio compartidas."
+    }
+  },
+  "guards": {
+    "text": {
+      "checkingAuthentication": "Comprobando autenticación...",
+      "checkingPermissions": "Comprobando permisos...",
+      "pleaseLogAccessPage": "Inicie sesión para acceder a esta página.",
+      "youDonTHavePermissionAccess": "No tiene permiso para acceder a esta página.",
+      "requiredPermission": "Permiso requerido",
+      "permissions": "Sus permisos:",
+      "none": "ninguno"
+    },
+    "headings": {
+      "authenticationRequired": "Se requiere autenticación",
+      "notAuthorized": "No autorizado"
+    },
+    "actions": {
+      "goLogin": "Ir a inicio de sesión"
+    }
+  },
+  "adminPageLayout": {
+    "actions": {
+      "map": "Mapa",
+      "analytics": "Análisis"
+    }
+  },
+  "asyncSensorSearch": {
+    "dynamic": {
+      "selectSensor": "Seleccionar sensor {{id}}"
+    },
+    "placeholders": {
+      "searchSensors": "Buscar sensores…"
+    },
+    "accessibility": {
+      "searchSensors": "Buscar sensores"
+    },
+    "text": {
+      "searching": "Buscando…",
+      "noMatches": "No hay coincidencias",
+      "sensor": "Sensor"
+    }
+  },
+  "languageSelector": {
+    "text": {
+      "system": "sistema"
+    }
+  },
+  "loadingSplash": {
+    "text": {
+      "loadingRequiredServicesMayTakeFew": "Cargando servicios requeridos. Esto puede tardar unos segundos.",
+      "initializing": "Inicializando widgets y obteniendo datos..."
+    }
+  },
+  "testImportTab": {
+    "dynamic": {
+      "status": "Estado {{status}}"
+    },
+    "headings": {
+      "testImportRun": "Ejecutar importación ahora",
+      "result": "Resultado"
+    },
+    "text": {
+      "importer": "Importador",
+      "linked": "Vinculado a \"",
+      "sensorIdOptional": "ID del sensor (opcional)",
+      "apiKey": "Clave API",
+      "purpleAirApiKey": "Clave PurpleAir API",
+      "openAqApiKey": "Clave OpenAQ API",
+      "scheduledRunAppearsProgress": "Parece que hay una ejecución programada en curso.",
+      "dataSource": "Fuente de datos",
+      "liveImportExplanation": "Inicia una importación real para esta fuente de datos. Puede recuperar datos del proveedor y añadir mediciones; no es una prueba de configuración.",
+      "unsupportedImporter": "Esta fuente de datos no admite importaciones manuales."
+    },
+    "tooltips": {
+      "importSource": "Importar fuente"
+    },
+    "accessibility": {
+      "importSourceSelector": "Importar selector de fuente"
+    },
+    "options": {
+      "openAqImporter": "Importador OpenAQ",
+      "purpleAirImporter": "Importador PurpleAir",
+      "airGradientImporter": "Importador AirGradient"
+    },
+    "actions": {
+      "saveScheduler": "Guardar en el programador",
+      "running": "Ejecutando…",
+      "testRun": "Ejecutar importación ahora",
+      "clear": "Borrar",
+      "cancelRunningRun": "Cancelar ejecución y ejecutar"
+    },
+    "notifications": {
+      "savedApiKeyScheduler": "Clave API guardada en el programador"
+    },
+    "dialogs": {
+      "purpleAirImportMayConsumePaid": "Esta importación de PurpleAir puede consumir puntos API pagados. ¿Continuar?",
+      "cancelRunningJobRunImporterNow": "¿Cancelar el trabajo en ejecución y ejecutar el importador ahora?",
+      "purpleAirImportMayConsumePaid2": "Esta importación de PurpleAir puede consumir puntos API pagados. ¿Continuar?"
+    }
+  },
+  "workspace": {
+    "operations": "Datos y operaciones",
+    "platform": "Personas y plataforma",
+    "identifierFilters": "Buscar por identificador de dispositivo o sensor",
+    "enabled": "Habilitada",
+    "disabled": "Deshabilitada",
+    "credentialStored": "Credencial guardada",
+    "credentialMissing": "Sin credencial guardada",
+    "credentialUnknown": "Estado de la credencial no disponible",
+    "regional": "Idioma y hora",
+    "unsaved": "Cambios sin guardar",
+    "saved": "Todos los cambios guardados",
+    "chooseFile": "Elegir un archivo",
+    "format": "Formato esperado",
+    "result": "Resultado de la carga",
+    "sourceState": {
+      "ready": "Lista para importar",
+      "disabled": "Importaciones deshabilitadas",
+      "configuration_required": "Configuración requerida",
+      "paid_provider_requests_disabled": "Solicitudes de pago bloqueadas",
+      "unsupported_provider": "Proveedor no compatible",
+      "unknown": "Disponibilidad no determinada"
+    },
+    "loadSchedules": "No se pudieron cargar las programaciones. Recarga esta página para volver a intentarlo."
+  },
+  "buildInformation": {
+    "title": "Información de compilación",
+    "applicationVersion": "Versión de la aplicación",
+    "applicationVersionValue": "CompassAQ v{{version}}",
+    "frontendCommit": "Commit de la interfaz",
+    "backendCommit": "Commit del servidor",
+    "frontendBuilt": "Interfaz compilada",
+    "backendBuilt": "Servidor compilado",
+    "environment": "Entorno",
+    "unknown": "Desconocido",
+    "unavailable": "No disponible",
+    "loading": "Cargando…",
+    "retry": "Reintentar",
+    "loadError": "No se pudo cargar la información de compilación del servidor.",
+    "backendVersion": "Versión de la aplicación del servidor: {{version}}",
+    "comparison": {
+      "matching": "Las compilaciones de la interfaz y del servidor coinciden",
+      "different": "Las compilaciones de la interfaz y del servidor son diferentes",
+      "unknown": "Comparación de compilaciones no disponible"
+    },
+    "environments": {
+      "development": "Desarrollo",
+      "test": "Pruebas",
+      "staging": "Preproducción",
+      "production": "Producción"
+    }
+  }
+}

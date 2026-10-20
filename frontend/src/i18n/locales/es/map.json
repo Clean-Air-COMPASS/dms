@@ -1,0 +1,281 @@
+{
+  "app": {
+    "text": {
+      "activeControls": "Controles diferentes de los predeterminados",
+      "layer": "Capa",
+      "parameter": "Parámetro",
+      "aqiProduct": "Producto AQI",
+      "parameter2": "Parámetro",
+      "loadingParameters": "Cargando parámetros…",
+      "noParameters": "Sin parámetros",
+      "timeResolution": "Resolución temporal",
+      "noResolutions": "Sin resoluciones",
+      "latestCompletedUtcHour": "Última hora UTC completada",
+      "source": "Fuente",
+      "now": "ahora",
+      "failedLoadInitialData": "No se pudieron cargar los datos iniciales",
+      "nativeResolution": "resolución nativa del sensor",
+      "downloadExplanation": "Descarga la última medición que coincide con los filtros de cada sensor para {{parameter}} con {{aggregation}}, de {{source}}. Incluye todas las ubicaciones, independientemente del área visible del mapa. Las fechas varían por sensor; no hay fecha de corte ni serie histórica.",
+      "deviceDownloadExplanation": "Descarga el inventario de dispositivos para {{parameter}}, de {{source}}. Incluye dispositivos sin mediciones o coordenadas, independientemente de su actividad o del área visible del mapa. La resolución temporal no filtra los dispositivos.",
+      "aqiDownloadExplanation": "Descarga el último resultado de ICA de cada ubicación que coincida con {{product}}, de {{source}}, incluidos los resultados no disponibles con su estado. El área visible del mapa no limita la exportación. No es una serie histórica; usa Análisis para exportar el historial de ICA.",
+      "downloadEmpty": "No hay registros que coincidan con estos filtros. No se descargó ningún archivo.",
+      "downloadFailed": "No se pudo completar la exportación. No se descargó ningún archivo. Inténtalo de nuevo."
+    },
+    "accessibility": {
+      "layer": "Capa",
+      "timeResolution": "Resolución temporal",
+      "dataSourceFilter": "Filtro de fuente de datos",
+      "timeWindow": "Ventana de tiempo",
+      "timeWindowPresets": "Opciones de ventana de tiempo",
+      "openCustomDateRangePicker": "Abrir selector de rango de fechas personalizado"
+    },
+    "options": {
+      "devices": "Dispositivos",
+      "measurements": "Mediciones",
+      "aqi": "AQI",
+      "allParameters": "Todos los parámetros",
+      "selectAqiProduct": "Seleccione un producto AQI",
+      "allTimeResolutions": "Todas las resoluciones temporales",
+      "allSources": "Todas las fuentes",
+      "allTime": "Todo el tiempo",
+      "last24Hours": "Últimas 24 horas",
+      "last1Hour": "Última hora",
+      "custom": "Personalizado"
+    },
+    "fields": {
+      "timeWindow": "Ventana de tiempo"
+    },
+    "tooltips": {
+      "customDateRange": "Rango de fechas personalizado",
+      "resetViewLocation": "Volver a su ubicación o a la vista predeterminada si no está disponible",
+      "analytics": "Análisis"
+    },
+    "actions": {
+      "resetView": "Restablecer vista",
+      "analytics": "Análisis",
+      "mapControls": "Controles del mapa",
+      "closeControls": "Cerrar controles",
+      "showFilters": "Mostrar filtros",
+      "hideFilters": "Ocultar filtros",
+      "csvExport": "Exportar CSV"
+    },
+    "documentTitles": {
+      "aqDataPlatformCleanAirCompass": "Plataforma de datos de calidad del aire – Clean Air COMPASS",
+      "aqPlatformAdmin": "Plataforma AQ – Administrador",
+      "aqPlatformAnalytics": "Plataforma de calidad del aire – Análisis",
+      "aqPlatformEuropeanAirQualityIndex": "Plataforma AQ – Mapa del Índice Europeo de Calidad del Aire",
+      "aqPlatformDevicesMap": "Plataforma AQ – Mapa de dispositivos",
+      "aqPlatformMap": "Plataforma AQ – Mapa",
+      "aqPlatformDevices": "Plataforma AQ – Dispositivos",
+      "aqPlatformMeasurements": "Plataforma AQ – Mediciones",
+      "parameterMap": "Plataforma AQ – Mapa {{parameter}}",
+      "latestParameter": "Plataforma AQ: último {{parameter}}"
+    }
+  },
+  "copyableCoordinates": {
+    "accessibility": {
+      "copyCoordinates": "Copiar coordenadas: {{coordinates}}"
+    },
+    "text": {
+      "clickCopyCoordinates": "Haga clic para copiar coordenadas",
+      "copied": "¡Copiado!"
+    }
+  },
+  "lastUpdated": {
+    "text": {
+      "noDataLoaded": "No hay datos cargados",
+      "updated": "Actualizado",
+      "updatedElapsed": "Actualizado {{elapsed}}"
+    },
+    "tooltips": {
+      "refreshData": "Actualizar datos",
+      "refreshNow": "Actualizar ahora"
+    },
+    "accessibility": {
+      "refreshData": "Actualizar datos",
+      "refreshNow": "Actualizar ahora"
+    },
+    "countdown": {
+      "autoRefresh_one": "Actualización automática en {{count}} segundo",
+      "autoRefresh_other": "Actualización automática en {{count}} segundos"
+    }
+  },
+  "mapEmptyState": {
+    "headings": {
+      "devices": "No se encontraron dispositivos",
+      "measurements": "No se encontraron mediciones",
+      "aqi": "No se encontraron resultados del ICA"
+    },
+    "messages": {
+      "devices": "No se encontraron dispositivos en esta zona.",
+      "measurements": "No se encontraron mediciones en esta zona para los filtros seleccionados.",
+      "aqi": "No se encontraron resultados del ICA en esta zona para la norma y los filtros seleccionados."
+    },
+    "suggestion": "Explora otra zona o cambia los filtros."
+  },
+  "timeSelector": {
+    "accessibility": {
+      "hour": "Hora",
+      "minutes": "Minutos",
+      "amPm": "AM o PM",
+      "timeSelector": "Selector de tiempo"
+    },
+    "text": {
+      "am": "AM",
+      "pm": "PM"
+    },
+    "options": {
+      "am": "AM",
+      "pm": "PM"
+    }
+  },
+  "locationSearch": {
+    "placeholders": {
+      "searchLocation": "Buscar ubicación…"
+    },
+    "accessibility": {
+      "searchLocation": "Buscar ubicación",
+      "clearSearch": "Borrar búsqueda"
+    },
+    "messages": {
+      "tooManyRequestsTryAgainShortly": "Demasiadas solicitudes. Inténtelo de nuevo en breve.",
+      "noMatchesFound": "No se encontraron coincidencias",
+      "searchFailed": "No se pudo buscar la ubicación. Modifique el texto para volver a intentarlo.",
+      "notConfigured": "Búsqueda no configurada",
+      "searching": "Buscando ubicaciones…",
+      "searchTimedOut": "La búsqueda tardó demasiado. Modifique el texto para volver a intentarlo. Puede seguir usando los controles del mapa."
+    },
+    "states": {
+      "unknownLocation": "Ubicación desconocida"
+    }
+  },
+  "selection": {
+    "messages": {
+      "noMeasurementParameters": "No hay parámetros de medición configurados.",
+      "defaultPm25Unavailable": "El parámetro de medición predeterminado PM2.5 no está configurado.",
+      "aqiMetadataUnavailable": "Los metadatos del índice de calidad del aire no están disponibles.",
+      "productUnavailable": "El producto de índice de calidad del aire “{{code}}” no está disponible.",
+      "legacySelectionUnavailable": "La selección heredada AQI “{{code}}” no está disponible. Elija un producto actual de los metadatos del servidor.",
+      "standardUnavailable": "El estándar de índice de calidad del aire “{{code}}” no está disponible.",
+      "noDefaultStandard": "No se configuró ningún estándar predeterminado del índice de calidad del aire.",
+      "noMapProducts": "{{standard}} no tiene productos de mapas disponibles."
+    }
+  },
+  "mapLibreMap": {
+    "text": {
+      "loadingMeasurements": "Cargando mediciones…",
+      "selectedMeasurementUnavailable": "No hay mediciones disponibles para este sensor con los filtros seleccionados.",
+      "loadingMeasurementHistory": "Cargando historial de mediciones…",
+      "unableLoadMeasurementHistory": "No se puede cargar el historial de mediciones.",
+      "noDataAvailableSelectedWindow": "No hay datos disponibles para la ventana seleccionada",
+      "loadingMeasurementHistory2": "Cargando historial de mediciones…",
+      "noChartDataAvailable": "No hay datos de gráficos disponibles",
+      "loadingEuropeanAirQualityIndex": "Cargando índice europeo de calidad del aire…",
+      "loadingMapData": "Cargando datos del mapa…",
+      "error": "Error:",
+      "europeanAqiResult": "Resultado del AQI europeo",
+      "aqiResult": "Resultado de AQI",
+      "measurement": "medición",
+      "device": "dispositivo",
+      "noEuropeanAirQualityIndexResults": "No hay resultados del Índice Europeo de Calidad del Aire disponibles para esta área y fuente del mapa.",
+      "no": "No",
+      "resultsAvailableMapAreaSource": "resultados disponibles para esta área y fuente del mapa.",
+      "categoryAboveAqi500": "{{category}} · Por encima de AQI 500",
+      "dailyAqiUnavailable": "AQI diario no disponible",
+      "aqiUnavailable": "AQI no disponible",
+      "aqiDetails": "Detalles de AQI",
+      "completedDay": "Día completo:",
+      "coverage": "Cobertura:",
+      "hourlySlots": "franjas horarias",
+      "selectedConcentration": "Concentración seleccionada:",
+      "selectedInterval": "Intervalo seleccionado:",
+      "of": "de",
+      "hourlyConcentrationsAvailable": "concentraciones horarias disponibles;",
+      "required": "requerido.",
+      "latestCompletedHour": "Última hora completada:",
+      "of2": "de",
+      "readingsAvailable": "lecturas disponibles;",
+      "required2": "requerido.",
+      "noChartDataAvailable2": "No hay datos de gráficos disponibles",
+      "sensor": "sensor",
+      "loadingSensors": "Cargando sensores…",
+      "noSensorsFoundDevice": "No se encontraron sensores para este dispositivo.",
+      "outdated": "desactualizado",
+      "latestOnlyHistory": "Este período de promedio solo admite resultados recientes. Elija otra resolución temporal para ver el historial.",
+      "unsupportedHistory": "Este flujo no admite historial con la resolución temporal seleccionada. Elija otra resolución.",
+      "singleHistoryPoint": "Solo hay una observación apta disponible en las últimas 24 horas.",
+      "noEligibleHistory": "Hay observaciones en las últimas 24 horas, pero ninguna es apta según la política de QC actual.",
+      "webGl2Unavailable": "El mapa no está disponible porque este navegador no puede usar WebGL2. Activa la aceleración por hardware o prueba otro navegador."
+    },
+    "dynamic": {
+      "expandSensors_one": "Seleccione para mostrar {{count}} sensor",
+      "expandSensors_other": "Seleccione para mostrar {{count}} sensores",
+      "device": "Dispositivo {{id}}",
+      "loadingAqi": "Cargando {{label}}…",
+      "completedDay": "Día completo: {{date}}",
+      "nowcastCoverage": "Cobertura: {{valid}}/{{expected}} franjas horarias ({{status}})",
+      "selectedConcentration": "Concentración seleccionada: {{value}} {{unit}}",
+      "selectedInterval": "Intervalo seleccionado: {{interval}}",
+      "completedDayCompleteness": "{{valid}} de {{expected}} concentraciones horarias disponibles; Se requiere {{required}}.",
+      "latestHourCompleteness": "Última hora completa: {{valid}} de {{expected}} lecturas disponibles; se requieren {{required}}."
+    },
+    "counts": {
+      "europeanAqiResult_one": "{{count}} resultado del AQI europeo",
+      "europeanAqiResult_other": "{{count}} resultados del AQI europeo",
+      "aqiResult_one": "{{count}} resultado de AQI",
+      "aqiResult_other": "{{count}} resultados de AQI",
+      "measurement_one": "{{count}} medición",
+      "measurement_other": "{{count}} mediciones",
+      "device_one": "{{count}} dispositivo",
+      "device_other": "{{count}} dispositivos"
+    },
+    "states": {
+      "unknownDevice": "Dispositivo desconocido",
+      "unnamedDevice": "Dispositivo sin nombre",
+      "noAqiAvailable": "No hay AQI disponible"
+    },
+    "accessibility": {
+      "deviceDetails": "Detalles del dispositivo",
+      "closePanel": "Cerrar panel",
+      "closePanel2": "Cerrar panel"
+    },
+    "tooltips": {
+      "collapse": "Contraer",
+      "deviceTimezone": "Zona horaria del dispositivo",
+      "validMeasurement": "Medición válida",
+      "invalidMeasurement": "Medición no válida",
+      "deviceTimezone2": "Zona horaria del dispositivo"
+    },
+    "actions": {
+      "openFullAnalytics": "Abrir análisis completo",
+      "openFullAnalytics2": "Abrir análisis completo",
+      "openFullAnalytics3": "Abrir análisis completo"
+    },
+    "messages": {
+      "unableLoadEuropeanAirQualityIndex": "No se pueden cargar los resultados del índice europeo de calidad del aire. Inténtelo de nuevo más tarde.",
+      "unableLoadAirQualityDataPlease": "No se pueden cargar datos sobre la calidad del aire. Inténtelo de nuevo más tarde o verifique su conexión de red.",
+      "unableLoadAirQualityDataPlease2": "No se pueden cargar datos sobre la calidad del aire. Inténtelo de nuevo más tarde o verifique su conexión de red.",
+      "unableLoadDevicesPleaseTryAgain": "No se pueden cargar dispositivos. Inténtelo de nuevo más tarde o verifique su conexión de red.",
+      "unableLoadDevicesPleaseTryAgain2": "No se pueden cargar dispositivos. Inténtelo de nuevo más tarde o verifique su conexión de red.",
+      "unableLoadDevicesPleaseTryAgain3": "No se pueden cargar dispositivos. Inténtelo de nuevo más tarde o verifique su conexión de red.",
+      "unableLoadSensorsDevice": "No se pueden cargar sensores para este dispositivo.",
+      "unableLoadSensorsDevice2": "No se pueden cargar sensores para este dispositivo.",
+      "productMetadataUnavailable": "Los metadatos de {{product}} no están disponibles. Las mediciones sin procesar siguen disponibles.",
+      "standardUnsupported": "Este servidor no admite el estándar AQI seleccionado.",
+      "unableLoadStandardResults": "No se pueden cargar los resultados de {{standard}}. Inténtelo de nuevo más tarde.",
+      "noStandardResults": "No hay resultados {{standard}} disponibles para esta área y fuente del mapa.",
+      "europeanMetadataUnavailable": "Los metadatos del Índice Europeo de Calidad del Aire no están disponibles. Las mediciones sin procesar siguen disponibles.",
+      "europeanUnsupported": "Este servidor no admite el índice europeo de calidad del aire.",
+      "measurementHistoryLoadFailed": "No se pudo cargar el historial de mediciones."
+    }
+  },
+  "measurementContext": {
+    "averagingPeriod": "Período de promedio / agregación",
+    "qcStatus": "Estado de QC",
+    "observedAtUtc": "Observado el (UTC)",
+    "calculatedAtUtc": "Calculado el (UTC)",
+    "rollingWindowUtc": "Ventana móvil (UTC)",
+    "latestSourceObservationUtc": "Última observación de origen (UTC)",
+    "unavailable": "No proporcionado"
+  }
+}

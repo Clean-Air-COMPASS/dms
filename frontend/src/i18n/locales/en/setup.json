@@ -1,0 +1,149 @@
+{
+  "serverMessages": {
+    "adminCreated": "Admin account created successfully.",
+    "dataSourceConfigured": "Data source configured successfully.",
+    "geoapifyConfigured": "Geoapify API key configured successfully.",
+    "completed": "System setup completed successfully.",
+    "verificationSucceeded": "The API key was verified successfully.",
+    "verificationFailed": "The API key could not be verified. Check the key and try again."
+  },
+  "serverErrors": {
+    "alreadyCompleted": "System setup has already been completed.",
+    "passwordConfirmationMismatch": "Password and confirmation do not match.",
+    "passwordPolicyNotMet": "The password does not meet the security requirements.",
+    "adminEmailExists": "A user with this email already exists.",
+    "apiKeyConfirmationMismatch": "API key and confirmation do not match.",
+    "dataSourceNotFound": "The selected data source is no longer available.",
+    "apiKeyRequired": "An API key is required.",
+    "adminRequired": "Create an administrator account before completing setup.",
+    "adminCreationFailed": "The administrator account could not be created.",
+    "apiKeySaveFailed": "The API key could not be saved.",
+    "completionFailed": "Setup could not be completed."
+  },
+  "startup": {
+    "headings": {
+      "starting": "CompassAQ is starting",
+      "failure": "CompassAQ could not finish starting"
+    },
+    "text": {
+      "starting": "We're getting the system ready. This usually takes a moment.",
+      "failure": "The application services are not responding yet."
+    },
+    "actions": {
+      "retry": "Retry"
+    }
+  },
+  "setupWizard": {
+    "headings": {
+      "productName": "CompassAQ",
+      "welcomeCompassAQ": "Welcome to CompassAQ",
+      "optionalItems": "Optional items to have ready",
+      "createAdminAccount": "Create Admin Account",
+      "configureDataSource": "Configure Data Source",
+      "configureLocationSearch": "Configure Location Search",
+      "setupComplete": "Setup Complete!"
+    },
+    "text": {
+      "airQualityDataPlatform": "Air Quality Data Platform",
+      "welcomePreparation": "You can complete setup without any external service accounts. If you already have API keys or email settings available, you can add them during setup.",
+      "openAQApiKey": "OpenAQ API key",
+      "openAQPurpose": "Import monitoring data from OpenAQ.",
+      "purpleAirApiKey": "PurpleAir API key",
+      "purpleAirPurpose": "Import PurpleAir sensor data.",
+      "airGradientApiToken": "AirGradient API token",
+      "airGradientPurpose": "Import your AirGradient locations.",
+      "geoapifyApiKey": "Geoapify API key",
+      "geoapifyPurpose": "Enable map/geocoding features that require Geoapify.",
+      "smtpSettings": "SMTP settings",
+      "smtpPurpose": "Send Administrator Summary and other email notifications.",
+      "noneRequired": "Anything you skip can be configured later from Administration.",
+      "adminAccount": "Admin Account",
+      "dataSource": "Data Source",
+      "locationSearch": "Location Search",
+      "complete": "Complete",
+      "createAdministratorAccountManagePlatformAccount": "Create your administrator account to manage the platform. This account will have full access to all features.",
+      "optionallyConfigureExternalDataSourceStart": "Choose Demo Data or add an external provider API key. You can change these sources later in Admin.",
+      "note": "Note:",
+      "noMeasurementDataWillAvailableUntil": "Enabled sources can start adding observations after setup is complete.",
+      "configured": "Configured",
+      "dataSourceConfiguredAndEnabled": "Data source configured and enabled",
+      "optionallyConfigureGeoapifyApiKeyEnable": "Optionally configure a Geoapify API key to enable location search on the map.",
+      "note2": "Note:",
+      "withoutGeoapifyApiKeyMapLocation": "Without a Geoapify API key, the map location search feature will not work. You can configure this later from the Admin section.",
+      "getFreeApiKey": "Get a free API key at",
+      "youReAllSetClickButton": "You're all set! Click the button below to finish setup and start using the platform.",
+      "adminAccountCreated": "Admin account created",
+      "dataSourceNotConfiguredCanDone": "Data source not configured or enabled (can be done in Admin)",
+      "locationSearchConfigured": "Location search configured",
+      "locationSearchNotConfiguredCanDone": "Location search not configured (can be done in Admin)"
+    },
+    "fields": {
+      "emailAddress": "Email Address",
+      "confirmPassword": "Confirm Password",
+      "selectDataSource": "Select Data Source",
+      "apiKey": "API Key",
+      "confirmApiKey": "Confirm API Key",
+      "geoapifyApiKey": "Geoapify API Key"
+    },
+    "placeholders": {
+      "adminExampleCom": "admin@example.com",
+      "createStrongPassword": "Create a strong password",
+      "reEnterPassword": "Re-enter password",
+      "enterApiKey": "Enter your API key",
+      "optionalApiKey": "Optional API key",
+      "reEnterApiKey": "Re-enter API key",
+      "enterGeoapifyApiKey": "Enter your Geoapify API key"
+    },
+    "actions": {
+      "continue": "Continue",
+      "creatingAccount": "Creating Account...",
+      "createAdminAccount": "Create Admin Account",
+      "verifying": "Verifying...",
+      "verified": "✓ Verified",
+      "verifyKey": "Verify Key",
+      "saving": "Saving...",
+      "saveContinue": "Save & Continue",
+      "saveSourcesContinue": "Save Sources & Continue",
+      "back": "← Back",
+      "skipNow": "Skip for Now →",
+      "verifying2": "Verifying...",
+      "verified2": "✓ Verified",
+      "verifyKey2": "Verify Key",
+      "saving2": "Saving...",
+      "saveContinue2": "Save & Continue",
+      "back2": "← Back",
+      "skipNow2": "Skip for Now →",
+      "back3": "← Back",
+      "completingSetup": "Completing Setup...",
+      "completeSetupStartUsingPlatform": "Complete Setup & Start Using Platform"
+    },
+    "messages": {
+      "emailAddressRequired": "Email address is required",
+      "emailAddressInvalid": "Enter a valid email address, such as name@example.com.",
+      "passwordRequired": "Password is required",
+      "pleaseChooseStrongerPasswordThatMeets": "Please choose a stronger password that meets all requirements.",
+      "passwordsDoNotMatch": "Passwords do not match",
+      "networkErrorPleaseTryAgain": "Network error. Please try again.",
+      "networkErrorDuringVerificationPleaseTry": "Network error during verification. Please try again.",
+      "apiKeysDoNotMatch": "API keys do not match",
+      "networkErrorPleaseTryAgain2": "Network error. Please try again.",
+      "networkErrorDuringVerificationPleaseTry2": "Network error during verification. Please try again.",
+      "networkErrorPleaseTryAgain3": "Network error. Please try again.",
+      "networkErrorPleaseTryAgain4": "Network error. Please try again.",
+      "sourceConfigured": "{{source}} configured"
+    }
+  },
+  "passkey": {
+    "title": "Protect your administrator account",
+    "description": "Add a passkey so you can sign in with your device instead of relying only on your password.",
+    "supporting": "A passkey can help if you forget your password, especially before email recovery is configured.",
+    "note": "To sign in later, select your passkey from the email field’s suggestions. You can manage it in your device’s password manager.",
+    "create": "Create a passkey",
+    "creating": "Creating passkey…",
+    "skip": "Set up later",
+    "unsupported": "Passkeys are not available in this browser. Try a supported browser using HTTPS, or set up later.",
+    "cancelled": "Passkey creation was cancelled. Try again, or set up later.",
+    "failed": "We couldn’t create your passkey. Try again, or set up later.",
+    "success": "Passkey created. Continue configuring your data sources."
+  }
+}

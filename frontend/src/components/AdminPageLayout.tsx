@@ -1,5 +1,7 @@
+import { Trans } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import UserMenu from './UserMenu';
+import '../admin/admin.css';
 
 
 
@@ -42,8 +44,8 @@ export default function AdminPageLayout({
           COMPASS
         </Link>
         <div className="row-flex header-spacer gap-8">
-          <Link className="btn" to="/map">Map</Link>
-          <Link className="btn" to="/analytics">Analytics</Link>
+          <Link className="btn" to="/map"><Trans ns="admin" i18nKey="adminPageLayout.actions.map" /></Link>
+          <Link className="btn" to="/analytics"><Trans ns="admin" i18nKey="adminPageLayout.actions.analytics" /></Link>
         </div>
         <UserMenu />
       </div>

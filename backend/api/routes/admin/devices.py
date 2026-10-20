@@ -1,22 +1,45 @@
 from __future__ import annotations
 
 import logging
-from typing import Optional
+from datetime import datetime, timezone
+from typing import Literal, Optional
 
 import requests
 from fastapi import APIRouter, Depends, HTTPException, Query
-from sqlalchemy import select, func
+from sqlalchemy import select, func, or_
 from sqlalchemy.exc import IntegrityError
 from sqlalchemy.dialects.postgresql import insert as pg_insert
 from sqlalchemy.orm import Session
 
 from db import get_session
-from models import Device, ExternalAPI, Sensor, Parameter, Unit, AggregationPeriod, UpdatePolicy
+from models import Device, ExternalAPI, Measurement, Sensor, Parameter, Unit, AggregationPeriod, UpdatePolicy
+from services.device_operational_status import (
+  derive_device_operational_status,
+)
+from services.device_locations import (
+  InvalidDeviceLocation,
+  set_device_location,
+  validate_coordinate_pair,
+)
+from services.external_sources import (
+    ExternalSourceNotRunnable,
+    require_task_source_runnable,
+)
+from services.provider_safety import (
+    ProviderSafetyDenied,
+    assert_paid_provider_http_authorized,
+    paid_provider_request_scope,
+    require_paid_provider_authorization,
+)
+from services.data_attribution import serialize_device_data_attribution
 
 logger = logging.getLogger("admin.devices")
 
 router = APIRouter(prefix="/admin", tags=["admin"])
 OTHER_DATA_SOURCE_FILTER = "__other__"
+OPENAQ_PROVIDER_URL = "https://openaq.org"
+AIRGRADIENT_PROVIDER_URL = "https://www.airgradient.com"
+CC_BY_4_LICENSE_URL = "https://creativecommons.org/licenses/by/4.0/"
 
                                                         
 PA_DEVICE_FIELDS = ["name", "latitude", "longitude"]
@@ -99,7 +122,13 @@ def _resolve_device_data_source(
   return current_external_api_id or _resolve_default_external_api_id(session), None
 
 
-def _serialize_device(device: Device, external_api_name: Optional[str] = None) -> dict:
+def _serialize_device(
+  device: Device,
+  external_api_name: Optional[str] = None,
+  last_seen_at: Optional[datetime] = None,
+  expected_frequency_seconds: Optional[int] = None,
+  evaluated_at: Optional[datetime] = None,
+) -> dict:
                                                                                     
   is_external = bool(getattr(device, "external_id", None))
   resolved_network = getattr(device, "manual_data_source_name", None) or external_api_name
@@ -112,13 +141,89 @@ def _serialize_device(device: Device, external_api_name: Optional[str] = None) -
     "external_api_name": external_api_name,
     "manual_data_source_name": getattr(device, "manual_data_source_name", None),
     "network": resolved_network,
+    "acquisition_path": getattr(device, "acquisition_path", "unspecified"),
+    "hardware_provider_name": getattr(device, "hardware_provider_name", None),
+    "provider_url": getattr(device, "provider_url", None),
+    "contributor_name": getattr(device, "contributor_name", None),
+    "contributor_url": getattr(device, "contributor_url", None),
+    "license_code": getattr(device, "license_code", None),
+    "license_url": getattr(device, "license_url", None),
+    "license_share_alike": getattr(device, "license_share_alike", None),
+    "data_attribution": serialize_device_data_attribution(device, resolved_network),
     "latitude": getattr(device, "latitude", None),
     "longitude": getattr(device, "longitude", None),
     "timezone": getattr(device, "timezone", None),
     "allow_updates": getattr(device, "allow_updates", UpdatePolicy.INHERIT).value if getattr(device, "allow_updates", None) else UpdatePolicy.INHERIT.value,
     "created_at": device.created_at.isoformat() if getattr(device, "created_at", None) else None,
+    "status": derive_device_operational_status(
+      last_seen_at,
+      expected_frequency_seconds,
+      evaluated_at=evaluated_at,
+    ),
+    "last_seen_at": last_seen_at.isoformat() if last_seen_at else None,
     "is_external": is_external,
   }
+
+
+def _latest_device_measurement_subquery():
+  """Return one latest observation and its sensor cadence per measured device."""
+  latest_observation_by_sensor = (
+    select(
+      Sensor.device_id.label("device_id"),
+      Sensor.sensor_id.label("sensor_id"),
+      Sensor.expected_frequency_seconds.label("expected_frequency_seconds"),
+      func.max(Measurement.observed_at).label("last_seen_at"),
+    )
+    .join(Measurement, Measurement.sensor_id == Sensor.sensor_id)
+    .group_by(
+      Sensor.device_id,
+      Sensor.sensor_id,
+      Sensor.expected_frequency_seconds,
+    )
+    .having(func.max(Measurement.observed_at).is_not(None))
+    .subquery("latest_observation_by_sensor")
+  )
+
+  ranked_sensor_observations = select(
+    latest_observation_by_sensor.c.device_id,
+    latest_observation_by_sensor.c.last_seen_at,
+    latest_observation_by_sensor.c.expected_frequency_seconds,
+    func.row_number().over(
+      partition_by=latest_observation_by_sensor.c.device_id,
+      order_by=(
+        latest_observation_by_sensor.c.last_seen_at.desc(),
+        latest_observation_by_sensor.c.sensor_id.asc(),
+      ),
+    ).label("freshness_rank"),
+  ).subquery("ranked_sensor_observations")
+
+  return (
+    select(
+      ranked_sensor_observations.c.device_id,
+      ranked_sensor_observations.c.last_seen_at,
+      ranked_sensor_observations.c.expected_frequency_seconds,
+    )
+    .where(ranked_sensor_observations.c.freshness_rank == 1)
+    .subquery("latest_device_measurement")
+  )
+
+
+def _device_record_query():
+  latest_device_measurement = _latest_device_measurement_subquery()
+  return (
+    select(
+      Device,
+      ExternalAPI.name.label("external_api_name"),
+      latest_device_measurement.c.last_seen_at,
+      latest_device_measurement.c.expected_frequency_seconds,
+    )
+    .join(ExternalAPI, ExternalAPI.external_api_id == Device.external_api_id, isouter=True)
+    .join(
+      latest_device_measurement,
+      latest_device_measurement.c.device_id == Device.device_id,
+      isouter=True,
+    )
+  )
 
 
 def _serialize_sensor_admin(
@@ -133,17 +238,54 @@ def _serialize_sensor_admin(
     "parameter_name": parameter.display_name if parameter else None,
     "external_sensor_id": sensor.external_sensor_id,
     "aggregation_code": aggregation_period.code if aggregation_period else None,
+    "hourly_concentration_provenance": sensor.hourly_concentration_provenance,
+    "hourly_timestamp_semantics": sensor.hourly_timestamp_semantics,
+    "expected_frequency_seconds": sensor.expected_frequency_seconds,
+    "measurement_duration_seconds": sensor.measurement_duration_seconds,
+    "source_aggregation_duration_seconds": sensor.source_aggregation_duration_seconds,
+    "measurement_timestamp_semantics": sensor.measurement_timestamp_semantics,
+    "measurement_metadata_status": sensor.measurement_metadata_status,
+    "measurement_metadata_managed_by": sensor.measurement_metadata_managed_by,
+    "acquisition_metadata": sensor.acquisition_metadata,
     "unit_id": sensor.unit_id,
   }
+
+
+IMPORTER_MANAGED_MEASUREMENT_METADATA_FIELDS = {
+  "expected_frequency_seconds",
+  "measurement_duration_seconds",
+  "source_aggregation_duration_seconds",
+  "measurement_timestamp_semantics",
+  "measurement_metadata_status",
+  "measurement_metadata_managed_by",
+  "acquisition_metadata",
+  "acquisition_examined_until",
+}
+
+
+def _reject_importer_managed_measurement_metadata(payload: dict) -> None:
+  requested_fields = sorted(
+    IMPORTER_MANAGED_MEASUREMENT_METADATA_FIELDS.intersection(payload)
+  )
+  if requested_fields:
+    raise HTTPException(
+      status_code=400,
+      detail=(
+        "Provider measurement metadata is read-only and importer-managed. "
+        f"Remove these fields: {', '.join(requested_fields)}"
+      ),
+    )
 
 
 @router.get("/devices")
 def list_devices_admin(
   name: Optional[str] = Query(None),
+  search: Optional[str] = Query(None, max_length=200),
   network: Optional[str] = Query(None),
   external_device_id: Optional[str] = Query(None),
   external_sensor_id: Optional[str] = Query(None),
   sensor_id: Optional[int] = Query(None),
+  status: Optional[Literal["active", "inactive", "unknown"]] = Query(None),
   page: Optional[int] = Query(None),
   page_size: Optional[int] = Query(None),
   session: Session = Depends(get_session),
@@ -151,14 +293,30 @@ def list_devices_admin(
   """
   Lightweight admin listing of devices. Supports basic filters used by the frontend.
   """
-  stmt = (
-    select(Device, ExternalAPI.name.label("external_api_name"))
-    .join(ExternalAPI, ExternalAPI.external_api_id == Device.external_api_id, isouter=True)
-    .order_by(Device.created_at.desc())
-  )
+  stmt = _device_record_query().order_by(Device.created_at.desc())
 
   if name:
     stmt = stmt.where(Device.name.ilike(f"%{name}%"))
+  # CSV destination lookup: search before pagination. Keep the established
+  # individual filters intact for existing administration callers.
+  if search and search.strip():
+    term = search.strip()
+    internal_id = int(term) if term.isascii() and term.isdecimal() and len(term) <= 10 else None
+    if internal_id is not None and not 1 <= internal_id <= 2_147_483_647:
+      internal_id = None
+    sensor_matches = select(Sensor.device_id).outerjoin(Parameter).where(or_(
+      Sensor.external_sensor_id.ilike(f"%{term}%"),
+      Parameter.display_name.ilike(f"%{term}%"),
+      Parameter.code.ilike(f"%{term}%"),
+      Sensor.sensor_id == internal_id if internal_id is not None else False,
+    ))
+    stmt = stmt.where(or_(
+      Device.name.ilike(f"%{term}%"),
+      Device.friendly_name.ilike(f"%{term}%"),
+      Device.external_id.ilike(f"%{term}%"),
+      Device.device_id == internal_id if internal_id is not None else False,
+      Device.device_id.in_(sensor_matches),
+    ))
   if network:
     if network == OTHER_DATA_SOURCE_FILTER:
       stmt = stmt.where(Device.manual_data_source_name.is_not(None))
@@ -175,34 +333,47 @@ def list_devices_admin(
 
                                 
   if sensor_id is not None:
-    stmt = stmt.join(Sensor, Sensor.device_id == Device.device_id).where(Sensor.sensor_id == sensor_id)
+    stmt = stmt.where(
+      Device.device_id.in_(
+        select(Sensor.device_id).where(Sensor.sensor_id == sensor_id)
+      )
+    )
 
                                               
   if external_sensor_id:
     sensor_val = external_sensor_id.strip()
     if sensor_val:
-      stmt = stmt.join(Sensor, Sensor.device_id == Device.device_id).where(Sensor.external_sensor_id == sensor_val)
+      stmt = stmt.where(
+        Device.device_id.in_(
+          select(Sensor.device_id).where(Sensor.external_sensor_id == sensor_val)
+        )
+      )
+
+  rows = session.execute(stmt).all()
+  evaluated_at = datetime.now(timezone.utc)
+  records = [
+    _serialize_device(row[0], row[1], row[2], row[3], evaluated_at)
+    for row in rows
+  ]
+  if status:
+    records = [record for record in records if record["status"] == status]
 
   if page_size:
     safe_size = max(page_size, 1)
-    stmt = stmt.limit(safe_size)
-    if page is not None:
-      stmt = stmt.offset(max(page, 0) * safe_size)
-
-  rows = session.execute(stmt).all()
-  return [_serialize_device(row[0], row[1]) for row in rows]
+    start = max(page or 0, 0) * safe_size
+    records = records[start:start + safe_size]
+  return records
 
 
 @router.get("/devices/{device_id}")
 def get_device_admin(device_id: int, session: Session = Depends(get_session)):
   row = session.execute(
-    select(Device, ExternalAPI.name.label("external_api_name"))
-    .join(ExternalAPI, ExternalAPI.external_api_id == Device.external_api_id, isouter=True)
+    _device_record_query()
     .where(Device.device_id == device_id)
   ).first()
   if not row:
     raise HTTPException(status_code=404, detail="Device not found")
-  return _serialize_device(row[0], row[1])
+  return _serialize_device(row[0], row[1], row[2], row[3])
 
 
 @router.post("/devices")
@@ -223,15 +394,25 @@ def create_device_admin(payload: dict, session: Session = Depends(get_session)):
     external_id=_none_if_blank(payload.get("external_id")),
     external_api_id=ext_api_id,
     manual_data_source_name=manual_data_source_name,
-    latitude=payload.get("latitude"),
-    longitude=payload.get("longitude"),
     timezone=_none_if_blank(payload.get("timezone")),
     allow_updates=_coerce_policy(payload.get("allow_updates")),
   )
 
   session.add(device)
   try:
+    set_device_location(
+      session,
+      device,
+      latitude=payload.get("latitude"),
+      longitude=payload.get("longitude"),
+    )
     session.commit()
+  except InvalidDeviceLocation as exc:
+    session.rollback()
+    raise HTTPException(
+      status_code=400,
+      detail={"reason": exc.reason, "message": str(exc)},
+    ) from exc
   except IntegrityError as exc:
     session.rollback()
     raise HTTPException(status_code=409, detail=f"Database constraint error while creating device: {exc.orig}")
@@ -265,22 +446,44 @@ def update_device_admin(device_id: int, payload: dict, session: Session = Depend
       device.name = name
 
     if "external_id" in payload:
-      device.external_id = _none_if_blank(payload.get("external_id"))
+      requested_external_id = _none_if_blank(payload.get("external_id"))
+      if requested_external_id != device.external_id:
+        raise HTTPException(
+          status_code=400,
+          detail="external_id is immutable; delete and recreate the device to change provider identity",
+        )
 
-    for coord_key in ("latitude", "longitude"):
-      if coord_key in payload:
-        setattr(device, coord_key, payload.get(coord_key))
+    if "latitude" in payload or "longitude" in payload:
+      try:
+        set_device_location(
+          session,
+          device,
+          latitude=payload.get("latitude", device.latitude),
+          longitude=payload.get("longitude", device.longitude),
+        )
+      except InvalidDeviceLocation as exc:
+        session.rollback()
+        raise HTTPException(
+          status_code=400,
+          detail={"reason": exc.reason, "message": str(exc)},
+        ) from exc
 
     if "timezone" in payload:
       device.timezone = _none_if_blank(payload.get("timezone"))
 
     if "external_api_id" in payload or "network" in payload:
-      device.external_api_id, device.manual_data_source_name = _resolve_device_data_source(
+      requested_external_api_id, requested_manual_source_name = _resolve_device_data_source(
         session,
         payload.get("external_api_id"),
         payload.get("network"),
         current_external_api_id=device.external_api_id,
       )
+      if requested_external_api_id != device.external_api_id:
+        raise HTTPException(
+          status_code=400,
+          detail="external_api_id is immutable; delete and recreate the device to change provider identity",
+        )
+      device.manual_data_source_name = requested_manual_source_name
 
                                                    
   if "allow_updates" in payload:
@@ -288,15 +491,25 @@ def update_device_admin(device_id: int, payload: dict, session: Session = Depend
 
   try:
     session.commit()
+  except InvalidDeviceLocation as exc:
+    session.rollback()
+    raise HTTPException(
+      status_code=400,
+      detail={"reason": exc.reason, "message": str(exc)},
+    ) from exc
   except IntegrityError as exc:
     session.rollback()
     raise HTTPException(status_code=409, detail=f"Database constraint error while updating device: {exc.orig}")
-  session.refresh(device)
 
-  api_name = session.execute(
-    select(ExternalAPI.name).where(ExternalAPI.external_api_id == device.external_api_id)
-  ).scalar_one_or_none()
-  return _serialize_device(device, api_name)
+  updated_record = session.execute(
+    _device_record_query().where(Device.device_id == device_id)
+  ).one()
+  return _serialize_device(
+    updated_record[0],
+    updated_record[1],
+    updated_record[2],
+    updated_record[3],
+  )
 
 
 @router.delete("/devices/{device_id}")
@@ -321,6 +534,7 @@ def create_device_sensor_admin(device_id: int, payload: dict, session: Session =
   device = session.get(Device, device_id)
   if not device:
     raise HTTPException(status_code=404, detail="Device not found")
+  _reject_importer_managed_measurement_metadata(payload)
 
   parameter_code = str(payload.get("parameter_code") or "").strip().lower()
   if not parameter_code:
@@ -348,6 +562,12 @@ def create_device_sensor_admin(device_id: int, payload: dict, session: Session =
     unit_id=parameter.default_unit_id,
     external_sensor_id=(str(payload.get("external_sensor_id") or "").strip() or None),
     aggregation_period_id=aggregation_period_id,
+    hourly_concentration_provenance=_none_if_blank(
+      payload.get("hourly_concentration_provenance")
+    ),
+    hourly_timestamp_semantics=_none_if_blank(
+      payload.get("hourly_timestamp_semantics")
+    ),
     allow_updates=UpdatePolicy.INHERIT,
   )
   session.add(sensor)
@@ -362,6 +582,14 @@ def update_device_sensor_admin(device_id: int, sensor_id: int, payload: dict, se
   sensor = session.get(Sensor, sensor_id)
   if not sensor or sensor.device_id != device_id:
     raise HTTPException(status_code=404, detail="Sensor not found")
+  if "external_sensor_id" in payload:
+    requested_external_sensor_id = _none_if_blank(payload.get("external_sensor_id"))
+    if requested_external_sensor_id != sensor.external_sensor_id:
+      raise HTTPException(
+        status_code=400,
+        detail="external_sensor_id is immutable; delete and recreate the sensor to change provider identity",
+      )
+  _reject_importer_managed_measurement_metadata(payload)
 
   parameter: Optional[Parameter] = None
   if "parameter_code" in payload:
@@ -380,6 +608,14 @@ def update_device_sensor_admin(device_id: int, sensor_id: int, payload: dict, se
 
   if "external_sensor_id" in payload:
     sensor.external_sensor_id = _none_if_blank(payload.get("external_sensor_id"))
+  if "hourly_concentration_provenance" in payload:
+    sensor.hourly_concentration_provenance = _none_if_blank(
+      payload.get("hourly_concentration_provenance")
+    )
+  if "hourly_timestamp_semantics" in payload:
+    sensor.hourly_timestamp_semantics = _none_if_blank(
+      payload.get("hourly_timestamp_semantics")
+    )
 
   aggregation_period: Optional[AggregationPeriod] = None
   if "aggregation_code" in payload:
@@ -440,7 +676,7 @@ def _get_purpleair_api_key(session: Session) -> Optional[str]:
     """Retrieve PurpleAir API key from external_api table or environment."""
     import os
     record = session.execute(
-        select(ExternalAPI).where(func.lower(ExternalAPI.name) == "purpleair")
+        select(ExternalAPI).where(ExternalAPI.provider_code == "purpleair")
     ).scalar_one_or_none()
     if record and record.api_key:
         return record.api_key
@@ -450,7 +686,7 @@ def _get_purpleair_api_key(session: Session) -> Optional[str]:
 def _get_purpleair_external_api_id(session: Session) -> Optional[int]:
     """Return the external_api_id for PurpleAir, or None if not configured."""
     record = session.execute(
-        select(ExternalAPI.external_api_id).where(func.lower(ExternalAPI.name) == "purpleair")
+        select(ExternalAPI.external_api_id).where(ExternalAPI.provider_code == "purpleair")
     ).scalar_one_or_none()
     return record
 
@@ -465,6 +701,15 @@ def lookup_purpleair_sensor(payload: dict, session: Session = Depends(get_sessio
     sensor_index = str(payload.get("sensor_index") or "").strip()
     if not sensor_index or not sensor_index.isdigit():
         raise HTTPException(status_code=400, detail="sensor_index must be a numeric string")
+
+    try:
+        authorization = require_paid_provider_authorization(
+            session,
+            "PurpleAir",
+            explicit_manual_authorization=bool(payload.get("allow_paid_api", False)),
+        )
+    except ProviderSafetyDenied as exc:
+        raise HTTPException(status_code=403, detail=exc.as_detail()) from exc
 
     api_key = _get_purpleair_api_key(session)
     if not api_key:
@@ -487,8 +732,10 @@ def lookup_purpleair_sensor(payload: dict, session: Session = Depends(get_sessio
     params = {"fields": ",".join(fields)}
 
     try:
-        resp = requests.get(url, headers=headers, params=params, timeout=30)
-        resp.raise_for_status()
+        with paid_provider_request_scope(authorization):
+            assert_paid_provider_http_authorized("PurpleAir")
+            resp = requests.get(url, headers=headers, params=params, timeout=30)
+            resp.raise_for_status()
     except requests.HTTPError as exc:
         logger.error("PurpleAir lookup failed: %s", exc)
         raise HTTPException(status_code=502, detail=f"PurpleAir API error: {exc}")
@@ -504,13 +751,13 @@ def lookup_purpleair_sensor(payload: dict, session: Session = Depends(get_sessio
     lon = sensor_obj.get("longitude")
 
     try:
-        lat = float(lat) if lat is not None else None
-    except (ValueError, TypeError):
-        lat = None
-    try:
-        lon = float(lon) if lon is not None else None
-    except (ValueError, TypeError):
-        lon = None
+        coordinate_pair = validate_coordinate_pair(lat, lon)
+    except InvalidDeviceLocation as exc:
+        raise HTTPException(
+            status_code=502,
+            detail={"reason": exc.reason, "message": str(exc)},
+        ) from exc
+    lat, lon = coordinate_pair if coordinate_pair is not None else (None, None)
 
     timezone = _lookup_timezone(lat, lon)
 
@@ -520,7 +767,7 @@ def lookup_purpleair_sensor(payload: dict, session: Session = Depends(get_sessio
         value = sensor_obj.get(field)
         sensors.append({
             "parameter_code": code,
-            "external_sensor_id": f"{sensor_index}-{code}",
+            "external_sensor_id": f"{sensor_index}:{field}",
             "latest_value": float(value) if value is not None else None,
             "unit_code": "ug_m3",
         })
@@ -557,9 +804,13 @@ def create_purpleair_device(payload: dict, session: Session = Depends(get_sessio
         raise HTTPException(status_code=400, detail="Device name is required")
 
     external_id = device_data.get("external_id")
+    external_api_id = device_data.get("external_api_id")
     if external_id:
         existing = session.execute(
-            select(Device).where(Device.external_id == str(external_id))
+            select(Device).where(
+                Device.external_api_id == external_api_id,
+                Device.external_id == str(external_id),
+            )
         ).scalar_one_or_none()
         if existing:
             raise HTTPException(
@@ -571,18 +822,28 @@ def create_purpleair_device(payload: dict, session: Session = Depends(get_sessio
     device = Device(
         name=name,
         external_id=device_data.get("external_id"),
-        external_api_id=device_data.get("external_api_id"),
-        latitude=device_data.get("latitude"),
-        longitude=device_data.get("longitude"),
+        external_api_id=external_api_id,
         timezone=device_data.get("timezone"),
         allow_updates=UpdatePolicy.INHERIT,
     )
     session.add(device)
-    session.flush()
+    try:
+        set_device_location(
+            session,
+            device,
+            latitude=device_data.get("latitude"),
+            longitude=device_data.get("longitude"),
+        )
+    except InvalidDeviceLocation as exc:
+        session.rollback()
+        raise HTTPException(
+            status_code=400,
+            detail={"reason": exc.reason, "message": str(exc)},
+        ) from exc
 
                                                            
     agg_period = session.execute(
-        select(AggregationPeriod).where(func.lower(AggregationPeriod.code) == "1m")
+        select(AggregationPeriod).where(func.lower(AggregationPeriod.code) == "2m")
     ).scalar_one_or_none()
     agg_period_id = agg_period.aggregation_period_id if agg_period else None
 
@@ -611,6 +872,12 @@ def create_purpleair_device(payload: dict, session: Session = Depends(get_sessio
             external_sensor_id=s_data.get("external_sensor_id"),
             aggregation_period_id=agg_period_id,
             unit_id=unit_id,
+            expected_frequency_seconds=120,
+            measurement_duration_seconds=120,
+            source_aggregation_duration_seconds=120,
+            measurement_timestamp_semantics="provider_received_at",
+            measurement_metadata_status="provider_documented",
+            measurement_metadata_managed_by="purpleair_importer",
         )
         session.add(sensor)
         session.flush()
@@ -643,7 +910,7 @@ def _get_openaq_api_key(session: Session) -> Optional[str]:
     """Retrieve OpenAQ API key from external_api table or environment."""
     import os
     record = session.execute(
-        select(ExternalAPI).where(func.lower(ExternalAPI.name) == "openaq")
+        select(ExternalAPI).where(ExternalAPI.provider_code == "openaq")
     ).scalar_one_or_none()
     if record and record.api_key:
         return record.api_key
@@ -653,7 +920,7 @@ def _get_openaq_api_key(session: Session) -> Optional[str]:
 def _get_openaq_external_api_id(session: Session) -> Optional[int]:
     """Return the external_api_id for OpenAQ, or None if not configured."""
     record = session.execute(
-        select(ExternalAPI.external_api_id).where(func.lower(ExternalAPI.name) == "openaq")
+        select(ExternalAPI.external_api_id).where(ExternalAPI.provider_code == "openaq")
     ).scalar_one_or_none()
     return record
 
@@ -776,12 +1043,69 @@ def _serialize_openaq_location(loc: dict, external_api_id: Optional[int], existi
             "country_code": country.get("code"),
             "provider_name": provider.get("name"),
             "owner_name": owner.get("name"),
+            "instruments": loc.get("instruments") or [],
+            "licenses": loc.get("licenses") or [],
             "is_monitor": loc.get("isMonitor"),
             "is_mobile": loc.get("isMobile"),
             "datetime_first_utc": datetime_first.get("utc"),
             "datetime_last_utc": datetime_last.get("utc"),
         },
     }
+
+
+def _apply_openaq_device_attribution(device: Device, metadata: dict) -> None:
+    """Preserve OpenAQ transport, hardware origin, and supplied license facts."""
+
+    provider_name = str(metadata.get("provider_name") or "")
+    owner_name = str(metadata.get("owner_name") or "")
+    instrument_names = [
+        str(instrument.get("name") or "")
+        for instrument in metadata.get("instruments") or []
+        if isinstance(instrument, dict)
+    ]
+    airgradient_evidence = " ".join(
+        [provider_name, owner_name, *instrument_names]
+    ).lower()
+
+    licenses = [
+        license_entry
+        for license_entry in metadata.get("licenses") or []
+        if isinstance(license_entry, dict)
+    ]
+    license_entry = next(
+        (
+            candidate
+            for candidate in licenses
+            if candidate.get("dateTo") in (None, "")
+        ),
+        licenses[0] if licenses else {},
+    )
+    attribution = license_entry.get("attribution") or {}
+    license_name = str(license_entry.get("name") or "").strip() or None
+
+    device.acquisition_path = "openaq"
+    device.provider_url = OPENAQ_PROVIDER_URL
+    device.hardware_provider_name = (
+        "AirGradient" if "airgradient" in airgradient_evidence else None
+    )
+    device.contributor_name = (
+        attribution.get("name") if isinstance(attribution, dict) else None
+    ) or (owner_name or None)
+    device.contributor_url = (
+        attribution.get("url") if isinstance(attribution, dict) else None
+    )
+    device.license_code = license_name
+    device.license_url = None
+    device.license_share_alike = None
+
+    # AirGradient's current data-sharing terms explicitly identify its data
+    # transported through OpenAQ as CC-BY 4.0. Use that primary-source fact only
+    # when OpenAQ metadata identifies AirGradient hardware and does not provide
+    # a more specific active license URL.
+    if device.hardware_provider_name == "AirGradient":
+        device.license_code = license_name or "CC-BY-4.0"
+        device.license_url = CC_BY_4_LICENSE_URL
+        device.license_share_alike = False
 
 
 @router.post("/devices/openaq/lookup")
@@ -795,6 +1119,14 @@ def lookup_openaq_locations(payload: dict, session: Session = Depends(get_sessio
     
     Returns list of locations with device and sensor info.
     """
+    try:
+        require_task_source_runnable(session, "openaq_import")
+    except ExternalSourceNotRunnable as exc:
+        raise HTTPException(
+            status_code=409,
+            detail={"code": exc.state.runnable_reason.value},
+        ) from exc
+
     bbox = (payload.get("bbox") or "").strip()
     location_id = (payload.get("location_id") or "").strip()
     
@@ -959,6 +1291,14 @@ def lookup_openaq_sensor(payload: dict, session: Session = Depends(get_session))
     
     Returns sensor info with device and sensor data formatted for creation.
     """
+    try:
+        require_task_source_runnable(session, "openaq_import")
+    except ExternalSourceNotRunnable as exc:
+        raise HTTPException(
+            status_code=409,
+            detail={"code": exc.state.runnable_reason.value},
+        ) from exc
+
     sensor_id = (payload.get("sensor_id") or "").strip()
     
     if not sensor_id:
@@ -1087,6 +1427,7 @@ def create_openaq_devices(payload: dict, session: Session = Depends(get_session)
         for loc in locations:
             device_data = loc.get("device") if isinstance(loc, dict) else None
             sensors_data = (loc.get("sensors") or []) if isinstance(loc, dict) else []
+            source_metadata = (loc.get("metadata") or {}) if isinstance(loc, dict) else {}
 
             if not isinstance(device_data, dict):
                 continue
@@ -1109,13 +1450,17 @@ def create_openaq_devices(payload: dict, session: Session = Depends(get_session)
                 name=name,
                 external_id=external_id,
                 external_api_id=openaq_external_api_id,
-                latitude=device_data.get("latitude"),
-                longitude=device_data.get("longitude"),
                 timezone=device_data.get("timezone"),
                 allow_updates=UpdatePolicy.INHERIT,
             )
+            _apply_openaq_device_attribution(device, source_metadata)
             session.add(device)
-            session.flush()
+            set_device_location(
+                session,
+                device,
+                latitude=device_data.get("latitude"),
+                longitude=device_data.get("longitude"),
+            )
 
                                                
             sensors_to_create = sensors_data
@@ -1220,6 +1565,12 @@ def create_openaq_devices(payload: dict, session: Session = Depends(get_session)
     except HTTPException:
         session.rollback()
         raise
+    except InvalidDeviceLocation as exc:
+        session.rollback()
+        raise HTTPException(
+            status_code=400,
+            detail={"reason": exc.reason, "message": str(exc)},
+        ) from exc
     except IntegrityError as exc:
         session.rollback()
         logger.exception("OpenAQ create failed due to DB integrity error")

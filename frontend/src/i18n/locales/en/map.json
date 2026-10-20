@@ -1,0 +1,281 @@
+{
+  "app": {
+    "text": {
+      "activeControls": "Controls changed from defaults",
+      "layer": "Layer",
+      "parameter": "Parameter",
+      "aqiProduct": "AQI product",
+      "parameter2": "Parameter",
+      "loadingParameters": "Loading parameters…",
+      "noParameters": "No parameters",
+      "timeResolution": "Time resolution",
+      "noResolutions": "No resolutions",
+      "latestCompletedUtcHour": "Latest completed UTC hour",
+      "source": "Source",
+      "now": "now",
+      "failedLoadInitialData": "Failed to load initial data",
+      "nativeResolution": "native sensor resolution",
+      "downloadExplanation": "Downloads the latest matching measurement for every sensor for {{parameter}} at {{aggregation}}, from {{source}}. Covers all locations, regardless of the visible map area. Observation times vary by sensor; there is no date cutoff or historical series.",
+      "deviceDownloadExplanation": "Downloads the device inventory for {{parameter}}, from {{source}}. Includes devices without measurements or coordinates, regardless of activity or the visible map area. Time resolution does not filter devices.",
+      "aqiDownloadExplanation": "Downloads the latest AQI result for each matching location for {{product}}, from {{source}}, including unavailable results with their status. The visible map area does not limit this export. This is not a historical series; use Analytics for historical AQI export.",
+      "downloadEmpty": "No records match these filters. No file was downloaded.",
+      "downloadFailed": "The export could not be completed. No file was downloaded. Please try again."
+    },
+    "accessibility": {
+      "layer": "Layer",
+      "timeResolution": "Time resolution",
+      "dataSourceFilter": "Data source filter",
+      "timeWindow": "Time window",
+      "timeWindowPresets": "Time window presets",
+      "openCustomDateRangePicker": "Open custom date range picker"
+    },
+    "options": {
+      "devices": "Devices",
+      "measurements": "Measurements",
+      "aqi": "AQI",
+      "allParameters": "All Parameters",
+      "selectAqiProduct": "Select an AQI product",
+      "allTimeResolutions": "All Time Resolutions",
+      "allSources": "All Sources",
+      "allTime": "All time",
+      "last24Hours": "Last 24 hours",
+      "last1Hour": "Last 1 hour",
+      "custom": "Custom"
+    },
+    "fields": {
+      "timeWindow": "Time window"
+    },
+    "tooltips": {
+      "customDateRange": "Custom date range",
+      "resetViewLocation": "Restore your location, or the default view if location is unavailable",
+      "analytics": "Analytics"
+    },
+    "actions": {
+      "resetView": "Reset view",
+      "analytics": "Analytics",
+      "mapControls": "Map controls",
+      "closeControls": "Close controls",
+      "showFilters": "Show filters",
+      "hideFilters": "Hide filters",
+      "csvExport": "CSV export"
+    },
+    "documentTitles": {
+      "aqDataPlatformCleanAirCompass": "AQ Data Platform – Clean Air COMPASS",
+      "aqPlatformAdmin": "AQ Platform – Admin",
+      "aqPlatformAnalytics": "AQ Platform – Analytics",
+      "aqPlatformEuropeanAirQualityIndex": "AQ Platform – European Air Quality Index Map",
+      "aqPlatformDevicesMap": "AQ Platform – Devices Map",
+      "aqPlatformMap": "AQ Platform – Map",
+      "aqPlatformDevices": "AQ Platform – Devices",
+      "aqPlatformMeasurements": "AQ Platform – Measurements",
+      "parameterMap": "AQ Platform – {{parameter}} Map",
+      "latestParameter": "AQ Platform – Latest {{parameter}}"
+    }
+  },
+  "copyableCoordinates": {
+    "accessibility": {
+      "copyCoordinates": "Copy coordinates: {{coordinates}}"
+    },
+    "text": {
+      "clickCopyCoordinates": "Click to copy coordinates",
+      "copied": "Copied!"
+    }
+  },
+  "lastUpdated": {
+    "text": {
+      "noDataLoaded": "No data loaded",
+      "updated": "Updated",
+      "updatedElapsed": "Updated {{elapsed}}"
+    },
+    "tooltips": {
+      "refreshData": "Refresh data",
+      "refreshNow": "Refresh now"
+    },
+    "accessibility": {
+      "refreshData": "Refresh data",
+      "refreshNow": "Refresh now"
+    },
+    "countdown": {
+      "autoRefresh_one": "Auto-refresh in {{count}} second",
+      "autoRefresh_other": "Auto-refresh in {{count}} seconds"
+    }
+  },
+  "mapEmptyState": {
+    "headings": {
+      "devices": "No devices found",
+      "measurements": "No measurements found",
+      "aqi": "No AQI results found"
+    },
+    "messages": {
+      "devices": "No devices found in this area.",
+      "measurements": "No measurements found in this area for the selected filters.",
+      "aqi": "No AQI results found in this area for the selected standard and filters."
+    },
+    "suggestion": "Explore another area or change the filters."
+  },
+  "timeSelector": {
+    "accessibility": {
+      "hour": "Hour",
+      "minutes": "Minutes",
+      "amPm": "AM or PM",
+      "timeSelector": "Time selector"
+    },
+    "text": {
+      "am": "AM",
+      "pm": "PM"
+    },
+    "options": {
+      "am": "AM",
+      "pm": "PM"
+    }
+  },
+  "locationSearch": {
+    "placeholders": {
+      "searchLocation": "Search location…"
+    },
+    "accessibility": {
+      "searchLocation": "Search location",
+      "clearSearch": "Clear search"
+    },
+    "messages": {
+      "tooManyRequestsTryAgainShortly": "Too many requests. Try again shortly.",
+      "noMatchesFound": "No matches found",
+      "searchFailed": "Location search failed. Edit your search to try again.",
+      "notConfigured": "Search not configured",
+      "searching": "Searching locations…",
+      "searchTimedOut": "Location search took too long. Edit your search to try again. Map controls are still available."
+    },
+    "states": {
+      "unknownLocation": "Unknown location"
+    }
+  },
+  "selection": {
+    "messages": {
+      "noMeasurementParameters": "No measurement parameters are configured.",
+      "defaultPm25Unavailable": "The default PM2.5 measurement parameter is not configured.",
+      "aqiMetadataUnavailable": "Air-quality index metadata is unavailable.",
+      "productUnavailable": "Air-quality index product “{{code}}” is unavailable.",
+      "legacySelectionUnavailable": "Legacy AQI selection “{{code}}” is unavailable. Choose a current product from server metadata.",
+      "standardUnavailable": "Air-quality index standard “{{code}}” is unavailable.",
+      "noDefaultStandard": "No default air-quality index standard is configured.",
+      "noMapProducts": "{{standard}} has no available map products."
+    }
+  },
+  "mapLibreMap": {
+    "text": {
+      "loadingMeasurements": "Loading measurements…",
+      "selectedMeasurementUnavailable": "No measurement available for this sensor with the selected filters.",
+      "loadingMeasurementHistory": "Loading measurement history…",
+      "unableLoadMeasurementHistory": "Unable to load measurement history.",
+      "noDataAvailableSelectedWindow": "No data available for the selected window",
+      "loadingMeasurementHistory2": "Loading measurement history…",
+      "noChartDataAvailable": "No chart data available",
+      "loadingEuropeanAirQualityIndex": "Loading European Air Quality Index…",
+      "loadingMapData": "Loading map data...",
+      "error": "Error:",
+      "europeanAqiResult": "European AQI result",
+      "aqiResult": "AQI result",
+      "measurement": "measurement",
+      "device": "device",
+      "noEuropeanAirQualityIndexResults": "No European Air Quality Index results are available for this map area and source.",
+      "no": "No",
+      "resultsAvailableMapAreaSource": "results are available for this map area and source.",
+      "categoryAboveAqi500": "{{category}} · Above AQI 500",
+      "dailyAqiUnavailable": "Daily AQI unavailable",
+      "aqiUnavailable": "AQI unavailable",
+      "aqiDetails": "AQI details",
+      "completedDay": "Completed day:",
+      "coverage": "Coverage:",
+      "hourlySlots": "hourly slots",
+      "selectedConcentration": "Selected concentration:",
+      "selectedInterval": "Selected interval:",
+      "of": "of",
+      "hourlyConcentrationsAvailable": "hourly concentrations available;",
+      "required": "required.",
+      "latestCompletedHour": "Latest completed hour:",
+      "of2": "of",
+      "readingsAvailable": "readings available;",
+      "required2": "required.",
+      "noChartDataAvailable2": "No chart data available",
+      "sensor": "sensor",
+      "loadingSensors": "Loading sensors…",
+      "noSensorsFoundDevice": "No sensors found for this device.",
+      "outdated": "outdated",
+      "latestOnlyHistory": "This averaging period supports latest results only. Choose a different time resolution to view history.",
+      "unsupportedHistory": "History is not supported for this stream at the selected time resolution. Choose another resolution.",
+      "singleHistoryPoint": "Only one eligible observation is available in the last 24 hours.",
+      "noEligibleHistory": "Observations exist in the last 24 hours, but none are eligible under the current QC policy.",
+      "webGl2Unavailable": "The map is unavailable because this browser cannot use WebGL2. Enable hardware acceleration or try another browser."
+    },
+    "dynamic": {
+      "expandSensors_one": "Click to expand {{count}} sensor",
+      "expandSensors_other": "Click to expand {{count}} sensors",
+      "device": "Device {{id}}",
+      "loadingAqi": "Loading {{label}}…",
+      "completedDay": "Completed day: {{date}}",
+      "nowcastCoverage": "Coverage: {{valid}}/{{expected}} hourly slots ({{status}})",
+      "selectedConcentration": "Selected concentration: {{value}} {{unit}}",
+      "selectedInterval": "Selected interval: {{interval}}",
+      "completedDayCompleteness": "{{valid}} of {{expected}} hourly concentrations available; {{required}} required.",
+      "latestHourCompleteness": "Latest completed hour: {{valid}} of {{expected}} readings available; {{required}} required."
+    },
+    "counts": {
+      "europeanAqiResult_one": "{{count}} European AQI result",
+      "europeanAqiResult_other": "{{count}} European AQI results",
+      "aqiResult_one": "{{count}} AQI result",
+      "aqiResult_other": "{{count}} AQI results",
+      "measurement_one": "{{count}} measurement",
+      "measurement_other": "{{count}} measurements",
+      "device_one": "{{count}} device",
+      "device_other": "{{count}} devices"
+    },
+    "states": {
+      "unknownDevice": "Unknown Device",
+      "unnamedDevice": "Unnamed Device",
+      "noAqiAvailable": "No AQI available"
+    },
+    "accessibility": {
+      "deviceDetails": "Device details",
+      "closePanel": "Close panel",
+      "closePanel2": "Close panel"
+    },
+    "tooltips": {
+      "collapse": "Collapse",
+      "deviceTimezone": "Device timezone",
+      "validMeasurement": "Valid measurement",
+      "invalidMeasurement": "Invalid measurement",
+      "deviceTimezone2": "Device timezone"
+    },
+    "actions": {
+      "openFullAnalytics": "Open Full Analytics",
+      "openFullAnalytics2": "Open Full Analytics",
+      "openFullAnalytics3": "Open Full Analytics"
+    },
+    "messages": {
+      "unableLoadEuropeanAirQualityIndex": "Unable to load European Air Quality Index results. Please try again later.",
+      "unableLoadAirQualityDataPlease": "Unable to load air quality data. Please try again later or check your network connection.",
+      "unableLoadAirQualityDataPlease2": "Unable to load air quality data. Please try again later or check your network connection.",
+      "unableLoadDevicesPleaseTryAgain": "Unable to load devices. Please try again later or check your network connection.",
+      "unableLoadDevicesPleaseTryAgain2": "Unable to load devices. Please try again later or check your network connection.",
+      "unableLoadDevicesPleaseTryAgain3": "Unable to load devices. Please try again later or check your network connection.",
+      "unableLoadSensorsDevice": "Unable to load sensors for this device.",
+      "unableLoadSensorsDevice2": "Unable to load sensors for this device.",
+      "productMetadataUnavailable": "{{product}} metadata is unavailable. Raw measurements remain available.",
+      "standardUnsupported": "The selected AQI standard is not supported by this server.",
+      "unableLoadStandardResults": "Unable to load {{standard}} results. Please try again later.",
+      "noStandardResults": "No {{standard}} results are available for this map area and source.",
+      "europeanMetadataUnavailable": "European Air Quality Index metadata is unavailable. Raw measurements remain available.",
+      "europeanUnsupported": "European Air Quality Index is not supported by this server.",
+      "measurementHistoryLoadFailed": "Measurement history could not be loaded."
+    }
+  },
+  "measurementContext": {
+    "averagingPeriod": "Averaging / aggregation period",
+    "qcStatus": "QC status",
+    "observedAtUtc": "Observed at (UTC)",
+    "calculatedAtUtc": "Calculated at (UTC)",
+    "rollingWindowUtc": "Rolling window (UTC)",
+    "latestSourceObservationUtc": "Latest source observation (UTC)",
+    "unavailable": "Not provided"
+  }
+}

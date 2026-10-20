@@ -4,16 +4,17 @@ import json
 import logging
 import uuid
 from datetime import datetime, timedelta, timezone
-from typing import List
+from typing import List, Literal
 
 from fastapi import APIRouter, Depends, HTTPException, Request, Response, status
-from pydantic import BaseModel, EmailStr
+from pydantic import BaseModel, ConfigDict, EmailStr
 from sqlalchemy import func, select
 from sqlalchemy.orm import Session, joinedload
 
 from api.auth_deps import CurrentUser, get_current_user
 from db import get_session
-from models import AuthLoginAttempt, Event, RefreshToken, Role, User, UserRole
+from models import AuthLoginAttempt, Event, Passkey, RefreshToken, Role, User, UserRole
+from services.user_identity import CanonicalEmail
 from services.auth import (
     AuthError,
     create_access_token,
@@ -22,6 +23,10 @@ from services.auth import (
     hash_refresh_token,
     scopes_from_roles,
     verify_password,
+)
+from services.system_settings import (
+    get_or_create_system_settings,
+    resolve_default_language_code,
 )
 
 
@@ -43,16 +48,27 @@ class TokenResponse(BaseModel):
 
 
 class LoginRequest(BaseModel):
-    email: EmailStr
+    email: CanonicalEmail
     password: str
 
 
 class MeResponse(BaseModel):
     user_id: uuid.UUID
     email: EmailStr
+    first_name: str | None
+    last_name: str | None
+    display_name: str
+    passkey_count: int
     org_id: uuid.UUID
     roles: List[str]
     scopes: List[str]
+    preferred_language_code: Literal["en", "es"] | None
+    system_default_language_code: Literal["en", "es"]
+
+
+class MePreferencesUpdateRequest(BaseModel):
+    model_config = ConfigDict(extra="forbid")
+    preferred_language_code: Literal["en", "es"] | None
 
 
 def _is_secure_request(request: Request) -> bool:
@@ -218,12 +234,12 @@ def login(
     client_ip = _get_client_ip(request)
     _enforce_login_rate_limit(session, ip_address=client_ip, settings=settings, now=now)
 
-    normalized_email = payload.email.lower().strip()
+    normalized_email = payload.email
     user = session.execute(
-        select(User).where(User.email == normalized_email)
+        select(User).where(User.email == normalized_email).with_for_update()
     ).scalar_one_or_none()
 
-    if user and user.locked_until and user.locked_until > now:
+    if user and user.locked_until and user.locked_until.replace(tzinfo=timezone.utc) > now:
         _record_login_attempt(session, ip_address=client_ip, user_id=user.user_id, success=False)
         _log_security_event(
             session,
@@ -295,6 +311,12 @@ def login(
         session.commit()
         raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail=GENERIC_AUTH_ERROR)
 
+    return issue_login_session(user, request, response, session, settings)
+
+
+def issue_login_session(user: User, request: Request, response: Response, session: Session, settings) -> TokenResponse:
+    """Issue the same session after either password or passkey verification."""
+    client_ip = _get_client_ip(request)
     user.failed_login_count = 0
     user.last_failed_at = None
     user.locked_until = None
@@ -345,6 +367,12 @@ def refresh_token(
 
     token_hash = hash_refresh_token(raw_refresh)
     now = datetime.now(timezone.utc)
+    # Match the account-change lock order. A refresh that waits for an email
+    # or password change must re-read revocation before issuing a replacement.
+    owner_id = session.scalar(select(RefreshToken.user_id).where(RefreshToken.token_hash == token_hash).limit(1))
+    if owner_id is not None:
+        session.execute(select(User).where(User.user_id == owner_id).with_for_update()
+                        .execution_options(populate_existing=True)).scalar_one_or_none()
                                                                                       
     refresh_records = session.execute(
         select(RefreshToken)
@@ -360,7 +388,7 @@ def refresh_token(
 
     refresh_record = active_matches[0]
 
-    if refresh_record.expires_at <= now:
+    if refresh_record.expires_at.replace(tzinfo=timezone.utc) <= now:
         raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Refresh token is expired or revoked")
 
     user = refresh_record.user
@@ -416,15 +444,49 @@ def logout(
             session.commit()
 
     _clear_refresh_cookie(response, request)
-    return Response(status_code=status.HTTP_204_NO_CONTENT)
+    response.status_code = status.HTTP_204_NO_CONTENT
+    return response
 
 
 @router.get("/me", response_model=MeResponse)
-def me(current_user: CurrentUser = Depends(get_current_user)) -> MeResponse:
+def me(
+    current_user: CurrentUser = Depends(get_current_user),
+    session: Session = Depends(get_session),
+    response: Response = None,
+) -> MeResponse:
+    if response is not None:
+        response.headers["Cache-Control"] = "no-store"
+    settings = get_or_create_system_settings(session)
+    user = session.get(User, current_user.user_id)
     return MeResponse(
         user_id=current_user.user_id,
-        email=current_user.email,
+        email=user.email,
+        first_name=user.first_name,
+        last_name=user.last_name,
+        display_name=user.display_name,
+        passkey_count=session.scalar(select(func.count()).select_from(Passkey).where(Passkey.user_id == user.user_id)),
         org_id=current_user.org_id,
         roles=current_user.roles,
         scopes=current_user.scopes,
+        preferred_language_code=user.preferred_language_code,
+        system_default_language_code=resolve_default_language_code(
+            settings.default_language_code
+        ),
     )
+
+
+@router.patch("/me/preferences", response_model=MeResponse)
+def update_me_preferences(
+    payload: MePreferencesUpdateRequest,
+    current_user: CurrentUser = Depends(get_current_user),
+    session: Session = Depends(get_session),
+) -> MeResponse:
+    user = session.get(User, current_user.user_id)
+    if user is None or not user.is_active:
+        raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Could not validate credentials")
+
+    user.preferred_language_code = payload.preferred_language_code
+    session.add(user)
+    session.commit()
+
+    return me(current_user, session)

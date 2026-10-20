@@ -1,0 +1,227 @@
+{
+  "workspace": {
+    "navigation": "Administración de la cuenta",
+    "access": "Acceso a la cuenta",
+    "account": "Cuenta"
+  },
+  "adminUserDetail": {
+    "actions": {
+      "admin": "Administración",
+      "users": "Usuarios",
+      "admin2": "Administración",
+      "users2": "Usuarios",
+      "backUsers": "← Volver a Usuarios",
+      "deleteUser": "Eliminar usuario",
+      "disableUser": "Deshabilitar usuario",
+      "enableUser": "Habilitar usuario",
+      "unlockAccount": "Desbloquear cuenta",
+      "saving": "Guardando…",
+      "saveRoles": "Guardar cambios",
+      "disable": "Desactivar",
+      "enable": "Habilitar",
+      "deleteUser2": "Eliminar usuario",
+      "unlockAccount2": "Desbloquear cuenta"
+    },
+    "headings": {
+      "loadingUser": "Cargando usuario…",
+      "userNotFound": "Usuario no encontrado",
+      "userInformation": "Información del usuario",
+      "accountStatus": "Estado de la cuenta",
+      "securityInformation": "Información de seguridad",
+      "roles": "Roles",
+      "disableUser": "Deshabilitar usuario",
+      "enableUser": "Habilitar usuario",
+      "deleteUser": "Eliminar usuario",
+      "unlockAccount": "Desbloquear cuenta"
+    },
+    "text": {
+      "loadingUserDetails": "Cargando datos de usuario…",
+      "error": "Error",
+      "organizationId": "ID de organización",
+      "created": "Creado",
+      "lastUpdated": "Última actualización",
+      "active": "Activo",
+      "disabled": "Desactivado",
+      "userCanLogAccessSystem": "Este usuario puede iniciar sesión y acceder al sistema.",
+      "userCannotLogAccessSystem": "Este usuario no puede iniciar sesión ni acceder al sistema.",
+      "loginSecurityStatusAccountInformationOnly": "Estado de seguridad de inicio de sesión para esta cuenta. Esta información sólo es visible para los administradores.",
+      "failedLoginAttempts": "Intentos fallidos de inicio de sesión",
+      "lastFailedLogin": "Último inicio de sesión fallido",
+      "accountLockStatus": "Estado de bloqueo de cuenta",
+      "lockedUntil": "Bloqueado hasta",
+      "lockExpired": "El bloqueo expiró (",
+      "resetsFailedLoginCountClearsAny": "Restablece el recuento de inicios de sesión fallidos y borra cualquier bloqueo activo.",
+      "selectRolesAssignUserChangesSaved": "Seleccione los roles que desea asignar a este usuario y luego seleccione «Guardar cambios».",
+      "unsavedChanges": "Cambios no guardados",
+      "youSureYouWant": "¿Confirma que desea",
+      "disable": "desactivar",
+      "enable": "habilitar",
+      "user": "este usuario?",
+      "theyWillNotAbleLogUntil": "El usuario no podrá iniciar sesión hasta que se vuelva a habilitar.",
+      "youSureYouWantPermanentlyDelete": "¿Confirma que desea eliminar permanentemente",
+      "actionCannotUndone": "? Esta acción no se puede deshacer.",
+      "youSureYouWantUnlockAccount": "¿Confirma que desea desbloquear esta cuenta? Esta acción restablecerá a cero el contador de intentos fallidos de inicio de sesión y eliminará cualquier bloqueo temporal activo.",
+      "rolesUpdated": "Roles actualizados exitosamente.",
+      "userEnabled": "Usuario habilitado exitosamente.",
+      "userDisabled": "Usuario deshabilitado exitosamente.",
+      "accountUnlocked": "Cuenta desbloqueada exitosamente. Se ha restablecido el recuento de inicios de sesión fallidos.",
+      "userNotFound": "Usuario no encontrado",
+      "notLocked": "No bloqueado",
+      "userId": "ID de usuario: {{id}}",
+      "lockedUntilValue": "Bloqueado hasta {{date}}",
+      "lockExpiredValue": "Bloqueo caducado ({{date}})"
+    },
+    "content": {
+      "admin": "Administración",
+      "users": "Usuarios"
+    }
+  },
+  "adminUserNew": {
+    "tooltips": {
+      "createNewUser": "Crear nuevo usuario"
+    },
+    "headings": {
+      "accountDetails": "Detalles de la cuenta",
+      "initialStatus": "Estado inicial",
+      "initialRoles": "Roles iniciales"
+    },
+    "placeholders": {
+      "userExampleCom": "usuario@ejemplo.com",
+      "minimum8Characters": "Mínimo 8 caracteres",
+      "reEnterPassword": "Escriba la contraseña otra vez"
+    },
+    "text": {
+      "confirmPassword": "Confirmar contraseña",
+      "active": "Activo",
+      "userWillAbleLogImmediatelyAfter": "El usuario podrá iniciar sesión inmediatamente después de la creación.",
+      "userWillCreatedButCannotLog": "Se creará un usuario, pero no podrá iniciar sesión hasta que esté habilitado.",
+      "selectRolesAssignUserRolesCan": "Seleccione roles para asignar a este usuario. Los roles se pueden modificar más adelante.",
+      "loadingRoles": "Cargando roles…",
+      "noRolesAvailable": "No hay roles disponibles."
+    },
+    "actions": {
+      "creating": "Creando…",
+      "createUser": "Crear usuario"
+    },
+    "accessibility": {
+      "addNewUserAccountSystem": "Agregue una nueva cuenta de usuario al sistema."
+    },
+    "content": {
+      "admin": "Administración",
+      "users": "Usuarios",
+      "newUser": "Nuevo usuario"
+    },
+    "messages": {
+      "emailRequired": "Se requiere correo electrónico",
+      "invalidEmailFormat": "Formato de correo electrónico no válido",
+      "passwordRequired": "Se requiere contraseña",
+      "passwordMustLeast8Characters": "La contraseña debe tener al menos 8 caracteres.",
+      "passwordsDoNotMatch": "Las contraseñas no coinciden"
+    }
+  },
+  "adminUsersList": {
+    "tooltips": {
+      "users": "Usuarios"
+    },
+    "actions": {
+      "newUser": "Nuevo usuario",
+      "view": "Ver"
+    },
+    "placeholders": {
+      "searchEmail": "Buscar correo electrónico…"
+    },
+    "options": {
+      "any": "Cualquier",
+      "active": "Activo",
+      "disabled": "Desactivado",
+      "any2": "Cualquier"
+    },
+    "text": {
+      "role": "Rol",
+      "loadingUsers": "Cargando usuarios…",
+      "noRoles": "Sin roles",
+      "active": "Activo",
+      "disabled": "Desactivado",
+      "noUsersFound": "No se encontraron usuarios.",
+      "showing": "Mostrando",
+      "of": "de",
+      "users": "usuarios"
+    },
+    "columns": {
+      "roles": "Roles",
+      "created": "Creado",
+      "lastUpdated": "Última actualización"
+    },
+    "accessibility": {
+      "manageUserAccountsRoleAssignments": "Administrar cuentas de usuario y asignaciones de roles.",
+      "viewUser": "Ver {{email}}"
+    },
+    "content": {
+      "admin": "Administración",
+      "users": "Usuarios"
+    }
+  },
+  "recovery": {
+    "title": "Recuperación de contraseña",
+    "description": "Ayuda a este usuario a elegir una nueva contraseña. Cada enlace nuevo reemplaza los anteriores sin usar. Las cuentas desactivadas siguen desactivadas.",
+    "create": "Crear enlace para restablecer contraseña",
+    "send": "Enviar correo para restablecer contraseña",
+    "checking": "Comprobando el envío de correo…",
+    "unavailable": "Envío de correo no disponible",
+    "unavailableReason": "La configuración SMTP guardada debe estar completa y haberse probado correctamente. Aun así, puedes crear y copiar un enlace.",
+    "readinessFailed": "No se pudo comprobar el estado del correo. Aun así, puedes crear y copiar un enlace.",
+    "configure": "Configurar correo",
+    "created": "Enlace de restablecimiento creado",
+    "expiry": "Este enlace se puede usar una sola vez y vence en {{count}} minutos.",
+    "link": "URL para restablecer la contraseña",
+    "bearerAdvice": "Cualquier persona con este enlace puede restablecer la contraseña de este usuario hasta que venza. Compártelo solo con el usuario indicado.",
+    "copy": "Copiar enlace",
+    "copied": "Enlace copiado.",
+    "copyFallback": "Enlace seleccionado. Usa la opción Copiar de tu dispositivo para copiarlo manualmente.",
+    "done": "Listo",
+    "sent": "Correo de restablecimiento enviado. El enlace vence en 60 minutos.",
+    "sendFailed": "No se pudo enviar el correo. Revisa la configuración e inténtalo de nuevo; cada intento crea un enlace nuevo.",
+    "createFailed": "No se pudo crear el enlace. Comprueba que la URL de confianza de la aplicación esté configurada e inténtalo de nuevo.",
+    "resetTitle": "Restablece tu contraseña de CompassAQ",
+    "policy": "Usa al menos {{count}} caracteres. No incluyas tu dirección de correo ni el nombre que aparece antes de @.",
+    "newPassword": "Nueva contraseña",
+    "confirmPassword": "Confirmar contraseña",
+    "mismatch": "Las contraseñas no coinciden.",
+    "policyError": "Usa al menos {{count}} caracteres y evita tu dirección de correo o el nombre que aparece antes de @.",
+    "resetFailed": "No se pudo cambiar tu contraseña. Inténtalo de nuevo.",
+    "verifying": "Comprobando tu enlace…",
+    "saving": "Cambiando contraseña…",
+    "resetAction": "Establecer nueva contraseña",
+    "successTitle": "Contraseña cambiada",
+    "success": "Tu contraseña se ha cambiado. Inicia sesión con tu nueva contraseña. Si tu cuenta está desactivada, contacta con tu administrador.",
+    "reset_invalid": "Este enlace no es válido",
+    "reset_expired": "Este enlace ha vencido",
+    "reset_used": "Este enlace ya se usó o fue reemplazado",
+    "resetUnavailable": "No se pudo comprobar el enlace",
+    "requestAnother": "Pide a tu administrador un nuevo enlace para restablecer tu contraseña.",
+    "signIn": "Ir a iniciar sesión",
+    "rolesLoadFailed": "No se pudieron cargar los roles. Recarga esta página para elegirlos antes de crear el usuario.",
+    "detailDescription": "Administra los datos del perfil, el acceso a la cuenta, los roles y la recuperación de contraseña.",
+    "deleteTitle": "Eliminar cuenta",
+    "deleteDescription": "Elimina este usuario de forma permanente. Desactiva la cuenta si solo necesitas suspender el acceso.",
+    "userCount": "Mostrando {{shown}} de {{total}} usuarios",
+    "scrollTable": "Desplázate horizontalmente para ver todos los detalles de las cuentas.",
+    "confirmDisable": "¿Desactivar el acceso de {{email}}? Este usuario no podrá iniciar sesión hasta que se reactive la cuenta.",
+    "confirmEnable": "¿Activar el acceso de {{email}}? Este usuario podrá volver a iniciar sesión.",
+    "confirmDelete": "¿Eliminar permanentemente a {{email}}? Esta acción no se puede deshacer."
+  },
+  "roles": {
+    "admin": {
+      "name": "Administrador",
+      "description": "Acceso administrativo"
+    },
+    "analyst": {
+      "name": "Analista",
+      "description": "Permisos de análisis de datos"
+    },
+    "viewer": {
+      "name": "Lector",
+      "description": "Acceso de solo lectura"
+    }
+  }
+}

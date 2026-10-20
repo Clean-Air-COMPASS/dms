@@ -6,12 +6,18 @@ export interface AuthUser {
   user_id: string;
   
   email: string;
+  first_name: string | null;
+  last_name: string | null;
+  display_name: string;
+  passkey_count: number;
   
   org_id: string;
   
   roles: string[];
   
   scopes: string[];
+  preferred_language_code: 'en' | 'es' | null;
+  system_default_language_code: 'en' | 'es';
 }
 
 

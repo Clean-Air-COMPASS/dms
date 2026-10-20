@@ -1,0 +1,434 @@
+{
+  "sensorMetadataFormatting": {
+    "duration": {
+      "day_one": "{{value}} día",
+      "day_other": "{{value}} días",
+      "hour_one": "{{value}} hora",
+      "hour_other": "{{value}} horas",
+      "minute_one": "{{value}} minuto",
+      "minute_other": "minutos {{value}}",
+      "second_one": "{{value}} segundo",
+      "second_other": "{{value}} segundos"
+    },
+    "cadence": {
+      "day_one": "Cada día",
+      "day_other": "Cada {{value}} días",
+      "hour_one": "Cada hora",
+      "hour_other": "Cada {{value}} horas",
+      "minute_one": "Cada minuto",
+      "minute_other": "Cada {{value}} minutos",
+      "second_one": "Cada segundo",
+      "second_other": "Cada {{value}} segundos"
+    },
+    "updates": {
+      "day_one": "Actualizaciones todos los días",
+      "day_other": "Actualizaciones cada {{value}} días",
+      "hour_one": "Actualizaciones cada hora",
+      "hour_other": "Se actualiza cada {{value}} horas",
+      "minute_one": "Actualizaciones cada minuto",
+      "minute_other": "Se actualiza cada {{value}} minutos",
+      "second_one": "Actualizaciones cada segundo",
+      "second_other": "Actualiza cada {{value}} segundos"
+    },
+    "average": {
+      "day": "Promedio de {{value}} días",
+      "hour": "Promedio de {{value}} horas",
+      "minute": "Promedio de {{value}} minutos",
+      "second": "Promedio de {{value}} segundos"
+    },
+    "eachValue": "Cada valor representa {{duration}}"
+  },
+  "adminDeviceEditor": {
+    "text": {
+      "newDevice": "Agregar dispositivo",
+      "deviceDetails": "Detalles del dispositivo",
+      "newDevice2": "Agregar dispositivo",
+      "unsavedChanges": "Cambios no guardados",
+      "loadingDevice": "Cargando dispositivo…",
+      "externalDevice": "Dispositivo externo",
+      "deviceSynced": "— Este dispositivo está sincronizado desde",
+      "externalApiFallback": "una API externa",
+      "mostFieldsReadOnlyYouCan": ". La mayoría de los campos son de sólo lectura. Puede editar el nombre descriptivo y la configuración local.",
+      "theseFieldsManagedExternalDataSource": "Estos campos son administrados por la fuente de datos externa y no se pueden editar.",
+      "preferredNameDeviceShownListsCharts": "Su nombre preferido para este dispositivo. Se muestra en listas y gráficos.",
+      "external": "Externo",
+      "chooseWhichDataSourceDeviceS": "Elija de qué fuente de datos provienen los datos de este dispositivo.",
+      "locationDataSyncedExternalSource": "Los datos de ubicación se sincronizan desde la fuente externa.",
+      "controlsWhetherIncomingMeasurementsCanUpdate": "Controla si las mediciones entrantes pueden actualizar los registros existentes.",
+      "deviceId": "ID del dispositivo",
+      "externalApiId": "ID externo de API",
+      "created": "Creado",
+      "saveDeviceFirstViewItsSensors": "Guarde el dispositivo primero para ver sus sensores.",
+      "loadingSensors": "Cargando sensores…",
+      "noSensorsFoundDevice": "No se encontraron sensores para este dispositivo.",
+      "invalid": "Inválido",
+      "valid": "Válido",
+      "validityUnknown": "Validez desconocida",
+      "latestReading": "Última lectura",
+      "noData": "Sin datos",
+      "internalSensorId": "ID interno del sensor:",
+      "externalSensorId": "ID externo del sensor:"
+    },
+    "actions": {
+      "admin": "Administración",
+      "devices": "Dispositivos",
+      "saving": "Guardando…",
+      "adding": "Añadiendo…",
+      "addSensor": "Agregar sensor",
+      "manageQc": "Administrar CC",
+      "saving2": "Guardando…",
+      "deleting": "Eliminando…"
+    },
+    "headings": {
+      "newDevice": "Agregar dispositivo",
+      "deviceDetails": "Detalles del dispositivo",
+      "sourceIdentity": "Identidad de origen",
+      "location": "Ubicación",
+      "localSettings": "Configuraciones locales",
+      "systemMetadata": "Metadatos del sistema",
+      "sensors": "Sensores"
+    },
+    "fields": {
+      "friendlyName": "Nombre descriptivo",
+      "externalId": "ID externo",
+      "dataSource": "Fuente de datos",
+      "otherDataSourceName": "Otro nombre de fuente de datos",
+      "latitude": "Latitud",
+      "longitude": "Longitud",
+      "timezone": "Zona horaria",
+      "measurementUpdatesPolicy": "Política de actualizaciones de mediciones",
+      "parameter": "Parámetro",
+      "timeResolution": "Resolución temporal",
+      "externalSensorId": "ID externo del sensor",
+      "parameter2": "Parámetro",
+      "timeResolution2": "Resolución temporal",
+      "externalSensorId2": "ID externo del sensor"
+    },
+    "placeholders": {
+      "enterCustomDisplayName": "Ingrese un nombre para mostrar personalizado",
+      "enterDataSourceName": "Introduzca el nombre de la fuente de datos",
+      "americaLosAngeles": "America/Los_Angeles",
+      "eGProviderSensor123": "p. ej., provider-sensor-123",
+      "eGProviderSensor1232": "p. ej., provider-sensor-123"
+    },
+    "options": {
+      "loadingDataSources": "Cargando fuentes de datos…",
+      "selectDataSource": "Seleccionar fuente de datos",
+      "other": "Otro",
+      "inheritSystemDefault": "Heredar (de forma predeterminada del sistema)",
+      "allowUpdatesExistingMeasurements": "Permitir actualizaciones de mediciones existentes",
+      "denyUpdatesKeepFirstValue": "Denegar actualizaciones (mantener el primer valor)",
+      "loadingParameters": "Cargando parámetros…",
+      "selectParameter": "Seleccionar parámetro",
+      "loadingTimeResolutions": "Cargando resoluciones temporales…",
+      "selectTimeResolution": "Seleccionar resolución temporal",
+      "selectParameter2": "Seleccionar parámetro",
+      "selectTimeResolution2": "Seleccionar resolución temporal"
+    },
+    "messages": {
+      "parameterRequiredAddSensor": "Se requiere un parámetro para agregar un sensor.",
+      "timeResolutionRequiredAddSensor": "Se requiere la resolución temporal para agregar un sensor.",
+      "parameterRequiredUpdateSensor": "Se requiere un parámetro para actualizar un sensor.",
+      "timeResolutionRequiredUpdateSensor": "Se requiere la resolución temporal para actualizar un sensor.",
+      "nameRequiredNewDevices": "El nombre es obligatorio para dispositivos nuevos.",
+      "dataSourceRequiredManualDevices": "Se requiere fuente de datos para dispositivos manuales.",
+      "dataSourceRequiredManualDevices2": "Se requiere fuente de datos para dispositivos manuales.",
+      "deviceSavedSuccessfully": "Dispositivo guardado exitosamente.",
+      "sensorAdded": "El sensor se agregó correctamente (ID del sensor {{id}}).",
+      "sensorUpdated": "Sensor {{id}} actualizado correctamente.",
+      "sensorDeleted": "El sensor {{id}} se eliminó correctamente."
+    },
+    "dynamic": {
+      "device": "Dispositivo {{id}}"
+    },
+    "dialogs": {
+      "deleteSensorWillAlsoDeleteIts": "¿Desea eliminar este sensor? También se eliminarán sus mediciones.",
+      "youHaveUnsavedChangesLeaveWithout": "Hay cambios sin guardar. ¿Desea salir sin guardarlos?",
+      "discardChanges": "¿Descartar cambios?",
+      "deleteDeviceCannotUndone": "¿Eliminar este dispositivo? Esto no se puede deshacer."
+    },
+    "clarity": {
+      "requiredHelp": "* Campo obligatorio",
+      "automaticSource": "Asignación automática",
+      "sourceHelp": "Opcional. Con la asignación automática, el servidor usa Local si está disponible; de lo contrario, la primera fuente de datos. Seleccione una fuente para controlar la asignación.",
+      "timezoneUnset": "Sin especificar",
+      "inheritUnavailable": "La política heredada efectiva no está disponible aquí.",
+      "addDevice": "Agregar dispositivo",
+      "keepSource": "Conservar la fuente de datos asignada",
+      "keepSourceHelp": "Opcional. Deje esta opción vacía para conservar la fuente de datos asignada o seleccione otra fuente.",
+      "inherit": "Heredar",
+      "replace": "Reemplazar valores existentes",
+      "keep": "Conservar valores existentes",
+      "otherSourceHelp": "Obligatorio al seleccionar Otro. Indique el nombre de la fuente para que los usuarios sepan de dónde proceden los datos de este dispositivo."
+    },
+    "workflow": {
+      "localHelp": "Los cambios se guardan en CompassAQ. No modifican los registros del proveedor.",
+      "providerDetails": "Datos gestionados por el proveedor",
+      "managedBy": "Gestionados por {{provider}} · Solo lectura",
+      "providerIdentity": "Identificación en el proveedor",
+      "providerLocation": "Ubicación indicada por el proveedor",
+      "providerSensors": "Los sensores se gestionan mediante las importaciones de {{provider}}. No se pueden añadir sensores manualmente aquí; los ajustes de CC siguen disponibles.",
+      "manualHelp": "Usted define esta ubicación o sistema de monitoreo en CompassAQ, incluidos su identidad, ubicación y ajustes locales.",
+      "providerDevice": "Dispositivo gestionado por el proveedor",
+      "manualDevice": "Dispositivo manual/local",
+      "externalIdHelp": "Déjelo en blanco para un dispositivo manual/local. Si tiene un ID externo, su identidad y ubicación serán gestionadas por el proveedor después de guardarlo.",
+      "sensorHelp": "Cada sensor es un flujo de datos de un parámetro, como PM2.5, en la ubicación o sistema de monitoreo de este dispositivo.",
+      "sensorQcInheritance": "Los sensores nuevos heredan la configuración de control de calidad de su fuente de datos, parámetro y valores predeterminados de CompassAQ. Agregar un sensor no crea reglas específicas para él. Use Administrar CC para revisar la configuración efectiva o agregar una excepción."
+    },
+    "validation": {
+      "nameRequired": "Introduzca un nombre para el dispositivo.",
+      "otherSourceRequired": "Introduzca un nombre de fuente de datos al seleccionar Otro.",
+      "latitudeRange": "La latitud debe estar entre -90 y 90.",
+      "longitudeRange": "La longitud debe estar entre -180 y 180.",
+      "coordinateNumber": "Introduzca un número válido.",
+      "coordinatePair": "Introduzca la latitud y la longitud, o deje ambas en blanco.",
+      "locationHelp": "Latitud: de -90 a 90. Longitud: de -180 a 180. Introduzca ambas coordenadas o deje ambas en blanco si desconoce la ubicación."
+    }
+  },
+  "adminDeviceNew": {
+    "headings": {
+      "selectDataSource": "Seleccionar fuente de datos",
+      "purpleAirSensorLookup": "Búsqueda de sensores PurpleAir",
+      "devicePreview": "Vista previa del dispositivo",
+      "deviceInformation": "Información del dispositivo",
+      "sensors": "Sensores",
+      "confirmApiRequest": "Confirmar solicitud API"
+    },
+    "text": {
+      "chooseHowYouWantAddNew": "Elija cómo desea agregar el nuevo dispositivo.",
+      "importPurpleAirSensorIndex": "Importar desde el índice del sensor PurpleAir",
+      "importOpenAqLocations": "Importar desde ubicaciones OpenAQ",
+      "manualEntry": "Entrada manual",
+      "enterDeviceDetailsManually": "Ingrese los detalles del dispositivo manualmente",
+      "loadingDataSources": "Cargando fuentes de datos…",
+      "noActiveDataSourcesCurrentlyAvailable": "Actualmente no hay fuentes de datos habilitadas disponibles para dispositivos nuevos.",
+      "enter": "Introduzca el",
+      "sensorIndex": "Índice de sensores",
+      "purpleAirMapLookUpDevice": "desde el mapa PurpleAir para buscar metadatos del dispositivo.",
+      "howFindSensorIndex": "Cómo encontrar el índice del sensor",
+      "go": "Ir al",
+      "clickSensorYouWantAdd": "Haga clic en el sensor que desea agregar",
+      "lookUrlNumberAfter": "Mire la URL: el número después",
+      "sensorIndex2": "es el índice del sensor",
+      "example": "Ejemplo: en",
+      "sensorIndex3": ", el índice del sensor es",
+      "sensorIndex4": "Índice de sensores",
+      "reviewInformationBelowClickSaveCreate": "Revise la información a continuación. Haga clic en Guardar para crear el dispositivo.",
+      "externalId": "ID externo",
+      "latitude": "Latitud",
+      "longitude": "Longitud",
+      "timezone": "Zona horaria",
+      "willMakeRequestPurpleAirApi": "Se enviará una solicitud a la API de PurpleAir, que",
+      "consumesApiPoints": "consume puntos API",
+      "purpleAirApiUsageLimitedOnly": "El uso de PurpleAir API es limitado. Continúe solo si desea agregar este dispositivo."
+    },
+    "actions": {
+      "purpleAirMap": "Mapa PurpleAir",
+      "lookingUp": "Consultando…",
+      "lookup": "Buscar",
+      "saving": "Guardando…",
+      "proceedLookup": "Continuar con la búsqueda"
+    },
+    "columns": {
+      "parameter": "Parámetro",
+      "externalSensorId": "ID externo del sensor",
+      "latestValue": "Último valor",
+      "unit": "Unidad"
+    },
+    "tooltips": {
+      "addNewDevice": "Agregar dispositivo"
+    },
+    "content": {
+      "admin": "Administración",
+      "devices": "Dispositivos",
+      "newDevice": "Agregar dispositivo"
+    },
+    "messages": {
+      "pleaseEnterSensorIndex": "Ingrese un índice de sensor"
+    }
+  },
+  "adminDeviceNewOpenAQ": {
+    "headings": {
+      "openAqLocationLookup": "Búsqueda de ubicaciones de OpenAQ",
+      "searchResults": "Resultados de la búsqueda",
+      "confirmApiRequest": "Confirmar solicitud API"
+    },
+    "text": {
+      "searchAirQualityMonitoringLocationsOpen": "Busque ubicaciones de monitoreo de la calidad del aire en la red OpenAQ.",
+      "enterCoordinatesDefine": "Ingrese coordenadas para definir un",
+      "boundingBox": "cuadro delimitador",
+      "searchingLocationsWithinGeographicArea": "para buscar ubicaciones dentro de un área geográfica.",
+      "howFindCoordinates": "Cómo encontrar coordenadas",
+      "youCanUseToolsLike": "Puede utilizar herramientas como",
+      "drawBoxGetCoordinates": "para dibujar un cuadro y obtener coordenadas.",
+      "exampleSanLuisObispoArea": "Ejemplo para el área de San Luis Obispo:",
+      "westMinLon": "Oeste (Lon mínimo):",
+      "southMinLat": "Sur (Latitud mínima):",
+      "eastMaxLon": "Este (Max Lon):",
+      "northMaxLat": "Norte (Latitud máxima):",
+      "minimumLongitudeWest": "Longitud mínima (oeste)",
+      "minimumLatitudeSouth": "Latitud mínima (Sur)",
+      "maximumLongitudeEast": "Longitud máxima (Este)",
+      "maximumLatitudeNorth": "Latitud máxima (norte)",
+      "enter": "Introduzca un",
+      "openAqSensorId": "ID de sensor de OpenAQ",
+      "lookUpSpecificSensor": "para buscar un sensor específico.",
+      "howFindSensorId": "Cómo encontrar el ID del sensor",
+      "go": "Ir al",
+      "clickMonitoringStationMap": "Haga clic en una estación de monitoreo en el mapa",
+      "selectSpecificSensorParameterStation": "Seleccione un sensor/parámetro específico de la estación",
+      "sensorIdShownSensorDetailsUrl": "El ID del sensor se muestra en los detalles del sensor o en la URL",
+      "noteEachSensorMeasuresSingleParameter": "Nota: Cada sensor mide un único parámetro (p. ej., PM2.5, O₃). Una ubicación puede tener varios sensores.",
+      "openAqSensorId2": "ID de sensor de OpenAQ",
+      "found": "Se encontró",
+      "sensor": "sensor",
+      "location": "ubicación",
+      "alreadyDatabase": "ya en la base de datos)",
+      "alreadyExistsDatabase": "Ya existe en la base de datos.",
+      "selectSensor": "Seleccionar sensor",
+      "sensorId": "ID del sensor:",
+      "alreadyExists": "Ya existe",
+      "to": "a",
+      "alreadyExistsDatabaseNoSelectableSensors": "Ya existe en la base de datos o no hay sensores seleccionables.",
+      "selectDeselectAllSensors": "Seleccionar/deseleccionar todos los sensores",
+      "id": "ID:",
+      "alreadyExists2": "Ya existe",
+      "alreadyExists3": "Ya existe",
+      "to2": "a",
+      "monitor": "Monitor",
+      "mobile": "Móvil",
+      "sensor2": "Sensor",
+      "device": "dispositivo",
+      "sensor3": "sensor",
+      "selected": "seleccionado",
+      "noDevicesSelected": "No hay dispositivos seleccionados",
+      "willMakeRequestOpenAqApi": "Se enviará una solicitud a la API de OpenAQ.",
+      "openAqHasRateLimitsIf": "OpenAQ aplica límites de solicitudes. Si se alcanza un límite, espere e inténtelo de nuevo más tarde."
+    },
+    "actions": {
+      "boundingBox": "Por cuadro delimitador",
+      "sensorId": "Por ID del sensor",
+      "bboxfinder": "bboxfinder",
+      "searching": "Buscando…",
+      "openAqExplorer": "Explorador OpenAQ",
+      "lookingUp": "Consultando…",
+      "lookup": "Buscar",
+      "saving": "Guardando…",
+      "proceed": "Proceder",
+      "saveSelected": "Guardar selección ({{count}})"
+    },
+    "columns": {
+      "parameter": "Parámetro",
+      "latestValue": "Último valor",
+      "coordinates": "Coordenadas",
+      "dataRange": "Rango de datos",
+      "coverage": "Cobertura",
+      "location": "Ubicación",
+      "provider": "Proveedor",
+      "coordinates2": "Coordenadas",
+      "sensors": "Sensores",
+      "dataRange2": "Rango de datos",
+      "type": "Tipo"
+    },
+    "tooltips": {
+      "addOpenAqSensor": "Agregar sensor OpenAQ"
+    },
+    "content": {
+      "admin": "Administración",
+      "devices": "Dispositivos",
+      "addOpenAqSensor": "Agregar sensor OpenAQ"
+    },
+    "messages": {
+      "pleaseFillAllFourCoordinateFields": "Complete los cuatro campos de coordenadas",
+      "allCoordinateValuesMustValidNumbers": "Todos los valores de coordenadas deben ser números válidos.",
+      "minimumLongitudeWestMustLessThan": "La longitud mínima (oeste) debe ser menor que la longitud máxima (este)",
+      "minimumLatitudeSouthMustLessThan": "La Latitud Mínima (Sur) debe ser menor que la Latitud Máxima (Norte)",
+      "pleaseEnterOpenAqSensorId": "Introduzca un ID de sensor OpenAQ",
+      "sensorIdMustNumeric": "El ID del sensor debe ser numérico",
+      "pleaseSelectLeastOneDeviceSensor": "Seleccione al menos un dispositivo/sensor para guardar.",
+      "sensorNotFound": "Sensor no encontrado.",
+      "noLocationsFound": "No se encontraron ubicaciones para los criterios dados."
+    }
+  },
+  "adminDevicesList": {
+    "tooltips": {
+      "devices": "Dispositivos"
+    },
+    "actions": {
+      "newDevice": "Agregar dispositivo",
+      "sourceName": "Nombre de la fuente",
+      "dataSource": "Fuente de datos",
+      "lastSeen": "Visto por última vez",
+      "created": "Creado",
+      "prev": "Anterior"
+    },
+    "placeholders": {
+      "searchName": "Buscar nombre…",
+      "eGSensor5678": "por ejemplo, sensor-5678"
+    },
+    "text": {
+      "dataSource": "Fuente de datos",
+      "externalDeviceId": "ID de dispositivo externo",
+      "sensorId": "ID del sensor",
+      "externalSensorId": "ID externo del sensor",
+      "loadingDevices": "Cargando dispositivos…",
+      "id": "ID:",
+      "external": "Externo",
+      "noDevicesFound": "No se encontraron dispositivos.",
+      "page": "Página",
+      "of": "de",
+      "rows": "Filas"
+    },
+    "options": {
+      "any": "Cualquier",
+      "active": "Activo",
+      "inactive": "Inactivo",
+      "unknown": "Desconocido",
+      "all": "Todos",
+      "other": "Otro"
+    },
+    "columns": {
+      "location": "Ubicación"
+    },
+    "accessibility": {
+      "manageDevicesThatProvideMeasurements": "Administrar dispositivos que proporcionen mediciones.",
+      "openDevice": "Abrir vista {{name}}"
+    },
+    "content": {
+      "admin": "Administración",
+      "devices": "Dispositivos"
+    }
+  },
+  "airgradient": {
+    "title": "Añadir ubicación de AirGradient",
+    "choose": "Selecciona una ubicación de tu cuenta de AirGradient",
+    "configure": "Configurar fuentes de datos",
+    "back": "Volver a las fuentes de datos",
+    "select": "Seleccionar ubicación de AirGradient",
+    "description": "Las ubicaciones se cargan con la credencial de AirGradient guardada en Fuentes de datos.",
+    "loading": "Cargando ubicaciones de AirGradient…",
+    "retry": "Reintentar",
+    "empty": "No se encontraron ubicaciones en esta cuenta de AirGradient. Comprueba que la credencial guardada corresponda a la cuenta que contiene tus ubicaciones.",
+    "locationId": "ID de ubicación: {{id}}",
+    "coordinates": "Coordenadas: {{latitude}}, {{longitude}}",
+    "alreadyAdded": "Ya añadida",
+    "preview": "Revisar ubicación",
+    "duplicate": "Esta ubicación de AirGradient ya está en CompassAQ. Abre el dispositivo existente para consultarla.",
+    "viewDevice": "Ver dispositivo",
+    "noReadings": "Ubicación añadida, pero no había lecturas actuales utilizables. Abre el dispositivo y revisa su configuración de importación.",
+    "importNow": "Añade esta ubicación e importa sus lecturas actuales disponibles. No se añadirán otras ubicaciones de la cuenta.",
+    "automaticOff": "Las importaciones automáticas de la cuenta están desactivadas. Se importarán las lecturas actuales una sola vez; las futuras lecturas autenticadas seguirán desactivadas hasta que habilites las importaciones en Fuentes de datos.",
+    "add": "Añadir ubicación",
+    "adding": "Añadiendo ubicación…",
+    "errors": {
+      "configuration_required": "Para añadir una ubicación de AirGradient, primero guarda una clave de API de AirGradient en Fuentes de datos.",
+      "authentication_failed": "AirGradient rechazó la credencial guardada. Actualiza la clave de API en Fuentes de datos y vuelve a intentarlo.",
+      "rate_limited": "Se alcanzó el límite de solicitudes de AirGradient. Espera un momento y vuelve a intentarlo.",
+      "invalid_response": "AirGradient devolvió información de ubicación incompleta o inválida. Vuelve a intentarlo más tarde.",
+      "provider_unavailable": "AirGradient no está disponible en este momento. Vuelve a intentarlo más tarde.",
+      "provider_error": "AirGradient no pudo completar la solicitud. Revisa la configuración en Fuentes de datos y vuelve a intentarlo.",
+      "location_unavailable": "Esta ubicación ya no está disponible en la cuenta configurada. Vuelve a cargar las ubicaciones y selecciona otra.",
+      "operation_failed": "No se pudo completar la solicitud de ubicación. Vuelve a intentarlo."
+    }
+  }
+}

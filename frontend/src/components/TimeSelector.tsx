@@ -1,3 +1,5 @@
+import { Trans } from 'react-i18next';
+import i18n from '../i18n';
 import * as React from 'react';
 
 export type TimeSelectorProps = {
@@ -54,17 +56,17 @@ const TimeSelector: React.FC<TimeSelectorProps> = ({ label, value, onChange }) =
   };
 
   return (
-    <div className="flex items-center gap-2 flex-wrap" aria-label={label || 'Time selector'}>
+    <div className="flex items-center gap-2 flex-wrap" aria-label={label || i18n.t('map:timeSelector.accessibility.timeSelector')}>
       {label && <span className="text-xs font-medium text-slate-600 min-w-[72px]">{label}</span>}
-      <select aria-label="Hour" className={selectCls} value={h12} onChange={updateHour}>
+      <select aria-label={i18n.t('map:timeSelector.accessibility.hour')} className={selectCls} value={h12} onChange={updateHour}>
         {HOURS.map(h => <option key={h} value={h}>{h}</option>)}
       </select>
-      <select aria-label="Minutes" className={selectCls} value={Math.round(mins / 5) * 5 % 60} onChange={updateMinute}>
+      <select aria-label={i18n.t('map:timeSelector.accessibility.minutes')} className={selectCls} value={Math.round(mins / 5) * 5 % 60} onChange={updateMinute}>
         {MINUTES.map(m => <option key={m} value={m}>{m.toString().padStart(2,'0')}</option>)}
       </select>
-      <select aria-label="AM or PM" className={selectCls} value={isAM ? 'AM' : 'PM'} onChange={updateAmPm}>
-        <option value="AM">AM</option>
-        <option value="PM">PM</option>
+      <select aria-label={i18n.t('map:timeSelector.accessibility.amPm')} className={selectCls} value={isAM ? 'AM' : 'PM'} onChange={updateAmPm}>
+        <option value="AM"><Trans ns="map" i18nKey="timeSelector.options.am" /></option>
+        <option value="PM"><Trans ns="map" i18nKey="timeSelector.options.pm" /></option>
       </select>
     </div>
   );

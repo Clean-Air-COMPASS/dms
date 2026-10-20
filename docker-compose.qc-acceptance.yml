@@ -1,0 +1,21 @@
+# Isolated ports and project-scoped containers for the destructive fresh-install
+# QC acceptance run. Use with `-p compassaq-qc-phase3` so its database volume is
+# separate from an operator's normal CompassAQ deployment.
+services:
+  db:
+    container_name: !reset null
+    ports: !override
+      - "55432:5432"
+
+  api:
+    container_name: !reset null
+    ports: !override
+      - "18000:8000"
+
+  scheduler:
+    container_name: !reset null
+
+  frontend:
+    container_name: !reset null
+    ports: !override
+      - "18080:80"

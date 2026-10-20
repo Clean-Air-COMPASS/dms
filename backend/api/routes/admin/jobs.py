@@ -1,14 +1,27 @@
 from __future__ import annotations
 
-from typing import Optional, List
+from typing import Annotated, Optional, List
+from datetime import datetime, timezone
+
+from croniter import CroniterBadDateError, croniter
 
 from fastapi import APIRouter, HTTPException, Depends, BackgroundTasks, Query
 from pydantic import BaseModel
-from sqlalchemy import select, text
+from sqlalchemy import func, select, text
 from sqlalchemy.orm import Session
 
+from api.routes.admin.history import HistoryPage, history_bounds
 from db import get_session
-from models import JobSchedule, JobRun
+from models import JobExecutionTrigger, JobSchedule, JobRun
+from jobs.import_runner import run_importer
+from services.external_sources import (
+    ExternalSourceNotRunnable,
+    require_task_source_runnable,
+)
+from services.provider_safety import (
+    ProviderSafetyDenied,
+    require_paid_provider_authorization,
+)
 
 router = APIRouter(prefix="/admin", tags=["admin"]) 
 
@@ -18,44 +31,24 @@ class JobRunTriggerOut(BaseModel):
     status: str
 
 
-def _run_importer_subprocess(job_run_id: int) -> tuple[int, dict | None, str | None]:
-    """Run importer and return (exit_code, summary_json, error_message)."""
-    import os as _os
-    import json as _json
-    import subprocess as _subprocess
-
-    summary_path = f"/app/tmp/scheduler_run_{job_run_id}.json"
-    try:
-        _os.makedirs("/app/tmp", exist_ok=True)
-    except Exception:
-        pass
-    cmd = [
-        "python",
-        "-m",
-        "sources.openaq.importer",
-        "--summary-json",
-        summary_path,
-    ]
-    proc = _subprocess.run(cmd, cwd="/app", capture_output=True, text=True)
-    summary = None
-    if _os.path.exists(summary_path):
-        try:
-            with open(summary_path, "r", encoding="utf-8") as f:
-                summary = _json.load(f)
-        except Exception:
-            summary = None
-    err = None
-    if proc.returncode != 0:
-        err = (proc.stderr or proc.stdout or "Importer failed").strip()[:2000]
-    return proc.returncode, summary, err
-
-
-def _background_run_job(job_schedule_id: int, job_run_id: int):
+def _background_run_job(
+    job_schedule_id: int,
+    job_run_id: int,
+    task: str,
+    params: dict | None,
+    allow_paid_api: bool,
+):
     from db import SessionLocal as _SessionLocal
     from datetime import datetime as _dt, timezone as _tz
     with _SessionLocal() as s:
         try:
-            code, summary, err = _run_importer_subprocess(job_run_id)
+            code, summary, err = run_importer(
+                job_run_id,
+                params,
+                task,
+                job_schedule_id=job_schedule_id,
+                explicit_manual_authorization=allow_paid_api,
+            )
             jr = s.get(JobRun, job_run_id)
             if jr:
                 jr.finished_at = _dt.now(_tz.utc)
@@ -75,7 +68,12 @@ def _background_run_job(job_schedule_id: int, job_run_id: int):
 
 
 @router.post("/jobs/{job_schedule_id}/run", response_model=JobRunTriggerOut)
-def trigger_job_run(job_schedule_id: int, background_tasks: BackgroundTasks, session: Session = Depends(get_session)):
+def trigger_job_run(
+    job_schedule_id: int,
+    background_tasks: BackgroundTasks,
+    allow_paid_api: bool = Query(False),
+    session: Session = Depends(get_session),
+):
     """Manually trigger a job run for the given schedule.
 
     - Respects allow_overlap: if false and a run is already running, returns 409.
@@ -85,6 +83,24 @@ def trigger_job_run(job_schedule_id: int, background_tasks: BackgroundTasks, ses
     if not job:
         raise HTTPException(status_code=404, detail=f"Job schedule {job_schedule_id} not found")
 
+    try:
+        require_task_source_runnable(session, job.task)
+    except ExternalSourceNotRunnable as exc:
+        raise HTTPException(
+            status_code=409,
+            detail={"code": exc.state.runnable_reason.value},
+        ) from exc
+
+    if job.task == "purpleair_import":
+        try:
+            require_paid_provider_authorization(
+                session,
+                "PurpleAir",
+                explicit_manual_authorization=allow_paid_api,
+            )
+        except ProviderSafetyDenied as exc:
+            raise HTTPException(status_code=403, detail=exc.as_detail()) from exc
+
                    
     if not job.allow_overlap:
         active = session.execute(text("SELECT count(1) FROM job_run WHERE job_schedule_id=:sid AND status='running'"), {"sid": job_schedule_id}).scalar()
@@ -92,11 +108,23 @@ def trigger_job_run(job_schedule_id: int, background_tasks: BackgroundTasks, ses
             raise HTTPException(status_code=409, detail="A run is already in progress for this schedule")
 
     from datetime import datetime, timezone
-    jr = JobRun(job_schedule_id=job_schedule_id, status="running", started_at=datetime.now(timezone.utc))
+    jr = JobRun(
+        job_schedule_id=job_schedule_id,
+        status="running",
+        execution_trigger=JobExecutionTrigger.MANUAL.value,
+        started_at=datetime.now(timezone.utc),
+    )
     session.add(jr)
     session.commit()
 
-    background_tasks.add_task(_background_run_job, job_schedule_id, jr.job_run_id)
+    background_tasks.add_task(
+        _background_run_job,
+        job_schedule_id,
+        jr.job_run_id,
+        job.task,
+        job.params,
+        allow_paid_api,
+    )
     return JobRunTriggerOut(job_run_id=jr.job_run_id, status="running")
 
 
@@ -150,25 +178,40 @@ class JobRunWithTaskOut(BaseModel):
     error_message: Optional[str]
 
 
-@router.get("/jobs/runs", response_model=List[JobRunWithTaskOut])
+@router.get("/jobs/runs", response_model=List[JobRunWithTaskOut] | HistoryPage[JobRunWithTaskOut])
 def list_all_job_runs(
     limit: int = Query(100, ge=1, le=500),
-    status: Optional[str] = Query(None, description="Filter by status: running, success, failed, skipped, timeout"),
+    status: Optional[str] = Query(None, description="Filter by status: running, success, failed, skipped, timeout, interrupted"),
     task: Optional[str] = Query(None, description="Filter by task name"),
+    offset: Annotated[int, Query(ge=0)] = 0,
+    started_after: datetime | None = None,
+    started_before: datetime | None = None,
+    paginated: bool = False,
     session: Session = Depends(get_session)
 ):
     """List all job runs across all schedules, most recent first."""
+    started_after, started_before = history_bounds(started_after, started_before)
     try:
         stmt = (
             select(JobRun, JobSchedule.task)
             .join(JobSchedule, JobSchedule.job_schedule_id == JobRun.job_schedule_id)
-            .order_by(JobRun.started_at.desc())
+            .order_by(JobRun.started_at.desc(), JobRun.job_run_id.desc())
         )
         if status:
             stmt = stmt.where(JobRun.status == status)
         if task:
             stmt = stmt.where(JobSchedule.task == task)
-        stmt = stmt.limit(limit)
+        if started_after:
+            stmt = stmt.where(JobRun.started_at >= started_after)
+        if started_before:
+            stmt = stmt.where(JobRun.started_at < started_before)
+        total = 0
+        options = {}
+        if paginated:
+            total = session.scalar(select(func.count()).select_from(stmt.order_by(None).subquery())) or 0
+            options["status"] = list(session.scalars(select(JobRun.status).distinct().order_by(JobRun.status)).all())
+            options["task"] = list(session.scalars(select(JobSchedule.task).distinct().order_by(JobSchedule.task)).all())
+        stmt = stmt.offset(offset).limit(limit)
 
         rows = session.execute(stmt).all()
         out: List[JobRunWithTaskOut] = []
@@ -189,7 +232,7 @@ def list_all_job_runs(
                     error_message=jr.error_message,
                 )
             )
-        return out
+        return HistoryPage(items=out, total=total, options=options) if paginated else out
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
 
@@ -231,11 +274,20 @@ class JobScheduleParamsIn(BaseModel):
     params: dict
 
 
+def _reject_schedule_credentials(params: dict | None) -> None:
+    if params and "api_key" in params:
+        raise HTTPException(
+            status_code=400,
+            detail="Store provider credentials on the data source, not in schedule params.",
+        )
+
+
 @router.put("/jobs/schedules/{job_schedule_id}/params", response_model=JobScheduleOut)
 def update_schedule_params(job_schedule_id: int, payload: JobScheduleParamsIn, session: Session = Depends(get_session)):
     job = session.get(JobSchedule, job_schedule_id)
     if not job:
         raise HTTPException(status_code=404, detail=f"Job schedule {job_schedule_id} not found")
+    _reject_schedule_credentials(payload.params)
     try:
         job.params = payload.params
         session.add(job)
@@ -262,11 +314,32 @@ class JobScheduleUpdateIn(BaseModel):
     params: Optional[dict] = None
 
 
+@router.get("/jobs/schedule-preview")
+def preview_schedule(cron_expr: str = Query(max_length=64)):
+    """Preview the same UTC cron evaluation used by the importer scheduler."""
+    try:
+        iterator = croniter(cron_expr.strip(), datetime.now(timezone.utc))
+        next_runs = []
+        for _ in range(3):
+            try:
+                next_runs.append(iterator.get_next(datetime))
+            except CroniterBadDateError:
+                # A valid expression can have fewer than three future matches,
+                # for example a schedule restricted to a particular year.
+                break
+        return {"valid": True, "next_runs": next_runs}
+    except (ValueError, KeyError, OverflowError):
+        return {"valid": False, "next_runs": []}
+
+
 @router.put("/jobs/schedules/{job_schedule_id}", response_model=JobScheduleOut)
 def update_schedule(job_schedule_id: int, payload: JobScheduleUpdateIn, session: Session = Depends(get_session)):
     job = session.get(JobSchedule, job_schedule_id)
     if not job:
         raise HTTPException(status_code=404, detail=f"Job schedule {job_schedule_id} not found")
+    _reject_schedule_credentials(payload.params)
+    if payload.cron_expr is not None and not preview_schedule(payload.cron_expr)["valid"]:
+        raise HTTPException(status_code=422, detail={"error_code": "invalid_cron"})
     try:
         if payload.cron_expr is not None:
             job.cron_expr = payload.cron_expr.strip()

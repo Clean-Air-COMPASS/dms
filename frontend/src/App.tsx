@@ -1,8 +1,16 @@
+import { Trans, useTranslation } from 'react-i18next';
 
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { Routes, Route, Navigate, Link, useLocation } from 'react-router-dom';
 import MapLibreMap from './MapLibreMap';
-import AdminQCRules from './AdminQCRules';
+import MapSurface from './components/MapSurface';
+import { useNarrowMap } from './useNarrowMap';
+import AdminQcOverview from './qc/AdminQcOverview';
+import AdminQcParameterDetail from './qc/AdminQcParameterDetail';
+import AdminQcSourcePolicy from './qc/AdminQcSourcePolicy';
+import AdminQcExtensions from './qc/AdminQcExtensions';
+import AdminQcSensorSearch from './qc/AdminQcSensorSearch';
+import AdminQcSensorPolicy from './qc/AdminQcSensorPolicy';
 import AdminSourcesList from './AdminSourcesList';
 import AdminSourceDetail from './AdminSourceDetail';
 import AdminEventLog from './AdminEventLog';
@@ -10,126 +18,249 @@ import AdminDevicesList from './AdminDevicesList';
 import AdminDeviceEditor from './AdminDeviceEditor';
 import AdminDeviceNew from './AdminDeviceNew';
 import AdminDeviceNewOpenAQ from './AdminDeviceNewOpenAQ';
+import AdminDeviceNewAirGradient from './AdminDeviceNewAirGradient';
 import AdminUsersList from './AdminUsersList';
 import AdminUserDetail from './AdminUserDetail';
 import AdminUserNew from './AdminUserNew';
 import AdminHome from './AdminHome';
 import AdminCsvUpload from './AdminCsvUpload';
 import AdminSystemPreferences from './AdminSystemPreferences';
+import AdminEmail from './email/AdminEmail';
 import { fetchJson, listPublicDataSources, type PublicDataSource } from './api';
 import Analytics from './Analytics';
 import LoadingSplash from './LoadingSplash';
-import DateTimeRangePicker from './components/DateTimeRangePicker';
 import QuickDownload from './components/QuickDownload';
 import LandingPage from './LandingPage';
 import LocationSearch from './LocationSearch';
 import LoginPage from './LoginPage';
+import ResetPasswordPage from './ResetPasswordPage';
+import MyAccount from './account/MyAccount';
 import UserMenu from './components/UserMenu';
-import { RequireAuth, RequireScope } from './auth';
+import { RequireAuth, RequireScope, useAuth } from './auth';
+import { getAggregationDisplayLabel } from './aqi';
+import { getParameterDisplayName } from './parameterPresentation';
 import SetupWizard from './SetupWizard';
+import StartupStatus from './StartupStatus';
 import { API_BASE } from './apiBase';
+import i18n, {
+  normalizeBrowserLanguage,
+  readAnonymousLanguagePreference,
+  resolveAnonymousLanguage,
+  isSupportedLanguageCode,
+  type SupportedLanguageCode,
+} from './i18n';
+import {
+  findAirQualityIndexStandard,
+  listAirQualityIndexStandards,
+  type AirQualityIndexProductMetadata,
+  type AirQualityIndexStandardMetadata,
+  type MapDisplayMode,
+} from './airQualityIndex';
+import {
+  EEA_EUROPEAN_STANDARD_CODE,
+  getAirQualityIndexProductLabel,
+  getAirQualityIndexStandardLabel,
+} from './airQualityIndexPresentation';
+import {
+  createRequestedMapSelection,
+  findAirQualityIndexProduct,
+  findStandardForProduct,
+  listValidAggregationPeriods,
+  normalizeSelectedDataProduct,
+  type MapSelectionMetadata,
+  type RequestedMapSelection,
+  type SelectedDataProduct,
+} from './mapLayerSelection';
+import { readMapViewport, withoutMapQueryState, type MapViewport } from './mapUrlState';
+import type { MeasurementAggregationCapability } from './measurementAggregations';
+
+const US_EPA_STANDARD_CODE = 'us_epa';
+const PHILIPPINES_DENR_STANDARD_CODE = 'philippines_denr';
+const READINESS_RETRY_DELAYS_MS = [1000, 2000, 4000, 5000] as const;
+const READINESS_FAILURE_AFTER_MS = 20_000;
+const STARTUP_REQUEST_TIMEOUT_MS = 8000;
+
+
+async function fetchStartupResponse(path: string): Promise<Response> {
+  const abortController = new AbortController();
+  const timeout = window.setTimeout(
+    () => abortController.abort(),
+    STARTUP_REQUEST_TIMEOUT_MS,
+  );
+  try {
+    return await fetch(`${API_BASE}${path}`, { signal: abortController.signal });
+  } finally {
+    window.clearTimeout(timeout);
+  }
+}
 
 
 function App() {
+  const narrowMap = useNarrowMap();
+  const [mapFiltersExpanded, setMapFiltersExpanded] = useState(false);
+  const mapToolbarRef = useRef<HTMLDivElement>(null);
+  useTranslation();
+  const { isAuthenticated, isLoading: authLoading } = useAuth();
   const location = useLocation();
+  const mapSearch = location.pathname === '/map' ? location.search : '';
+  const lastMapViewportRef = useRef<MapViewport | null>(null);
+  const rememberMapViewport = useCallback((viewport: MapViewport) => {
+    lastMapViewportRef.current = viewport;
+  }, []);
+  const [hydratedMapLocation, setHydratedMapLocation] = useState<typeof location | null>(null);
+  const [initialSelectionRequest] = useState<RequestedMapSelection>(() => (
+    createRequestedMapSelection(mapSearch)
+  ));
 
   
   const [isCheckingSetup, setIsCheckingSetup] = useState<boolean>(true);
+  const [hasPersistentStartupFailure, setHasPersistentStartupFailure] = useState<boolean>(false);
+  const [startupRetryKey, setStartupRetryKey] = useState<number>(0);
   const [isSetupRequired, setIsSetupRequired] = useState<boolean>(false);
+  const [hasSetupUsers, setHasSetupUsers] = useState<boolean>(false);
+  const [setupDefaultLanguageCode, setSetupDefaultLanguageCode] = useState<SupportedLanguageCode | null>(null);
 
   type ParamItem = { code: string; display_name: string; unit_symbol?: string | null };
   const [parameters, setParameters] = useState<ParamItem[]>([]);
   type ResolutionItem = { code: string; display_name: string };
   const [resolutions, setResolutions] = useState<ResolutionItem[]>([]);
   const [publicDataSources, setPublicDataSources] = useState<PublicDataSource[]>([]);
-  type AggregationRuleItem = {
-    parameter_code: string;
-    aggregation_code: string;
-    rounding_method?: string | null;
-    rounding_precision?: number | null;
-    truncation_method?: string | null;
-    truncation_precision?: number | null;
-  };
-  const [aggregationRules, setAggregationRules] = useState<AggregationRuleItem[]>([]);
-  
-  type AggregationRollup = {
-    parameter_code: string;
-    from_period_code: string;
-    from_period_display: string;
-    to_period_code: string;
-    to_period_display: string;
-  };
-  const [aggregationRollups, setAggregationRollups] = useState<AggregationRollup[]>([]);
-  const [timeResolution, setTimeResolution] = useState<string>(() => {
-    const sp = new URLSearchParams(window.location.search);
-    return (sp.get('time_resolution') || '') as string;
-  });
-  
+  const [airQualityIndexStandards, setAirQualityIndexStandards] = useState<AirQualityIndexStandardMetadata[]>([]);
+  const [airQualityIndexStandardsError, setAirQualityIndexStandardsError] = useState<string | null>(null);
+  const [measurementAggregationCapabilities, setMeasurementAggregationCapabilities] = useState<MeasurementAggregationCapability[]>([]);
+  const loadedCapabilitySourceRef = useRef<string | null>(null);
   const [sourceFilter, setSourceFilter] = useState<string>(() => {
-    const sp = new URLSearchParams(window.location.search);
-    return sp.get('source') || '';
+    const sp = new URLSearchParams(mapSearch);
+    return (sp.get('source') || '').trim().toLowerCase();
   });
+  const initialSourceFilterRef = useRef(sourceFilter);
   const [initialLoading, setInitialLoading] = useState<boolean>(true);
   const [initialError, setInitialError] = useState<string | null>(null);
   const [initialKey, setInitialKey] = useState<number>(0);
-  const [parameter, setParameter] = useState<string>('');
-  const [mode, setMode] = useState<'pollutants' | 'devices'>(() => {
-    const sp = new URLSearchParams(window.location.search);
-    const m = (sp.get('mode') || '').toLowerCase();
-    return m === 'pollutants' ? 'pollutants' : 'devices';
+  const [selection, setSelection] = useState<SelectedDataProduct>({
+    layer: initialSelectionRequest.layer,
+    parameter_code: initialSelectionRequest.parameter_code,
+    aggregation_period: initialSelectionRequest.aggregation_period,
+    air_quality_index_product_code: initialSelectionRequest.air_quality_index_product_code,
   });
-  const [fitTrigger, setFitTrigger] = useState<number>(0);
+  const [selectionUnavailableReason, setSelectionUnavailableReason] = useState<string | null>(null);
   const [resetTrigger, setResetTrigger] = useState<number>(0);
   
   const [disableAutoFit, setDisableAutoFit] = useState<boolean>(false);
   
   const [flyToCoords, setFlyToCoords] = useState<{ lat: number; lng: number; zoom: number } | null>(null);
-  const [recency, setRecency] = useState<'all' | '24h' | '1h' | 'custom'>(() => {
-    const sp = new URLSearchParams(window.location.search);
-    const r = (sp.get('recency') || '').toLowerCase();
-    
-    return r === 'custom' ? 'custom' : r === '1h' ? '1h' : r === '24h' ? '24h' : '24h';
-  });
-  
-  const [customStart, setCustomStart] = useState<string | ''>(() => {
-    const sp = new URLSearchParams(window.location.search);
-    
-    return (sp.get('start') || sp.get('time_start') || '') as string;
-  });
-  const [customEnd, setCustomEnd] = useState<string | ''>(() => {
-    const sp = new URLSearchParams(window.location.search);
-    return (sp.get('until') || sp.get('time_end') || '') as string;
-  });
-  const [useCustomRange, setUseCustomRange] = useState<boolean>(() => {
-    const sp = new URLSearchParams(window.location.search);
-    return !!(sp.get('start') || sp.get('until') || sp.get('time_start') || sp.get('time_end'));
-  });
-  const [showRangePicker, setShowRangePicker] = useState<boolean>(false);
+  useEffect(() => {
+    if (location.pathname !== '/map') {
+      // A completed search is not a new navigation target on return from Analytics.
+      setFlyToCoords(null);
+      setDisableAutoFit(false);
+    }
+  }, [location.pathname]);
+  const selectionMetadata: MapSelectionMetadata = {
+    parameters,
+    measurement_aggregation_capabilities: measurementAggregationCapabilities,
+    air_quality_index_standards: airQualityIndexStandards,
+  };
+  const selectedAirQualityIndexProduct = findAirQualityIndexProduct(
+    airQualityIndexStandards,
+    selection.air_quality_index_product_code,
+  );
+  const selectedAirQualityIndexStandard = selectedAirQualityIndexProduct
+    ? findStandardForProduct(
+        airQualityIndexStandards,
+        selectedAirQualityIndexProduct.product_code,
+      )
+    : null;
+  const parameter = selection.parameter_code;
+  const timeResolution = selection.aggregation_period;
+  const mode: 'pollutants' | 'devices' = selection.layer === 'devices'
+    ? 'devices'
+    : 'pollutants';
+  const displayMode: MapDisplayMode = selection.layer !== 'aqi'
+    ? 'measurements'
+    : selectedAirQualityIndexStandard?.standard_code === EEA_EUROPEAN_STANDARD_CODE
+      ? 'eea_european'
+      : selectedAirQualityIndexStandard?.standard_code === PHILIPPINES_DENR_STANDARD_CODE
+        ? 'philippines_denr'
+      : 'us_epa';
+
+  const applySelection = (requestedSelection: RequestedMapSelection) => {
+    const normalized = normalizeSelectedDataProduct(requestedSelection, selectionMetadata);
+    setSelection(normalized.selection);
+    setSelectionUnavailableReason(normalized.unavailable_reason);
+  };
   
 
   
   useEffect(() => {
     let cancelled = false;
-    (async () => {
+    let retryTimeout: number | undefined;
+    const startedAt = Date.now();
+    let retryCount = 0;
+
+    async function checkReadinessAndSetup() {
       try {
-        const resp = await fetch(`${API_BASE}/setup/status`);
-        if (resp.ok) {
-          const data = await resp.json();
-          if (!cancelled) {
-            setIsSetupRequired(data.is_setup_required === true);
-          }
+        const readinessResponse = await fetchStartupResponse('/health/readiness');
+        const readiness = readinessResponse.ok ? await readinessResponse.json() : null;
+        if (!readinessResponse.ok || readiness?.status !== 'ready') {
+          throw new Error('core_system_not_ready');
         }
+
+        const setupResponse = await fetchStartupResponse('/setup/status');
+        const setupStatus = setupResponse.ok ? await setupResponse.json() : null;
+        if (
+          !setupResponse.ok
+          || typeof setupStatus?.is_setup_required !== 'boolean'
+          || typeof setupStatus?.has_users !== 'boolean'
+        ) {
+          throw new Error('setup_status_unavailable');
+        }
+
+        if (cancelled) return;
+        setIsSetupRequired(setupStatus.is_setup_required);
+        setHasSetupUsers(setupStatus.has_users);
+        setSetupDefaultLanguageCode(
+          isSupportedLanguageCode(setupStatus.default_language_code)
+            ? setupStatus.default_language_code
+            : null,
+        );
+        setHasPersistentStartupFailure(false);
+        setIsCheckingSetup(false);
       } catch {
-        // If we can't check setup status, assume setup is not required
-        // (API might not be running yet, or setup endpoint doesn't exist)
-      } finally {
-        if (!cancelled) {
-          setIsCheckingSetup(false);
+        if (cancelled) return;
+        if (Date.now() - startedAt >= READINESS_FAILURE_AFTER_MS) {
+          setHasPersistentStartupFailure(true);
+          return;
         }
+
+        const retryDelay = READINESS_RETRY_DELAYS_MS[
+          Math.min(retryCount, READINESS_RETRY_DELAYS_MS.length - 1)
+        ];
+        retryCount += 1;
+        retryTimeout = window.setTimeout(checkReadinessAndSetup, retryDelay);
       }
-    })();
-    return () => { cancelled = true; };
-  }, []);
+    }
+
+    void checkReadinessAndSetup();
+    return () => {
+      cancelled = true;
+      if (retryTimeout !== undefined) window.clearTimeout(retryTimeout);
+    };
+  }, [startupRetryKey]);
+
+  useEffect(() => {
+    if (isCheckingSetup || authLoading || isAuthenticated) return;
+    void i18n.changeLanguage(resolveAnonymousLanguage(
+      readAnonymousLanguagePreference(window.localStorage),
+      setupDefaultLanguageCode,
+      normalizeBrowserLanguage(window.navigator.language),
+    ));
+  }, [authLoading, isAuthenticated, isCheckingSetup, setupDefaultLanguageCode]);
+
+  const retryStartup = () => {
+    setHasPersistentStartupFailure(false);
+    setStartupRetryKey((currentKey) => currentKey + 1);
+  };
 
   
   const handleSetupComplete = () => {
@@ -156,57 +287,56 @@ function App() {
       setInitialLoading(true);
       setInitialError(null);
       try {
-        const [items, version, aggs, rules, rollups, sources] = await Promise.all([
+        const initialCapabilitySource = initialSourceFilterRef.current;
+        const capabilityQuery = initialCapabilitySource
+          ? `?source=${encodeURIComponent(initialCapabilitySource)}`
+          : '';
+        const [items, version, capabilities, sources] = await Promise.all([
           fetchJson<ParamItem[]>('/parameters'),
           fetchJson<Record<string, any>>('/version'),
-          fetchJson<{ code: string; display_name: string }[]>('/aggregation_periods'),
-          fetchJson<AggregationRuleItem[]>('/parameter_aggregation_rules'),
-          fetchJson<AggregationRollup[]>('/aggregation_rollups'),
+          fetchJson<MeasurementAggregationCapability[]>(`/measurement-aggregation-capabilities${capabilityQuery}`),
           listPublicDataSources({ skipCache: true }),
         ]);
 
         if (cancelled) return;
         setParameters(items || []);
         
-        setResolutions(aggs || []);
-        setAggregationRules(rules || []);
-        setAggregationRollups(rollups || []);
+        setMeasurementAggregationCapabilities(capabilities || []);
+        loadedCapabilitySourceRef.current = initialCapabilitySource;
+        const capabilityPeriods = new Map<string, ResolutionItem>();
+        (capabilities || []).forEach((capability) => capability.supported_aggregations.forEach((option) => {
+          capabilityPeriods.set(option.result_aggregation_code, {
+            code: option.result_aggregation_code,
+            display_name: option.display_name,
+          });
+        }));
+        setResolutions([...capabilityPeriods.values()]);
         setPublicDataSources(sources || []);
 
-        
-        const sp = new URLSearchParams(window.location.search);
-        const urlParam = (sp.get('parameter') || '').toLowerCase();
-        const urlMode = (sp.get('mode') || '').toLowerCase();
-        const preferred = urlParam && items.find((p) => p.code.toLowerCase() === urlParam);
-        
-        if (!sp.get('parameter') && !sp.get('sensor_id')) {
-          if (urlMode === 'devices') {
-            setParameter(preferred ? preferred.code : '');
-          } else {
-            if (preferred) {
-              setParameter(preferred.code);
-            } else {
-              const pm25 = items.find((p) => p.code.toLowerCase() === 'pm25');
-              setParameter(pm25 ? pm25.code : (items[0]?.code ?? ''));
-            }
+        let loadedStandards: AirQualityIndexStandardMetadata[] = [];
+        try {
+          loadedStandards = await listAirQualityIndexStandards();
+          if (!cancelled) {
+            setAirQualityIndexStandards(loadedStandards);
+            setAirQualityIndexStandardsError(null);
+          }
+        } catch (standardsError: any) {
+          if (!cancelled) {
+            setAirQualityIndexStandards([]);
+            setAirQualityIndexStandardsError(String(standardsError?.message || standardsError));
           }
         }
 
+        const normalizedSelection = normalizeSelectedDataProduct(initialSelectionRequest, {
+          parameters: items || [],
+          measurement_aggregation_capabilities: capabilities || [],
+          air_quality_index_standards: loadedStandards,
+        });
+        setSelection(normalizedSelection.selection);
+        setSelectionUnavailableReason(normalizedSelection.unavailable_reason);
+
         
         void version;
-        
-        if (!sp.get('time_resolution')) {
-          setTimeResolution('');
-        }
-        
-        const start = (sp.get('start') || sp.get('time_start') || '').trim();
-        const end = (sp.get('until') || sp.get('time_end') || '').trim();
-        if (start) setCustomStart(start);
-        if (end) setCustomEnd(end);
-        if (start || end) {
-          setUseCustomRange(true);
-          setRecency('custom');
-        }
       } catch (e: any) {
         if (!cancelled) setInitialError(String(e?.message || e));
       } finally {
@@ -214,107 +344,173 @@ function App() {
       }
     })();
     return () => { cancelled = true; };
-  // Re-run orchestrator when mode/parameter or retry key changes, or when setup completes.
-  }, [initialKey, setAggregationRollups, isCheckingSetup, isSetupRequired]);
-
-  
-  useEffect(() => {
-    if (location.pathname === '/') {
-      document.title = 'AQ Data Platform – Clean Air COMPASS';
-    } else if (location.pathname.startsWith('/admin')) {
-      document.title = 'AQ Platform – Admin';
-    } else if (location.pathname.startsWith('/analytics')) {
-      document.title = 'AQ Platform – Analytics';
-    } else if (location.pathname.startsWith('/map')) {
-      if (mode === 'devices') {
-        document.title = 'AQ Platform – Devices Map';
-      } else if (parameter) {
-        document.title = `AQ Platform – ${parameter.toUpperCase()} Map`;
-      } else {
-        document.title = 'AQ Platform – Map';
-      }
-    } else if (mode === 'devices') {
-      document.title = 'AQ Platform – Devices';
-    } else if (parameter) {
-      document.title = `AQ Platform – Latest ${parameter.toUpperCase()}`;
-    } else {
-      document.title = 'AQ Platform – Measurements';
-    }
-    
-    const sp = new URLSearchParams(window.location.search);
-    sp.set('mode', mode);
-    if (parameter) sp.set('parameter', parameter); else sp.delete('parameter');
-    if (sourceFilter) sp.set('source', sourceFilter); else sp.delete('source');
-    sp.set('recency', recency);
-    if (timeResolution) sp.set('time_resolution', timeResolution); else sp.delete('time_resolution');
-    if (useCustomRange && customStart) sp.set('start', customStart); else sp.delete('start');
-    if (useCustomRange && customEnd) sp.set('until', customEnd); else sp.delete('until');
-    const qs = sp.toString();
-    const url = qs ? `?${qs}` : window.location.pathname;
-    window.history.replaceState(null, '', url);
-  }, [parameter, mode, sourceFilter, recency, location.pathname, timeResolution, customStart, customEnd, useCustomRange]);
-
-  
-  useEffect(() => {
-    const sp = new URLSearchParams(window.location.search);
-    if (parameter) sp.set('parameter', parameter); else sp.delete('parameter');
-    sp.set('mode', mode);
-    if (sourceFilter) sp.set('source', sourceFilter); else sp.delete('source');
-    sp.set('recency', recency);
-    if (timeResolution) sp.set('time_resolution', timeResolution); else sp.delete('time_resolution');
-    if (useCustomRange && customStart) sp.set('start', customStart); else sp.delete('start');
-    if (useCustomRange && customEnd) sp.set('until', customEnd); else sp.delete('until');
-    const qs = sp.toString();
-    const url = qs ? `?${qs}` : window.location.pathname;
-    window.history.replaceState(null, '', url);
-    
-    setFitTrigger((x) => x + 1);
-  }, [parameter, mode, sourceFilter, recency, timeResolution, customStart, customEnd, useCustomRange]);
-
-  
-  
-  
-  const visibleResolutions = ((): { code: string; display_name: string }[] => {
-    if (!parameter) return resolutions;
-    const paramCode = parameter.toString().toLowerCase();
-    const codes = new Set<string>();
-    for (const r of aggregationRules) {
-      if (!r || !r.parameter_code || !r.aggregation_code) continue;
-      if (r.parameter_code.toLowerCase() === paramCode) codes.add(r.aggregation_code.toString().toLowerCase());
-    }
-    
-    for (const rollup of aggregationRollups) {
-      if (!rollup || !rollup.parameter_code || !rollup.to_period_code) continue;
-      if (rollup.parameter_code.toLowerCase() === paramCode) {
-        codes.add(rollup.to_period_code.toLowerCase());
-      }
-    }
-    
-    if (codes.size === 0) return resolutions;
-    const filtered = resolutions.filter((res) => codes.has((res.code || '').toString().toLowerCase()));
-    return filtered.length > 0 ? filtered : resolutions;
-  })();
+  }, [initialKey, initialSelectionRequest, isCheckingSetup, isSetupRequired]);
 
   useEffect(() => {
     if (initialLoading) return;
-    if (!timeResolution) return; 
-    const found = visibleResolutions.find((r) => (r.code || '').toString() === timeResolution);
-    if (!found) {
-      
-      
-      setTimeResolution(visibleResolutions[0]?.code ?? '');
+    if (loadedCapabilitySourceRef.current === sourceFilter) return;
+    let cancelled = false;
+    const query = sourceFilter ? `?source=${encodeURIComponent(sourceFilter)}` : '';
+    fetchJson<MeasurementAggregationCapability[]>(`/measurement-aggregation-capabilities${query}`, { skipCache: true })
+      .then((capabilities) => {
+        if (!cancelled) {
+          setMeasurementAggregationCapabilities(capabilities || []);
+          loadedCapabilitySourceRef.current = sourceFilter;
+        }
+      })
+      .catch(() => {
+        if (!cancelled) setMeasurementAggregationCapabilities([]);
+      });
+    return () => { cancelled = true; };
+  }, [initialLoading, sourceFilter]);
+
+  
+  useEffect(() => {
+    // Keep the first-run setup URL clean until setup status is known and complete.
+    if (isCheckingSetup || isSetupRequired) return;
+
+    if (location.pathname === '/') {
+      document.title = i18n.t('map:app.documentTitles.aqDataPlatformCleanAirCompass');
+    } else if (location.pathname === '/account') {
+      document.title = i18n.t('auth:account.title');
+    } else if (location.pathname.startsWith('/admin')) {
+      document.title = i18n.t('map:app.documentTitles.aqPlatformAdmin');
+    } else if (location.pathname.startsWith('/analytics')) {
+      document.title = i18n.t('map:app.documentTitles.aqPlatformAnalytics');
+    } else if (location.pathname.startsWith('/map')) {
+      if (displayMode === 'eea_european') {
+        document.title = i18n.t('map:app.documentTitles.aqPlatformEuropeanAirQualityIndex');
+      } else if (mode === 'devices') {
+        document.title = i18n.t('map:app.documentTitles.aqPlatformDevicesMap');
+      } else if (parameter) {
+        document.title = i18n.t('map:app.documentTitles.parameterMap', { parameter: parameter.toUpperCase() });
+      } else {
+        document.title = i18n.t('map:app.documentTitles.aqPlatformMap');
+      }
+    } else if (mode === 'devices') {
+      document.title = i18n.t('map:app.documentTitles.aqPlatformDevices');
+    } else if (parameter) {
+      document.title = i18n.t('map:app.documentTitles.latestParameter', { parameter: parameter.toUpperCase() });
+    } else {
+      document.title = i18n.t('map:app.documentTitles.aqPlatformMeasurements');
     }
-  }, [visibleResolutions, timeResolution, initialLoading]);
+    
+  }, [location.pathname, displayMode, mode, parameter, isCheckingSetup, isSetupRequired]);
+
+  // Home owns no Map query state. Preserve unrelated query keys and the hash.
+  useEffect(() => {
+    if (location.pathname !== '/') return;
+    const search = withoutMapQueryState(location.search);
+    if (search !== location.search) {
+      window.history.replaceState(window.history.state, '', `/${search}${location.hash}`);
+    }
+  }, [location.pathname, location.search, location.hash]);
+
+  // Read each router navigation (including Back/Forward) before writing controls.
+  useEffect(() => {
+    if (location.pathname !== '/map' || initialLoading || initialError
+      || hydratedMapLocation === location) return;
+    const requested = createRequestedMapSelection(location.search);
+    const normalized = normalizeSelectedDataProduct(requested, {
+      parameters,
+      measurement_aggregation_capabilities: measurementAggregationCapabilities,
+      air_quality_index_standards: airQualityIndexStandards,
+    });
+    setSelection(normalized.selection);
+    setSelectionUnavailableReason(normalized.unavailable_reason);
+    const sp = new URLSearchParams(location.search);
+    setSourceFilter((sp.get('source') || '').trim().toLowerCase());
+    setHydratedMapLocation(location);
+  }, [location, hydratedMapLocation, initialLoading, initialError, parameters,
+    measurementAggregationCapabilities, airQualityIndexStandards]);
+
+  useEffect(() => {
+    // Map controls may synchronize only the exact route that owns them.
+    if (location.pathname !== '/map' || window.location.pathname !== '/map'
+      || hydratedMapLocation !== location
+      || isCheckingSetup || isSetupRequired || initialLoading) return;
+    const sp = new URLSearchParams(window.location.search);
+    if (mode !== 'devices') sp.set('mode', mode); else sp.delete('mode');
+    if (displayMode !== 'measurements') sp.set('display_mode', displayMode); else sp.delete('display_mode');
+    if (displayMode === 'eea_european') {
+      sp.set('standard_code', EEA_EUROPEAN_STANDARD_CODE);
+    } else if (displayMode === 'philippines_denr') {
+      sp.set('standard_code', PHILIPPINES_DENR_STANDARD_CODE);
+    } else if (displayMode === 'us_epa') {
+      sp.set('standard_code', US_EPA_STANDARD_CODE);
+    } else {
+      sp.delete('standard_code');
+    }
+    if (parameter) sp.set('parameter', parameter); else sp.delete('parameter');
+    if (sourceFilter) sp.set('source', sourceFilter); else sp.delete('source');
+    for (const key of ['recency', 'start', 'until', 'time_start', 'time_end', 'aggregation']) sp.delete(key);
+    if (selection.layer === 'aqi' && selection.air_quality_index_product_code) {
+      sp.set('product_code', selection.air_quality_index_product_code);
+      sp.delete('time_resolution');
+    } else {
+      sp.delete('product_code');
+      if (selection.layer === 'measurements' && timeResolution) sp.set('time_resolution', timeResolution); else sp.delete('time_resolution');
+    }
+    const qs = sp.toString();
+    const search = qs ? `?${qs}` : '';
+    if (search !== window.location.search) {
+      window.history.replaceState(window.history.state, '', `/map${search}${location.hash}`);
+    }
+  }, [location, hydratedMapLocation, initialLoading, parameter, mode, displayMode, sourceFilter, timeResolution, selection.layer, selection.air_quality_index_product_code, isCheckingSetup, isSetupRequired]);
+
+  
+  const visibleResolutions = listValidAggregationPeriods(selectionMetadata, 'measurements', selection.parameter_code);
+  const airQualityIndexStandardsWithAvailableProducts = airQualityIndexStandards
+    .map((standard) => ({
+      ...standard,
+      products: standard.products.filter((product) => product.availability_status === 'available'),
+    }))
+    .filter((standard) => standard.products.length > 0);
 
   
 
-  const MapPage = () => (
-    <div className="app-root">
+  useEffect(() => {
+    const toolbar = mapToolbarRef.current;
+    if (!toolbar || typeof ResizeObserver === 'undefined') return;
+    const observer = new ResizeObserver(() => {
+      toolbar.parentElement?.style.setProperty('--map-toolbar-bottom', `${toolbar.offsetTop + toolbar.offsetHeight}px`);
+    });
+    observer.observe(toolbar);
+    return () => observer.disconnect();
+  }, [location.pathname, isCheckingSetup, isSetupRequired, initialLoading, initialError]);
+
+  const hasActiveMapControls = selection.layer !== 'devices'
+    || Boolean(selection.parameter_code || selection.aggregation_period || sourceFilter);
+
+  // A nested component function would get a new identity on every toolbar
+  // update and would remount the MapLibre map. Keep the route content as JSX
+  // so React can reconcile the existing map instance.
+  const mapPage = (
+    <div className="app-root map-page">
       
-      <div className="overlay-controls">
-        <Link to="/map" className="overlay-title" style={{ textDecoration: 'none', color: 'inherit' }}>
+      <div className="overlay-controls" ref={mapToolbarRef}>
+        <Link to="/" className="overlay-title" style={{ textDecoration: 'none', color: 'inherit' }}>
           COMPASS
         </Link>
+        {narrowMap && <button type="button" className="btn map-controls-trigger"
+          aria-expanded={mapFiltersExpanded} aria-haspopup="dialog"
+          aria-label={i18n.t('map:app.actions.mapControls')}
+          aria-describedby={hasActiveMapControls ? 'map-controls-active' : undefined}
+          onClick={() => setMapFiltersExpanded(true)}>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" aria-hidden="true">
+            <path d="M4 7h16M4 17h16" /><circle cx="9" cy="7" r="3" fill="white" /><circle cx="15" cy="17" r="3" fill="white" />
+          </svg>
+          {i18n.t('map:app.actions.mapControls')}
+          {hasActiveMapControls && <span id="map-controls-active" className="map-controls-active" role="img" aria-label={i18n.t('map:app.text.activeControls')}>•</span>}
+        </button>}
+        <MapSurface narrow={narrowMap} open={mapFiltersExpanded}
+          onClose={() => { setMapFiltersExpanded(false); }}
+          label={i18n.t('map:app.actions.mapControls')} className="map-controls-surface map-secondary-controls">
+          {narrowMap && <div className="map-controls-heading">
+            <h2>{i18n.t('map:app.actions.mapControls')}</h2>
+            <button type="button" className="close-button" onClick={() => { setMapFiltersExpanded(false); }}
+              aria-label={i18n.t('map:app.actions.closeControls')}>×</button>
+          </div>}
         <LocationSearch
           onLocationSelect={(lat, lng, zoom) => {
             
@@ -322,77 +518,123 @@ function App() {
             setFlyToCoords({ lat, lng, zoom });
           }}
         />
-        <div className="row-flex">
-          <div role="tablist" aria-label="Data layer" className="tablist">
-            <button
-              role="tab"
-              onClick={() => setMode('devices')}
-              className={`tab ${mode === 'devices' ? 'active' : ''}`}
-            >
-              Devices
-            </button>
-            <button
-              role="tab"
-              onClick={() => setMode('pollutants')}
-              className={`tab ${mode === 'pollutants' ? 'active' : ''}`}
-            >
-              Measurements
-            </button>
-          </div>
-        </div>
-        <label className="form-label">
-          <span className="sr-only">Parameter</span>
+        <label className="form-label map-layer-control">
+          <span className="sr-only"><Trans ns="map" i18nKey="app.text.layer" /></span>
           <select
-            aria-label="Parameter"
-            value={parameter}
-            onChange={(e) => setParameter(e.target.value)}
+            aria-label={i18n.t('map:app.accessibility.layer')}
+            value={selection.layer}
+            onChange={(event) => {
+              applySelection({
+                layer: event.target.value as SelectedDataProduct['layer'],
+                parameter_code: '',
+                aggregation_period: '',
+                air_quality_index_product_code: '',
+                standard_code: '',
+              });
+            }}
             className="select-input"
-            disabled={initialLoading}
           >
-            <option value="">All Parameters</option>
-            {parameters.map((p) => (
-              <option key={p.code} value={p.code}>
-                {p.display_name || p.code.toUpperCase()}
-              </option>
-            ))}
+            <option value="devices"><Trans ns="map" i18nKey="app.options.devices" /></option>
+            <option value="measurements"><Trans ns="map" i18nKey="app.options.measurements" /></option>
+            <option value="aqi"><Trans ns="map" i18nKey="app.options.aqi" /></option>
           </select>
+        </label>
+        <label className={`${selection.layer === 'aqi' ? 'form-label aqi-product-control' : 'form-label'} map-parameter-control`}>
+          <span className="sr-only"><Trans ns="map" i18nKey="app.text.parameter" /></span>
+          <select
+            aria-label={selection.layer === 'aqi' ? i18n.t('map:app.text.aqiProduct') : i18n.t('map:app.text.parameter2')}
+            value={selection.layer === 'aqi'
+              ? selection.air_quality_index_product_code
+              : selection.parameter_code}
+            onChange={(event) => {
+              if (selection.layer === 'aqi') {
+                applySelection({
+                  ...selection,
+                  air_quality_index_product_code: event.target.value,
+                  standard_code: '',
+                });
+                return;
+              }
+              applySelection({
+                ...selection,
+                parameter_code: event.target.value,
+                standard_code: '',
+              });
+            }}
+            className="select-input"
+            disabled={initialLoading || (
+              selection.layer === 'aqi' && airQualityIndexStandardsWithAvailableProducts.length === 0
+            )}
+          >
+            {selection.layer === 'devices' && <option value=""><Trans ns="map" i18nKey="app.options.allParameters" /></option>}
+            {selection.layer === 'aqi' && !selection.air_quality_index_product_code && (
+              <option value="" disabled><Trans ns="map" i18nKey="app.options.selectAqiProduct" /></option>
+            )}
+            {selection.layer === 'aqi'
+              ? airQualityIndexStandardsWithAvailableProducts.map((standard) => (
+                  <optgroup key={standard.standard_code} label={getAirQualityIndexStandardLabel(standard.standard_code)}>
+                    {standard.products.map((product: AirQualityIndexProductMetadata) => (
+                      <option key={product.product_code} value={product.product_code}>
+                        {getAirQualityIndexProductLabel(product.product_code)}
+                      </option>
+                    ))}
+                  </optgroup>
+                ))
+              : parameters.map((configuredParameter) => (
+                  <option key={configuredParameter.code} value={configuredParameter.code}>
+                    {getParameterDisplayName(configuredParameter.code, configuredParameter.display_name)}
+                  </option>
+                ))}
+          </select>
+          {selection.layer === 'aqi' && selection.air_quality_index_product_code && (
+            <span className="map-product-label">{getAirQualityIndexProductLabel(selection.air_quality_index_product_code)}</span>
+          )}
           {initialLoading ? (
-            <span className="text-sm text-slate-500 ml-2">Loading parameters…</span>
-          ) : parameters.length === 0 ? (
-            <span className="text-sm text-red-500 ml-2">No parameters</span>
+            <span className="text-sm text-slate-500 ml-2"><Trans ns="map" i18nKey="app.text.loadingParameters" /></span>
+          ) : selection.layer !== 'aqi' && parameters.length === 0 ? (
+            <span className="text-sm text-red-500 ml-2"><Trans ns="map" i18nKey="app.text.noParameters" /></span>
           ) : null}
         </label>
-        <label className="form-label">
-          <span className="sr-only">Time resolution</span>
+        {selection.layer === 'measurements' && <label className="form-label map-time-resolution-control">
+          <span className="sr-only"><Trans ns="map" i18nKey="app.text.timeResolution" /></span>
           <select
-            aria-label="Time resolution"
+            aria-label={i18n.t('map:app.accessibility.timeResolution')}
             value={timeResolution}
-            onChange={(e) => setTimeResolution(e.target.value)}
+            onChange={(event) => applySelection({
+              ...selection,
+              aggregation_period: event.target.value,
+              standard_code: selectedAirQualityIndexStandard?.standard_code || '',
+            })}
             className="select-input"
-            disabled={initialLoading}
+            disabled={initialLoading || visibleResolutions.length === 0}
           >
-            <option value="">All Time Resolutions</option>
+            {<option value=""><Trans ns="map" i18nKey="app.options.allTimeResolutions" /></option>}
             {visibleResolutions.map((r) => (
               <option key={r.code} value={r.code}>{r.display_name}</option>
             ))}
-            
           </select>
           {initialLoading ? (
-            <span className="text-sm text-slate-500 ml-2">Loading…</span>
+            <span className="text-sm text-slate-500 ml-2"><Trans ns="common" i18nKey="states.loading" /></span>
           ) : resolutions.length === 0 ? (
-            <span className="text-sm text-red-500 ml-2">No resolutions</span>
+            <span className="text-sm text-red-500 ml-2"><Trans ns="map" i18nKey="app.text.noResolutions" /></span>
           ) : null}
-        </label>
-        <label className="form-label">
-          <span className="sr-only">Source</span>
+        </label>}
+        {selectionUnavailableReason && (
+          <span className="map-hour-note" role="status">{selectionUnavailableReason}</span>
+        )}
+        {displayMode === 'eea_european' && (
+          <span className="map-hour-note"><Trans ns="map" i18nKey="app.text.latestCompletedUtcHour" /></span>
+        )}
+        <label className="form-label map-source-control">
+          <span className="sr-only"><Trans ns="map" i18nKey="app.text.source" /></span>
           <select
-            aria-label="Data source filter"
+            aria-label={i18n.t('map:app.accessibility.dataSourceFilter')}
             value={sourceFilter}
             onChange={(e) => setSourceFilter(e.target.value)}
             className="select-input"
             disabled={initialLoading}
           >
-            <option value="">All Sources</option>
+            <option value=""><Trans ns="map" i18nKey="app.options.allSources" /></option>
             {publicDataSources.map((source) => (
               <option key={source.filter_value} value={source.filter_value}>
                 {source.name}
@@ -401,115 +643,85 @@ function App() {
           </select>
         </label>
         
-        <div className="form-label" role="group" aria-label="Time window">
-          <label className="sr-only" htmlFor="time-window-select">Time window</label>
-          <select
-            id="time-window-select"
-            aria-label="Time window presets"
-            value={recency}
-            onChange={(e) => {
-              const val = e.target.value as 'all' | '24h' | '1h' | 'custom';
-              setRecency(val);
-              if (val === 'all') {
-                setCustomStart('');
-                setCustomEnd('');
-                setUseCustomRange(false);
-              } else if (val === 'custom') {
-                
-                setUseCustomRange(true);
-                setShowRangePicker(true);
-              } else {
-                const now = new Date();
-                const start = new Date(now.getTime() - (val === '1h' ? 1 : 24) * 60 * 60 * 1000);
-                setCustomStart(start.toISOString());
-                setCustomEnd(now.toISOString());
-                
-                setUseCustomRange(false);
-              }
-            }}
-            className="select-input"
-          >
-            <option value="all">All time</option>
-            <option value="24h">Last 24 hours</option>
-            <option value="1h">Last 1 hour</option>
-            <option value="custom">Custom</option>
-          </select>
-          {useCustomRange && customStart && (
-            <span className="custom-range-summary" aria-live="polite">
-              {new Date(customStart).toLocaleString()} – {customEnd ? new Date(customEnd).toLocaleString() : 'now'}
-            </span>
-          )}
-          <DateTimeRangePicker
-            open={showRangePicker}
-            startIso={customStart}
-            endIso={customEnd}
-            onClose={() => setShowRangePicker(false)}
-            onClear={() => { setCustomStart(''); setCustomEnd(''); setUseCustomRange(false); setShowRangePicker(false); setRecency('24h'); }}
-            onApply={(s, e) => {
-              setCustomStart(s);
-              setCustomEnd(e);
-              setUseCustomRange(true);
-              setRecency('custom');
-              setShowRangePicker(false);
-              setFitTrigger((x) => x + 1);
-            }}
-          />
-        </div>
+        <div className="map-toolbar-actions">
         <button
-          className="btn"
-          aria-label="Open custom date range picker"
-          title="Custom date range"
-          onClick={() => setShowRangePicker((s) => !s)}
-        >📅</button>
-        <button
+          type="button"
           onClick={() => setResetTrigger((x) => x + 1)}
           className="btn"
-          title="Reset view to your location"
+          title={i18n.t('map:app.tooltips.resetViewLocation')}
         >
-          Reset view
-        </button>
+          <Trans ns="map" i18nKey="app.actions.resetView" /></button>
         <QuickDownload
+          mode={selection.layer}
+          standardCode={selectedAirQualityIndexStandard?.standard_code}
+          productCode={selectedAirQualityIndexProduct?.product_code}
+          aqiParameterCode={selectedAirQualityIndexProduct?.parameter_code}
+          source={sourceFilter}
           parameter={parameter}
           aggregation={timeResolution}
-          startIso={(useCustomRange && customStart) ? customStart : null}
-          endIso={(useCustomRange && customEnd) ? customEnd : null}
-          loading={initialLoading}
-          showIcon={false}
+          loading={initialLoading || (selection.layer === 'aqi' && (!selectedAirQualityIndexStandard || !selectedAirQualityIndexProduct))}
+          explanation={i18n.t(selection.layer === 'aqi' ? 'map:app.text.aqiDownloadExplanation' : selection.layer === 'devices' ? 'map:app.text.deviceDownloadExplanation' : 'map:app.text.downloadExplanation', {
+            product: selectedAirQualityIndexProduct ? getAirQualityIndexProductLabel(selectedAirQualityIndexProduct.product_code) : '',
+            parameter: parameter ? getParameterDisplayName(parameter, parameters.find(item => item.code === parameter)?.display_name) : i18n.t('map:app.options.allParameters'),
+            aggregation: timeResolution ? getAggregationDisplayLabel(timeResolution) : i18n.t('map:app.text.nativeResolution'),
+            source: publicDataSources.find(item => item.filter_value === sourceFilter)?.name || sourceFilter || i18n.t('map:app.options.allSources'),
+          })}
         />
-        <Link to="/analytics" className="btn" title="Analytics">Analytics</Link>
-        <Link to="/admin" className="btn" title="Open admin QC rules">Admin</Link>
-        <UserMenu />
+        {displayMode === 'measurements' && <Link to="/analytics" className="btn" title={i18n.t('map:app.tooltips.analytics')}><Trans ns="map" i18nKey="app.actions.analytics" /></Link>}
+        </div>
+        </MapSurface>
+        <div className="map-account-control"><UserMenu /></div>
       </div>
 
       
       <div className="map-wrapper">
         <MapLibreMap
+          controlsOpen={mapFiltersExpanded}
+          onOpenControls={() => setMapFiltersExpanded(true)}
+          initialViewport={readMapViewport(mapSearch) ?? lastMapViewportRef.current}
+          onViewportLeave={rememberMapViewport}
           parameter={parameter}
           mode={mode}
-          fitTrigger={fitTrigger}
+          measurementAggregationCapabilities={measurementAggregationCapabilities}
           resetTrigger={resetTrigger}
           flyToCoords={flyToCoords}
           disableAutoFit={disableAutoFit}
-          recency={recency}
-          timeResolution={timeResolution}
-          aggregationRules={aggregationRules}
-          aggregationRollups={aggregationRollups}
-          customStartIso={(useCustomRange && customStart) ? customStart : null}
-          customEndIso={(useCustomRange && customEnd) ? customEnd : null}
+          timeResolution={selection.layer === 'measurements' ? timeResolution : undefined}
           sourceFilter={sourceFilter}
+          displayMode={displayMode}
+          selectedAirQualityIndexProduct={selectedAirQualityIndexProduct}
+          usEpaStandardMetadata={findAirQualityIndexStandard(airQualityIndexStandards, US_EPA_STANDARD_CODE)}
+          numericStandardMetadata={selectedAirQualityIndexStandard?.result_kind === 'numeric'
+            ? selectedAirQualityIndexStandard
+            : null}
+          europeanStandardMetadata={findAirQualityIndexStandard(airQualityIndexStandards, EEA_EUROPEAN_STANDARD_CODE)}
+          airQualityIndexStandardsError={airQualityIndexStandardsError}
+          initialDeviceId={Number(new URLSearchParams(mapSearch).get('device_id')) || null}
         />
       </div>
     </div>
   );
 
   
-  if (isCheckingSetup) {
-    return <LoadingSplash />;
+  if (location.pathname === '/reset-password') return <ResetPasswordPage />;
+
+  if (isCheckingSetup || authLoading) {
+    return (
+      <StartupStatus
+        persistentFailure={hasPersistentStartupFailure}
+        onRetry={retryStartup}
+      />
+    );
   }
 
   
   if (isSetupRequired) {
-    return <SetupWizard onSetupComplete={handleSetupComplete} />;
+    return (
+      <SetupWizard
+        onSetupComplete={handleSetupComplete}
+        initialAdminCreated={hasSetupUsers}
+      />
+    );
   }
 
   
@@ -519,15 +731,14 @@ function App() {
   if (initialError) {
     return (
       <div className="min-h-screen flex items-center justify-center flex-col gap-4">
-        <div className="text-red-600 font-semibold">Failed to load initial data</div>
+        <div className="text-red-600 font-semibold"><Trans ns="map" i18nKey="app.text.failedLoadInitialData" /></div>
         <div className="text-sm text-slate-600">{initialError}</div>
         <div>
           <button
             onClick={() => { setInitialKey((k) => k + 1); }}
             className="btn"
           >
-            Retry
-          </button>
+            <Trans ns="common" i18nKey="actions.retry" /></button>
         </div>
       </div>
     );
@@ -536,8 +747,9 @@ function App() {
   return (
     <Routes>
       <Route path="/" element={<LandingPage />} />
+      <Route path="/account" element={<RequireAuth><MyAccount /></RequireAuth>} />
       <Route path="/login" element={<LoginPage />} />
-      <Route path="/map" element={<MapPage />} />
+      <Route path="/map" element={mapPage} />
       <Route path="/analytics" element={<Analytics />} />
       <Route path="/admin" element={
         <RequireAuth>
@@ -549,7 +761,49 @@ function App() {
       <Route path="/admin/qc" element={
         <RequireAuth>
           <RequireScope scopes={["users:write"]}>
-            <AdminQCRules />
+            <AdminQcOverview />
+          </RequireScope>
+        </RequireAuth>
+      } />
+      <Route path="/admin/email" element={
+        <RequireAuth>
+          <RequireScope scopes={["users:write"]}>
+            <AdminEmail />
+          </RequireScope>
+        </RequireAuth>
+      } />
+      <Route path="/admin/qc/parameters/:parameterId" element={
+        <RequireAuth>
+          <RequireScope scopes={["users:write"]}>
+            <AdminQcParameterDetail />
+          </RequireScope>
+        </RequireAuth>
+      } />
+      <Route path="/admin/qc/parameters/:parameterId/sources/:externalApiId" element={
+        <RequireAuth>
+          <RequireScope scopes={["users:write"]}>
+            <AdminQcSourcePolicy />
+          </RequireScope>
+        </RequireAuth>
+      } />
+      <Route path="/admin/qc/extensions" element={
+        <RequireAuth>
+          <RequireScope scopes={["users:write"]}>
+            <AdminQcExtensions />
+          </RequireScope>
+        </RequireAuth>
+      } />
+      <Route path="/admin/qc/sensors" element={
+        <RequireAuth>
+          <RequireScope scopes={["users:write"]}>
+            <AdminQcSensorSearch />
+          </RequireScope>
+        </RequireAuth>
+      } />
+      <Route path="/admin/qc/sensors/:sensorId" element={
+        <RequireAuth>
+          <RequireScope scopes={["users:write"]}>
+            <AdminQcSensorPolicy />
           </RequireScope>
         </RequireAuth>
       } />
@@ -571,6 +825,13 @@ function App() {
         <RequireAuth>
           <RequireScope scopes={["users:write"]}>
             <AdminDeviceNewOpenAQ />
+          </RequireScope>
+        </RequireAuth>
+      } />
+      <Route path="/admin/devices/new/airgradient" element={
+        <RequireAuth>
+          <RequireScope scopes={["users:write"]}>
+            <AdminDeviceNewAirGradient />
           </RequireScope>
         </RequireAuth>
       } />

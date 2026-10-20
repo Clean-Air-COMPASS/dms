@@ -2,29 +2,26 @@ from __future__ import annotations
 
 from typing import Optional
 from fastapi import APIRouter, HTTPException, Depends, Query
-from datetime import datetime, timezone
-from sqlalchemy import text, select, func
+from datetime import datetime
+from sqlalchemy import select, func
 from sqlalchemy.orm import Session, aliased
 
-from db import engine, get_session
+from db import get_session
 from models import (
     AggregationPeriod,
     Device,
     ExternalAPI,
-    Measurement,
     Parameter,
-    ParameterAggregationRollup,
-    ParameterAggregationRule,
     Sensor,
     Unit,
 )
-from sqlalchemy import exists as sa_exists, and_
-from services import aqi as aqi_service
-from utils.parameter_aggregation_rule_formatting import (
-    apply_parameter_aggregation_rule,
-    load_parameter_aggregation_rules,
-    resolve_parameter_aggregation_rule,
+from sqlalchemy import or_
+from services.measurement_aggregation import (
+    MeasurementAggregationError,
+    execute_latest_measurements,
+    load_measurement_aggregation_capabilities,
 )
+from services.data_attribution import serialize_device_data_attribution
 
 router = APIRouter()
 MANUAL_SOURCE_LABEL = "Other"
@@ -44,7 +41,13 @@ def _is_other_source_filter(external_api_name: Optional[str]) -> bool:
 def list_public_data_sources(session: Session = Depends(get_session)):
     rows = session.execute(
         select(ExternalAPI.name)
-        .where(ExternalAPI.is_active == True)              
+        .where(or_(
+            ExternalAPI.enabled.is_(True),
+            select(Device.device_id).where(
+                Device.external_api_id == ExternalAPI.external_api_id,
+                Device.manual_data_source_name.is_(None),
+            ).exists(),
+        ))
         .order_by(ExternalAPI.name.asc())
     ).all()
 
@@ -68,24 +71,9 @@ def list_public_data_sources(session: Session = Depends(get_session)):
     return deduped
 
 
-@router.get("/health")
-def health():
-    return {"status": "ok"}
-
-
-@router.get("/version")
-def db_version():
-    try:
-        with engine.connect() as conn:
-            result = conn.execute(text("SELECT version();"))
-            row = result.fetchone()
-            return {"postgres_version": row[0] if row else "unknown"}
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=f"DB error: {e}")
-
-
 @router.get("/devices")
 def list_devices(
+    parameter: Optional[str] = Query(None, description="Restrict to devices with a sensor for this parameter, including sensors without measurements."),
     aggregation: Optional[str] = Query(
         None,
         description=(
@@ -101,7 +89,8 @@ def list_devices(
 ):
     """Return a list of devices with current coordinates.
 
-    Phase 2+: Device.latitude/longitude are authoritative; no history fallback.
+    Device.location is authoritative; coordinates are derived with ST_Y/ST_X.
+    Location history is not a fallback for a missing current point.
     """
     try:
         from sqlalchemy import select as sa_select
@@ -118,55 +107,45 @@ def list_devices(
         normalized_external_api_name = (external_api_name or "").strip().lower() if external_api_name else None
         qualified_devices = None
         if aggregation:
-            if agg_code in aqi_service.AQI_TIME_RESOLUTIONS:
-                allowed_params = [
-                    p for p, tres in aqi_service.POLLUTANT_TIME_RESOLUTIONS.items() if agg_code in tres
-                ]
-                if allowed_params:
-                    qualified_devices = (
-                        sa_select(distinct(Sensor.device_id).label("device_id"))
-                        .join(Parameter, Sensor.parameter_id == Parameter.parameter_id)
-                        .where(Parameter.code.in_(allowed_params))
-                    ).subquery("agg_devices")
-            else:
-                                                                                              
-                                                                                                                       
-                ap_sensor = aliased(AggregationPeriod, name="ap_sensor_devices")
-                ap_to = aliased(AggregationPeriod, name="ap_to_devices")
-
-                rollup_exists = (
-                    sa_select(ParameterAggregationRollup.parameter_aggregation_rollup_id)
-                    .join(ap_to, ap_to.aggregation_period_id == ParameterAggregationRollup.to_aggregation_period_id)
-                    .where(ParameterAggregationRollup.parameter_id == Sensor.parameter_id)
-                    .where(ParameterAggregationRollup.from_aggregation_period_id == Sensor.aggregation_period_id)
-                    .where(ap_to.code == agg_code)
-                    .limit(1)
-                    .exists()
-                )
-
-                rule_exists = (
-                    sa_select(ParameterAggregationRule.parameter_aggregation_rule_id)
-                    .join(
-                        AggregationPeriod,
-                        ParameterAggregationRule.aggregation_period_id == AggregationPeriod.aggregation_period_id,
+            capability_groups = load_measurement_aggregation_capabilities(
+                session, source=normalized_external_api_name
+            )
+            supported_pairs = {
+                (group["parameter_code"], group["native_aggregation_code"])
+                for group in capability_groups
+                if agg_code in {"raw", "latest"}
+                or any(
+                        option["result_aggregation_code"] == agg_code
+                        and option["supports_latest"]
+                        for option in group["supported_aggregations"]
                     )
-                    .where(ParameterAggregationRule.parameter_id == Sensor.parameter_id)
-                    .where(AggregationPeriod.code == agg_code)
-                    .limit(1)
-                    .exists()
+            }
+            ap_sensor = aliased(AggregationPeriod, name="ap_sensor_devices")
+            pair_conditions = [
+                (
+                    (func.lower(Parameter.code) == parameter_code)
+                    & (func.lower(ap_sensor.code) == native_code)
                 )
-
-                qualified_devices = (
-                    sa_select(distinct(Sensor.device_id).label("device_id"))
-                    .join(ap_sensor, ap_sensor.aggregation_period_id == Sensor.aggregation_period_id, isouter=True)
-                    .where(
-                        (
-                            (ap_sensor.code == agg_code)
-                            | rollup_exists
-                            | ((Sensor.aggregation_period_id == None) & rule_exists)
-                        )
-                    )
-                ).subquery("agg_devices")
+                for parameter_code, native_code in sorted(supported_pairs)
+                if native_code is not None
+            ]
+            if agg_code in {"raw", "latest"}:
+                unknown_native_pairs = {
+                    parameter_code
+                    for parameter_code, native_code in supported_pairs
+                    if native_code is None
+                }
+                pair_conditions.extend(
+                    (func.lower(Parameter.code) == parameter_code)
+                    & ap_sensor.code.is_(None)
+                    for parameter_code in sorted(unknown_native_pairs)
+                )
+            qualified_devices = (
+                sa_select(distinct(Sensor.device_id).label("device_id"))
+                .join(Parameter, Parameter.parameter_id == Sensor.parameter_id)
+                .join(ap_sensor, ap_sensor.aggregation_period_id == Sensor.aggregation_period_id, isouter=True)
+                .where(or_(*pair_conditions) if pair_conditions else False)
+            ).subquery("agg_devices")
 
         stmt = (
             sa_select(
@@ -186,7 +165,17 @@ def list_devices(
             if _is_other_source_filter(normalized_external_api_name):
                 stmt = stmt.where(Device.manual_data_source_name.is_not(None))
             else:
-                stmt = stmt.where(func.lower(ExternalAPI.name) == normalized_external_api_name)
+                stmt = stmt.where(
+                    Device.manual_data_source_name.is_(None),
+                    func.lower(ExternalAPI.name) == normalized_external_api_name,
+                )
+        if parameter:
+            parameter_devices = (
+                sa_select(Sensor.device_id)
+                .join(Parameter, Parameter.parameter_id == Sensor.parameter_id)
+                .where(func.lower(Parameter.code) == parameter.strip().lower())
+            )
+            stmt = stmt.where(Device.device_id.in_(parameter_devices))
         if qualified_devices is not None:
             stmt = stmt.join(qualified_devices, qualified_devices.c.device_id == Device.device_id)
 
@@ -203,6 +192,9 @@ def list_devices(
                 "external_id": getattr(row[0], "external_id", None),
                 "sensor_count": row[4],
                 "network": _resolve_public_source_name(row[5], row[6]),
+                "data_attribution": serialize_device_data_attribution(
+                    row[0], _resolve_public_source_name(row[5], row[6])
+                ),
             }
             for row in rows
         ]
@@ -217,6 +209,7 @@ def list_device_sensors(
         None,
         description="ISO8601 UTC. If provided, latest values are computed only from measurements with observed_at >= since.",
     ),
+    until: datetime | None = Query(None, description="ISO8601 UTC upper bound."),
     aggregation: Optional[str] = Query(
         None,
         description="Aggregation period code to restrict sensors to those that support the aggregation (e.g., '1h','8h','24h').",
@@ -230,175 +223,93 @@ def list_device_sensors(
     """
     try:
         from sqlalchemy import select as sa_select
-        from sqlalchemy import or_
-
                                 
         exists = session.execute(sa_select(Device.device_id).where(Device.device_id == device_id)).first()
         if not exists:
             raise HTTPException(status_code=404, detail=f"Device {device_id} not found")
 
-                                                                                                                
-        def build_latest_with_valid():
-            rn_local = func.row_number().over(
-                partition_by=Measurement.sensor_id,
-                order_by=[Measurement.observed_at.desc(), Measurement.measurement_id.desc()],
+        try:
+            latest_rows = execute_latest_measurements(
+                session,
+                result_aggregation_code=aggregation,
+                since=since,
+                until=until,
+                device_id=device_id,
             )
-            sel = sa_select(
-                Measurement.sensor_id.label("sensor_id"),
-                Measurement.value.label("value"),
-                Measurement.observed_at.label("observed_at"),
-                getattr(Measurement, "is_valid").label("is_valid"),
-                rn_local.label("rn"),
-            )
-            if since:
-                cutoff = since if since.tzinfo else since.replace(tzinfo=timezone.utc)
-                sel = sel.where(Measurement.observed_at >= cutoff)
-            return sel.subquery("latest")
+        except MeasurementAggregationError as exc:
+            raise HTTPException(
+                status_code=400,
+                detail={"reason": exc.reason, "message": str(exc)},
+            ) from exc
 
-        def build_latest_without_valid():
-            rn_local = func.row_number().over(
-                partition_by=Measurement.sensor_id,
-                order_by=[Measurement.observed_at.desc(), Measurement.measurement_id.desc()],
-            )
-            sel = sa_select(
-                Measurement.sensor_id.label("sensor_id"),
-                Measurement.value.label("value"),
-                Measurement.observed_at.label("observed_at"),
-                rn_local.label("rn"),
-            )
-            if since:
-                cutoff = since if since.tzinfo else since.replace(tzinfo=timezone.utc)
-                sel = sel.where(Measurement.observed_at >= cutoff)
-            return sel.subquery("latest")
-
-                                                                                 
-        def build_stmt(latest_subq, has_valid: bool):
-            return (
+        native_period = aliased(AggregationPeriod, name="device_sensor_native_period")
+        metadata_rows = session.execute(
             sa_select(
                 Sensor.sensor_id,
                 Sensor.external_sensor_id,
-                AggregationPeriod.code.label("aggregation_code"),
+                native_period.code.label("native_aggregation_code"),
                 Parameter.code.label("parameter_code"),
                 Parameter.display_name.label("parameter_name"),
                 Unit.symbol.label("unit_symbol"),
-                latest_subq.c.value,
-                latest_subq.c.observed_at,
-                (latest_subq.c.is_valid if has_valid else func.null()).label("is_valid"),
+                Sensor.expected_frequency_seconds,
+                Sensor.measurement_duration_seconds,
+                Sensor.source_aggregation_duration_seconds,
+                Sensor.measurement_timestamp_semantics,
+                Sensor.measurement_metadata_status,
+                Sensor.measurement_metadata_managed_by,
+                Sensor.acquisition_metadata,
             )
             .select_from(Sensor)
-            .outerjoin(AggregationPeriod, Sensor.aggregation_period_id == AggregationPeriod.aggregation_period_id)
-            .outerjoin(Parameter, Sensor.parameter_id == Parameter.parameter_id)
-            .outerjoin(Unit, Sensor.unit_id == Unit.unit_id)
-            .outerjoin(latest_subq, (latest_subq.c.sensor_id == Sensor.sensor_id) & (latest_subq.c.rn == 1))
+            .outerjoin(native_period, native_period.aggregation_period_id == Sensor.aggregation_period_id)
+            .outerjoin(Parameter, Parameter.parameter_id == Sensor.parameter_id)
+            .outerjoin(Unit, Unit.unit_id == Sensor.unit_id)
             .where(Sensor.device_id == device_id)
             .order_by(Parameter.display_name.asc().nulls_last())
-        )
-                                                                 
-        latest = build_latest_with_valid()
-        stmt = build_stmt(latest, has_valid=True)
-                                                                                   
-                                                                                     
-                                                                                          
-        if aggregation:
-            agg_code = (aggregation or "").lower()
-            if agg_code in aqi_service.AQI_TIME_RESOLUTIONS:
-                allowed_params = [
-                    p for p, tres in aqi_service.POLLUTANT_TIME_RESOLUTIONS.items() if agg_code in tres
-                ]
-                if allowed_params:
-                    stmt = stmt.where(Parameter.code.in_(allowed_params))
-            else:
-                exists_subq = (
-                    sa_select(ParameterAggregationRule.parameter_aggregation_rule_id)
-                    .join(
-                        AggregationPeriod,
-                        ParameterAggregationRule.aggregation_period_id == AggregationPeriod.aggregation_period_id,
-                    )
-                    .where(ParameterAggregationRule.parameter_id == Sensor.parameter_id)
-                    .where(AggregationPeriod.code == agg_code)
-                    .limit(1)
-                    .exists()
-                )
-                stmt = (
-                    stmt.join(
-                        AggregationPeriod,
-                        AggregationPeriod.aggregation_period_id == Sensor.aggregation_period_id,
-                        isouter=True,
-                    )
-                    .where(
-                        or_(
-                            AggregationPeriod.code == agg_code,
-                                                                                                                       
-                            and_(Sensor.aggregation_period_id == None, exists_subq),
-                        )
-                    )
-                )
-        try:
-            rows = session.execute(stmt).all()
-        except Exception as e:
-            msg = str(e).lower()
-                                                                             
-            if "is_valid" in msg or "undefined column" in msg or "does not exist" in msg:
-                rows = session.execute(build_stmt(build_latest_without_valid(), has_valid=False)).all()
-            else:
-                raise
-
-        parameter_codes = {
-            (getattr(row, "parameter_code", None) or "").lower()
-            for row in rows
-            if getattr(row, "parameter_code", None)
-        }
-        aggregation_codes = {
-            (getattr(row, "aggregation_code", None) or "").lower()
-            for row in rows
-            if getattr(row, "aggregation_code", None)
-        }
-        rules_by_parameter_and_aggregation: dict[str, dict] = {}
-        for parameter_code in parameter_codes:
-            rules_by_parameter_and_aggregation[parameter_code] = load_parameter_aggregation_rules(
-                session,
-                parameter_code,
-                aggregation_codes,
-            )
-
-        def format_latest_value(
-            parameter_code: Optional[str],
-            aggregation_code: Optional[str],
-            raw_value: Optional[float],
-        ) -> Optional[float]:
-            normalized_parameter_code = (parameter_code or "").lower()
-            if not normalized_parameter_code:
-                return raw_value
-
-            rules_for_parameter = rules_by_parameter_and_aggregation.get(normalized_parameter_code, {})
-            rule = resolve_parameter_aggregation_rule(rules_for_parameter, aggregation_code)
-            if not rule:
-                return raw_value
-
-            return apply_parameter_aggregation_rule(
-                raw_value,
-                rule.rounding_method,
-                rule.rounding_precision,
-                rule.truncation_method,
-                rule.truncation_precision,
-            )
-
-        out = []
-        for r in rows:
-            out.append(
+        ).all()
+        latest_by_sensor = {int(row["sensor_id"]): row for row in latest_rows}
+        output = []
+        for metadata in metadata_rows:
+            latest = latest_by_sensor.get(int(metadata.sensor_id))
+            if aggregation and latest is None:
+                continue
+            native_code = (metadata.native_aggregation_code or "").lower() or None
+            output.append(
                 {
-                    "sensor_id": r[0],
-                    "external_sensor_id": r[1],
-                    "aggregation_code": r[2],
-                    "parameter": r[3],
-                    "parameter_name": r[4],
-                    "unit": r[5],
-                    "latest_value": format_latest_value(r[3], r[2], r[6]),
-                    "latest_observed_at": r[7].isoformat() if r[7] else None,
-                    "latest_is_valid": r[8] if len(r) > 8 else None,
+                    "sensor_id": metadata.sensor_id,
+                    "external_sensor_id": metadata.external_sensor_id,
+                    "aggregation_code": native_code,
+                    "native_aggregation_code": native_code,
+                    "result_aggregation_code": (
+                        latest["result_aggregation_code"] if latest else (native_code or "raw")
+                    ),
+                    "parameter": metadata.parameter_code,
+                    "parameter_name": metadata.parameter_name,
+                    "unit": metadata.unit_symbol,
+                    "latest_value": latest["value"] if latest else None,
+                    "latest_observed_at": latest["observed_at"] if latest else None,
+                    "latest_is_valid": (
+                        latest["invalid_sample_count"] == 0 if latest else None
+                    ),
+                    "formatting_status": latest["formatting_status"] if latest else None,
+                    "display_precision": latest["display_precision"] if latest else None,
+                    "interval_started_at": latest["interval_started_at"] if latest else None,
+                    "interval_ended_at": latest["interval_ended_at"] if latest else None,
+                    "latest_source_observed_at": latest["latest_source_observed_at"] if latest else None,
+                    "query_since": latest["query_since"] if latest else None,
+                    "result_is_rolling": latest["result_is_rolling"] if latest else False,
+                    "sample_count": latest["sample_count"] if latest else 0,
+                    "valid_sample_count": latest["valid_sample_count"] if latest else 0,
+                    "invalid_sample_count": latest["invalid_sample_count"] if latest else 0,
+                    "expected_frequency_seconds": metadata.expected_frequency_seconds,
+                    "measurement_duration_seconds": metadata.measurement_duration_seconds,
+                    "source_aggregation_duration_seconds": metadata.source_aggregation_duration_seconds,
+                    "measurement_timestamp_semantics": metadata.measurement_timestamp_semantics,
+                    "measurement_metadata_status": metadata.measurement_metadata_status,
+                    "measurement_metadata_managed_by": metadata.measurement_metadata_managed_by,
+                    "acquisition_metadata": metadata.acquisition_metadata,
                 }
             )
-        return out
+        return output
     except HTTPException:
         raise
     except Exception as e:

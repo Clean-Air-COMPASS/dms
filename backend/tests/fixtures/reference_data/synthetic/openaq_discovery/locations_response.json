@@ -1,0 +1,93 @@
+{
+  "meta": {"name": "synthetic-openaq-response", "page": 1, "limit": 1000, "found": 4},
+  "results": [
+    {
+      "id": 990001,
+      "name": "Synthetic reference A",
+      "locality": "Synthetic City",
+      "timezone": "UTC",
+      "country": {"id": 0, "code": "ZZ", "name": "Synthetic"},
+      "owner": {"id": 1, "name": "Synthetic regulator"},
+      "provider": {"id": 2, "name": "Synthetic provider"},
+      "isMobile": false,
+      "isMonitor": true,
+      "instruments": [{"id": 11, "name": "AirGradient Synthetic Model"}],
+      "sensors": [
+        {"id": 991001, "name": "pm25 µg/m³", "parameter": {"id": 2, "name": "pm25", "units": "µg/m³", "displayName": "PM2.5"}},
+        {"id": 991002, "name": "nox ppb", "parameter": {"id": 7, "name": "nox", "units": "ppb", "displayName": "NOx"}},
+        {"id": 991003, "name": "o3 unknown", "parameter": {"id": 3, "name": "o3", "units": "mystery", "displayName": "O3"}}
+      ],
+      "coordinates": {"latitude": 0.1, "longitude": 0.1},
+      "licenses": [],
+      "distance": 10,
+      "datetimeFirst": {"utc": "2025-01-01T00:00:00Z", "local": "2025-01-01T00:00:00Z"},
+      "datetimeLast": {"utc": "2026-08-01T00:00:00Z", "local": "2026-08-01T00:00:00Z"}
+    },
+    {
+      "id": 990002,
+      "name": "Synthetic reference B",
+      "locality": "Synthetic City",
+      "timezone": "UTC",
+      "country": {"id": 0, "code": "ZZ", "name": "Synthetic"},
+      "owner": {"id": 1, "name": "Synthetic regulator"},
+      "provider": {"id": 2, "name": "Synthetic provider"},
+      "isMobile": false,
+      "isMonitor": true,
+      "instruments": [{"id": 12, "name": "Synthetic regulatory analyzer"}],
+      "sensors": [
+        {"id": 992001, "name": "pm10 µg/m³", "parameter": {"id": 1, "name": "pm10", "units": "µg/m³", "displayName": "PM10"}},
+        {"id": 992002, "name": "o3 ppm", "parameter": {"id": 3, "name": "o3", "units": "ppm", "displayName": "O3"}},
+        {"id": 992003, "name": "no2 ppb", "parameter": {"id": 5, "name": "no2", "units": "ppb", "displayName": "NO2"}}
+      ],
+      "coordinates": {"latitude": 0.2, "longitude": 0.2},
+      "licenses": [],
+      "distance": 20,
+      "datetimeFirst": {"utc": "2025-01-01T00:00:00Z", "local": "2025-01-01T00:00:00Z"},
+      "datetimeLast": {"utc": "2026-08-02T00:00:00Z", "local": "2026-08-02T00:00:00Z"}
+    },
+    {
+      "id": 990003,
+      "name": "Synthetic community C",
+      "locality": "Synthetic City",
+      "timezone": "UTC",
+      "country": {"id": 0, "code": "ZZ", "name": "Synthetic"},
+      "owner": {"id": 3, "name": "Synthetic community"},
+      "provider": {"id": 2, "name": "Synthetic provider"},
+      "isMobile": false,
+      "isMonitor": false,
+      "instruments": [{"id": 13, "name": "Synthetic sensor"}],
+      "sensors": [
+        {"id": 993001, "name": "so2 ppb", "parameter": {"id": 6, "name": "so2", "units": "ppb", "displayName": "SO2"}},
+        {"id": 993002, "name": "co ppm", "parameter": {"id": 4, "name": "co", "units": "ppm", "displayName": "CO"}},
+        {"id": 993003, "name": "tvoc ppb", "parameter": {"id": 99, "name": "tvoc", "units": "ppb", "displayName": "TVOC"}}
+      ],
+      "coordinates": {"latitude": 0.3, "longitude": 0.3},
+      "licenses": [],
+      "distance": 30,
+      "datetimeFirst": {"utc": "2025-01-01T00:00:00Z", "local": "2025-01-01T00:00:00Z"},
+      "datetimeLast": {"utc": "2026-08-03T00:00:00Z", "local": "2026-08-03T00:00:00Z"}
+    },
+    {
+      "id": 990004,
+      "name": "Synthetic older reference D",
+      "locality": "Synthetic City",
+      "timezone": "UTC",
+      "country": {"id": 0, "code": "ZZ", "name": "Synthetic"},
+      "owner": {"id": 1, "name": "Synthetic regulator"},
+      "provider": {"id": 2, "name": "Synthetic provider"},
+      "isMobile": false,
+      "isMonitor": true,
+      "instruments": [{"id": 14, "name": "Synthetic regulatory analyzer"}],
+      "sensors": [
+        {"id": 994001, "name": "pm10 µg/m³", "parameter": {"id": 1, "name": "pm10", "units": "µg/m³", "displayName": "PM10"}},
+        {"id": 994002, "name": "o3 ppm", "parameter": {"id": 3, "name": "o3", "units": "ppm", "displayName": "O3"}},
+        {"id": 994003, "name": "no2 ppb", "parameter": {"id": 5, "name": "no2", "units": "ppb", "displayName": "NO2"}}
+      ],
+      "coordinates": {"latitude": 0.4, "longitude": 0.4},
+      "licenses": [],
+      "distance": 40,
+      "datetimeFirst": {"utc": "2025-01-01T00:00:00Z", "local": "2025-01-01T00:00:00Z"},
+      "datetimeLast": {"utc": "2026-07-01T00:00:00Z", "local": "2026-07-01T00:00:00Z"}
+    }
+  ]
+}

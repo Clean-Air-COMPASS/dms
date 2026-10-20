@@ -38,16 +38,6 @@ print(url)
 PY
 }
 
-plugins_dir="/app/qaqc/plugins_local"
-seed_dir="/app/qaqc/plugins_local_seed"
-if [ -d "$seed_dir" ]; then
-  mkdir -p "$plugins_dir"
-  if [ -z "$(ls -A "$plugins_dir" 2>/dev/null)" ]; then
-    log "Seeding local QC plugins..."
-    cp -a "$seed_dir"/. "$plugins_dir"/
-  fi
-fi
-
 should_run_migrations=true
 wait_for_migrations=false
 if [ "${1:-}" = "python" ] && [ "${2:-}" = "-m" ] && [ "${3:-}" = "jobs.scheduler" ]; then
@@ -58,7 +48,9 @@ fi
 cd /app
 
 if [ "$should_run_migrations" = "true" ] || [ "$wait_for_migrations" = "true" ]; then
-  if ! PG_CONN=$(resolve_pg_conn); then
+  if PG_CONN=$(resolve_pg_conn); then
+    :
+  else
     exit_code=$?
     if [ "$exit_code" -eq 1 ]; then
       log "Database configuration is incomplete. Set DATABASE_URL or POSTGRES_USER/POSTGRES_PASSWORD/POSTGRES_DB (optional: POSTGRES_HOST/POSTGRES_PORT)."
@@ -75,22 +67,23 @@ if [ "$should_run_migrations" = "true" ] || [ "$wait_for_migrations" = "true" ];
 fi
 
 if [ "$should_run_migrations" = "true" ]; then
-  log "Checking for alembic_version table..."
-  if psql "$PG_CONN" -tAc \
-    "SELECT 1 FROM information_schema.tables WHERE table_schema='public' AND table_name='alembic_version';" \
-    | grep -q 1; then
-    log "Existing schema detected; skipping migrations."
-  else
-    log "No alembic_version table found; running migrations."
-    alembic upgrade head
-  fi
+  log "Applying database migrations..."
+  alembic upgrade head
 fi
 
 if [ "$wait_for_migrations" = "true" ]; then
-  log "Waiting for API migrations to complete..."
+  migration_head=$(alembic heads | awk 'NR == 1 {print $1}')
+  if [ -z "$migration_head" ]; then
+    log "Could not resolve the Alembic migration head."
+    exit 1
+  fi
+  log "Waiting for API migrations to reach ${migration_head}..."
   until psql "$PG_CONN" -tAc \
-    "SELECT 1 FROM information_schema.tables WHERE table_schema='public' AND table_name='alembic_version';" \
-    | grep -q 1; do
+    "SELECT to_regclass('public.alembic_version') IS NOT NULL;" \
+    | grep -q t \
+    && psql "$PG_CONN" -tAc \
+    "SELECT EXISTS (SELECT 1 FROM alembic_version WHERE version_num='${migration_head}');" \
+    | grep -q t; do
     sleep 1
   done
 fi

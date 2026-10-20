@@ -1,5 +1,29 @@
 @import "tailwindcss";
 
+/* The application uses light surfaces, even when the OS prefers dark mode.
+   Keep native checkmarks, mixed/disabled states and forced-color support. */
+input[type="checkbox"] {
+  color-scheme: light;
+  accent-color: #064789;
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+  cursor: pointer;
+}
+
+input[type="checkbox"]:focus-visible {
+  outline: 3px solid #064789;
+  outline-offset: 3px;
+}
+
+input[type="checkbox"]:hover:not(:disabled) {
+  box-shadow: 0 0 0 3px rgb(6 71 137 / 10%);
+}
+
+input[type="checkbox"]:disabled {
+  cursor: not-allowed;
+}
+
 
 @layer base {
   :root {
@@ -71,6 +95,45 @@ button:focus-visible {
   outline-offset: 2px;
 }
 
+.language-selector {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+  color: inherit;
+  font-size: 0.875rem;
+  font-weight: 600;
+}
+
+.language-selector select {
+  min-width: 9rem;
+  max-width: 100%;
+  box-sizing: border-box;
+  border: 1px solid #cbd5e1;
+  border-radius: 6px;
+  background: #ffffff;
+  color: #1f2937;
+  padding: 7px 30px 7px 9px;
+  font: inherit;
+  font-weight: 500;
+}
+
+.language-selector select:focus-visible {
+  outline: 2px solid #064789;
+  outline-offset: 2px;
+}
+
+label[for="login-language-selector"] {
+  justify-content: center;
+  margin: 16px auto 0;
+  color: #475569;
+}
+
+.setup-wizard-header .language-selector {
+  margin-top: 16px;
+  color: #ffffff;
+}
+
 :root {
     color: #213547;
     background-color: #ffffff;
@@ -94,6 +157,12 @@ button:focus-visible {
   z-index: 9999;
   padding: 20px;
   overflow-y: auto;
+  box-sizing: border-box;
+}
+
+.setup-wizard-overlay--sources {
+  /* Tall source lists must keep the header inside the scrollable area. */
+  align-items: safe center;
 }
 
 .setup-wizard-container {
@@ -104,6 +173,7 @@ button:focus-visible {
   width: 100%;
   padding: 0;
   overflow: hidden;
+  box-sizing: border-box;
 }
 
 .setup-wizard-header {
@@ -223,6 +293,15 @@ button:focus-visible {
   margin: 0 0 8px 0;
 }
 
+.setup-step-eyebrow {
+  margin: 0 0 8px;
+  color: #064789;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
 .setup-step-description {
   color: #6b7280;
   margin: 0 0 24px 0;
@@ -276,6 +355,13 @@ button:focus-visible {
   display: flex;
   flex-direction: column;
   gap: 6px;
+}
+
+.setup-form-error {
+  margin: 0;
+  color: #b91c1c;
+  font-size: 0.875rem;
+  line-height: 1.5;
 }
 
 .setup-form-label {
@@ -401,6 +487,11 @@ button:focus-visible {
   cursor: not-allowed;
 }
 
+.setup-btn:focus-visible {
+  outline: 3px solid rgba(11, 95, 255, 0.35);
+  outline-offset: 3px;
+}
+
 .setup-btn-primary {
   background: #064789;
   color: #ffffff;
@@ -440,6 +531,159 @@ button:focus-visible {
   font-size: 1rem;
 }
 
+.setup-prerequisite-heading {
+  margin: 0 0 10px;
+  color: #374151;
+  font-size: 0.9375rem;
+  font-weight: 600;
+}
+
+.setup-prerequisite-list {
+  list-style: none;
+  margin: 0;
+  padding: 4px 0;
+  border-top: 1px solid #e5e7eb;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.setup-prerequisite-list li {
+  display: grid;
+  grid-template-columns: 8px minmax(0, 1fr);
+  gap: 12px;
+  align-items: baseline;
+  padding: 9px 4px;
+  color: #4b5563;
+  font-size: 0.875rem;
+  line-height: 1.45;
+}
+
+.setup-prerequisite-list strong {
+  color: #1f2937;
+  font-weight: 600;
+}
+
+.setup-prerequisite-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #60a5fa;
+}
+
+.setup-welcome-optionality {
+  margin: 20px 0 0;
+  padding: 12px 14px;
+  border-radius: 8px;
+  background: #eff6ff;
+  color: #1e40af;
+  font-size: 0.875rem;
+  font-weight: 500;
+  line-height: 1.5;
+}
+
+.setup-welcome-actions {
+  margin-top: 24px;
+}
+
+.startup-status-page {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  padding: 24px;
+  background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+}
+
+.startup-status-card {
+  width: min(100%, 460px);
+  box-sizing: border-box;
+  padding: 40px;
+  border: 1px solid #e2e8f0;
+  border-radius: 16px;
+  background: #ffffff;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.15);
+  text-align: center;
+}
+
+.startup-status-brand {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 30px;
+  color: #1f2937;
+  font-size: 1.125rem;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+
+.startup-status-mark {
+  width: 38px;
+  height: 38px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: #eff6ff;
+  color: #0b5fff;
+}
+
+.startup-status-mark svg {
+  width: 23px;
+  height: 23px;
+}
+
+.startup-status-spinner {
+  width: 38px;
+  height: 38px;
+  box-sizing: border-box;
+  margin: 0 auto 20px;
+  border: 3px solid #dbeafe;
+  border-top-color: #0b5fff;
+  border-radius: 50%;
+  animation: startup-spin 0.9s linear infinite;
+}
+
+.startup-status-paused {
+  width: 38px;
+  height: 38px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 20px;
+  border-radius: 50%;
+  background: #eff6ff;
+  color: #064789;
+  font-weight: 700;
+}
+
+.startup-status-card h1 {
+  margin: 0 0 10px;
+  color: #1f2937;
+  font-size: 1.5rem;
+  line-height: 1.25;
+}
+
+.startup-status-card p {
+  margin: 0 auto;
+  color: #64748b;
+  line-height: 1.6;
+}
+
+.startup-status-card .setup-btn {
+  margin-top: 24px;
+}
+
+@keyframes startup-spin {
+  to { transform: rotate(360deg); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .startup-status-spinner {
+    animation-duration: 2.4s;
+  }
+}
+
 
 .setup-source-options {
   display: flex;
@@ -448,17 +692,38 @@ button:focus-visible {
 }
 
 .setup-source-card {
-  display: flex;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(170px, 0.8fr);
   align-items: center;
   gap: 14px;
   padding: 14px 16px;
   background: #ffffff;
   border: 2px solid #e5e7eb;
   border-radius: 10px;
-  cursor: pointer;
+  cursor: default;
   transition: all 0.2s;
   text-align: left;
   width: 100%;
+  box-sizing: border-box;
+}
+
+.setup-source-card > .setup-source-info,
+.setup-source-card > .setup-source-desc {
+  grid-column: 1 / -1;
+}
+
+.setup-source-card > .setup-form-field {
+  grid-column: 1 / -1;
+  min-width: 0;
+}
+
+.setup-source-card .setup-form-input {
+  width: 100%;
+  min-width: 0;
+}
+
+.setup-source-api-key-input {
+  max-width: 34rem;
 }
 
 .setup-source-card:hover {
@@ -545,8 +810,23 @@ button:focus-visible {
 
 
 @media (max-width: 640px) {
+  .setup-wizard-overlay {
+    align-items: flex-start;
+  }
+
+  .startup-status-page {
+    align-items: flex-start;
+    padding: 48px 16px 24px;
+  }
+
+  .startup-status-card {
+    padding: 32px 22px;
+  }
+
   .setup-wizard-container {
-    margin: 10px;
+    width: 100%;
+    max-width: 100%;
+    margin: 0;
     border-radius: 12px;
   }
 
@@ -566,8 +846,16 @@ button:focus-visible {
     padding: 16px 12px;
   }
 
+  .setup-progress-step {
+    flex: 1 1 0;
+    min-width: 0;
+  }
+
   .setup-progress-label {
-    font-size: 0.625rem;
+    font-size: 0.75rem;
+    line-height: 1.2;
+    text-align: center;
+    white-space: normal;
   }
 
   .setup-progress-line {
@@ -586,6 +874,16 @@ button:focus-visible {
 
   .setup-form-actions-row .setup-btn {
     width: 100%;
+  }
+
+  .setup-source-card {
+    grid-template-columns: minmax(0, 1fr);
+    align-items: stretch;
+    gap: 12px;
+  }
+
+  .setup-source-card > * {
+    grid-column: 1;
   }
 }
 
@@ -709,4 +1007,16 @@ button:focus-visible {
   .password-strength-checklist {
     grid-template-columns: 1fr;
   }
+}
+
+.setup-source-toggle {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding-block: 8px;
+}
+
+.source-demo-help {
+  max-width: 36rem;
+  white-space: normal;
 }

@@ -12,17 +12,17 @@ RUN apt-get update \
     && rm -rf /var/lib/apt/lists/*
 
 
-COPY requirements.txt .
+COPY backend/requirements.txt .
+COPY backend/plugins/max_value ./plugins/max_value
 RUN pip install --no-cache-dir -r requirements.txt
 
 
 
-COPY . .
+COPY backend/ .
+COPY frontend/package.json ./application-package.json
 
-
-
-RUN mkdir -p /app/qaqc/plugins_local_seed \
-    && cp -a /app/qaqc/plugins_local/. /app/qaqc/plugins_local_seed/
+ARG COMPASSAQ_BUILD_SHA
+RUN python -c "import datetime,json,os,re; sha=os.environ.get('COMPASSAQ_BUILD_SHA',''); json.dump({'commit_sha': sha if re.fullmatch('[0-9a-f]{40}',sha) else None, 'build_time_utc': datetime.datetime.now(datetime.timezone.utc).isoformat(timespec='seconds').replace('+00:00','Z')},open('build-metadata.json','w'))"
 
 
 

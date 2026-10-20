@@ -6,7 +6,7 @@ from typing import Optional
 from sqlalchemy import inspect
 from sqlalchemy.orm import Session
 
-from models import Event
+from models import Event, User
 
 
 def get_event_table_column_names(session: Session) -> set[str]:
@@ -61,6 +61,9 @@ def add_event(
         event_kwargs["actor_user_id"] = actor_user_id
     if "actor_email" in available_columns:
         event_kwargs["actor_email"] = actor_email
+    if "actor_display_name" in available_columns:
+        actor = session.get(User, actor_user_id) if actor_user_id else None
+        event_kwargs["actor_display_name"] = actor.display_name if actor else actor_email
 
     event = Event(**event_kwargs)
     session.add(event)

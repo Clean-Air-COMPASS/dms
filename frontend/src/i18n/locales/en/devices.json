@@ -1,0 +1,434 @@
+{
+  "sensorMetadataFormatting": {
+    "duration": {
+      "day_one": "{{value}} day",
+      "day_other": "{{value}} days",
+      "hour_one": "{{value}} hour",
+      "hour_other": "{{value}} hours",
+      "minute_one": "{{value}} minute",
+      "minute_other": "{{value}} minutes",
+      "second_one": "{{value}} second",
+      "second_other": "{{value}} seconds"
+    },
+    "cadence": {
+      "day_one": "Every day",
+      "day_other": "Every {{value}} days",
+      "hour_one": "Every hour",
+      "hour_other": "Every {{value}} hours",
+      "minute_one": "Every minute",
+      "minute_other": "Every {{value}} minutes",
+      "second_one": "Every second",
+      "second_other": "Every {{value}} seconds"
+    },
+    "updates": {
+      "day_one": "Updates every day",
+      "day_other": "Updates every {{value}} days",
+      "hour_one": "Updates every hour",
+      "hour_other": "Updates every {{value}} hours",
+      "minute_one": "Updates every minute",
+      "minute_other": "Updates every {{value}} minutes",
+      "second_one": "Updates every second",
+      "second_other": "Updates every {{value}} seconds"
+    },
+    "average": {
+      "day": "{{value}}-day average",
+      "hour": "{{value}}-hour average",
+      "minute": "{{value}}-minute average",
+      "second": "{{value}}-second average"
+    },
+    "eachValue": "Each value is a {{duration}}"
+  },
+  "adminDeviceEditor": {
+    "text": {
+      "newDevice": "Add device",
+      "deviceDetails": "Device Details",
+      "newDevice2": "Add device",
+      "unsavedChanges": "Unsaved changes",
+      "loadingDevice": "Loading device…",
+      "externalDevice": "External Device",
+      "deviceSynced": "— This device is synced from",
+      "externalApiFallback": "an external API",
+      "mostFieldsReadOnlyYouCan": ". Most fields are read-only. You can edit the Friendly Name and local settings.",
+      "theseFieldsManagedExternalDataSource": "These fields are managed by the external data source and cannot be edited.",
+      "preferredNameDeviceShownListsCharts": "Your preferred name for this device. Shown in lists and charts.",
+      "external": "External",
+      "chooseWhichDataSourceDeviceS": "Choose which data source this device's data comes from.",
+      "locationDataSyncedExternalSource": "Location data is synced from the external source.",
+      "controlsWhetherIncomingMeasurementsCanUpdate": "Controls whether incoming measurements can update existing records.",
+      "deviceId": "Device ID",
+      "externalApiId": "External API ID",
+      "created": "Created",
+      "saveDeviceFirstViewItsSensors": "Save the device first to view its sensors.",
+      "loadingSensors": "Loading sensors…",
+      "noSensorsFoundDevice": "No sensors found for this device.",
+      "invalid": "Invalid",
+      "valid": "Valid",
+      "validityUnknown": "Validity unknown",
+      "latestReading": "Latest reading",
+      "noData": "No data",
+      "internalSensorId": "Internal Sensor ID:",
+      "externalSensorId": "External Sensor ID:"
+    },
+    "actions": {
+      "admin": "Admin",
+      "devices": "Devices",
+      "saving": "Saving…",
+      "adding": "Adding…",
+      "addSensor": "Add Sensor",
+      "manageQc": "Manage QC",
+      "saving2": "Saving…",
+      "deleting": "Deleting…"
+    },
+    "headings": {
+      "newDevice": "Add device",
+      "deviceDetails": "Device Details",
+      "sourceIdentity": "Source Identity",
+      "location": "Location",
+      "localSettings": "Local Settings",
+      "systemMetadata": "System Metadata",
+      "sensors": "Sensors"
+    },
+    "fields": {
+      "friendlyName": "Friendly Name",
+      "externalId": "External ID",
+      "dataSource": "Data Source",
+      "otherDataSourceName": "Other Data Source Name",
+      "latitude": "Latitude",
+      "longitude": "Longitude",
+      "timezone": "Timezone",
+      "measurementUpdatesPolicy": "Measurement Updates Policy",
+      "parameter": "Parameter",
+      "timeResolution": "Time Resolution",
+      "externalSensorId": "External Sensor ID",
+      "parameter2": "Parameter",
+      "timeResolution2": "Time Resolution",
+      "externalSensorId2": "External Sensor ID"
+    },
+    "placeholders": {
+      "enterCustomDisplayName": "Enter a custom display name",
+      "enterDataSourceName": "Enter data source name",
+      "americaLosAngeles": "America/Los_Angeles",
+      "eGProviderSensor123": "e.g., provider-sensor-123",
+      "eGProviderSensor1232": "e.g., provider-sensor-123"
+    },
+    "options": {
+      "loadingDataSources": "Loading data sources…",
+      "selectDataSource": "Select data source",
+      "other": "Other",
+      "inheritSystemDefault": "Inherit (from system default)",
+      "allowUpdatesExistingMeasurements": "Allow updates to existing measurements",
+      "denyUpdatesKeepFirstValue": "Deny updates (keep first value)",
+      "loadingParameters": "Loading parameters…",
+      "selectParameter": "Select parameter",
+      "loadingTimeResolutions": "Loading time resolutions…",
+      "selectTimeResolution": "Select time resolution",
+      "selectParameter2": "Select parameter",
+      "selectTimeResolution2": "Select time resolution"
+    },
+    "messages": {
+      "parameterRequiredAddSensor": "Parameter is required to add a sensor.",
+      "timeResolutionRequiredAddSensor": "Time Resolution is required to add a sensor.",
+      "parameterRequiredUpdateSensor": "Parameter is required to update a sensor.",
+      "timeResolutionRequiredUpdateSensor": "Time Resolution is required to update a sensor.",
+      "nameRequiredNewDevices": "Name is required for new devices.",
+      "dataSourceRequiredManualDevices": "Data Source is required for manual devices.",
+      "dataSourceRequiredManualDevices2": "Data Source is required for manual devices.",
+      "deviceSavedSuccessfully": "Device saved successfully.",
+      "sensorAdded": "Sensor added successfully (Sensor ID {{id}}).",
+      "sensorUpdated": "Sensor {{id}} updated successfully.",
+      "sensorDeleted": "Sensor {{id}} deleted successfully."
+    },
+    "dynamic": {
+      "device": "Device {{id}}"
+    },
+    "dialogs": {
+      "deleteSensorWillAlsoDeleteIts": "Delete this sensor? This will also delete its measurements.",
+      "youHaveUnsavedChangesLeaveWithout": "You have unsaved changes. Leave without saving?",
+      "discardChanges": "Discard changes?",
+      "deleteDeviceCannotUndone": "Delete this device? This cannot be undone."
+    },
+    "clarity": {
+      "requiredHelp": "* Required field",
+      "automaticSource": "Automatic assignment",
+      "sourceHelp": "Optional. If left on automatic assignment, the server uses Local when available, otherwise the first Data Source. Select a source to control the assignment.",
+      "timezoneUnset": "Not specified",
+      "inheritUnavailable": "The effective inherited policy is unavailable here.",
+      "addDevice": "Add device",
+      "keepSource": "Keep assigned Data Source",
+      "keepSourceHelp": "Optional. Leave this choice empty to keep the assigned Data Source, or select a different source.",
+      "inherit": "Inherit",
+      "replace": "Replace existing values",
+      "keep": "Keep existing values",
+      "otherSourceHelp": "Required when Other is selected. Name the source so users can identify where this device’s data comes from."
+    },
+    "workflow": {
+      "localHelp": "Changes here are saved in CompassAQ. Provider records are not changed.",
+      "providerDetails": "Provider-managed details",
+      "managedBy": "Managed by {{provider}} · Read-only",
+      "providerIdentity": "Provider identity",
+      "providerLocation": "Provider-supplied location",
+      "providerSensors": "Sensors are managed through {{provider}} imports. Manual sensor creation is not available here; QC settings remain available.",
+      "manualHelp": "You define this monitoring location or system in CompassAQ, including its identity, location and local settings.",
+      "providerDevice": "Provider-managed device",
+      "manualDevice": "Manual/local device",
+      "externalIdHelp": "Leave blank for a manual/local device. A device with an External ID has provider-managed identity and location after saving.",
+      "sensorHelp": "Each sensor is a data stream for one parameter, such as PM2.5, at this device’s monitoring location or system.",
+      "sensorQcInheritance": "New sensors inherit QC settings from their data source, parameter, and CompassAQ defaults. Adding a sensor does not create sensor-specific rules. Use Manage QC to review the effective settings or add an override."
+    },
+    "validation": {
+      "nameRequired": "Enter a device name.",
+      "otherSourceRequired": "Enter a data source name when Other is selected.",
+      "latitudeRange": "Latitude must be between -90 and 90.",
+      "longitudeRange": "Longitude must be between -180 and 180.",
+      "coordinateNumber": "Enter a valid number.",
+      "coordinatePair": "Enter both latitude and longitude, or leave both blank.",
+      "locationHelp": "Latitude: -90 to 90. Longitude: -180 to 180. Enter both coordinates, or leave both blank if the location is unknown."
+    }
+  },
+  "adminDeviceNew": {
+    "headings": {
+      "selectDataSource": "Select Data Source",
+      "purpleAirSensorLookup": "PurpleAir Sensor Lookup",
+      "devicePreview": "Device Preview",
+      "deviceInformation": "Device Information",
+      "sensors": "Sensors",
+      "confirmApiRequest": "Confirm API Request"
+    },
+    "text": {
+      "chooseHowYouWantAddNew": "Choose how you want to add the new device.",
+      "importPurpleAirSensorIndex": "Import from PurpleAir sensor index",
+      "importOpenAqLocations": "Import from OpenAQ locations",
+      "manualEntry": "Manual Entry",
+      "enterDeviceDetailsManually": "Enter device details manually",
+      "loadingDataSources": "Loading data sources…",
+      "noActiveDataSourcesCurrentlyAvailable": "No enabled data sources are currently available for new devices.",
+      "enter": "Enter the",
+      "sensorIndex": "Sensor Index",
+      "purpleAirMapLookUpDevice": "from the PurpleAir Map to look up device metadata.",
+      "howFindSensorIndex": "How to find the Sensor Index",
+      "go": "Go to the",
+      "clickSensorYouWantAdd": "Click on the sensor you want to add",
+      "lookUrlNumberAfter": "Look at the URL — the number after",
+      "sensorIndex2": "is the Sensor Index",
+      "example": "Example: In",
+      "sensorIndex3": ", the Sensor Index is",
+      "sensorIndex4": "Sensor Index",
+      "reviewInformationBelowClickSaveCreate": "Review the information below. Click Save to create the device.",
+      "externalId": "External ID",
+      "latitude": "Latitude",
+      "longitude": "Longitude",
+      "timezone": "Timezone",
+      "willMakeRequestPurpleAirApi": "This will make a request to the PurpleAir API, which",
+      "consumesApiPoints": "consumes API points",
+      "purpleAirApiUsageLimitedOnly": "PurpleAir API usage is limited. Only proceed if you intend to add this device."
+    },
+    "actions": {
+      "purpleAirMap": "PurpleAir Map",
+      "lookingUp": "Looking up…",
+      "lookup": "Lookup",
+      "saving": "Saving…",
+      "proceedLookup": "Proceed with Lookup"
+    },
+    "columns": {
+      "parameter": "Parameter",
+      "externalSensorId": "External Sensor ID",
+      "latestValue": "Latest Value",
+      "unit": "Unit"
+    },
+    "tooltips": {
+      "addNewDevice": "Add device"
+    },
+    "content": {
+      "admin": "Admin",
+      "devices": "Devices",
+      "newDevice": "Add device"
+    },
+    "messages": {
+      "pleaseEnterSensorIndex": "Please enter a Sensor Index"
+    }
+  },
+  "adminDeviceNewOpenAQ": {
+    "headings": {
+      "openAqLocationLookup": "OpenAQ Location Lookup",
+      "searchResults": "Search Results",
+      "confirmApiRequest": "Confirm API Request"
+    },
+    "text": {
+      "searchAirQualityMonitoringLocationsOpen": "Search for air quality monitoring locations from the OpenAQ network.",
+      "enterCoordinatesDefine": "Enter coordinates to define a",
+      "boundingBox": "bounding box",
+      "searchingLocationsWithinGeographicArea": "for searching locations within a geographic area.",
+      "howFindCoordinates": "How to find coordinates",
+      "youCanUseToolsLike": "You can use tools like",
+      "drawBoxGetCoordinates": "to draw a box and get coordinates.",
+      "exampleSanLuisObispoArea": "Example for San Luis Obispo area:",
+      "westMinLon": "West (Min Lon):",
+      "southMinLat": "South (Min Lat):",
+      "eastMaxLon": "East (Max Lon):",
+      "northMaxLat": "North (Max Lat):",
+      "minimumLongitudeWest": "Minimum Longitude (West)",
+      "minimumLatitudeSouth": "Minimum Latitude (South)",
+      "maximumLongitudeEast": "Maximum Longitude (East)",
+      "maximumLatitudeNorth": "Maximum Latitude (North)",
+      "enter": "Enter an",
+      "openAqSensorId": "OpenAQ Sensor ID",
+      "lookUpSpecificSensor": "to look up a specific sensor.",
+      "howFindSensorId": "How to find the Sensor ID",
+      "go": "Go to the",
+      "clickMonitoringStationMap": "Click on a monitoring station on the map",
+      "selectSpecificSensorParameterStation": "Select a specific sensor/parameter from the station",
+      "sensorIdShownSensorDetailsUrl": "The Sensor ID is shown in the sensor details or URL",
+      "noteEachSensorMeasuresSingleParameter": "Note: Each sensor measures a single parameter (e.g., PM2.5, O₃). A location may have multiple sensors.",
+      "openAqSensorId2": "OpenAQ Sensor ID",
+      "found": "Found",
+      "sensor": "sensor",
+      "location": "location",
+      "alreadyDatabase": "already in database)",
+      "alreadyExistsDatabase": "Already exists in database",
+      "selectSensor": "Select sensor",
+      "sensorId": "Sensor ID:",
+      "alreadyExists": "Already exists",
+      "to": "to",
+      "alreadyExistsDatabaseNoSelectableSensors": "Already exists in database or no selectable sensors",
+      "selectDeselectAllSensors": "Select/deselect all sensors",
+      "id": "ID:",
+      "alreadyExists2": "Already exists",
+      "alreadyExists3": "Already Exists",
+      "to2": "to",
+      "monitor": "Monitor",
+      "mobile": "Mobile",
+      "sensor2": "Sensor",
+      "device": "device",
+      "sensor3": "sensor",
+      "selected": "selected",
+      "noDevicesSelected": "No devices selected",
+      "willMakeRequestOpenAqApi": "This will make a request to the OpenAQ API.",
+      "openAqHasRateLimitsIf": "OpenAQ has rate limits. If you encounter a rate limit error, please wait and try again later."
+    },
+    "actions": {
+      "boundingBox": "By Bounding Box",
+      "sensorId": "By Sensor ID",
+      "bboxfinder": "bboxfinder",
+      "searching": "Searching…",
+      "openAqExplorer": "OpenAQ Explorer",
+      "lookingUp": "Looking up…",
+      "lookup": "Lookup",
+      "saving": "Saving…",
+      "proceed": "Proceed",
+      "saveSelected": "Save Selected ({{count}})"
+    },
+    "columns": {
+      "parameter": "Parameter",
+      "latestValue": "Latest Value",
+      "coordinates": "Coordinates",
+      "dataRange": "Data Range",
+      "coverage": "Coverage",
+      "location": "Location",
+      "provider": "Provider",
+      "coordinates2": "Coordinates",
+      "sensors": "Sensors",
+      "dataRange2": "Data Range",
+      "type": "Type"
+    },
+    "tooltips": {
+      "addOpenAqSensor": "Add OpenAQ Sensor"
+    },
+    "content": {
+      "admin": "Admin",
+      "devices": "Devices",
+      "addOpenAqSensor": "Add OpenAQ Sensor"
+    },
+    "messages": {
+      "pleaseFillAllFourCoordinateFields": "Please fill in all four coordinate fields",
+      "allCoordinateValuesMustValidNumbers": "All coordinate values must be valid numbers",
+      "minimumLongitudeWestMustLessThan": "Minimum Longitude (West) must be less than Maximum Longitude (East)",
+      "minimumLatitudeSouthMustLessThan": "Minimum Latitude (South) must be less than Maximum Latitude (North)",
+      "pleaseEnterOpenAqSensorId": "Please enter an OpenAQ Sensor ID",
+      "sensorIdMustNumeric": "Sensor ID must be numeric",
+      "pleaseSelectLeastOneDeviceSensor": "Please select at least one device/sensor to save.",
+      "sensorNotFound": "Sensor not found.",
+      "noLocationsFound": "No locations found for the given criteria."
+    }
+  },
+  "adminDevicesList": {
+    "tooltips": {
+      "devices": "Devices"
+    },
+    "actions": {
+      "newDevice": "Add device",
+      "sourceName": "Source Name",
+      "dataSource": "Data Source",
+      "lastSeen": "Last seen",
+      "created": "Created",
+      "prev": "Prev"
+    },
+    "placeholders": {
+      "searchName": "Search name…",
+      "eGSensor5678": "e.g., sensor-5678"
+    },
+    "text": {
+      "dataSource": "Data Source",
+      "externalDeviceId": "External Device ID",
+      "sensorId": "Sensor ID",
+      "externalSensorId": "External Sensor ID",
+      "loadingDevices": "Loading devices…",
+      "id": "ID:",
+      "external": "External",
+      "noDevicesFound": "No devices found.",
+      "page": "Page",
+      "of": "of",
+      "rows": "Rows"
+    },
+    "options": {
+      "any": "Any",
+      "active": "Active",
+      "inactive": "Inactive",
+      "unknown": "Unknown",
+      "all": "All",
+      "other": "Other"
+    },
+    "columns": {
+      "location": "Location"
+    },
+    "accessibility": {
+      "manageDevicesThatProvideMeasurements": "Manage devices that provide measurements.",
+      "openDevice": "Open {{name}} view"
+    },
+    "content": {
+      "admin": "Admin",
+      "devices": "Devices"
+    }
+  },
+  "airgradient": {
+    "title": "Add AirGradient location",
+    "choose": "Select a location from your AirGradient account",
+    "configure": "Configure Data Sources",
+    "back": "Back to data sources",
+    "select": "Select AirGradient location",
+    "description": "Locations are loaded using the AirGradient credential saved in Data Sources.",
+    "loading": "Loading AirGradient locations…",
+    "retry": "Try again",
+    "empty": "No locations were returned for this AirGradient account. Check that the saved credential belongs to the account with your locations.",
+    "locationId": "Location ID: {{id}}",
+    "coordinates": "Coordinates: {{latitude}}, {{longitude}}",
+    "alreadyAdded": "Already added",
+    "preview": "Review location",
+    "duplicate": "This AirGradient location is already in CompassAQ. Open the existing device to view it.",
+    "viewDevice": "View device",
+    "noReadings": "Location added, but no usable current readings were available. View the device and check its import settings.",
+    "importNow": "Add this location and import its available current readings. Other account locations will not be added.",
+    "automaticOff": "Automatic account imports are off. This adds current readings once; future authenticated readings remain off until you enable imports in Data Sources.",
+    "add": "Add location",
+    "adding": "Adding location…",
+    "errors": {
+      "configuration_required": "To add an AirGradient location, first save an API key for AirGradient in Data Sources.",
+      "authentication_failed": "AirGradient rejected the saved credential. Update the API key in Data Sources and try again.",
+      "rate_limited": "AirGradient has reached its request limit. Wait a moment and try again.",
+      "invalid_response": "AirGradient returned incomplete or invalid location information. Try again later.",
+      "provider_unavailable": "AirGradient is currently unavailable. Try again later.",
+      "provider_error": "AirGradient could not complete the request. Check the configuration in Data Sources and try again.",
+      "location_unavailable": "This location is no longer available to the configured account. Reload the locations and choose again.",
+      "operation_failed": "The location request could not be completed. Try again."
+    }
+  }
+}

@@ -5,10 +5,15 @@ from typing import Optional, Any, Dict
 from fastapi import APIRouter, Depends, HTTPException, Body, Query
 from sqlalchemy.orm import Session
 from sqlalchemy import select
+from sqlalchemy.exc import IntegrityError
 
 from db import get_session
 import models
-from qaqc.rules import min_value as qc_min
+from qaqc.pipeline import _validate_plugin_decisions
+from qaqc.policy import EffectiveQCPolicy, resolve_effective_qc_policy
+from qaqc.policy_defaults import FLAG_FOR_REVIEW
+from qaqc.registry import get_registration
+from qaqc.types import QCRecord
 
 
 router = APIRouter(prefix="/admin", tags=["admin"]) 
@@ -20,15 +25,50 @@ def _rule_to_dict(r: models.QCRule) -> Dict[str, Any]:
         "check_code": r.check_code,
         "sensor_id": getattr(r, "sensor_id", None),
         "parameter_id": getattr(r, "parameter_id", None),
+        "external_api_id": getattr(r, "external_api_id", None),
         "aggregate_code": getattr(r, "aggregate_code", None),
-        "enabled": bool(r.enabled),
-        "params": r.params or None,
+        "enabled": r.enabled_override,
+        "enabled_override": r.enabled_override,
+        "failure_action_override": r.failure_action_override,
+        "params": r.settings or None,
+        "settings": r.settings or None,
+        "policy_unit_id": r.policy_unit_id,
         "version": getattr(r, "version", None),
         "state": getattr(r, "state", None),
         "draft_params": getattr(r, "draft_params", None),
         "created_at": r.created_at.isoformat() if getattr(r, "created_at", None) else None,
         "updated_at": r.updated_at.isoformat() if getattr(r, "updated_at", None) else None,
     }
+
+
+def _validate_rule_scope(
+    sensor_id: Optional[int],
+    parameter_id: Optional[int],
+    external_api_id: Optional[int],
+) -> None:
+    is_sensor_scope = (
+        sensor_id is not None
+        and parameter_id is None
+        and external_api_id is None
+    )
+    is_parameter_scope = (
+        sensor_id is None
+        and parameter_id is not None
+        and external_api_id is None
+    )
+    is_source_scope = (
+        sensor_id is None
+        and parameter_id is not None
+        and external_api_id is not None
+    )
+    if not (is_sensor_scope or is_parameter_scope or is_source_scope):
+        raise HTTPException(
+            status_code=400,
+            detail=(
+                "QC rule scope must be parameter, data source + parameter, "
+                "or sensor"
+            ),
+        )
 
 
 @router.get("/qc/rules")
@@ -49,7 +89,7 @@ def list_qc_rules(
         if parameter_id is not None:
             conds.append(models.QCRule.parameter_id == parameter_id)
         if enabled is not None:
-            conds.append(models.QCRule.enabled == enabled)
+            conds.append(models.QCRule.enabled_override == enabled)
         if conds:
             stmt = stmt.where(*conds)
         stmt = stmt.order_by(models.QCRule.qc_rule_id.desc())
@@ -68,13 +108,23 @@ def create_qc_rule(
         check_code = str(payload.get("check_code") or "").strip()
         if not check_code:
             raise HTTPException(status_code=400, detail="check_code is required")
+        sensor_id = payload.get("sensor_id")
+        parameter_id = payload.get("parameter_id")
+        external_api_id = payload.get("external_api_id")
+        _validate_rule_scope(sensor_id, parameter_id, external_api_id)
+        enabled_override = payload.get(
+            "enabled_override", payload.get("enabled")
+        )
         r = models.QCRule(
             check_code=check_code,
-            sensor_id=payload.get("sensor_id"),
-            parameter_id=payload.get("parameter_id"),
+            sensor_id=sensor_id,
+            parameter_id=parameter_id,
+            external_api_id=external_api_id,
             aggregate_code=payload.get("aggregate_code"),
-            enabled=bool(payload.get("enabled", True)),
-            params=payload.get("params"),
+            enabled_override=enabled_override,
+            failure_action_override=payload.get("failure_action_override"),
+            settings=payload.get("settings", payload.get("params")),
+            policy_unit_id=payload.get("policy_unit_id"),
         )
         session.add(r)
         session.flush()
@@ -82,6 +132,9 @@ def create_qc_rule(
         return _rule_to_dict(r)
     except HTTPException:
         raise
+    except IntegrityError as e:
+        session.rollback()
+        raise HTTPException(status_code=409, detail="A QC override already exists for this scope") from e
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
 
@@ -103,18 +156,32 @@ def update_qc_rule(
             r.sensor_id = payload["sensor_id"]
         if "parameter_id" in payload:
             r.parameter_id = payload["parameter_id"]
+        if "external_api_id" in payload:
+            r.external_api_id = payload["external_api_id"]
         if "aggregate_code" in payload:
             r.aggregate_code = payload["aggregate_code"]
-        if "enabled" in payload:
-            r.enabled = bool(payload["enabled"])
-        if "params" in payload:
-            r.params = payload["params"]
+        if "enabled_override" in payload:
+            r.enabled_override = payload["enabled_override"]
+        elif "enabled" in payload:
+            r.enabled_override = payload["enabled"]
+        if "failure_action_override" in payload:
+            r.failure_action_override = payload["failure_action_override"]
+        if "settings" in payload:
+            r.settings = payload["settings"]
+        elif "params" in payload:
+            r.settings = payload["params"]
+        if "policy_unit_id" in payload:
+            r.policy_unit_id = payload["policy_unit_id"]
+        _validate_rule_scope(r.sensor_id, r.parameter_id, r.external_api_id)
         session.add(r)
         session.flush()
         session.commit()
         return _rule_to_dict(r)
     except HTTPException:
         raise
+    except IntegrityError as e:
+        session.rollback()
+        raise HTTPException(status_code=409, detail="A QC override already exists for this scope") from e
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
 
@@ -135,7 +202,7 @@ def update_qc_rule_draft(
         if dp is None or not isinstance(dp, dict):
             raise HTTPException(status_code=400, detail="draft_params must be an object")
         r.draft_params = dp
-        r.state = "draft" if r.enabled else r.state
+        r.state = "draft"
         session.add(r)
         session.flush()
         session.commit()
@@ -162,7 +229,6 @@ def activate_qc_rule(
         r.draft_params = None
         r.version = int(getattr(r, "version", 1) or 1) + 1
         r.state = "active"
-        r.enabled = True
         session.add(r)
         session.flush()
         session.commit()
@@ -179,7 +245,7 @@ def preview_qc_rule(
     hours: int = Query(default=24, ge=1, le=168),
     session: Session = Depends(get_session),
 ):
-    """Preview impact of draft parameters for min_value or max_value against recent measurements.
+    """Preview draft settings through the registered plugin implementation.
 
     Returns counts of would-pass/would-fail for the rule scope.
     """
@@ -201,41 +267,54 @@ def preview_qc_rule(
             stmt = stmt.where(m.sensor_id == r.sensor_id)
         if r.parameter_id is not None:
             stmt = stmt.where(s.parameter_id == r.parameter_id)
+        if r.external_api_id is not None:
+            stmt = stmt.join(models.Device, models.Device.device_id == s.device_id).where(
+                models.Device.external_api_id == r.external_api_id
+            )
         values = [v for (v,) in session.execute(stmt).all()]
-        threshold = None
-        would_fail = 0
-        would_pass = 0
         chk = r.check_code
-        if chk == "min_value":
-            try:
-                threshold = float(r.draft_params.get("min"))
-            except Exception:
-                raise HTTPException(status_code=400, detail="draft_params.min must be numeric")
-            for v in values:
-                try:
-                    vv = float(v)
-                except Exception:
-                    vv = None
-                if vv is None or vv < threshold:
-                    would_fail += 1
-                else:
-                    would_pass += 1
-        elif chk == "max_value":
-            try:
-                threshold = float(r.draft_params.get("max"))
-            except Exception:
-                raise HTTPException(status_code=400, detail="draft_params.max must be numeric")
-            for v in values:
-                try:
-                    vv = float(v)
-                except Exception:
-                    vv = None
-                if vv is None or vv > threshold:
-                    would_fail += 1
-                else:
-                    would_pass += 1
-        else:
-            raise HTTPException(status_code=400, detail=f"Preview not supported for check_code '{chk}'")
+        registration = get_registration(chk)
+        if registration is None:
+            raise HTTPException(
+                status_code=503,
+                detail={
+                    "reason_code": "plugin_unavailable",
+                    "message": f"QC plugin '{chk}' is unavailable",
+                },
+            )
+        draft_settings = dict(r.draft_params)
+        preview_policy = EffectiveQCPolicy(
+            check_code=chk,
+            status="ready",
+            enabled=True,
+            failure_action=r.failure_action_override or FLAG_FOR_REVIEW,
+            configured_settings=draft_settings,
+            evaluation_settings=draft_settings,
+        )
+        records = [
+            QCRecord(
+                sensor_id=None,
+                parameter_id=r.parameter_id,
+                value=value,
+                unit_id=None,
+                observed_at=None,
+            )
+            for value in values
+        ]
+        raw_decisions = registration.plugin.apply(
+            records,
+            {"effective_policies": [preview_policy] * len(records)},
+        )
+        decisions = _validate_plugin_decisions(chk, raw_decisions, len(records))
+        would_fail = sum(decision.is_valid is False for decision in decisions)
+        would_pass = sum(decision.is_valid is True for decision in decisions)
+        indeterminate = sum(decision.is_valid is None for decision in decisions)
+        summary_setting = registration.metadata.overview.summary_setting
+        threshold = (
+            draft_settings.get(summary_setting)
+            if summary_setting is not None
+            else None
+        )
         return {
             "qc_rule_id": qc_rule_id,
             "check_code": chk,
@@ -244,6 +323,7 @@ def preview_qc_rule(
             "samples": len(values),
             "would_fail": would_fail,
             "would_pass": would_pass,
+            "indeterminate": indeterminate,
         }
     except HTTPException:
         raise
@@ -272,7 +352,7 @@ def disable_qc_rule(qc_rule_id: int, session: Session = Depends(get_session)):
         r = session.get(models.QCRule, qc_rule_id)
         if not r:
             raise HTTPException(status_code=404, detail="Rule not found")
-        r.enabled = False
+        r.enabled_override = False
         session.add(r)
         session.flush()
         session.commit()
@@ -289,7 +369,7 @@ def enable_qc_rule(qc_rule_id: int, session: Session = Depends(get_session)):
         r = session.get(models.QCRule, qc_rule_id)
         if not r:
             raise HTTPException(status_code=404, detail="Rule not found")
-        r.enabled = True
+        r.enabled_override = True
         session.add(r)
         session.flush()
         session.commit()
@@ -309,94 +389,49 @@ def effective_qc_rule(
     aggregate_code: str = Query(default="1h"),
 ):
     try:
-                                                                                 
-        import qaqc.plugins              
-
-        if check_code != qc_min.CHECK_CODE:
-            raise HTTPException(status_code=400, detail=f"check_code '{check_code}' not supported")
-
-                                                                                                          
-        if parameter_id is None and sensor_id is not None:
-            try:
-                s = session.get(models.Sensor, sensor_id)
-                if s and getattr(s, "parameter_id", None) is not None:
-                    parameter_id = s.parameter_id
-            except Exception:
-                pass
-
-                                                      
-        rules = session.scalars(
-            select(models.QCRule).where(
-                models.QCRule.enabled == True,              
-                models.QCRule.check_code == check_code,
+        if sensor_id is None:
+            raise HTTPException(
+                status_code=400,
+                detail="sensor_id is required for unit-aware effective QC policy resolution",
             )
-        ).all()
+        sensor = session.get(models.Sensor, sensor_id)
+        if sensor is None:
+            raise HTTPException(status_code=404, detail="Sensor not found")
+        if parameter_id is not None and sensor.parameter_id != parameter_id:
+            raise HTTPException(
+                status_code=400,
+                detail="parameter_id does not match the selected sensor",
+            )
+        policy = resolve_effective_qc_policy(
+            session,
+            sensor_id,
+            check_code,
+            aggregate_code,
+        )
 
-        best = None
-        best_score = -1
-        for r in rules:
-            score = 0
-                                      
-            if getattr(r, "sensor_id", None) is not None and sensor_id is not None and r.sensor_id == sensor_id:
-                score += 4
-            elif getattr(r, "sensor_id", None) is None:
-                score += 1
-            else:
-                continue
-
-            if r.parameter_id is not None and parameter_id is not None and r.parameter_id == parameter_id:
-                score += 2
-            elif r.parameter_id is None:
-                score += 1
-            else:
-                continue
-
-            if r.aggregate_code is not None and r.aggregate_code == aggregate_code:
-                score += 2
-            elif r.aggregate_code is None:
-                score += 1
-            else:
-                continue
-
-            if score > best_score:
-                best_score = score
-                best = r
-
-                                        
-        threshold = qc_min.DEFAULT_MIN_VALUE
-        if best and best.params and isinstance(best.params, dict):
-            try:
-                threshold = float(best.params.get("min", qc_min.DEFAULT_MIN_VALUE))
-            except Exception:
-                threshold = qc_min.DEFAULT_MIN_VALUE
-
-                                
-        source = "default"
-        if best is not None:
-            if getattr(best, "sensor_id", None) is not None and sensor_id is not None and best.sensor_id == sensor_id:
-                source = "sensor"
-            elif best.parameter_id is not None and parameter_id is not None and best.parameter_id == parameter_id:
-                source = "parameter"
-            else:
-                source = "global"
-
-                             
+        import qaqc.plugins
         from qaqc.registry import get as get_plugin
         plugin = get_plugin(check_code)
         display_name = getattr(plugin, "display_name", check_code) if plugin else check_code
         long_description = getattr(plugin, "long_description", "") if plugin else ""
+        threshold_name = "min" if check_code == "min_value" else "max"
         return {
             "check_code": check_code,
             "display_name": display_name,
             "long_description": long_description,
             "context": {
                 "sensor_id": sensor_id,
-                "parameter_id": parameter_id,
+                "parameter_id": sensor.parameter_id,
                 "aggregate_code": aggregate_code,
             },
-            "source": source,
-            "threshold": threshold,
-            "rule": _rule_to_dict(best) if best else None,
+            "source": (
+                policy.most_specific_source.layer
+                if policy.most_specific_source is not None
+                else None
+            ),
+            "threshold": policy.evaluation_settings.get(threshold_name),
+            "rule": None,
+            "effective_policy": policy.to_dict(),
         }
     except HTTPException:
         raise
@@ -407,20 +442,12 @@ def effective_qc_rule(
 @router.get("/qc/plugins")
 def list_qc_plugins():
     try:
-                                                
-        import qaqc.plugins              
-        from qaqc.registry import all_plugins
+        from dataclasses import asdict
+        from qaqc.registry import all_registrations
+
         items = []
-        for name, plugin in all_plugins().items():
-            items.append({
-                "name": getattr(plugin, "name", name),
-                "display_name": getattr(plugin, "display_name", name),
-                "long_description": getattr(plugin, "long_description", ""),
-                "version": getattr(plugin, "version", None),
-                "qc_api": getattr(plugin, "qc_api", None),
-                "param_schema": getattr(plugin, "param_schema", None),
-            })
-                                            
+        for registration in all_registrations().values():
+            items.append(asdict(registration.metadata))
         items.sort(key=lambda x: x.get("display_name") or x.get("name"))
         return items
     except Exception as e:

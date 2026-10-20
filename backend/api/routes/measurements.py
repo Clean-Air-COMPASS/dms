@@ -1,12 +1,12 @@
 from __future__ import annotations
 
-from typing import Optional, List, Tuple, Dict, Set
-from datetime import datetime, timezone, date, timedelta
+from typing import Annotated, Optional, List, Tuple, Dict
+from datetime import datetime, timezone, date
 from zoneinfo import ZoneInfo
 
 from fastapi import APIRouter, HTTPException, Depends, Query
 from pydantic import BaseModel
-from sqlalchemy import func, or_, literal_column
+from sqlalchemy import func
 from sqlalchemy import select as sa_select
 from sqlalchemy.orm import Session, aliased
 
@@ -15,23 +15,33 @@ from models import (
     AggregationPeriod,
     Device,
     ExternalAPI,
-    Measurement,
     Parameter,
     ParameterAggregationRule,
     ParameterAggregationRollup,
     Sensor,
     Unit,
 )
-from sqlalchemy import exists
 from utils.aggregations import get_pm25_rolling_24h_avg, get_pm25_daily_24h_avg
-from services import aqi as aqi_service
-from services import aqi_engine
 from utils.parameter_aggregation_rule_formatting import (
     ParameterAggregationRuleFormatting,
     apply_parameter_aggregation_rule,
     load_parameter_aggregation_rules,
+    parameter_aggregation_display_precision,
     resolve_parameter_aggregation_rule,
 )
+from services.measurement_aggregation import (
+    MeasurementAggregationError,
+    execute_measurement_aggregation,
+    execute_latest_measurements,
+    load_measurement_aggregation_capabilities,
+    resolve_measurement_aggregation,
+)
+from services.device_locations import (
+    InvalidBoundingBox,
+    device_bbox_predicate,
+    parse_bounding_box,
+)
+from services.data_attribution import serialize_data_attribution
 
                        
                                                                              
@@ -42,12 +52,6 @@ from utils.parameter_aggregation_rule_formatting import (
 
 router = APIRouter()
                                                                                   
-BUCKET_SECONDS = {
-    "1m": 60,
-    "1h": 3600,
-    "8h": 8 * 3600,
-    "24h": 24 * 3600,
-}
 MANUAL_SOURCE_LABEL = "Other"
 
 
@@ -60,37 +64,11 @@ def _normalize_utc(dt: Optional[datetime]) -> Optional[datetime]:
 
 
 def _parse_bbox(bbox: Optional[str]) -> Optional[Tuple[float, float, float, float]]:
-    if bbox is None:
-        return None
-    parts = (bbox or "").split(",")
-    if len(parts) != 4:
-        raise HTTPException(status_code=400, detail="bbox must be min_lon,min_lat,max_lon,max_lat")
     try:
-        coords = tuple(float(p.strip()) for p in parts)
-    except Exception:
-        raise HTTPException(status_code=400, detail="bbox values must be numeric")
-    min_lon, min_lat, max_lon, max_lat = coords
-    if min_lon >= max_lon or min_lat >= max_lat:
-        raise HTTPException(status_code=400, detail="bbox bounds are invalid (min must be < max)")
-    return min_lon, min_lat, max_lon, max_lat
-
-
-def _seconds_from_interval(expected_interval: Optional[str], duration_minutes: Optional[int]) -> Optional[int]:
-    """Return cadence in seconds from HH:MM:SS or duration_minutes; fallback to None."""
-    if expected_interval:
-        try:
-            parts = expected_interval.split(":")
-            if len(parts) == 3:
-                h, m, s = [int(float(p)) for p in parts]
-                return h * 3600 + m * 60 + s
-        except Exception:
-            pass
-    if duration_minutes:
-        try:
-            return int(duration_minutes) * 60
-        except Exception:
-            return None
-    return None
+        parsed = parse_bounding_box(bbox)
+    except InvalidBoundingBox as exc:
+        raise HTTPException(status_code=400, detail=str(exc)) from exc
+    return parsed.as_tuple() if parsed is not None else None
 
 
 def _resolve_public_source_name(
@@ -110,29 +88,50 @@ def _apply_public_source_filter(stmt, normalized_external_api_name: Optional[str
         return stmt
     if _is_other_source_filter(normalized_external_api_name):
         return stmt.where(Device.manual_data_source_name.is_not(None))
-    return stmt.where(func.lower(ExternalAPI.name) == normalized_external_api_name)
+    # Manual devices retain a provider association for storage, but their
+    # public source identity is Other, matching the serialized provenance.
+    return stmt.where(
+        Device.manual_data_source_name.is_(None),
+        func.lower(ExternalAPI.name) == normalized_external_api_name,
+    )
 
 class DeviceOut(BaseModel):
     device_id: Optional[int]
     name: Optional[str]
+    friendly_name: Optional[str] = None
     latitude: Optional[float] = None
     longitude: Optional[float] = None
     network: Optional[str] = None
     timezone: Optional[str] = None
     external_api: Optional[dict] = None
+    data_attribution: Optional[dict] = None
 
 
 class MeasurementOut(BaseModel):
-    """Shared response shape for concentration and AQI values (unit may be 'AQI')."""
+    """Public response shape for physical measurement values."""
 
     measurement_id: int
     sensor_id: Optional[int]
     external_sensor_id: Optional[str] = None
     parameter: str
+    parameter_name: str
     value: float
     unit: Optional[str]
     observed_at: Optional[str]
     sensor_aggregation_period: Optional[str] = None
+    native_aggregation_code: Optional[str] = None
+    result_aggregation_code: Optional[str] = None
+    formatting_status: Optional[str] = None
+    display_precision: Optional[int] = None
+    interval_started_at: Optional[str] = None
+    interval_ended_at: Optional[str] = None
+    latest_source_observed_at: Optional[str] = None
+    query_since: Optional[str] = None
+    result_is_rolling: bool = False
+    sample_count: Optional[int] = None
+    valid_sample_count: Optional[int] = None
+    invalid_sample_count: Optional[int] = None
+    acquisition_metadata: Optional[dict] = None
     device: Optional[DeviceOut]
 
                                                                     
@@ -143,6 +142,30 @@ class ParameterOut(BaseModel):
     code: str
     display_name: str
     unit_symbol: Optional[str] = None
+
+
+def _latest_result_page(rows: list[dict], limit: int, offset: Optional[int]) -> list[dict]:
+    # Export pages use sensor identity, rather than changing observation times,
+    # so new observations cannot move a sensor between pages.
+    if offset is None:
+        return rows
+    ordered = sorted(rows, key=lambda row: (row.get("sensor_id") or 0, row["measurement_id"]))
+    return ordered[offset:offset + limit]
+
+
+def _attach_acquisition_metadata(session: Session, rows: list[dict]) -> list[dict]:
+    """Expose stream provenance without changing scientific aggregation."""
+    sensor_ids = {row["sensor_id"] for row in rows if row.get("sensor_id") is not None}
+    if not sensor_ids:
+        return rows
+    metadata = dict(session.execute(sa_select(
+        Sensor.sensor_id, Sensor.acquisition_metadata,
+    ).where(Sensor.sensor_id.in_(sensor_ids))).all())
+    for row in rows:
+        acquisition = metadata.get(row.get("sensor_id"))
+        if acquisition is not None:
+            row["acquisition_metadata"] = acquisition
+    return rows
 
 
 class ParameterAggregationRuleOut(BaseModel):
@@ -194,7 +217,7 @@ def list_parameter_aggregation_rules(session: Session = Depends(get_session)):
                 AggregationPeriod.aggregation_period_id
                 == ParameterAggregationRule.aggregation_period_id,
             )
-            .where(ParameterAggregationRule.active == True)              
+            .where(ParameterAggregationRule.active.is_(True))
         )
         rows = session.execute(stmt).all()
         return [
@@ -216,9 +239,20 @@ def list_parameter_aggregation_rules(session: Session = Depends(get_session)):
 def list_aggregation_periods(session: Session = Depends(get_session)):
     """List available aggregation/time resolution periods from the database."""
     try:
-        stmt = sa_select(AggregationPeriod.code, AggregationPeriod.display_name).order_by(AggregationPeriod.duration_minutes.asc().nulls_last())
+        stmt = sa_select(
+            AggregationPeriod.code,
+            AggregationPeriod.display_name,
+            AggregationPeriod.duration_minutes,
+        ).order_by(AggregationPeriod.duration_minutes.asc().nulls_last())
         rows = session.execute(stmt).all()
-        return [{"code": r[0], "display_name": r[1]} for r in rows]
+        return [
+            {
+                "code": row.code,
+                "display_name": row.display_name,
+                "duration_minutes": row.duration_minutes,
+            }
+            for row in rows
+        ]
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
 
@@ -299,7 +333,7 @@ def pm25_rolling_24h_average(
         None,
         description="End of the 24h window (UTC). If omitted, uses current time.",
     ),
-    min_hours: Optional[int] = Query(None, description="Minimum per-sensor hours required to include sensor in the aggregate (overrides PM25_MIN_HOURS env)") ,
+    min_hours: Optional[int] = Query(None, description="Minimum per-sensor hours required to include sensor in the aggregate."),
     session: Session = Depends(get_session),
 ):
     try:
@@ -315,7 +349,7 @@ def pm25_daily_24h_average(
     local_date: date = Query(
         ..., description="Local calendar date in the device timezone (YYYY-MM-DD)."
     ),
-    min_hours: Optional[int] = Query(None, description="Minimum per-sensor hours required to include sensor in the aggregate (overrides PM25_MIN_HOURS env)"),
+    min_hours: Optional[int] = Query(None, description="Minimum per-sensor hours required to include sensor in the aggregate."),
     session: Session = Depends(get_session),
 ):
     try:
@@ -369,12 +403,16 @@ def latest_by_parameter(
         None,
         description="Optional filter by ExternalAPI.name (e.g., 'openaq', 'purpleair', 'airgradient').",
     ),
+    all_results: bool = False,
+    offset: Annotated[Optional[int], Query(ge=0, description="Export page offset in stable sensor order. When set, limit applies even with since or all_results.")] = None,
     session: Session = Depends(get_session),
 ):
     """Return latest measurements for a given parameter code.
 
     Mirrors the pm25 endpoint but supports any canonical Parameter.code.
+    Map callers may request all_results without imposing a time window.
     Optional 'since' parameter filters by observed_at >= since (UTC) and disables the limit.
+    Explicit offset requests instead paginate in stable sensor order using limit.
     """
     try:
         pcode = (parameter or "").lower()
@@ -391,38 +429,14 @@ def latest_by_parameter(
         agg_code = (aggregation or "").lower() if aggregation else None
         normalized_external_api_name = (external_api_name or "").strip().lower() if external_api_name else None
 
-        if agg_code in aqi_service.AQI_TIME_RESOLUTIONS:
-            try:
-                results = aqi_engine.compute_latest_aqi(
-                    session,
-                    pcode,
-                    agg_code,
-                    end_time=until_cutoff,
-                    since=cutoff,
-                    bbox=bbox_tuple,
-                    device_id=device_id,
-                    external_api_name=normalized_external_api_name,
-                    limit=None if cutoff else limit,
-                )
-                                                                                            
-                rules_by_aggregation_code = load_parameter_aggregation_rules(session, pcode, {"aqi"})
-                rule = rules_by_aggregation_code.get("aqi")
-                if rule:
-                    for row in results:
-                        row["value"] = apply_parameter_aggregation_rule(
-                            row.get("value"),
-                            rule.rounding_method,
-                            rule.rounding_precision,
-                            rule.truncation_method,
-                            rule.truncation_precision,
-                        )
-                return results
-            except HTTPException:
-                raise
-            except ValueError as exc:
-                raise HTTPException(status_code=400, detail=str(exc))
-            except Exception as exc:
-                raise HTTPException(status_code=500, detail=str(exc))
+        if agg_code == "aqi" or (agg_code and agg_code.startswith("aqi-")):
+            raise HTTPException(
+                status_code=400,
+                detail=(
+                    "U.S. EPA AQI is available only from "
+                    "/air-quality-index/us_epa/latest."
+                ),
+            )
 
         if pcode == "pm25" and agg_code in {"24h_rolling", "24h_daily"}:
                                         
@@ -440,11 +454,21 @@ def latest_by_parameter(
                 sa_select(
                     Device.device_id,
                     Device.name,
+                    Device.friendly_name,
+                    Parameter.display_name.label("parameter_name"),
                     Device.latitude,
                     Device.longitude,
                     Device.timezone,
                     Device.manual_data_source_name,
                     ExternalAPI.name.label("network"),
+                    Device.acquisition_path,
+                    Device.hardware_provider_name,
+                    Device.provider_url,
+                    Device.contributor_name,
+                    Device.contributor_url,
+                    Device.license_code,
+                    Device.license_url,
+                    Device.license_share_alike,
                 )
                 .join(Sensor, Sensor.device_id == Device.device_id)
                 .join(Parameter, Sensor.parameter_id == Parameter.parameter_id)
@@ -453,6 +477,10 @@ def latest_by_parameter(
                 .distinct()
             )
             dev_stmt = _apply_public_source_filter(dev_stmt, normalized_external_api_name)
+            if bbox_tuple is not None:
+                dev_stmt = dev_stmt.where(
+                    device_bbox_predicate(Device.location, bbox_tuple)
+                )
             dev_rows = session.execute(dev_stmt).all()
 
             out: List[dict] = []
@@ -462,7 +490,25 @@ def latest_by_parameter(
             pm25_24h_rule = resolve_parameter_aggregation_rule(rules_for_pm25_24h, "24h")
 
             now_utc = datetime.now(timezone.utc)
-            for d_id, d_name, d_lat, d_lon, d_tz, d_manual_source_name, d_network in dev_rows:
+            for (
+                d_id,
+                d_name,
+                d_friendly_name,
+                d_parameter_name,
+                d_lat,
+                d_lon,
+                d_tz,
+                d_manual_source_name,
+                d_network,
+                d_acquisition_path,
+                d_hardware_provider_name,
+                d_provider_url,
+                d_contributor_name,
+                d_contributor_url,
+                d_license_code,
+                d_license_url,
+                d_license_share_alike,
+            ) in dev_rows:
                 resolved_source_name = _resolve_public_source_name(d_manual_source_name, d_network)
                 avg_val: Optional[float] = None
                 obs_at: Optional[str] = None
@@ -475,7 +521,11 @@ def latest_by_parameter(
                     local_today = datetime.now(ZoneInfo(d_tz)).date()
                     avg_val = get_pm25_daily_24h_avg(session, d_id, datetime.combine(local_today, datetime.min.time()))
                                                                                            
-                    obs_at = datetime.combine(local_today, datetime.min.time()).isoformat()
+                    obs_at = datetime.combine(
+                        local_today,
+                        datetime.min.time(),
+                        tzinfo=ZoneInfo(d_tz),
+                    ).astimezone(timezone.utc).isoformat()
 
                 if avg_val is None:
                     continue
@@ -494,391 +544,94 @@ def latest_by_parameter(
                         "sensor_id": None,
                         "external_sensor_id": None,
                         "parameter": "pm25",
+                        "parameter_name": d_parameter_name,
                         "value": avg_val,
                         "unit": unit_symbol,
                         "observed_at": obs_at,
+                        # These device-level PM2.5 products remain specialized
+                        # adapters; they do not have one sensor-native period.
+                        "native_aggregation_code": None,
+                        "result_aggregation_code": agg_code,
+                        "formatting_status": (
+                            "configured" if pm25_24h_rule is not None else "not_configured"
+                        ),
+                        "display_precision": (
+                            parameter_aggregation_display_precision(pm25_24h_rule)
+                        ),
                         "device": {
                             "device_id": d_id,
                             "name": d_name,
+                            "friendly_name": d_friendly_name,
                             "latitude": d_lat,
                             "longitude": d_lon,
                             "network": resolved_source_name,
                             "external_api": ({"name": resolved_source_name} if resolved_source_name is not None else None),
+                            "data_attribution": serialize_data_attribution(
+                                acquisition_path=d_acquisition_path,
+                                data_provider_name=resolved_source_name,
+                                hardware_provider_name=d_hardware_provider_name,
+                                provider_url=d_provider_url,
+                                contributor_name=d_contributor_name,
+                                contributor_url=d_contributor_url,
+                                license_code=d_license_code,
+                                license_url=d_license_url,
+                                license_share_alike=d_license_share_alike,
+                            ),
                         },
                     }
                 )
 
-            return out
+            return _latest_result_page(out, limit, offset)
 
                                                                                   
                                                                                       
                                                                                 
-        if agg_code and agg_code in BUCKET_SECONDS:
-            bucket_seconds = BUCKET_SECONDS[agg_code]
-            dialect_name = None
-            try:
-                if session.bind is not None:
-                    dialect_name = session.bind.dialect.name
-            except Exception:
-                dialect_name = None
-            bucket_expr = _bucket_start_expr(bucket_seconds, dialect=dialect_name)
-            stmt = (
-                sa_select(
-                    Measurement.sensor_id,
-                    func.avg(Measurement.value).label("value_avg"),
-                    bucket_expr.label("bucket_start"),
-                    Unit.symbol.label("unit_symbol"),
-                    Device.device_id,
-                    Device.name,
-                    Device.latitude,
-                    Device.longitude,
-                    Sensor.external_sensor_id,
-                    AggregationPeriod.expected_interval,
-                    AggregationPeriod.duration_minutes,
-                    AggregationPeriod.code.label("sensor_aggregation_code"),
-                    func.count(Measurement.measurement_id).label("sample_count"),
-                )
-                .join(Sensor, Sensor.sensor_id == Measurement.sensor_id)
-                .join(Parameter, Parameter.parameter_id == Sensor.parameter_id)
-                .join(Unit, Unit.unit_id == Sensor.unit_id, isouter=True)
-                .join(Device, Device.device_id == Sensor.device_id, isouter=True)
-                .join(ExternalAPI, Device.external_api_id == ExternalAPI.external_api_id, isouter=True)
-                .join(AggregationPeriod, AggregationPeriod.aggregation_period_id == Sensor.aggregation_period_id, isouter=True)
-                .where(Parameter.code == pcode)
-                .where(Measurement.is_valid == True)
+        try:
+            shared_results = execute_latest_measurements(
+                session,
+                result_aggregation_code=agg_code,
+                parameter_code=pcode,
+                since=cutoff,
+                until=until_cutoff,
+                source=normalized_external_api_name,
+                device_id=device_id,
+                bbox=bbox_tuple,
             )
-
-            if cutoff is not None:
-                stmt = stmt.where(Measurement.observed_at >= cutoff)
-            if until_cutoff is not None:
-                stmt = stmt.where(Measurement.observed_at <= until_cutoff)
-            if device_id is not None:
-                stmt = stmt.where(Device.device_id == device_id)
-            stmt = _apply_public_source_filter(stmt, normalized_external_api_name)
-            if bbox_tuple:
-                min_lon, min_lat, max_lon, max_lat = bbox_tuple
-                stmt = stmt.where(Device.latitude != None, Device.longitude != None)              
-                stmt = stmt.where(Device.latitude >= min_lat, Device.latitude <= max_lat)
-                stmt = stmt.where(Device.longitude >= min_lon, Device.longitude <= max_lon)
-
-            stmt = stmt.group_by(
-                Measurement.sensor_id,
-                bucket_expr,
-                Unit.symbol,
-                Device.device_id,
-                Device.name,
-                Device.latitude,
-                Device.longitude,
-                Sensor.external_sensor_id,
-                AggregationPeriod.expected_interval,
-                AggregationPeriod.duration_minutes,
-                AggregationPeriod.code,
-            )
-            rows = session.execute(stmt).all()
-
-            rules_by_aggregation_code: Dict[str, ParameterAggregationRuleFormatting] = load_parameter_aggregation_rules(
-                session, pcode, {agg_code}
-            )
-
-            def _format_value_for_aggregation(raw_value: Optional[float]) -> Optional[float]:
-                rule = resolve_parameter_aggregation_rule(rules_by_aggregation_code, agg_code)
-                if not rule:
-                    return raw_value
-                return apply_parameter_aggregation_rule(
-                    raw_value,
-                    rule.rounding_method,
-                    rule.rounding_precision,
-                    rule.truncation_method,
-                    rule.truncation_precision,
-                )
-
-            def _normalize_bucket_start(bucket_start_value: object) -> Optional[datetime]:
-                normalized_value = bucket_start_value
-                if isinstance(normalized_value, str):
-                    try:
-                        parsed = datetime.fromisoformat(normalized_value)
-                        if parsed.tzinfo is None:
-                            parsed = parsed.replace(tzinfo=timezone.utc)
-                        normalized_value = parsed
-                    except Exception:
-                        normalized_value = None
-                return normalized_value
-
-                                                                             
-                                                                                
-            device_ids = {r.device_id for r in rows if getattr(r, 'device_id', None) is not None}
-            device_info_map: dict = {}
-            if device_ids:
-                try:
-                    net_rows = session.execute(
-                        sa_select(
-                            Device.device_id,
-                            Device.manual_data_source_name,
-                            ExternalAPI.name,
-                            Device.timezone,
-                        )
-                        .join(ExternalAPI, Device.external_api_id == ExternalAPI.external_api_id, isouter=True)
-                        .where(Device.device_id.in_(list(device_ids)))
-                    ).all()
-                    for did, manual_source_name, net, tz in net_rows:
-                        device_info_map[did] = {
-                            "network": _resolve_public_source_name(manual_source_name, net),
-                            "timezone": tz,
-                        }
-                except Exception:
-                    device_info_map = {}
-
-            latest_by_sensor: dict[int, dict] = {}
-            for row in rows:
-                sid = row.sensor_id
-                                                                                              
-                bucket_start = _normalize_bucket_start(row.bucket_start)
-                existing = latest_by_sensor.get(sid)
-                if existing:
-                    prev_ts = existing.get("_ts") or float("-inf")
-                    cur_ts = bucket_start.timestamp() if bucket_start else float("-inf")
-                    if cur_ts <= prev_ts:
-                        continue
-                                                                               
-                device_info = device_info_map.get(row.device_id, {}) if row.device_id is not None else {}
-                resolved_network = device_info.get("network") if device_info else None
-                resolved_timezone = device_info.get("timezone") if device_info else None
-
-                raw_value = float(row.value_avg) if row.value_avg is not None else None
-                formatted_value = _format_value_for_aggregation(raw_value)
-
-                latest_by_sensor[sid] = {
-                    "_ts": bucket_start.timestamp() if bucket_start else None,
-                    "measurement_id": 0,
-                    "sensor_id": sid,
-                    "external_sensor_id": row.external_sensor_id,
-                    "parameter": pcode,
-                    "value": formatted_value,
-                    "unit": row.unit_symbol,
-                    "observed_at": bucket_start.isoformat() if bucket_start else None,
-                    "sensor_aggregation_period": getattr(row, "sensor_aggregation_code", None),
-                    "device": (
-                        {
-                            "device_id": row.device_id,
-                            "name": row.name,
-                            "latitude": row.latitude,
-                            "longitude": row.longitude,
-                            "network": resolved_network,
-                            "timezone": resolved_timezone,
-                            "external_api": ({"name": resolved_network} if resolved_network is not None else None),
-                        }
-                        if row.device_id is not None
-                        else None
-                    ),
-                }
-
-            return list(latest_by_sensor.values())
-
-        rn = func.row_number().over(
-            partition_by=Measurement.sensor_id,
-            order_by=(Measurement.observed_at.desc(), Measurement.measurement_id.desc()),
-        )
-
-        sensor_ap = aliased(AggregationPeriod, name="sensor_ap")
-
-        base_select = (
-            sa_select(
-                Measurement.measurement_id.label("measurement_id"),
-                Measurement.sensor_id.label("sensor_id"),
-                Measurement.value.label("value"),
-                Measurement.observed_at.label("observed_at"),
-                Sensor.device_id.label("device_id"),
-                Sensor.external_sensor_id.label("external_sensor_id"),
-                Parameter.code.label("m_param_code"),
-                Parameter.parameter_id.label("param_id"),
-                Unit.symbol.label("m_unit_symbol"),
-                rn.label("rn"),
-                sensor_ap.code.label("sensor_aggregation_code"),
-            )
-            .join(Sensor, Measurement.sensor_id == Sensor.sensor_id)
-            .join(Parameter, Sensor.parameter_id == Parameter.parameter_id)
-            .outerjoin(Unit, Sensor.unit_id == Unit.unit_id)
-            .outerjoin(sensor_ap, sensor_ap.aggregation_period_id == Sensor.aggregation_period_id)
-            .where(Parameter.code == pcode)
-            .where(Measurement.is_valid == True)
-        )
-
-        agg_code_normalized: Optional[str] = None
-        if aggregation:
-            agg_code_normalized = (aggregation or "").lower()
-                                                                                                                          
-            par_rule_exists = (
-                sa_select(ParameterAggregationRule.parameter_aggregation_rule_id)
-                .join(
-                    AggregationPeriod,
-                    ParameterAggregationRule.aggregation_period_id == AggregationPeriod.aggregation_period_id,
-                )
-                .where(ParameterAggregationRule.parameter_id == Parameter.parameter_id)
-                .where(AggregationPeriod.code == agg_code_normalized)
-                .limit(1)
-                .exists()
-            )
-            base_select = base_select.where(or_(sensor_ap.code == agg_code_normalized, par_rule_exists))
-
-        base = base_select.subquery("latest_per_sensor")
-
-        stmt = (
-            sa_select(
-                base.c.measurement_id,
-                base.c.sensor_id,
-                base.c.m_param_code,
-                base.c.value,
-                base.c.m_unit_symbol,
-                base.c.observed_at,
-                Device.device_id,
-                Device.name,
-                Device.latitude,
-                Device.longitude,
-                base.c.external_sensor_id,
-                base.c.sensor_aggregation_code,
-                Device.manual_data_source_name,
-                ExternalAPI.name.label("network"),
-            )
-            .join(Device, Device.device_id == base.c.device_id, isouter=True)
-            .join(ExternalAPI, Device.external_api_id == ExternalAPI.external_api_id, isouter=True)
-            .where(base.c.rn == 1)
-        )
-
-        if cutoff is not None:
-            stmt = stmt.where(base.c.observed_at >= cutoff)
-        if until_cutoff is not None:
-            stmt = stmt.where(base.c.observed_at <= until_cutoff)
-        if device_id is not None:
-            stmt = stmt.where(Device.device_id == device_id)
-        stmt = _apply_public_source_filter(stmt, normalized_external_api_name)
-        if bbox_tuple:
-            min_lon, min_lat, max_lon, max_lat = bbox_tuple
-            stmt = stmt.where(Device.latitude != None, Device.longitude != None)              
-            stmt = stmt.where(Device.latitude >= min_lat, Device.latitude <= max_lat)
-            stmt = stmt.where(Device.longitude >= min_lon, Device.longitude <= max_lon)
-
-                                                                                      
-                                                                                       
-                                                                  
-                                                                                  
-
-        stmt = stmt.order_by(base.c.observed_at.desc())
-
-        if cutoff is None:
-            stmt = stmt.limit(limit)
-
-        rows = session.execute(stmt).all()
-        out: List[dict] = []
-
-        aggregation_codes_in_results: Set[str] = {
-            (getattr(row, "sensor_aggregation_code", None) or "").lower()
-            for row in rows
-            if getattr(row, "sensor_aggregation_code", None)
-        }
-        rules_by_aggregation_code: Dict[str, ParameterAggregationRuleFormatting] = load_parameter_aggregation_rules(
-            session, pcode, aggregation_codes_in_results
-        )
-
-        def _format_value_for_sensor(
-            raw_value: Optional[float], aggregation_code_for_value: Optional[str]
-        ) -> Optional[float]:
-            rule = resolve_parameter_aggregation_rule(
-                rules_by_aggregation_code, aggregation_code_for_value
-            )
-            if not rule:
-                return raw_value
-            return apply_parameter_aggregation_rule(
-                raw_value,
-                rule.rounding_method,
-                rule.rounding_precision,
-                rule.truncation_method,
-                rule.truncation_precision,
-            )
-
-                                                                                       
-        device_ids = {row.device_id for row in rows if row.device_id is not None}
-        device_info_map: dict = {}
-        if device_ids:
-            try:
-                net_rows = session.execute(
-                    sa_select(
-                        Device.device_id,
-                        Device.manual_data_source_name,
-                        ExternalAPI.name,
-                        Device.timezone,
-                    )
-                    .join(ExternalAPI, Device.external_api_id == ExternalAPI.external_api_id, isouter=True)
-                    .where(Device.device_id.in_(list(device_ids)))
-                ).all()
-                for did, manual_source_name, net, tz in net_rows:
-                    device_info_map[did] = {
-                        "network": _resolve_public_source_name(manual_source_name, net),
-                        "timezone": tz,
-                    }
-            except Exception:
-                device_info_map = {}
-
-        for row in rows:
-            device_info = device_info_map.get(row.device_id, {}) if row.device_id is not None else {}
-            device_network = device_info.get("network") if device_info else None
-            device_timezone = device_info.get("timezone") if device_info else None
-            fallback_network = _resolve_public_source_name(
-                row.manual_data_source_name,
-                row.network,
-            )
-            formatted_value = _format_value_for_sensor(row.value, getattr(row, "sensor_aggregation_code", None))
-            sensor_aggregation_code = getattr(row, "sensor_aggregation_code", None)
-            out.append(
-                {
-                    "measurement_id": row.measurement_id,
-                    "sensor_id": row.sensor_id,
-                    "external_sensor_id": row.external_sensor_id,
-                    "parameter": row.m_param_code or "",
-                    "value": formatted_value,
-                    "unit": row.m_unit_symbol,
-                    "observed_at": row.observed_at.isoformat() if row.observed_at else None,
-                    "sensor_aggregation_period": sensor_aggregation_code,
-                    "device": (
-                        {
-                            "device_id": row.device_id,
-                            "name": row.name,
-                            "latitude": row.latitude,
-                            "longitude": row.longitude,
-                            "network": device_network or fallback_network,
-                            "timezone": device_timezone,
-                            "external_api": (
-                                {"name": (device_network or fallback_network)}
-                                if (device_network or fallback_network) is not None
-                                else None
-                            ),
-                        }
-                        if row.device_id is not None
-                        else None
-                    ),
-                }
-            )
-
-        return out
+        except MeasurementAggregationError as exc:
+            raise HTTPException(
+                status_code=400,
+                detail={"reason": exc.reason, "message": str(exc)},
+            ) from exc
+        if offset is not None:
+            return _attach_acquisition_metadata(session, _latest_result_page(shared_results, limit, offset))
+        return _attach_acquisition_metadata(session, shared_results if all_results or since is not None else shared_results[:limit])
+    except HTTPException:
+        raise
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
 
 
-def _bucket_start_expr(bucket_seconds: int, dialect: Optional[str] = None):
-    """Return an expression to truncate observed_at to bucket start (UTC).
+@router.get("/measurement-aggregation-capabilities")
+def measurement_aggregation_capabilities(
+    parameter: Optional[str] = Query(None),
+    source: Optional[str] = Query(None),
+    native_aggregation_code: Optional[str] = Query(None),
+    session: Session = Depends(get_session),
+):
+    """Return backend-resolved ordinary measurement aggregation options."""
 
-    Uses dialect-aware SQL so tests can run on SQLite while production uses Postgres.
-    """
-    if dialect and dialect.lower() == "sqlite":
-        return func.datetime(
-            func.floor(func.strftime("%s", Measurement.observed_at) / literal_column(str(bucket_seconds)))
-            * literal_column(str(bucket_seconds)),
-            literal_column("'unixepoch'"),
+    try:
+        return load_measurement_aggregation_capabilities(
+            session,
+            parameter_code=parameter,
+            source=source,
+            native_aggregation_code=native_aggregation_code,
         )
-                                                                                                          
-    return func.to_timestamp(
-        func.floor(func.extract("epoch", Measurement.observed_at) / literal_column(str(bucket_seconds)))
-        * literal_column(str(bucket_seconds))
-    )
+    except MeasurementAggregationError as exc:
+        raise HTTPException(
+            status_code=400,
+            detail={"reason": exc.reason, "message": str(exc)},
+        ) from exc
 
 
 @router.get("/measurements/{parameter}/aggregate")
@@ -904,235 +657,87 @@ def aggregate_measurements(
     dst = (target_agg or "").lower()
     normalized_external_api_name = (external_api_name or "").strip().lower() if external_api_name else None
 
-    try:
-        ap_from = aliased(AggregationPeriod, name="ap_from")
-        ap_to = aliased(AggregationPeriod, name="ap_to")
-        rollup_stmt = (
-            sa_select(
-                ap_from.code.label("from_code"),
-                ap_to.code.label("to_code"),
-            )
-            .select_from(ParameterAggregationRollup)
-            .join(Parameter, Parameter.parameter_id == ParameterAggregationRollup.parameter_id)
-            .join(ap_from, ap_from.aggregation_period_id == ParameterAggregationRollup.from_aggregation_period_id)
-            .join(ap_to, ap_to.aggregation_period_id == ParameterAggregationRollup.to_aggregation_period_id)
-            .where(Parameter.code == pcode)
-        )
-        allowed_pairs = {
-            (row.from_code.lower(), row.to_code.lower()) for row in session.execute(rollup_stmt).all()
-        }
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=str(e))
-
-    if (src, dst) not in allowed_pairs:
-        raise HTTPException(status_code=400, detail=f"Aggregation from {src} to {dst} not allowed for {pcode}")
-
-                                                                                  
-    if dst == "rolling_24h":
-        end_time = until if until else datetime.now(timezone.utc)
-        if end_time.tzinfo is None:
-            end_time = end_time.replace(tzinfo=timezone.utc)
-        start_time = end_time - timedelta(hours=24)
-        if since:
-            since_ts = since if since.tzinfo else since.replace(tzinfo=timezone.utc)
-            start_time = max(start_time, since_ts)
-
-        src_seconds = BUCKET_SECONDS.get(src)
-        if not src_seconds:
-            raise HTTPException(status_code=400, detail=f"Unsupported source aggregation {src} for rolling_24h")
-                                                                                        
-
-        stmt = (
-            sa_select(
-                Measurement.sensor_id,
-                func.avg(Measurement.value).label("value_avg"),
-                literal_column("NULL").label("bucket_start"),
-                Unit.symbol.label("unit_symbol"),
-                Device.device_id,
-                Device.name,
-                Device.latitude,
-                Device.longitude,
-            )
-            .join(Sensor, Sensor.sensor_id == Measurement.sensor_id)
-            .join(Parameter, Parameter.parameter_id == Sensor.parameter_id)
-            .join(Unit, Unit.unit_id == Sensor.unit_id, isouter=True)
-            .join(Device, Device.device_id == Sensor.device_id, isouter=True)
-            .join(ExternalAPI, Device.external_api_id == ExternalAPI.external_api_id, isouter=True)
-            .where(Parameter.code == pcode)
-            .where(Measurement.is_valid == True)
-            .where(Measurement.observed_at >= start_time)
-            .where(Measurement.observed_at <= end_time)
-            .group_by(
-                Measurement.sensor_id,
-                Unit.symbol,
-                Device.device_id,
-                Device.name,
-                Device.latitude,
-                Device.longitude,
-            )
-            .order_by(Measurement.sensor_id)
-        )
-        stmt = _apply_public_source_filter(stmt, normalized_external_api_name)
-
-        rows = session.execute(stmt).all()
-
-                                                                  
-        device_ids_in_rows = {r[4] for r in rows if r[4] is not None}                        
-        device_network_map: dict[int, str | None] = {}
-        if device_ids_in_rows:
-            network_rows = session.execute(
-                sa_select(Device.device_id, Device.manual_data_source_name, ExternalAPI.name)
-                .outerjoin(ExternalAPI, Device.external_api_id == ExternalAPI.external_api_id)
-                .where(Device.device_id.in_(device_ids_in_rows))
-            ).all()
-            for did, manual_source_name, net_name in network_rows:
-                device_network_map[did] = _resolve_public_source_name(manual_source_name, net_name)
-
-        out = []
-        for sensor_id, avg_val, _, unit_symbol, dev_id, dev_name, dev_lat, dev_lon in rows:
-            ext_api_obj = None
-            if dev_id is not None:
-                network_name = device_network_map.get(dev_id)
-                if network_name is not None:
-                    ext_api_obj = {"name": network_name}
-            out.append(
-                {
-                    "sensor_id": sensor_id,
-                    "parameter": pcode,
-                    "value": float(avg_val) if avg_val is not None else None,
-                    "unit": unit_symbol,
-                    "observed_at": end_time.isoformat(),
-                    "device": {
-                        "device_id": dev_id,
-                        "name": dev_name,
-                        "latitude": dev_lat,
-                        "longitude": dev_lon,
-                        "external_api": ext_api_obj,
-                    }
-                    if dev_id is not None
-                    else None,
-                }
-            )
-        return out
-
-                                                                      
-    if dst not in BUCKET_SECONDS:
-        raise HTTPException(status_code=400, detail=f"Aggregation target {dst} not supported")
-
-    bucket_seconds = BUCKET_SECONDS[dst]
-    src_seconds = BUCKET_SECONDS.get(src)
-    if not src_seconds:
-        raise HTTPException(status_code=400, detail=f"Aggregation source {src} not supported")
-    expected_samples = bucket_seconds / src_seconds
-    if expected_samples <= 0:
-        raise HTTPException(status_code=400, detail="Invalid expected sample calculation for aggregation")
-                                                                                 
-    dialect_name = None
-    try:
-        if session.bind is not None:
-            dialect_name = session.bind.dialect.name
-    except Exception:
-        dialect_name = None
-    bucket_expr = _bucket_start_expr(bucket_seconds, dialect=dialect_name)
-
-    stmt = (
+    native_period = aliased(AggregationPeriod, name="legacy_aggregate_native_period")
+    sensor_query = (
         sa_select(
-            Measurement.sensor_id,
-            func.avg(Measurement.value).label("value_avg"),
-            bucket_expr.label("bucket_start"),
+            Sensor.sensor_id,
+            Sensor.external_sensor_id,
+            Parameter.display_name.label("parameter_name"),
             Unit.symbol.label("unit_symbol"),
             Device.device_id,
-            Device.name,
+            Device.name.label("device_name"),
             Device.latitude,
             Device.longitude,
             Device.manual_data_source_name,
-            ExternalAPI.name.label("network"),
+            ExternalAPI.name.label("external_api_name"),
         )
-        .join(Sensor, Sensor.sensor_id == Measurement.sensor_id)
         .join(Parameter, Parameter.parameter_id == Sensor.parameter_id)
-        .join(Unit, Unit.unit_id == Sensor.unit_id, isouter=True)
-        .join(Device, Device.device_id == Sensor.device_id, isouter=True)
-        .join(ExternalAPI, Device.external_api_id == ExternalAPI.external_api_id, isouter=True)
-        .where(Parameter.code == pcode)
-        .where(Measurement.is_valid == True)
+        .join(native_period, native_period.aggregation_period_id == Sensor.aggregation_period_id)
+        .outerjoin(Unit, Unit.unit_id == Sensor.unit_id)
+        .join(Device, Device.device_id == Sensor.device_id)
+        .outerjoin(ExternalAPI, ExternalAPI.external_api_id == Device.external_api_id)
+        .where(func.lower(Parameter.code) == pcode)
+        .where(func.lower(native_period.code) == src)
     )
-    stmt = _apply_public_source_filter(stmt, normalized_external_api_name)
+    sensor_query = _apply_public_source_filter(sensor_query, normalized_external_api_name)
+    sensor_rows = session.execute(sensor_query).all()
+    metadata_by_sensor = {int(row.sensor_id): row for row in sensor_rows}
+    try:
+        resolve_measurement_aggregation(session, pcode, src, dst)
+        points = execute_measurement_aggregation(
+            session,
+            sensor_ids=metadata_by_sensor,
+            parameter_code=pcode,
+            native_aggregation_code=src,
+            result_aggregation_code=dst,
+            since=since,
+            until=until,
+            # This legacy endpoint has always returned the latest bucket per sensor.
+            latest_only=True,
+        )
+    except MeasurementAggregationError as exc:
+        raise HTTPException(
+            status_code=400,
+            detail={"reason": exc.reason, "message": str(exc)},
+        ) from exc
 
-    if since:
-        cutoff = since if since.tzinfo else since.replace(tzinfo=timezone.utc)
-        stmt = stmt.where(Measurement.observed_at >= cutoff)
-    if until:
-        upper = until if until.tzinfo else until.replace(tzinfo=timezone.utc)
-        stmt = stmt.where(Measurement.observed_at <= upper)
-
-    stmt = stmt.group_by(
-        Measurement.sensor_id,
-        bucket_expr,
-        Unit.symbol,
-        Device.device_id,
-        Device.name,
-        Device.latitude,
-        Device.longitude,
-        Device.manual_data_source_name,
-        ExternalAPI.name,
-    ).order_by(bucket_expr.desc())
-
-                                                                                         
-                                                                                                 
-    aggregated = stmt.subquery("aggregated")
-    latest_ranked = sa_select(
-        aggregated,
-        func.row_number()
-        .over(partition_by=aggregated.c.sensor_id, order_by=aggregated.c.bucket_start.desc())
-        .label("rn"),
-    ).subquery("latest_ranked")
-    stmt = sa_select(
-        latest_ranked.c.sensor_id,
-        latest_ranked.c.value_avg,
-        latest_ranked.c.bucket_start,
-        latest_ranked.c.unit_symbol,
-        latest_ranked.c.device_id,
-        latest_ranked.c.name,
-        latest_ranked.c.latitude,
-        latest_ranked.c.longitude,
-        latest_ranked.c.manual_data_source_name,
-        latest_ranked.c.network,
-    ).where(latest_ranked.c.rn == 1)
-
-    rows = session.execute(stmt).all()
-    out = []
-    for sensor_id, avg_val, bucket_start, unit_symbol, dev_id, dev_name, dev_lat, dev_lon, manual_source_name, network in rows:
-        resolved_source_name = _resolve_public_source_name(manual_source_name, network)
-        bs = bucket_start
-        if isinstance(bs, str):
-            try:
-                parsed = datetime.fromisoformat(bs)
-                if parsed.tzinfo is None:
-                    parsed = parsed.replace(tzinfo=timezone.utc)
-                bs = parsed
-            except Exception:
-                bs = None
-        out.append(
+    output = []
+    for point in points:
+        metadata = metadata_by_sensor[point.sensor_id]
+        source_name = _resolve_public_source_name(
+            metadata.manual_data_source_name, metadata.external_api_name
+        )
+        output.append(
             {
-                "sensor_id": sensor_id,
+                "measurement_id": point.measurement_id,
+                "sensor_id": point.sensor_id,
+                "external_sensor_id": metadata.external_sensor_id,
                 "parameter": pcode,
-                "value": float(avg_val) if avg_val is not None else None,
-                "unit": unit_symbol,
-                "observed_at": bs.isoformat() if bs else None,
+                "parameter_name": metadata.parameter_name,
+                "value": point.value,
+                "unit": metadata.unit_symbol,
+                "observed_at": point.observed_at.isoformat() if point.observed_at else None,
+                "sensor_aggregation_period": src,
+                "native_aggregation_code": src,
+                "result_aggregation_code": point.result_aggregation_code,
+                "formatting_status": point.formatting_status,
+                "display_precision": point.display_precision,
+                "interval_started_at": point.interval_started_at.isoformat() if point.interval_started_at else None,
+                "interval_ended_at": point.interval_ended_at.isoformat() if point.interval_ended_at else None,
+                "sample_count": point.sample_count,
+                "valid_sample_count": point.valid_sample_count,
+                "invalid_sample_count": point.invalid_sample_count,
                 "device": {
-                    "device_id": dev_id,
-                    "name": dev_name,
-                    "latitude": dev_lat,
-                    "longitude": dev_lon,
-                    "network": resolved_source_name,
-                    "external_api": ({"name": resolved_source_name} if resolved_source_name is not None else None),
-                }
-                if dev_id is not None
-                else None,
+                    "device_id": metadata.device_id,
+                    "name": metadata.device_name,
+                    "latitude": metadata.latitude,
+                    "longitude": metadata.longitude,
+                    "network": source_name,
+                    "external_api": ({"name": source_name} if source_name is not None else None),
+                },
             }
         )
-    return out
-
+    return output
 
 @router.get("/measurements/latest", response_model=List[MeasurementOut])
 def latest_all_parameters(
@@ -1153,12 +758,14 @@ def latest_all_parameters(
         None,
         description="Optional filter by ExternalAPI.name (e.g., 'openaq', 'purpleair', 'airgradient').",
     ),
+    offset: Annotated[Optional[int], Query(ge=0, description="Export page offset in stable sensor order. When set, limit applies even with since.")] = None,
     session: Session = Depends(get_session),
 ):
     """Return latest measurements per sensor for all parameters.
 
     Optional 'since'/'until' filters the window; optional 'aggregation' restricts sensors
     to those whose aggregation_period matches or whose parameter has an aggregation rule.
+    Explicit offset requests paginate in stable sensor order, including with since.
     """
     try:
                                                  
@@ -1170,186 +777,22 @@ def latest_all_parameters(
             until_cutoff = until if until.tzinfo else until.replace(tzinfo=timezone.utc)
         normalized_external_api_name = (external_api_name or "").strip().lower() if external_api_name else None
 
-        rn = func.row_number().over(
-            partition_by=Measurement.sensor_id,
-            order_by=(Measurement.observed_at.desc(), Measurement.measurement_id.desc()),
-        )
-
-        base_select = (
-            sa_select(
-                Measurement.measurement_id.label("measurement_id"),
-                Measurement.sensor_id.label("sensor_id"),
-                Measurement.value.label("value"),
-                Measurement.observed_at.label("observed_at"),
-                Sensor.device_id.label("device_id"),
-                Sensor.external_sensor_id.label("external_sensor_id"),
-                Parameter.code.label("m_param_code"),
-                Parameter.parameter_id.label("param_id"),
-                Unit.symbol.label("m_unit_symbol"),
-                rn.label("rn"),
-                Sensor.aggregation_period_id.label("sensor_agg_id"),
-            )
-            .join(Sensor, Measurement.sensor_id == Sensor.sensor_id)
-            .join(Parameter, Sensor.parameter_id == Parameter.parameter_id)
-            .outerjoin(Unit, Sensor.unit_id == Unit.unit_id)
-            .where(Measurement.is_valid == True)
-        )
-
-        if since_cutoff:
-            base_select = base_select.where(Measurement.observed_at >= since_cutoff)
-        if until_cutoff:
-            base_select = base_select.where(Measurement.observed_at <= until_cutoff)
-
-        agg_code_normalized: Optional[str] = None
-        if aggregation:
-            agg_code_normalized = (aggregation or "").lower()
-            ap_tbl = AggregationPeriod
-            par_rule_exists = (
-                sa_select(ParameterAggregationRule.parameter_aggregation_rule_id)
-                .join(
-                    ap_tbl,
-                    ParameterAggregationRule.aggregation_period_id == ap_tbl.aggregation_period_id,
-                )
-                .where(ParameterAggregationRule.parameter_id == Parameter.parameter_id)
-                .where(ap_tbl.code == agg_code_normalized)
-                .limit(1)
-                .exists()
-            )
-            base_select = base_select.join(
-                ap_tbl, Sensor.aggregation_period_id == ap_tbl.aggregation_period_id, isouter=True
-            ).where(or_(ap_tbl.code == agg_code_normalized, par_rule_exists))
-
-        base = base_select.subquery("latest_per_sensor_all")
-        sensor_ap_out = aliased(AggregationPeriod, name="sensor_ap_out")
-
-        stmt = (
-            sa_select(
-                base.c.measurement_id,
-                base.c.sensor_id,
-                base.c.m_param_code,
-                base.c.value,
-                base.c.m_unit_symbol,
-                base.c.observed_at,
-                Device.device_id,
-                Device.name,
-                Device.latitude,
-                Device.longitude,
-                Device.manual_data_source_name,
-                base.c.external_sensor_id,
-                sensor_ap_out.code.label("sensor_aggregation_code"),
-                ExternalAPI.name.label("network"),
-            )
-            .join(Device, Device.device_id == base.c.device_id, isouter=True)
-            .join(ExternalAPI, Device.external_api_id == ExternalAPI.external_api_id, isouter=True)
-            .outerjoin(sensor_ap_out, sensor_ap_out.aggregation_period_id == base.c.sensor_agg_id)
-            .where(base.c.rn == 1)
-            .order_by(base.c.observed_at.desc())
-        )
-        stmt = _apply_public_source_filter(stmt, normalized_external_api_name)
-
-        if since_cutoff is None:
-            stmt = stmt.limit(limit)
-
-        rows = session.execute(stmt).all()
-        out: List[dict] = []
-
-        parameter_codes_in_results: Set[str] = {
-            (row[2] or "").lower()
-            for row in rows
-            if row[2]
-        }
-        aggregation_codes_in_results: Set[str] = {
-            (row[12] or "").lower()
-            for row in rows
-            if row[12]
-        }
-        parameter_rules_by_code: Dict[str, Dict[str, ParameterAggregationRuleFormatting]] = {}
-        for parameter_code in parameter_codes_in_results:
-            parameter_rules_by_code[parameter_code] = load_parameter_aggregation_rules(
+        try:
+            shared_results = execute_latest_measurements(
                 session,
-                parameter_code,
-                aggregation_codes_in_results,
+                result_aggregation_code=aggregation,
+                since=since_cutoff,
+                until=until_cutoff,
+                source=normalized_external_api_name,
             )
-
-        def format_latest_value_for_all_parameters(
-            parameter_code: Optional[str],
-            aggregation_code: Optional[str],
-            raw_value: Optional[float],
-        ) -> Optional[float]:
-            normalized_parameter_code = (parameter_code or "").lower()
-            if not normalized_parameter_code:
-                return raw_value
-
-            rules_for_parameter = parameter_rules_by_code.get(normalized_parameter_code, {})
-            rule = resolve_parameter_aggregation_rule(rules_for_parameter, aggregation_code)
-            if not rule:
-                return raw_value
-
-            return apply_parameter_aggregation_rule(
-                raw_value,
-                rule.rounding_method,
-                rule.rounding_precision,
-                rule.truncation_method,
-                rule.truncation_precision,
-            )
-
-                                                                                       
-        device_ids = {row[6] for row in rows if row[6] is not None}
-        device_info_map: dict = {}
-        if device_ids:
-            try:
-                net_rows = session.execute(
-                    sa_select(
-                        Device.device_id,
-                        Device.manual_data_source_name,
-                        ExternalAPI.name,
-                        Device.timezone,
-                    )
-                    .join(ExternalAPI, Device.external_api_id == ExternalAPI.external_api_id, isouter=True)
-                    .where(Device.device_id.in_(list(device_ids)))
-                ).all()
-                for did, manual_source_name, net, tz in net_rows:
-                    device_info_map[did] = {
-                        "network": _resolve_public_source_name(manual_source_name, net),
-                        "timezone": tz,
-                    }
-            except Exception:
-                device_info_map = {}
-
-        for row in rows:
-            device_info = device_info_map.get(row[6], {}) if row[6] is not None else {}
-            device_network = device_info.get("network") if device_info else None
-            device_timezone = device_info.get("timezone") if device_info else None
-            fallback_network = _resolve_public_source_name(row[10], row[13])
-            out.append(
-                {
-                    "measurement_id": row[0],
-                    "sensor_id": row[1],
-                    "external_sensor_id": row[11],
-                    "parameter": row[2] or "",
-                    "value": format_latest_value_for_all_parameters(row[2], row[12], row[3]),
-                    "unit": row[4],
-                    "observed_at": row[5].isoformat() if row[5] else None,
-                    "device": (
-                        {
-                            "device_id": row[6],
-                            "name": row[7],
-                            "latitude": row[8],
-                            "longitude": row[9],
-                            "network": device_network or fallback_network,
-                            "timezone": device_timezone,
-                            "external_api": (
-                                {"name": (device_network or fallback_network)}
-                                if (device_network or fallback_network) is not None
-                                else None
-                            ),
-                        }
-                        if row[6] is not None
-                        else None
-                    ),
-                }
-            )
-        return out
+        except MeasurementAggregationError as exc:
+            raise HTTPException(
+                status_code=400,
+                detail={"reason": exc.reason, "message": str(exc)},
+            ) from exc
+        if offset is not None:
+            return _attach_acquisition_metadata(session, _latest_result_page(shared_results, limit, offset))
+        return _attach_acquisition_metadata(session, shared_results if since is not None else shared_results[:limit])
     except HTTPException:
         raise
     except Exception as e:

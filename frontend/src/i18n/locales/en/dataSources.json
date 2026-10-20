@@ -1,0 +1,259 @@
+{
+  "adminSourceDetail": {
+    "text": {
+      "detail": "Detail"
+    },
+    "dynamic": {
+      "source": "Source {{id}}"
+    },
+    "tooltips": {
+      "dataSource": "Data Source"
+    },
+    "content": {
+      "admin": "Admin",
+      "dataSources": "Data Sources"
+    }
+  },
+  "adminSourceForm": {
+    "validation": {
+      "apiKeyRequired": "API Key is required for {{provider}}",
+      "replacementApiKeyRequired": "Enter the replacement API key before saving."
+    },
+    "dialogs": {
+      "deleteDataSource": "Delete data source “{{name}}”?"
+    },
+    "text": {
+      "associatedDevices": "Associated Devices",
+      "deviceLinkedSource": "device linked to this source",
+      "devicesLinkedSource": "devices linked to this source",
+      "dataSourceConfiguration": "Data source configuration",
+      "baseUrl": "Base URL",
+      "description": "Description",
+      "maxLookbackHours": "Max lookback (hours)",
+      "limitsImporterHistoryFetchWindow": "Limits importer history fetch window",
+      "apiKey": "API Key",
+      "enabled": "Enabled",
+      "credentialStored": "Credential stored",
+      "credentialWillBeRemoved": "The stored credential will be removed when you save.",
+      "enterReplacementCredential": "Enter a new credential. The stored credential remains unchanged until you save.",
+      "credentialRequiredWhenEnabled": "Add a credential before running an import.",
+      "neverRun": "Never run",
+      "reportingInterval": "Reporting interval",
+      "purpleAirProvidesNewMeasurementApproximately": "PurpleAir provides a new measurement approximately every 2 minutes.",
+      "measurementPeriod": "Measurement period",
+      "eachImportedValueRepresents2Minute": "Each imported value represents a 2-minute average.",
+      "measurementTime": "Measurement time",
+      "compassAqRecordsTimePurpleAir": "CompassAQ records the time PurpleAir received the measurement.",
+      "pmMeasurementSource": "PM measurement source",
+      "compassAqImportsPurpleAirApos": "CompassAQ imports PurpleAir's combined-channel particulate matter values.",
+      "metadataManagement": "Metadata management",
+      "managedAutomaticallyMeasurementTimingInformationSupplied": "Managed automatically. Measurement timing information is supplied and maintained by the PurpleAir importer.",
+      "dataQualification": "Data qualification",
+      "purpleAirDevicesAirSensorsThey": "PurpleAir devices are air sensors; they are not automatically regulatory instruments.",
+      "airGradientCredentialWorkflow": "Saving this API token does not contact AirGradient. When importing linked locations is selected, enabled imports discover every location in the authenticated place. A rejected token is reported in the import run and Events.",
+      "airGradientReferenceWorkflow": "Public references cover New York, South America, and Metro Manila without sending the token. The South America site is in São Paulo, the nearest verified active public location to Rio (366 km away). Returned coordinates must match the approved region or site.",
+      "airGradientAttributionWorkflow": "CompassAQ preserves the acquisition path, contributor or place link when supplied, and applicable license metadata for display and CSV export.",
+      "importAuthenticatedLocations": "Also import my AirGradient account locations",
+      "authenticatedLocationsHelp": "By default, CompassAQ imports only its built-in public AirGradient reference locations. Check this box to also import all locations associated with this API key."
+    },
+    "actions": {
+      "viewDevices": "View Devices",
+      "createSource": "Create Source",
+      "viewJobRuns": "View Job Runs",
+      "replaceCredential": "Replace credential",
+      "removeCredential": "Remove credential",
+      "keepCredential": "Keep stored credential"
+    },
+    "placeholders": {
+      "apiDescription": "API description",
+      "apiKey": "API Key",
+      "airGradientApiKey": "AirGradient API key",
+      "replacementApiKey": "New API Key"
+    },
+    "headings": {
+      "aboutDataSource": "About this data source",
+      "lastImport": "Last import",
+      "airGradientDataPaths": "AirGradient data paths"
+    },
+    "accessibility": {
+      "storedCredential": "Stored API credential"
+    },
+    "notifications": {
+      "dataSourceUpdated": "Data Source updated",
+      "createdExternalApi": "Created external API"
+    }
+  },
+  "adminSources": {
+    "headings": {
+      "adminDataSources": "Admin • Data Sources"
+    },
+    "text": {
+      "selectDataSource": "Select Data Source",
+      "showingOnly": "Showing only \"",
+      "sources": "\" sources"
+    },
+    "tooltips": {
+      "selectExternalApiSource": "Select external API source"
+    },
+    "accessibility": {
+      "externalApiSelector": "External API selector"
+    },
+    "actions": {
+      "modifySettings": "Modify Settings",
+      "importSettings": "Import Settings"
+    }
+  },
+  "adminSourcesList": {
+    "tooltips": {
+      "dataSources": "Data Sources"
+    },
+    "columns": {
+      "dataSource": "Data Source",
+      "enabled": "Enabled",
+      "devices": "Devices",
+      "lastImport": "Last Import"
+    },
+    "text": {
+      "inactive": "Disabled",
+      "active": "Enabled",
+      "yes": "Yes",
+      "no": "No",
+      "noDataSourcesConfigured": "No data sources configured."
+    },
+    "actions": {
+      "deleting": "Deleting…"
+    },
+    "accessibility": {
+      "configureExternalDataSources": "Manage data sources and choose which ones are enabled.",
+      "openDataSource": "Open {{name}} view"
+    },
+    "dialogs": {
+      "deleteDataSource": "Delete data source “{{name}}”?"
+    },
+    "content": {
+      "admin": "Admin",
+      "dataSources": "Data Sources"
+    }
+  },
+  "sourceState": {
+    "disabled": "Disabled",
+    "configuration_required": "Enabled — API key required",
+    "paid_provider_requests_disabled": "Provider requests are disabled by an operator.",
+    "ready": "Enabled — ready",
+    "unsupported_provider": "Enabled — provider integration unavailable"
+  },
+  "openAQFields": {
+    "text": {
+      "rateLimitPerMinute": "Rate Limit — Per Minute",
+      "rateLimitPerHour": "Rate Limit — Per Hour"
+    }
+  },
+  "schedulesTab": {
+    "headings": {
+      "linkedSchedules": "Linked Schedules"
+    },
+    "text": {
+      "savingScheduleDoesNotContactPurple": "Saving a schedule does not contact PurpleAir. An enabled schedule still requires the server paid-API gate before a run can start.",
+      "noSchedulesMatchedSourceNamePattern": "No schedules matched this source name pattern.",
+      "cron": "Cron",
+      "timezone": "Timezone",
+      "apiKey": "API Key"
+    },
+    "placeholders": {
+      "utc": "UTC"
+    },
+    "fields": {
+      "enabled": "Enabled",
+      "allowOverlap": "Allow overlap"
+    },
+    "notifications": {
+      "scheduleUpdated": "Schedule updated"
+    },
+    "clarity": {
+      "importTask": "Run {{name}} import",
+      "sourceTask": "Run {{name}} operation",
+      "ready": "Saved schedule is enabled. This Data Source is ready to run.",
+      "off": "Saved schedule is off. No automatic runs are scheduled.",
+      "blockedDisabled": "Schedule saved. This Data Source is disabled.",
+      "blocked": "Schedule saved. This Data Source is not ready to import.",
+      "unknown": "Schedule saved. Data Source readiness is unavailable.",
+      "checking": "Checking cadence…",
+      "previewUnavailable": "Cadence preview is unavailable. Try again, or save to validate the expression.",
+      "invalidCron": "Enter a valid cron expression. For example, 0 * * * * runs hourly.",
+      "everyMinute": "Cadence preview: every minute (UTC).",
+      "everyMinutes_one": "Cadence preview: every {{count}} minute (UTC).",
+      "everyMinutes_other": "Cadence preview: every {{count}} minutes (UTC).",
+      "hourly": "Cadence preview: every hour at minute {{minute}} (UTC).",
+      "daily": "Cadence preview: daily at {{time}} UTC.",
+      "custom": "Custom cadence. The next matching times are listed below.",
+      "nextTimes": "Upcoming matching times (if enabled and ready):",
+      "utcHelp": "The scheduler uses UTC. A newly enabled source may also run its first import immediately.",
+      "advanced": "Advanced timing settings",
+      "cronLabel": "Run timing (cron)",
+      "cronHelp": "Controls when imports are due. The usual five fields are minute, hour, day of month, month, and day of week. * means every value. Changes apply after saving.",
+      "storedTimezone": "Stored timezone",
+      "timezoneHelp": "This value is retained for compatibility. The current scheduler evaluates cron in UTC, regardless of this setting.",
+      "taskIdentifier": "Task identifier (diagnostics)",
+      "enableSchedule": "Enable automatic runs",
+      "overlapLabel": "Start another run while one is still running",
+      "overlapHelp": "When enabled, scheduled runs may run at the same time, increasing provider requests and server load. When off, a run already in progress prevents another scheduled run from starting.",
+      "empty": "No automatic import schedule is configured for this Data Source.",
+      "noUpcomingTimes": "No upcoming matching times were found within the scheduler's search window."
+    }
+  },
+  "adminAirGradient": {
+    "content": {
+      "admin": "Admin",
+      "dataSources": "Data Sources"
+    }
+  },
+  "adminSourceOpenAQ": {
+    "content": {
+      "admin": "Admin",
+      "dataSources": "Data Sources"
+    }
+  },
+  "adminSourcePurpleAir": {
+    "content": {
+      "admin": "Admin",
+      "dataSources": "Data Sources"
+    }
+  },
+  "credentialFree": "Built-in. No account, API key, or configuration required.",
+  "airgradientPublicHelp": "Public reference snapshots and processed 15-minute history need no API key. A key is required to import your account locations.",
+  "airgradientOptionalCredential": "Optional for public reference data.",
+  "airgradientHistoryStream": "AirGradient processed 15-minute history · underlying coverage unknown · unavailable for AQI",
+  "enableSource": "Enable {{name}}",
+  "demo": {
+    "description": "While enabled, Demo Data adds current sample air-quality observations to explore CompassAQ. Demo devices and observations are not real monitoring data.",
+    "setupHelp": "You can turn Demo Data off later in Admin → Data Sources.",
+    "disableHelp": "Turning Demo Data off stops future sample observations. Existing Demo history is kept.",
+    "saveFailed": "The source setting could not be saved. Try again.",
+    "listDescription": "Continuously updated sample observations. Not real monitoring data."
+  },
+  "workflow": {
+    "configuration": "Source configuration",
+    "monitoring": "Monitoring",
+    "scheduleHeading": "Automatic imports",
+    "needsConfiguration": "Needs configuration",
+    "missingCredential": "Missing API key. Save a credential before running an import.",
+    "disabled": "Disabled",
+    "enabled": "Enabled",
+    "ready": "Ready to import",
+    "operatorBlocked": "Provider requests are disabled by an operator.",
+    "unsupported": "This provider integration is unavailable.",
+    "unknown": "Import readiness is unavailable.",
+    "finishConfiguration": "Finish configuration",
+    "configureSchedule": "Configure automatic imports",
+    "runNow": "Run import now",
+    "demoAutomatic": "Demo Data generates sample observations automatically while enabled. Manual imports are not supported.",
+    "schedule": {
+      "loading": "Loading schedule…",
+      "unavailable": "Schedule status unavailable",
+      "none": "No automatic schedule",
+      "on": "Schedule configured · automatic runs enabled",
+      "off": "Schedule configured · automatic runs off"
+    },
+    "deploymentCredential": "Credential supplied by the deployment"
+  }
+}

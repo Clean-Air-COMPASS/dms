@@ -1,0 +1,22 @@
+.build-information-fields {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 24rem), 1fr));
+  gap: 1rem;
+}
+
+.build-information-fields > div {
+  min-width: 0;
+}
+
+.build-information-fields dt {
+  font-weight: 600;
+}
+
+.build-information-fields dd {
+  margin: 0;
+  overflow-wrap: anywhere;
+}
+.system-preferences-page .build-information {
+  margin-top: 14px;
+  padding: 18px;
+}

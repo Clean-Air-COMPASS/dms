@@ -1,3 +1,4 @@
+import i18n from '../i18n';
 import React, { useState } from 'react';
 
 interface PasswordInputProps {
@@ -39,7 +40,7 @@ export default function PasswordInput({
 
       <button
         type="button"
-        aria-label={visible ? 'Hide password' : 'Show password'}
+        aria-label={visible ? i18n.t('auth:passwordInput.actions.hidePassword') : i18n.t('auth:passwordInput.actions.showPassword')}
         aria-pressed={visible}
         className="password-toggle-btn"
         onClick={() => setVisible(v => !v)}

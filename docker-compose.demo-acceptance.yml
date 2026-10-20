@@ -1,0 +1,17 @@
+# Use project compassaq-demo-first-run to preserve normal development volumes.
+services:
+  db:
+    container_name: !reset null
+  api:
+    container_name: !reset null
+    ports:
+      - "127.0.0.1:28400:8000"
+  scheduler:
+    container_name: !reset null
+    environment:
+      # Acceptance proves setup initialization without a scheduler tick.
+      SCHEDULER_TICK_SECONDS: 3600
+  frontend:
+    container_name: !reset null
+    ports: !override
+      - "127.0.0.1:28480:80"

@@ -1,0 +1,4883 @@
+{
+  "schema_version": "2i.5-expected-1",
+  "artifact_kind": "analyst_approved_expectations",
+  "dataset_name": "openaq",
+  "access_classification": "public_frozen_reference_data",
+  "dataset_id": "openaq_phase_2i4a_2026-08-01_2026-08-08",
+  "source_measurements_sha256": "dd93fda403acb4ad59e6819977c3e157c36203e12447617345fc0edd5c9d8ed3",
+  "source_facts_file": "source-facts.json",
+  "source_facts_sha256": "39864ccdacbe628446b63ed1fa4b14ef3d7635656669221ef43a8c9df1cbafb2",
+  "worksheet_file": "worksheet-public-openaq.json",
+  "worksheet_sha256": "5f09c6e8c308501c64e165981ffcb8c1a2dc67fbd7b0d68ce1614e21b4c1b45b",
+  "cases": [
+    {
+      "case_id": "fixture_openaq_2i4a",
+      "calculation_type": "fixture_summary",
+      "source": {
+        "dataset_name": "openaq",
+        "dataset_id": "openaq_phase_2i4a_2026-08-01_2026-08-08",
+        "access_classification": "public_frozen_reference_data",
+        "source_fact_hash": "e6f28a774fff1b5f16659bc143edf8f80b64281c8c215944aa728472e5431c3f",
+        "sensor_refs": [
+          "openaq-sensor-1098",
+          "openaq-sensor-1099",
+          "openaq-sensor-11268993",
+          "openaq-sensor-13191003",
+          "openaq-sensor-1758",
+          "openaq-sensor-3950",
+          "openaq-sensor-3951",
+          "openaq-sensor-3952",
+          "openaq-sensor-4475449",
+          "openaq-sensor-4475454",
+          "openaq-sensor-4475455",
+          "openaq-sensor-6459542",
+          "openaq-sensor-6819305"
+        ],
+        "provider": "OpenAQ",
+        "provider_chain": [
+          {
+            "provider": "AirNow",
+            "role": "origin"
+          },
+          {
+            "provider": "Rio City Hall",
+            "role": "origin"
+          },
+          {
+            "provider": "AirGradient",
+            "role": "hardware"
+          },
+          {
+            "provider": "OpenAQ",
+            "role": "transport"
+          },
+          {
+            "provider": "CompassAQ frozen fixture",
+            "role": "fixture"
+          }
+        ]
+      },
+      "input_window": {},
+      "source_observations": [],
+      "completeness": {
+        "numerator": 1939,
+        "denominator": 1939,
+        "required_count": 1939,
+        "fraction": "1",
+        "missing_positions": [],
+        "duplicate_positions": [],
+        "off_frequency_positions": [],
+        "status": "not_applicable",
+        "components": [
+          {
+            "numerator": 1939,
+            "denominator": 1939,
+            "required_count": 1939,
+            "missing_positions": [],
+            "duplicate_positions": [],
+            "off_frequency_positions": [],
+            "status": "complete"
+          }
+        ]
+      },
+      "methodology": {
+        "methodology_code": "frozen_source_fact_verification",
+        "methodology_version": "Phase 2I.5 review candidate",
+        "reference_ids": [
+          "frozen fixture manifest and measurements.jsonl"
+        ]
+      },
+      "derivation": {
+        "status": "independently_derived_review_candidate",
+        "decimal_arithmetic": true,
+        "absolute_tolerance": "0.000000000001",
+        "methodology": {
+          "methodology_code": "frozen_source_fact_verification",
+          "methodology_version": "Phase 2I.5 review candidate",
+          "reference_ids": [
+            "frozen fixture manifest and measurements.jsonl"
+          ]
+        },
+        "steps": [
+          {
+            "operation": "count_and_group_frozen_jsonl_records",
+            "inputs": [
+              "manifest.json",
+              "measurements.jsonl"
+            ],
+            "result": {
+              "dataset_id": "openaq_phase_2i4a_2026-08-01_2026-08-08",
+              "access_classification": "public_frozen_reference_data",
+              "provider": "OpenAQ",
+              "manifest_sha256": "a721584d1d1b6e4a70e17f09b2cc0e4ad6eb6d76bdc33a9febfbbf555b6bda5e",
+              "measurements_sha256": "dd93fda403acb4ad59e6819977c3e157c36203e12447617345fc0edd5c9d8ed3",
+              "measurement_count": 1939,
+              "device_count": 4,
+              "sensor_count": 13,
+              "active_sensor_count": 12,
+              "validity_counts": {
+                "True": 1939
+              },
+              "provider_has_flags_counts": {
+                "False": 1939
+              },
+              "provider_validity_status_counts": {}
+            },
+            "note": "No AQI or CompassAQ runtime value participates in this fact candidate."
+          },
+          {
+            "operation": "verify_documented_hourly_streams",
+            "expected_exact_one_hour_stream_count": 12,
+            "zero_row_sensor": "openaq-sensor-1099"
+          }
+        ]
+      },
+      "expected": {
+        "availability": "not_applicable",
+        "numeric_result": null,
+        "category_code": null,
+        "category_label": null,
+        "exclusion_reason": null,
+        "coverage_status": null,
+        "aggregation_period": null,
+        "result_kind": "frozen_source_fact_summary",
+        "expected_fields": {
+          "dataset_id": "openaq_phase_2i4a_2026-08-01_2026-08-08",
+          "access_classification": "public_frozen_reference_data",
+          "provider": "OpenAQ",
+          "manifest_sha256": "a721584d1d1b6e4a70e17f09b2cc0e4ad6eb6d76bdc33a9febfbbf555b6bda5e",
+          "measurements_sha256": "dd93fda403acb4ad59e6819977c3e157c36203e12447617345fc0edd5c9d8ed3",
+          "measurement_count": 1939,
+          "device_count": 4,
+          "sensor_count": 13,
+          "active_sensor_count": 12,
+          "validity_counts": {
+            "True": 1939
+          },
+          "provider_has_flags_counts": {
+            "False": 1939
+          },
+          "provider_validity_status_counts": {}
+        }
+      },
+      "review": {
+        "status": "approved",
+        "reviewer": "Spheros Environmental",
+        "reviewed_at": "2026-08-12T06:53:00-07:00",
+        "derivation_sha256": "da7ba5336f449b08ca96390cba188efb195c8dc948ae912a2c4a3d107f84455d",
+        "comments": "Reviewed the Phase 2I.5 independent derivations, current CompassAQ observations, discrepancy resolutions, and settled methodology decisions. I approve the public OpenAQ candidate expectations for promotion. The remaining zero-row terminology distinction is accepted as intentional where source-level missing_measurements and final no_eligible_sensor_stream represent different diagnostic layers.",
+        "approval_decision": "approved"
+      }
+    },
+    {
+      "case_id": "provenance_manila_airgradient_via_openaq",
+      "calculation_type": "device_provenance",
+      "source": {
+        "dataset_name": "openaq",
+        "dataset_id": "openaq_phase_2i4a_2026-08-01_2026-08-08",
+        "access_classification": "public_frozen_reference_data",
+        "source_fact_hash": "951fc811eeb6b6a753fc1dbe1dc2a2f19a0b38430e6509b16583d7c2231f17ed",
+        "sensor_refs": [],
+        "provider": "OpenAQ",
+        "provider_chain": [
+          {
+            "provider": "AirNow",
+            "role": "origin"
+          },
+          {
+            "provider": "Rio City Hall",
+            "role": "origin"
+          },
+          {
+            "provider": "AirGradient",
+            "role": "hardware"
+          },
+          {
+            "provider": "OpenAQ",
+            "role": "transport"
+          },
+          {
+            "provider": "CompassAQ frozen fixture",
+            "role": "fixture"
+          }
+        ],
+        "origin": {
+          "captured_at": "2026-08-11T07:21:14.520058Z",
+          "description": "Bounded OpenAQ v3 history capture for the Phase 2I.3 approved sensors.",
+          "origin_kind": "provider_capture"
+        },
+        "fixture_role": "CompassAQ frozen fixture",
+        "direct_airgradient_api_data": false
+      },
+      "input_window": {},
+      "source_observations": [],
+      "completeness": {
+        "numerator": 0,
+        "denominator": 0,
+        "required_count": null,
+        "fraction": null,
+        "missing_positions": [],
+        "duplicate_positions": [],
+        "off_frequency_positions": [],
+        "status": "not_applicable",
+        "components": []
+      },
+      "methodology": {
+        "methodology_code": "frozen_source_fact_verification",
+        "methodology_version": "Phase 2I.5 review candidate",
+        "reference_ids": [
+          "frozen fixture manifest and measurements.jsonl"
+        ]
+      },
+      "derivation": {
+        "status": "independently_derived_review_candidate",
+        "decimal_arithmetic": true,
+        "absolute_tolerance": "0.000000000001",
+        "methodology": {
+          "methodology_code": "frozen_source_fact_verification",
+          "methodology_version": "Phase 2I.5 review candidate",
+          "reference_ids": [
+            "frozen fixture manifest and measurements.jsonl"
+          ]
+        },
+        "steps": [
+          {
+            "operation": "trace_provider_chain_without_relabeling_transport",
+            "result": {
+              "hardware_provider": "AirGradient",
+              "owner_name": "Manila Observatory",
+              "transport_provider": "OpenAQ",
+              "fixture_role": "CompassAQ frozen fixture",
+              "direct_airgradient_api_data": false
+            },
+            "note": "Hardware origin AirGradient is not a direct AirGradient API capture."
+          }
+        ]
+      },
+      "expected": {
+        "availability": "not_applicable",
+        "numeric_result": null,
+        "category_code": null,
+        "category_label": null,
+        "exclusion_reason": null,
+        "coverage_status": null,
+        "aggregation_period": null,
+        "result_kind": "provenance",
+        "expected_fields": {
+          "hardware_provider": "AirGradient",
+          "owner_name": "Manila Observatory",
+          "transport_provider": "OpenAQ",
+          "fixture_role": "CompassAQ frozen fixture",
+          "direct_airgradient_api_data": false
+        }
+      },
+      "review": {
+        "status": "approved",
+        "reviewer": "Spheros Environmental",
+        "reviewed_at": "2026-08-12T06:53:00-07:00",
+        "derivation_sha256": "7f4ea131950b92494d191caaa4bac03548f2afbfa0e040f6bafe2ec566496736",
+        "comments": "Reviewed the Phase 2I.5 independent derivations, current CompassAQ observations, discrepancy resolutions, and settled methodology decisions. I approve the public OpenAQ candidate expectations for promotion. The remaining zero-row terminology distinction is accepted as intentional where source-level missing_measurements and final no_eligible_sensor_stream represent different diagnostic layers.",
+        "approval_decision": "approved"
+      }
+    },
+    {
+      "case_id": "openaq_rio_pm10_completed_2026_08_02",
+      "calculation_type": "provider_local_day",
+      "source": {
+        "dataset_name": "openaq",
+        "dataset_id": "openaq_phase_2i4a_2026-08-01_2026-08-08",
+        "access_classification": "public_frozen_reference_data",
+        "source_fact_hash": "9414dc37df25fa74644e792d98b56bf666f9ff90bd36e90958f17c4f85f8e0c2",
+        "sensor_refs": [
+          "openaq-sensor-4475454"
+        ]
+      },
+      "input_window": {
+        "utc_window": {
+          "started_at": "2026-08-02T03:00:00Z",
+          "ended_at": "2026-08-03T03:00:00Z"
+        },
+        "represented_local_date": "2026-08-02",
+        "timezone": "America/Sao_Paulo",
+        "boundary_semantics": "start_exclusive_end_inclusive"
+      },
+      "source_observations": [
+        {
+          "sensor_ref": "openaq-sensor-4475454",
+          "provider_observation_ref": "openaq:4475454:page-1:result-27",
+          "source_page": 1,
+          "source_result_index": 27,
+          "provider_period": {
+            "datetimeFrom": {
+              "local": "2026-08-02T00:00:00-03:00",
+              "utc": "2026-08-02T03:00:00Z"
+            },
+            "datetimeTo": {
+              "local": "2026-08-02T01:00:00-03:00",
+              "utc": "2026-08-02T04:00:00Z"
+            },
+            "interval": "01:00:00",
+            "label": "raw"
+          },
+          "provider_timestamp": null,
+          "is_valid": true,
+          "qc_flags": {
+            "provider_flagged": false,
+            "transport_provider": "OpenAQ",
+            "value_and_unit_preserved_without_conversion": true
+          },
+          "qc_version": "openaq-provider-flags-phase-2i.4a",
+          "observed_at": "2026-08-02T04:00:00Z",
+          "value": "28.83",
+          "unit": "µg/m³",
+          "assignment": "included",
+          "assigned_anchor": null,
+          "exclusion_reason": null
+        },
+        {
+          "sensor_ref": "openaq-sensor-4475454",
+          "provider_observation_ref": "openaq:4475454:page-1:result-28",
+          "source_page": 1,
+          "source_result_index": 28,
+          "provider_period": {
+            "datetimeFrom": {
+              "local": "2026-08-02T01:00:00-03:00",
+              "utc": "2026-08-02T04:00:00Z"
+            },
+            "datetimeTo": {
+              "local": "2026-08-02T02:00:00-03:00",
+              "utc": "2026-08-02T05:00:00Z"
+            },
+            "interval": "01:00:00",
+            "label": "raw"
+          },
+          "provider_timestamp": null,
+          "is_valid": true,
+          "qc_flags": {
+            "provider_flagged": false,
+            "transport_provider": "OpenAQ",
+            "value_and_unit_preserved_without_conversion": true
+          },
+          "qc_version": "openaq-provider-flags-phase-2i.4a",
+          "observed_at": "2026-08-02T05:00:00Z",
+          "value": "32.5",
+          "unit": "µg/m³",
+          "assignment": "included",
+          "assigned_anchor": null,
+          "exclusion_reason": null
+        },
+        {
+          "sensor_ref": "openaq-sensor-4475454",
+          "provider_observation_ref": "openaq:4475454:page-1:result-29",
+          "source_page": 1,
+          "source_result_index": 29,
+          "provider_period": {
+            "datetimeFrom": {
+              "local": "2026-08-02T02:00:00-03:00",
+              "utc": "2026-08-02T05:00:00Z"
+            },
+            "datetimeTo": {
+              "local": "2026-08-02T03:00:00-03:00",
+              "utc": "2026-08-02T06:00:00Z"
+            },
+            "interval": "01:00:00",
+            "label": "raw"
+          },
+          "provider_timestamp": null,
+          "is_valid": true,
+          "qc_flags": {
+            "provider_flagged": false,
+            "transport_provider": "OpenAQ",
+            "value_and_unit_preserved_without_conversion": true
+          },
+          "qc_version": "openaq-provider-flags-phase-2i.4a",
+          "observed_at": "2026-08-02T06:00:00Z",
+          "value": "21.3",
+          "unit": "µg/m³",
+          "assignment": "included",
+          "assigned_anchor": null,
+          "exclusion_reason": null
+        },
+        {
+          "sensor_ref": "openaq-sensor-4475454",
+          "provider_observation_ref": "openaq:4475454:page-1:result-30",
+          "source_page": 1,
+          "source_result_index": 30,
+          "provider_period": {
+            "datetimeFrom": {
+              "local": "2026-08-02T03:00:00-03:00",
+              "utc": "2026-08-02T06:00:00Z"
+            },
+            "datetimeTo": {
+              "local": "2026-08-02T04:00:00-03:00",
+              "utc": "2026-08-02T07:00:00Z"
+            },
+            "interval": "01:00:00",
+            "label": "raw"
+          },
+          "provider_timestamp": null,
+          "is_valid": true,
+          "qc_flags": {
+            "provider_flagged": false,
+            "transport_provider": "OpenAQ",
+            "value_and_unit_preserved_without_conversion": true
+          },
+          "qc_version": "openaq-provider-flags-phase-2i.4a",
+          "observed_at": "2026-08-02T07:00:00Z",
+          "value": "23.0",
+          "unit": "µg/m³",
+          "assignment": "included",
+          "assigned_anchor": null,
+          "exclusion_reason": null
+        },
+        {
+          "sensor_ref": "openaq-sensor-4475454",
+          "provider_observation_ref": "openaq:4475454:page-1:result-31",
+          "source_page": 1,
+          "source_result_index": 31,
+          "provider_period": {
+            "datetimeFrom": {
+              "local": "2026-08-02T04:00:00-03:00",
+              "utc": "2026-08-02T07:00:00Z"
+            },
+            "datetimeTo": {
+              "local": "2026-08-02T05:00:00-03:00",
+              "utc": "2026-08-02T08:00:00Z"
+            },
+            "interval": "01:00:00",
+            "label": "raw"
+          },
+          "provider_timestamp": null,
+          "is_valid": true,
+          "qc_flags": {
+            "provider_flagged": false,
+            "transport_provider": "OpenAQ",
+            "value_and_unit_preserved_without_conversion": true
+          },
+          "qc_version": "openaq-provider-flags-phase-2i.4a",
+          "observed_at": "2026-08-02T08:00:00Z",
+          "value": "18.17",
+          "unit": "µg/m³",
+          "assignment": "included",
+          "assigned_anchor": null,
+          "exclusion_reason": null
+        },
+        {
+          "sensor_ref": "openaq-sensor-4475454",
+          "provider_observation_ref": "openaq:4475454:page-1:result-32",
+          "source_page": 1,
+          "source_result_index": 32,
+          "provider_period": {
+            "datetimeFrom": {
+              "local": "2026-08-02T05:00:00-03:00",
+              "utc": "2026-08-02T08:00:00Z"
+            },
+            "datetimeTo": {
+              "local": "2026-08-02T06:00:00-03:00",
+              "utc": "2026-08-02T09:00:00Z"
+            },
+            "interval": "01:00:00",
+            "label": "raw"
+          },
+          "provider_timestamp": null,
+          "is_valid": true,
+          "qc_flags": {
+            "provider_flagged": false,
+            "transport_provider": "OpenAQ",
+            "value_and_unit_preserved_without_conversion": true
+          },
+          "qc_version": "openaq-provider-flags-phase-2i.4a",
+          "observed_at": "2026-08-02T09:00:00Z",
+          "value": "21.33",
+          "unit": "µg/m³",
+          "assignment": "included",
+          "assigned_anchor": null,
+          "exclusion_reason": null
+        },
+        {
+          "sensor_ref": "openaq-sensor-4475454",
+          "provider_observation_ref": "openaq:4475454:page-1:result-33",
+          "source_page": 1,
+          "source_result_index": 33,
+          "provider_period": {
+            "datetimeFrom": {
+              "local": "2026-08-02T06:00:00-03:00",
+              "utc": "2026-08-02T09:00:00Z"
+            },
+            "datetimeTo": {
+              "local": "2026-08-02T07:00:00-03:00",
+              "utc": "2026-08-02T10:00:00Z"
+            },
+            "interval": "01:00:00",
+            "label": "raw"
+          },
+          "provider_timestamp": null,
+          "is_valid": true,
+          "qc_flags": {
+            "provider_flagged": false,
+            "transport_provider": "OpenAQ",
+            "value_and_unit_preserved_without_conversion": true
+          },
+          "qc_version": "openaq-provider-flags-phase-2i.4a",
+          "observed_at": "2026-08-02T10:00:00Z",
+          "value": "32.67",
+          "unit": "µg/m³",
+          "assignment": "included",
+          "assigned_anchor": null,
+          "exclusion_reason": null
+        },
+        {
+          "sensor_ref": "openaq-sensor-4475454",
+          "provider_observation_ref": "openaq:4475454:page-1:result-34",
+          "source_page": 1,
+          "source_result_index": 34,
+          "provider_period": {
+            "datetimeFrom": {
+              "local": "2026-08-02T07:00:00-03:00",
+              "utc": "2026-08-02T10:00:00Z"
+            },
+            "datetimeTo": {
+              "local": "2026-08-02T08:00:00-03:00",
+              "utc": "2026-08-02T11:00:00Z"
+            },
+            "interval": "01:00:00",
+            "label": "raw"
+          },
+          "provider_timestamp": null,
+          "is_valid": true,
+          "qc_flags": {
+            "provider_flagged": false,
+            "transport_provider": "OpenAQ",
+            "value_and_unit_preserved_without_conversion": true
+          },
+          "qc_version": "openaq-provider-flags-phase-2i.4a",
+          "observed_at": "2026-08-02T11:00:00Z",
+          "value": "29.33",
+          "unit": "µg/m³",
+          "assignment": "included",
+          "assigned_anchor": null,
+          "exclusion_reason": null
+        },
+        {
+          "sensor_ref": "openaq-sensor-4475454",
+          "provider_observation_ref": "openaq:4475454:page-1:result-35",
+          "source_page": 1,
+          "source_result_index": 35,
+          "provider_period": {
+            "datetimeFrom": {
+              "local": "2026-08-02T08:00:00-03:00",
+              "utc": "2026-08-02T11:00:00Z"
+            },
+            "datetimeTo": {
+              "local": "2026-08-02T09:00:00-03:00",
+              "utc": "2026-08-02T12:00:00Z"
+            },
+            "interval": "01:00:00",
+            "label": "raw"
+          },
+          "provider_timestamp": null,
+          "is_valid": true,
+          "qc_flags": {
+            "provider_flagged": false,
+            "transport_provider": "OpenAQ",
+            "value_and_unit_preserved_without_conversion": true
+          },
+          "qc_version": "openaq-provider-flags-phase-2i.4a",
+          "observed_at": "2026-08-02T12:00:00Z",
+          "value": "22.5",
+          "unit": "µg/m³",
+          "assignment": "included",
+          "assigned_anchor": null,
+          "exclusion_reason": null
+        },
+        {
+          "sensor_ref": "openaq-sensor-4475454",
+          "provider_observation_ref": "openaq:4475454:page-1:result-36",
+          "source_page": 1,
+          "source_result_index": 36,
+          "provider_period": {
+            "datetimeFrom": {
+              "local": "2026-08-02T09:00:00-03:00",
+              "utc": "2026-08-02T12:00:00Z"
+            },
+            "datetimeTo": {
+              "local": "2026-08-02T10:00:00-03:00",
+              "utc": "2026-08-02T13:00:00Z"
+            },
+            "interval": "01:00:00",
+            "label": "raw"
+          },
+          "provider_timestamp": null,
+          "is_valid": true,
+          "qc_flags": {
+            "provider_flagged": false,
+            "transport_provider": "OpenAQ",
+            "value_and_unit_preserved_without_conversion": true
+          },
+          "qc_version": "openaq-provider-flags-phase-2i.4a",
+          "observed_at": "2026-08-02T13:00:00Z",
+          "value": "31.5",
+          "unit": "µg/m³",
+          "assignment": "included",
+          "assigned_anchor": null,
+          "exclusion_reason": null
+        },
+        {
+          "sensor_ref": "openaq-sensor-4475454",
+          "provider_observation_ref": "openaq:4475454:page-1:result-37",
+          "source_page": 1,
+          "source_result_index": 37,
+          "provider_period": {
+            "datetimeFrom": {
+              "local": "2026-08-02T10:00:00-03:00",
+              "utc": "2026-08-02T13:00:00Z"
+            },
+            "datetimeTo": {
+              "local": "2026-08-02T11:00:00-03:00",
+              "utc": "2026-08-02T14:00:00Z"
+            },
+            "interval": "01:00:00",
+            "label": "raw"
+          },
+          "provider_timestamp": null,
+          "is_valid": true,
+          "qc_flags": {
+            "provider_flagged": false,
+            "transport_provider": "OpenAQ",
+            "value_and_unit_preserved_without_conversion": true
+          },
+          "qc_version": "openaq-provider-flags-phase-2i.4a",
+          "observed_at": "2026-08-02T14:00:00Z",
+          "value": "39.0",
+          "unit": "µg/m³",
+          "assignment": "included",
+          "assigned_anchor": null,
+          "exclusion_reason": null
+        },
+        {
+          "sensor_ref": "openaq-sensor-4475454",
+          "provider_observation_ref": "openaq:4475454:page-1:result-38",
+          "source_page": 1,
+          "source_result_index": 38,
+          "provider_period": {
+            "datetimeFrom": {
+              "local": "2026-08-02T11:00:00-03:00",
+              "utc": "2026-08-02T14:00:00Z"
+            },
+            "datetimeTo": {
+              "local": "2026-08-02T12:00:00-03:00",
+              "utc": "2026-08-02T15:00:00Z"
+            },
+            "interval": "01:00:00",
+            "label": "raw"
+          },
+          "provider_timestamp": null,
+          "is_valid": true,
+          "qc_flags": {
+            "provider_flagged": false,
+            "transport_provider": "OpenAQ",
+            "value_and_unit_preserved_without_conversion": true
+          },
+          "qc_version": "openaq-provider-flags-phase-2i.4a",
+          "observed_at": "2026-08-02T15:00:00Z",
+          "value": "35.5",
+          "unit": "µg/m³",
+          "assignment": "included",
+          "assigned_anchor": null,
+          "exclusion_reason": null
+        },
+        {
+          "sensor_ref": "openaq-sensor-4475454",
+          "provider_observation_ref": "openaq:4475454:page-1:result-39",
+          "source_page": 1,
+          "source_result_index": 39,
+          "provider_period": {
+            "datetimeFrom": {
+              "local": "2026-08-02T12:00:00-03:00",
+              "utc": "2026-08-02T15:00:00Z"
+            },
+            "datetimeTo": {
+              "local": "2026-08-02T13:00:00-03:00",
+              "utc": "2026-08-02T16:00:00Z"
+            },
+            "interval": "01:00:00",
+            "label": "raw"
+          },
+          "provider_timestamp": null,
+          "is_valid": true,
+          "qc_flags": {
+            "provider_flagged": false,
+            "transport_provider": "OpenAQ",
+            "value_and_unit_preserved_without_conversion": true
+          },
+          "qc_version": "openaq-provider-flags-phase-2i.4a",
+          "observed_at": "2026-08-02T16:00:00Z",
+          "value": "19.5",
+          "unit": "µg/m³",
+          "assignment": "included",
+          "assigned_anchor": null,
+          "exclusion_reason": null
+        },
+        {
+          "sensor_ref": "openaq-sensor-4475454",
+          "provider_observation_ref": "openaq:4475454:page-1:result-40",
+          "source_page": 1,
+          "source_result_index": 40,
+          "provider_period": {
+            "datetimeFrom": {
+              "local": "2026-08-02T13:00:00-03:00",
+              "utc": "2026-08-02T16:00:00Z"
+            },
+            "datetimeTo": {
+              "local": "2026-08-02T14:00:00-03:00",
+              "utc": "2026-08-02T17:00:00Z"
+            },
+            "interval": "01:00:00",
+            "label": "raw"
+          },
+          "provider_timestamp": null,
+          "is_valid": true,
+          "qc_flags": {
+            "provider_flagged": false,
+            "transport_provider": "OpenAQ",
+            "value_and_unit_preserved_without_conversion": true
+          },
+          "qc_version": "openaq-provider-flags-phase-2i.4a",
+          "observed_at": "2026-08-02T17:00:00Z",
+          "value": "26.83",
+          "unit": "µg/m³",
+          "assignment": "included",
+          "assigned_anchor": null,
+          "exclusion_reason": null
+        },
+        {
+          "sensor_ref": "openaq-sensor-4475454",
+          "provider_observation_ref": "openaq:4475454:page-1:result-41",
+          "source_page": 1,
+          "source_result_index": 41,
+          "provider_period": {
+            "datetimeFrom": {
+              "local": "2026-08-02T14:00:00-03:00",
+              "utc": "2026-08-02T17:00:00Z"
+            },
+            "datetimeTo": {
+              "local": "2026-08-02T15:00:00-03:00",
+              "utc": "2026-08-02T18:00:00Z"
+            },
+            "interval": "01:00:00",
+            "label": "raw"
+          },
+          "provider_timestamp": null,
+          "is_valid": true,
+          "qc_flags": {
+            "provider_flagged": false,
+            "transport_provider": "OpenAQ",
+            "value_and_unit_preserved_without_conversion": true
+          },
+          "qc_version": "openaq-provider-flags-phase-2i.4a",
+          "observed_at": "2026-08-02T18:00:00Z",
+          "value": "25.17",
+          "unit": "µg/m³",
+          "assignment": "included",
+          "assigned_anchor": null,
+          "exclusion_reason": null
+        },
+        {
+          "sensor_ref": "openaq-sensor-4475454",
+          "provider_observation_ref": "openaq:4475454:page-1:result-42",
+          "source_page": 1,
+          "source_result_index": 42,
+          "provider_period": {
+            "datetimeFrom": {
+              "local": "2026-08-02T15:00:00-03:00",
+              "utc": "2026-08-02T18:00:00Z"
+            },
+            "datetimeTo": {
+              "local": "2026-08-02T16:00:00-03:00",
+              "utc": "2026-08-02T19:00:00Z"
+            },
+            "interval": "01:00:00",
+            "label": "raw"
+          },
+          "provider_timestamp": null,
+          "is_valid": true,
+          "qc_flags": {
+            "provider_flagged": false,
+            "transport_provider": "OpenAQ",
+            "value_and_unit_preserved_without_conversion": true
+          },
+          "qc_version": "openaq-provider-flags-phase-2i.4a",
+          "observed_at": "2026-08-02T19:00:00Z",
+          "value": "22.33",
+          "unit": "µg/m³",
+          "assignment": "included",
+          "assigned_anchor": null,
+          "exclusion_reason": null
+        },
+        {
+          "sensor_ref": "openaq-sensor-4475454",
+          "provider_observation_ref": "openaq:4475454:page-1:result-43",
+          "source_page": 1,
+          "source_result_index": 43,
+          "provider_period": {
+            "datetimeFrom": {
+              "local": "2026-08-02T16:00:00-03:00",
+              "utc": "2026-08-02T19:00:00Z"
+            },
+            "datetimeTo": {
+              "local": "2026-08-02T17:00:00-03:00",
+              "utc": "2026-08-02T20:00:00Z"
+            },
+            "interval": "01:00:00",
+            "label": "raw"
+          },
+          "provider_timestamp": null,
+          "is_valid": true,
+          "qc_flags": {
+            "provider_flagged": false,
+            "transport_provider": "OpenAQ",
+            "value_and_unit_preserved_without_conversion": true
+          },
+          "qc_version": "openaq-provider-flags-phase-2i.4a",
+          "observed_at": "2026-08-02T20:00:00Z",
+          "value": "27.67",
+          "unit": "µg/m³",
+          "assignment": "included",
+          "assigned_anchor": null,
+          "exclusion_reason": null
+        },
+        {
+          "sensor_ref": "openaq-sensor-4475454",
+          "provider_observation_ref": "openaq:4475454:page-1:result-44",
+          "source_page": 1,
+          "source_result_index": 44,
+          "provider_period": {
+            "datetimeFrom": {
+              "local": "2026-08-02T17:00:00-03:00",
+              "utc": "2026-08-02T20:00:00Z"
+            },
+            "datetimeTo": {
+              "local": "2026-08-02T18:00:00-03:00",
+              "utc": "2026-08-02T21:00:00Z"
+            },
+            "interval": "01:00:00",
+            "label": "raw"
+          },
+          "provider_timestamp": null,
+          "is_valid": true,
+          "qc_flags": {
+            "provider_flagged": false,
+            "transport_provider": "OpenAQ",
+            "value_and_unit_preserved_without_conversion": true
+          },
+          "qc_version": "openaq-provider-flags-phase-2i.4a",
+          "observed_at": "2026-08-02T21:00:00Z",
+          "value": "23.0",
+          "unit": "µg/m³",
+          "assignment": "included",
+          "assigned_anchor": null,
+          "exclusion_reason": null
+        },
+        {
+          "sensor_ref": "openaq-sensor-4475454",
+          "provider_observation_ref": "openaq:4475454:page-1:result-45",
+          "source_page": 1,
+          "source_result_index": 45,
+          "provider_period": {
+            "datetimeFrom": {
+              "local": "2026-08-02T18:00:00-03:00",
+              "utc": "2026-08-02T21:00:00Z"
+            },
+            "datetimeTo": {
+              "local": "2026-08-02T19:00:00-03:00",
+              "utc": "2026-08-02T22:00:00Z"
+            },
+            "interval": "01:00:00",
+            "label": "raw"
+          },
+          "provider_timestamp": null,
+          "is_valid": true,
+          "qc_flags": {
+            "provider_flagged": false,
+            "transport_provider": "OpenAQ",
+            "value_and_unit_preserved_without_conversion": true
+          },
+          "qc_version": "openaq-provider-flags-phase-2i.4a",
+          "observed_at": "2026-08-02T22:00:00Z",
+          "value": "34.33",
+          "unit": "µg/m³",
+          "assignment": "included",
+          "assigned_anchor": null,
+          "exclusion_reason": null
+        },
+        {
+          "sensor_ref": "openaq-sensor-4475454",
+          "provider_observation_ref": "openaq:4475454:page-1:result-46",
+          "source_page": 1,
+          "source_result_index": 46,
+          "provider_period": {
+            "datetimeFrom": {
+              "local": "2026-08-02T19:00:00-03:00",
+              "utc": "2026-08-02T22:00:00Z"
+            },
+            "datetimeTo": {
+              "local": "2026-08-02T20:00:00-03:00",
+              "utc": "2026-08-02T23:00:00Z"
+            },
+            "interval": "01:00:00",
+            "label": "raw"
+          },
+          "provider_timestamp": null,
+          "is_valid": true,
+          "qc_flags": {
+            "provider_flagged": false,
+            "transport_provider": "OpenAQ",
+            "value_and_unit_preserved_without_conversion": true
+          },
+          "qc_version": "openaq-provider-flags-phase-2i.4a",
+          "observed_at": "2026-08-02T23:00:00Z",
+          "value": "37.83",
+          "unit": "µg/m³",
+          "assignment": "included",
+          "assigned_anchor": null,
+          "exclusion_reason": null
+        },
+        {
+          "sensor_ref": "openaq-sensor-4475454",
+          "provider_observation_ref": "openaq:4475454:page-1:result-47",
+          "source_page": 1,
+          "source_result_index": 47,
+          "provider_period": {
+            "datetimeFrom": {
+              "local": "2026-08-02T20:00:00-03:00",
+              "utc": "2026-08-02T23:00:00Z"
+            },
+            "datetimeTo": {
+              "local": "2026-08-02T21:00:00-03:00",
+              "utc": "2026-08-03T00:00:00Z"
+            },
+            "interval": "01:00:00",
+            "label": "raw"
+          },
+          "provider_timestamp": null,
+          "is_valid": true,
+          "qc_flags": {
+            "provider_flagged": false,
+            "transport_provider": "OpenAQ",
+            "value_and_unit_preserved_without_conversion": true
+          },
+          "qc_version": "openaq-provider-flags-phase-2i.4a",
+          "observed_at": "2026-08-03T00:00:00Z",
+          "value": "24.17",
+          "unit": "µg/m³",
+          "assignment": "included",
+          "assigned_anchor": null,
+          "exclusion_reason": null
+        },
+        {
+          "sensor_ref": "openaq-sensor-4475454",
+          "provider_observation_ref": "openaq:4475454:page-1:result-48",
+          "source_page": 1,
+          "source_result_index": 48,
+          "provider_period": {
+            "datetimeFrom": {
+              "local": "2026-08-02T21:00:00-03:00",
+              "utc": "2026-08-03T00:00:00Z"
+            },
+            "datetimeTo": {
+              "local": "2026-08-02T22:00:00-03:00",
+              "utc": "2026-08-03T01:00:00Z"
+            },
+            "interval": "01:00:00",
+            "label": "raw"
+          },
+          "provider_timestamp": null,
+          "is_valid": true,
+          "qc_flags": {
+            "provider_flagged": false,
+            "transport_provider": "OpenAQ",
+            "value_and_unit_preserved_without_conversion": true
+          },
+          "qc_version": "openaq-provider-flags-phase-2i.4a",
+          "observed_at": "2026-08-03T01:00:00Z",
+          "value": "37.83",
+          "unit": "µg/m³",
+          "assignment": "included",
+          "assigned_anchor": null,
+          "exclusion_reason": null
+        },
+        {
+          "sensor_ref": "openaq-sensor-4475454",
+          "provider_observation_ref": "openaq:4475454:page-1:result-49",
+          "source_page": 1,
+          "source_result_index": 49,
+          "provider_period": {
+            "datetimeFrom": {
+              "local": "2026-08-02T22:00:00-03:00",
+              "utc": "2026-08-03T01:00:00Z"
+            },
+            "datetimeTo": {
+              "local": "2026-08-02T23:00:00-03:00",
+              "utc": "2026-08-03T02:00:00Z"
+            },
+            "interval": "01:00:00",
+            "label": "raw"
+          },
+          "provider_timestamp": null,
+          "is_valid": true,
+          "qc_flags": {
+            "provider_flagged": false,
+            "transport_provider": "OpenAQ",
+            "value_and_unit_preserved_without_conversion": true
+          },
+          "qc_version": "openaq-provider-flags-phase-2i.4a",
+          "observed_at": "2026-08-03T02:00:00Z",
+          "value": "56.0",
+          "unit": "µg/m³",
+          "assignment": "included",
+          "assigned_anchor": null,
+          "exclusion_reason": null
+        },
+        {
+          "sensor_ref": "openaq-sensor-4475454",
+          "provider_observation_ref": "openaq:4475454:page-1:result-50",
+          "source_page": 1,
+          "source_result_index": 50,
+          "provider_period": {
+            "datetimeFrom": {
+              "local": "2026-08-02T23:00:00-03:00",
+              "utc": "2026-08-03T02:00:00Z"
+            },
+            "datetimeTo": {
+              "local": "2026-08-03T00:00:00-03:00",
+              "utc": "2026-08-03T03:00:00Z"
+            },
+            "interval": "01:00:00",
+            "label": "raw"
+          },
+          "provider_timestamp": null,
+          "is_valid": true,
+          "qc_flags": {
+            "provider_flagged": false,
+            "transport_provider": "OpenAQ",
+            "value_and_unit_preserved_without_conversion": true
+          },
+          "qc_version": "openaq-provider-flags-phase-2i.4a",
+          "observed_at": "2026-08-03T03:00:00Z",
+          "value": "74.0",
+          "unit": "µg/m³",
+          "assignment": "included",
+          "assigned_anchor": null,
+          "exclusion_reason": null
+        }
+      ],
+      "completeness": {
+        "numerator": 24,
+        "denominator": 24,
+        "required_count": 18,
+        "fraction": "1",
+        "missing_positions": [],
+        "duplicate_positions": [],
+        "off_frequency_positions": [],
+        "status": "complete",
+        "components": [
+          {
+            "numerator": 24,
+            "denominator": 24,
+            "required_count": 18,
+            "missing_positions": [],
+            "duplicate_positions": [],
+            "off_frequency_positions": [],
+            "status": "complete",
+            "parameter_code": "pm10",
+            "sensor_ref": "openaq-sensor-4475454"
+          }
+        ]
+      },
+      "methodology": {
+        "methodology_code": "us_epa_aqi",
+        "methodology_version": "EPA AQI Technical Assistance Document, May 2026",
+        "reference_ids": [
+          "EPA-403/B-26-003",
+          "40 CFR Part 58 Appendix G section 3.4 and Table 2",
+          "89 FR 16202"
+        ]
+      },
+      "derivation": {
+        "status": "independently_derived_review_candidate",
+        "decimal_arithmetic": true,
+        "absolute_tolerance": "0.000000000001",
+        "methodology": {
+          "methodology_code": "us_epa_aqi",
+          "methodology_version": "EPA AQI Technical Assistance Document, May 2026",
+          "reference_ids": [
+            "EPA-403/B-26-003",
+            "40 CFR Part 58 Appendix G section 3.4 and Table 2",
+            "89 FR 16202"
+          ]
+        },
+        "steps": [
+          {
+            "operation": "sum(provider hourly PM10 values) / 24",
+            "operands": [
+              "28.83",
+              "32.5",
+              "21.3",
+              "23.0",
+              "18.17",
+              "21.33",
+              "32.67",
+              "29.33",
+              "22.5",
+              "31.5",
+              "39.0",
+              "35.5",
+              "19.5",
+              "26.83",
+              "25.17",
+              "22.33",
+              "27.67",
+              "23.0",
+              "34.33",
+              "37.83",
+              "24.17",
+              "37.83",
+              "56.0",
+              "74.0"
+            ],
+            "sum": "744.29",
+            "divisor": "24",
+            "daily_mean": "31.012083333333333333333333333333333333333333333333"
+          },
+          {
+            "operation": "PM10 integer truncation and AQI interpolation",
+            "regulatory_preprocessing": {
+              "operation": "truncate_toward_zero",
+              "decimal_places": 0,
+              "result": "31"
+            },
+            "breakpoint": {
+              "concentration_low": "0",
+              "concentration_high": "54",
+              "aqi_low": 0,
+              "aqi_high": 50
+            },
+            "unrounded_aqi": "28.703703703703703703703703703703703703703703703704",
+            "numeric_result": 29
+          }
+        ]
+      },
+      "expected": {
+        "availability": "available",
+        "numeric_result": 29,
+        "category_code": "good",
+        "category_label": "Good",
+        "exclusion_reason": null,
+        "coverage_status": "complete",
+        "aggregation_period": "local_day",
+        "result_kind": "us_epa_pm10_completed_day",
+        "results": [
+          {
+            "sensor_ref": "openaq-sensor-4475454",
+            "parameter_code": "pm10",
+            "represented_local_date": "2026-08-02",
+            "timezone": "America/Sao_Paulo",
+            "utc_window": {
+              "started_at": "2026-08-02T03:00:00Z",
+              "ended_at": "2026-08-03T03:00:00Z"
+            },
+            "accepted_observations": [
+              {
+                "sensor_ref": "openaq-sensor-4475454",
+                "observed_at": "2026-08-02T04:00:00Z",
+                "decimal_value": "28.83",
+                "unit": "µg/m³",
+                "provider_observation_ref": "openaq:4475454:page-1:result-27",
+                "source_page": 1,
+                "source_result_index": 27,
+                "provider_timestamp": null,
+                "provider_period": {
+                  "datetimeFrom": {
+                    "local": "2026-08-02T00:00:00-03:00",
+                    "utc": "2026-08-02T03:00:00Z"
+                  },
+                  "datetimeTo": {
+                    "local": "2026-08-02T01:00:00-03:00",
+                    "utc": "2026-08-02T04:00:00Z"
+                  },
+                  "interval": "01:00:00",
+                  "label": "raw"
+                },
+                "is_valid": true,
+                "qc_flags": {
+                  "provider_flagged": false,
+                  "transport_provider": "OpenAQ",
+                  "value_and_unit_preserved_without_conversion": true
+                },
+                "qc_version": "openaq-provider-flags-phase-2i.4a",
+                "assigned_anchor": null,
+                "exclusion_reason": null
+              },
+              {
+                "sensor_ref": "openaq-sensor-4475454",
+                "observed_at": "2026-08-02T05:00:00Z",
+                "decimal_value": "32.5",
+                "unit": "µg/m³",
+                "provider_observation_ref": "openaq:4475454:page-1:result-28",
+                "source_page": 1,
+                "source_result_index": 28,
+                "provider_timestamp": null,
+                "provider_period": {
+                  "datetimeFrom": {
+                    "local": "2026-08-02T01:00:00-03:00",
+                    "utc": "2026-08-02T04:00:00Z"
+                  },
+                  "datetimeTo": {
+                    "local": "2026-08-02T02:00:00-03:00",
+                    "utc": "2026-08-02T05:00:00Z"
+                  },
+                  "interval": "01:00:00",
+                  "label": "raw"
+                },
+                "is_valid": true,
+                "qc_flags": {
+                  "provider_flagged": false,
+                  "transport_provider": "OpenAQ",
+                  "value_and_unit_preserved_without_conversion": true
+                },
+                "qc_version": "openaq-provider-flags-phase-2i.4a",
+                "assigned_anchor": null,
+                "exclusion_reason": null
+              },
+              {
+                "sensor_ref": "openaq-sensor-4475454",
+                "observed_at": "2026-08-02T06:00:00Z",
+                "decimal_value": "21.3",
+                "unit": "µg/m³",
+                "provider_observation_ref": "openaq:4475454:page-1:result-29",
+                "source_page": 1,
+                "source_result_index": 29,
+                "provider_timestamp": null,
+                "provider_period": {
+                  "datetimeFrom": {
+                    "local": "2026-08-02T02:00:00-03:00",
+                    "utc": "2026-08-02T05:00:00Z"
+                  },
+                  "datetimeTo": {
+                    "local": "2026-08-02T03:00:00-03:00",
+                    "utc": "2026-08-02T06:00:00Z"
+                  },
+                  "interval": "01:00:00",
+                  "label": "raw"
+                },
+                "is_valid": true,
+                "qc_flags": {
+                  "provider_flagged": false,
+                  "transport_provider": "OpenAQ",
+                  "value_and_unit_preserved_without_conversion": true
+                },
+                "qc_version": "openaq-provider-flags-phase-2i.4a",
+                "assigned_anchor": null,
+                "exclusion_reason": null
+              },
+              {
+                "sensor_ref": "openaq-sensor-4475454",
+                "observed_at": "2026-08-02T07:00:00Z",
+                "decimal_value": "23.0",
+                "unit": "µg/m³",
+                "provider_observation_ref": "openaq:4475454:page-1:result-30",
+                "source_page": 1,
+                "source_result_index": 30,
+                "provider_timestamp": null,
+                "provider_period": {
+                  "datetimeFrom": {
+                    "local": "2026-08-02T03:00:00-03:00",
+                    "utc": "2026-08-02T06:00:00Z"
+                  },
+                  "datetimeTo": {
+                    "local": "2026-08-02T04:00:00-03:00",
+                    "utc": "2026-08-02T07:00:00Z"
+                  },
+                  "interval": "01:00:00",
+                  "label": "raw"
+                },
+                "is_valid": true,
+                "qc_flags": {
+                  "provider_flagged": false,
+                  "transport_provider": "OpenAQ",
+                  "value_and_unit_preserved_without_conversion": true
+                },
+                "qc_version": "openaq-provider-flags-phase-2i.4a",
+                "assigned_anchor": null,
+                "exclusion_reason": null
+              },
+              {
+                "sensor_ref": "openaq-sensor-4475454",
+                "observed_at": "2026-08-02T08:00:00Z",
+                "decimal_value": "18.17",
+                "unit": "µg/m³",
+                "provider_observation_ref": "openaq:4475454:page-1:result-31",
+                "source_page": 1,
+                "source_result_index": 31,
+                "provider_timestamp": null,
+                "provider_period": {
+                  "datetimeFrom": {
+                    "local": "2026-08-02T04:00:00-03:00",
+                    "utc": "2026-08-02T07:00:00Z"
+                  },
+                  "datetimeTo": {
+                    "local": "2026-08-02T05:00:00-03:00",
+                    "utc": "2026-08-02T08:00:00Z"
+                  },
+                  "interval": "01:00:00",
+                  "label": "raw"
+                },
+                "is_valid": true,
+                "qc_flags": {
+                  "provider_flagged": false,
+                  "transport_provider": "OpenAQ",
+                  "value_and_unit_preserved_without_conversion": true
+                },
+                "qc_version": "openaq-provider-flags-phase-2i.4a",
+                "assigned_anchor": null,
+                "exclusion_reason": null
+              },
+              {
+                "sensor_ref": "openaq-sensor-4475454",
+                "observed_at": "2026-08-02T09:00:00Z",
+                "decimal_value": "21.33",
+                "unit": "µg/m³",
+                "provider_observation_ref": "openaq:4475454:page-1:result-32",
+                "source_page": 1,
+                "source_result_index": 32,
+                "provider_timestamp": null,
+                "provider_period": {
+                  "datetimeFrom": {
+                    "local": "2026-08-02T05:00:00-03:00",
+                    "utc": "2026-08-02T08:00:00Z"
+                  },
+                  "datetimeTo": {
+                    "local": "2026-08-02T06:00:00-03:00",
+                    "utc": "2026-08-02T09:00:00Z"
+                  },
+                  "interval": "01:00:00",
+                  "label": "raw"
+                },
+                "is_valid": true,
+                "qc_flags": {
+                  "provider_flagged": false,
+                  "transport_provider": "OpenAQ",
+                  "value_and_unit_preserved_without_conversion": true
+                },
+                "qc_version": "openaq-provider-flags-phase-2i.4a",
+                "assigned_anchor": null,
+                "exclusion_reason": null
+              },
+              {
+                "sensor_ref": "openaq-sensor-4475454",
+                "observed_at": "2026-08-02T10:00:00Z",
+                "decimal_value": "32.67",
+                "unit": "µg/m³",
+                "provider_observation_ref": "openaq:4475454:page-1:result-33",
+                "source_page": 1,
+                "source_result_index": 33,
+                "provider_timestamp": null,
+                "provider_period": {
+                  "datetimeFrom": {
+                    "local": "2026-08-02T06:00:00-03:00",
+                    "utc": "2026-08-02T09:00:00Z"
+                  },
+                  "datetimeTo": {
+                    "local": "2026-08-02T07:00:00-03:00",
+                    "utc": "2026-08-02T10:00:00Z"
+                  },
+                  "interval": "01:00:00",
+                  "label": "raw"
+                },
+                "is_valid": true,
+                "qc_flags": {
+                  "provider_flagged": false,
+                  "transport_provider": "OpenAQ",
+                  "value_and_unit_preserved_without_conversion": true
+                },
+                "qc_version": "openaq-provider-flags-phase-2i.4a",
+                "assigned_anchor": null,
+                "exclusion_reason": null
+              },
+              {
+                "sensor_ref": "openaq-sensor-4475454",
+                "observed_at": "2026-08-02T11:00:00Z",
+                "decimal_value": "29.33",
+                "unit": "µg/m³",
+                "provider_observation_ref": "openaq:4475454:page-1:result-34",
+                "source_page": 1,
+                "source_result_index": 34,
+                "provider_timestamp": null,
+                "provider_period": {
+                  "datetimeFrom": {
+                    "local": "2026-08-02T07:00:00-03:00",
+                    "utc": "2026-08-02T10:00:00Z"
+                  },
+                  "datetimeTo": {
+                    "local": "2026-08-02T08:00:00-03:00",
+                    "utc": "2026-08-02T11:00:00Z"
+                  },
+                  "interval": "01:00:00",
+                  "label": "raw"
+                },
+                "is_valid": true,
+                "qc_flags": {
+                  "provider_flagged": false,
+                  "transport_provider": "OpenAQ",
+                  "value_and_unit_preserved_without_conversion": true
+                },
+                "qc_version": "openaq-provider-flags-phase-2i.4a",
+                "assigned_anchor": null,
+                "exclusion_reason": null
+              },
+              {
+                "sensor_ref": "openaq-sensor-4475454",
+                "observed_at": "2026-08-02T12:00:00Z",
+                "decimal_value": "22.5",
+                "unit": "µg/m³",
+                "provider_observation_ref": "openaq:4475454:page-1:result-35",
+                "source_page": 1,
+                "source_result_index": 35,
+                "provider_timestamp": null,
+                "provider_period": {
+                  "datetimeFrom": {
+                    "local": "2026-08-02T08:00:00-03:00",
+                    "utc": "2026-08-02T11:00:00Z"
+                  },
+                  "datetimeTo": {
+                    "local": "2026-08-02T09:00:00-03:00",
+                    "utc": "2026-08-02T12:00:00Z"
+                  },
+                  "interval": "01:00:00",
+                  "label": "raw"
+                },
+                "is_valid": true,
+                "qc_flags": {
+                  "provider_flagged": false,
+                  "transport_provider": "OpenAQ",
+                  "value_and_unit_preserved_without_conversion": true
+                },
+                "qc_version": "openaq-provider-flags-phase-2i.4a",
+                "assigned_anchor": null,
+                "exclusion_reason": null
+              },
+              {
+                "sensor_ref": "openaq-sensor-4475454",
+                "observed_at": "2026-08-02T13:00:00Z",
+                "decimal_value": "31.5",
+                "unit": "µg/m³",
+                "provider_observation_ref": "openaq:4475454:page-1:result-36",
+                "source_page": 1,
+                "source_result_index": 36,
+                "provider_timestamp": null,
+                "provider_period": {
+                  "datetimeFrom": {
+                    "local": "2026-08-02T09:00:00-03:00",
+                    "utc": "2026-08-02T12:00:00Z"
+                  },
+                  "datetimeTo": {
+                    "local": "2026-08-02T10:00:00-03:00",
+                    "utc": "2026-08-02T13:00:00Z"
+                  },
+                  "interval": "01:00:00",
+                  "label": "raw"
+                },
+                "is_valid": true,
+                "qc_flags": {
+                  "provider_flagged": false,
+                  "transport_provider": "OpenAQ",
+                  "value_and_unit_preserved_without_conversion": true
+                },
+                "qc_version": "openaq-provider-flags-phase-2i.4a",
+                "assigned_anchor": null,
+                "exclusion_reason": null
+              },
+              {
+                "sensor_ref": "openaq-sensor-4475454",
+                "observed_at": "2026-08-02T14:00:00Z",
+                "decimal_value": "39.0",
+                "unit": "µg/m³",
+                "provider_observation_ref": "openaq:4475454:page-1:result-37",
+                "source_page": 1,
+                "source_result_index": 37,
+                "provider_timestamp": null,
+                "provider_period": {
+                  "datetimeFrom": {
+                    "local": "2026-08-02T10:00:00-03:00",
+                    "utc": "2026-08-02T13:00:00Z"
+                  },
+                  "datetimeTo": {
+                    "local": "2026-08-02T11:00:00-03:00",
+                    "utc": "2026-08-02T14:00:00Z"
+                  },
+                  "interval": "01:00:00",
+                  "label": "raw"
+                },
+                "is_valid": true,
+                "qc_flags": {
+                  "provider_flagged": false,
+                  "transport_provider": "OpenAQ",
+                  "value_and_unit_preserved_without_conversion": true
+                },
+                "qc_version": "openaq-provider-flags-phase-2i.4a",
+                "assigned_anchor": null,
+                "exclusion_reason": null
+              },
+              {
+                "sensor_ref": "openaq-sensor-4475454",
+                "observed_at": "2026-08-02T15:00:00Z",
+                "decimal_value": "35.5",
+                "unit": "µg/m³",
+                "provider_observation_ref": "openaq:4475454:page-1:result-38",
+                "source_page": 1,
+                "source_result_index": 38,
+                "provider_timestamp": null,
+                "provider_period": {
+                  "datetimeFrom": {
+                    "local": "2026-08-02T11:00:00-03:00",
+                    "utc": "2026-08-02T14:00:00Z"
+                  },
+                  "datetimeTo": {
+                    "local": "2026-08-02T12:00:00-03:00",
+                    "utc": "2026-08-02T15:00:00Z"
+                  },
+                  "interval": "01:00:00",
+                  "label": "raw"
+                },
+                "is_valid": true,
+                "qc_flags": {
+                  "provider_flagged": false,
+                  "transport_provider": "OpenAQ",
+                  "value_and_unit_preserved_without_conversion": true
+                },
+                "qc_version": "openaq-provider-flags-phase-2i.4a",
+                "assigned_anchor": null,
+                "exclusion_reason": null
+              },
+              {
+                "sensor_ref": "openaq-sensor-4475454",
+                "observed_at": "2026-08-02T16:00:00Z",
+                "decimal_value": "19.5",
+                "unit": "µg/m³",
+                "provider_observation_ref": "openaq:4475454:page-1:result-39",
+                "source_page": 1,
+                "source_result_index": 39,
+                "provider_timestamp": null,
+                "provider_period": {
+                  "datetimeFrom": {
+                    "local": "2026-08-02T12:00:00-03:00",
+                    "utc": "2026-08-02T15:00:00Z"
+                  },
+                  "datetimeTo": {
+                    "local": "2026-08-02T13:00:00-03:00",
+                    "utc": "2026-08-02T16:00:00Z"
+                  },
+                  "interval": "01:00:00",
+                  "label": "raw"
+                },
+                "is_valid": true,
+                "qc_flags": {
+                  "provider_flagged": false,
+                  "transport_provider": "OpenAQ",
+                  "value_and_unit_preserved_without_conversion": true
+                },
+                "qc_version": "openaq-provider-flags-phase-2i.4a",
+                "assigned_anchor": null,
+                "exclusion_reason": null
+              },
+              {
+                "sensor_ref": "openaq-sensor-4475454",
+                "observed_at": "2026-08-02T17:00:00Z",
+                "decimal_value": "26.83",
+                "unit": "µg/m³",
+                "provider_observation_ref": "openaq:4475454:page-1:result-40",
+                "source_page": 1,
+                "source_result_index": 40,
+                "provider_timestamp": null,
+                "provider_period": {
+                  "datetimeFrom": {
+                    "local": "2026-08-02T13:00:00-03:00",
+                    "utc": "2026-08-02T16:00:00Z"
+                  },
+                  "datetimeTo": {
+                    "local": "2026-08-02T14:00:00-03:00",
+                    "utc": "2026-08-02T17:00:00Z"
+                  },
+                  "interval": "01:00:00",
+                  "label": "raw"
+                },
+                "is_valid": true,
+                "qc_flags": {
+                  "provider_flagged": false,
+                  "transport_provider": "OpenAQ",
+                  "value_and_unit_preserved_without_conversion": true
+                },
+                "qc_version": "openaq-provider-flags-phase-2i.4a",
+                "assigned_anchor": null,
+                "exclusion_reason": null
+              },
+              {
+                "sensor_ref": "openaq-sensor-4475454",
+                "observed_at": "2026-08-02T18:00:00Z",
+                "decimal_value": "25.17",
+                "unit": "µg/m³",
+                "provider_observation_ref": "openaq:4475454:page-1:result-41",
+                "source_page": 1,
+                "source_result_index": 41,
+                "provider_timestamp": null,
+                "provider_period": {
+                  "datetimeFrom": {
+                    "local": "2026-08-02T14:00:00-03:00",
+                    "utc": "2026-08-02T17:00:00Z"
+                  },
+                  "datetimeTo": {
+                    "local": "2026-08-02T15:00:00-03:00",
+                    "utc": "2026-08-02T18:00:00Z"
+                  },
+                  "interval": "01:00:00",
+                  "label": "raw"
+                },
+                "is_valid": true,
+                "qc_flags": {
+                  "provider_flagged": false,
+                  "transport_provider": "OpenAQ",
+                  "value_and_unit_preserved_without_conversion": true
+                },
+                "qc_version": "openaq-provider-flags-phase-2i.4a",
+                "assigned_anchor": null,
+                "exclusion_reason": null
+              },
+              {
+                "sensor_ref": "openaq-sensor-4475454",
+                "observed_at": "2026-08-02T19:00:00Z",
+                "decimal_value": "22.33",
+                "unit": "µg/m³",
+                "provider_observation_ref": "openaq:4475454:page-1:result-42",
+                "source_page": 1,
+                "source_result_index": 42,
+                "provider_timestamp": null,
+                "provider_period": {
+                  "datetimeFrom": {
+                    "local": "2026-08-02T15:00:00-03:00",
+                    "utc": "2026-08-02T18:00:00Z"
+                  },
+                  "datetimeTo": {
+                    "local": "2026-08-02T16:00:00-03:00",
+                    "utc": "2026-08-02T19:00:00Z"
+                  },
+                  "interval": "01:00:00",
+                  "label": "raw"
+                },
+                "is_valid": true,
+                "qc_flags": {
+                  "provider_flagged": false,
+                  "transport_provider": "OpenAQ",
+                  "value_and_unit_preserved_without_conversion": true
+                },
+                "qc_version": "openaq-provider-flags-phase-2i.4a",
+                "assigned_anchor": null,
+                "exclusion_reason": null
+              },
+              {
+                "sensor_ref": "openaq-sensor-4475454",
+                "observed_at": "2026-08-02T20:00:00Z",
+                "decimal_value": "27.67",
+                "unit": "µg/m³",
+                "provider_observation_ref": "openaq:4475454:page-1:result-43",
+                "source_page": 1,
+                "source_result_index": 43,
+                "provider_timestamp": null,
+                "provider_period": {
+                  "datetimeFrom": {
+                    "local": "2026-08-02T16:00:00-03:00",
+                    "utc": "2026-08-02T19:00:00Z"
+                  },
+                  "datetimeTo": {
+                    "local": "2026-08-02T17:00:00-03:00",
+                    "utc": "2026-08-02T20:00:00Z"
+                  },
+                  "interval": "01:00:00",
+                  "label": "raw"
+                },
+                "is_valid": true,
+                "qc_flags": {
+                  "provider_flagged": false,
+                  "transport_provider": "OpenAQ",
+                  "value_and_unit_preserved_without_conversion": true
+                },
+                "qc_version": "openaq-provider-flags-phase-2i.4a",
+                "assigned_anchor": null,
+                "exclusion_reason": null
+              },
+              {
+                "sensor_ref": "openaq-sensor-4475454",
+                "observed_at": "2026-08-02T21:00:00Z",
+                "decimal_value": "23.0",
+                "unit": "µg/m³",
+                "provider_observation_ref": "openaq:4475454:page-1:result-44",
+                "source_page": 1,
+                "source_result_index": 44,
+                "provider_timestamp": null,
+                "provider_period": {
+                  "datetimeFrom": {
+                    "local": "2026-08-02T17:00:00-03:00",
+                    "utc": "2026-08-02T20:00:00Z"
+                  },
+                  "datetimeTo": {
+                    "local": "2026-08-02T18:00:00-03:00",
+                    "utc": "2026-08-02T21:00:00Z"
+                  },
+                  "interval": "01:00:00",
+                  "label": "raw"
+                },
+                "is_valid": true,
+                "qc_flags": {
+                  "provider_flagged": false,
+                  "transport_provider": "OpenAQ",
+                  "value_and_unit_preserved_without_conversion": true
+                },
+                "qc_version": "openaq-provider-flags-phase-2i.4a",
+                "assigned_anchor": null,
+                "exclusion_reason": null
+              },
+              {
+                "sensor_ref": "openaq-sensor-4475454",
+                "observed_at": "2026-08-02T22:00:00Z",
+                "decimal_value": "34.33",
+                "unit": "µg/m³",
+                "provider_observation_ref": "openaq:4475454:page-1:result-45",
+                "source_page": 1,
+                "source_result_index": 45,
+                "provider_timestamp": null,
+                "provider_period": {
+                  "datetimeFrom": {
+                    "local": "2026-08-02T18:00:00-03:00",
+                    "utc": "2026-08-02T21:00:00Z"
+                  },
+                  "datetimeTo": {
+                    "local": "2026-08-02T19:00:00-03:00",
+                    "utc": "2026-08-02T22:00:00Z"
+                  },
+                  "interval": "01:00:00",
+                  "label": "raw"
+                },
+                "is_valid": true,
+                "qc_flags": {
+                  "provider_flagged": false,
+                  "transport_provider": "OpenAQ",
+                  "value_and_unit_preserved_without_conversion": true
+                },
+                "qc_version": "openaq-provider-flags-phase-2i.4a",
+                "assigned_anchor": null,
+                "exclusion_reason": null
+              },
+              {
+                "sensor_ref": "openaq-sensor-4475454",
+                "observed_at": "2026-08-02T23:00:00Z",
+                "decimal_value": "37.83",
+                "unit": "µg/m³",
+                "provider_observation_ref": "openaq:4475454:page-1:result-46",
+                "source_page": 1,
+                "source_result_index": 46,
+                "provider_timestamp": null,
+                "provider_period": {
+                  "datetimeFrom": {
+                    "local": "2026-08-02T19:00:00-03:00",
+                    "utc": "2026-08-02T22:00:00Z"
+                  },
+                  "datetimeTo": {
+                    "local": "2026-08-02T20:00:00-03:00",
+                    "utc": "2026-08-02T23:00:00Z"
+                  },
+                  "interval": "01:00:00",
+                  "label": "raw"
+                },
+                "is_valid": true,
+                "qc_flags": {
+                  "provider_flagged": false,
+                  "transport_provider": "OpenAQ",
+                  "value_and_unit_preserved_without_conversion": true
+                },
+                "qc_version": "openaq-provider-flags-phase-2i.4a",
+                "assigned_anchor": null,
+                "exclusion_reason": null
+              },
+              {
+                "sensor_ref": "openaq-sensor-4475454",
+                "observed_at": "2026-08-03T00:00:00Z",
+                "decimal_value": "24.17",
+                "unit": "µg/m³",
+                "provider_observation_ref": "openaq:4475454:page-1:result-47",
+                "source_page": 1,
+                "source_result_index": 47,
+                "provider_timestamp": null,
+                "provider_period": {
+                  "datetimeFrom": {
+                    "local": "2026-08-02T20:00:00-03:00",
+                    "utc": "2026-08-02T23:00:00Z"
+                  },
+                  "datetimeTo": {
+                    "local": "2026-08-02T21:00:00-03:00",
+                    "utc": "2026-08-03T00:00:00Z"
+                  },
+                  "interval": "01:00:00",
+                  "label": "raw"
+                },
+                "is_valid": true,
+                "qc_flags": {
+                  "provider_flagged": false,
+                  "transport_provider": "OpenAQ",
+                  "value_and_unit_preserved_without_conversion": true
+                },
+                "qc_version": "openaq-provider-flags-phase-2i.4a",
+                "assigned_anchor": null,
+                "exclusion_reason": null
+              },
+              {
+                "sensor_ref": "openaq-sensor-4475454",
+                "observed_at": "2026-08-03T01:00:00Z",
+                "decimal_value": "37.83",
+                "unit": "µg/m³",
+                "provider_observation_ref": "openaq:4475454:page-1:result-48",
+                "source_page": 1,
+                "source_result_index": 48,
+                "provider_timestamp": null,
+                "provider_period": {
+                  "datetimeFrom": {
+                    "local": "2026-08-02T21:00:00-03:00",
+                    "utc": "2026-08-03T00:00:00Z"
+                  },
+                  "datetimeTo": {
+                    "local": "2026-08-02T22:00:00-03:00",
+                    "utc": "2026-08-03T01:00:00Z"
+                  },
+                  "interval": "01:00:00",
+                  "label": "raw"
+                },
+                "is_valid": true,
+                "qc_flags": {
+                  "provider_flagged": false,
+                  "transport_provider": "OpenAQ",
+                  "value_and_unit_preserved_without_conversion": true
+                },
+                "qc_version": "openaq-provider-flags-phase-2i.4a",
+                "assigned_anchor": null,
+                "exclusion_reason": null
+              },
+              {
+                "sensor_ref": "openaq-sensor-4475454",
+                "observed_at": "2026-08-03T02:00:00Z",
+                "decimal_value": "56.0",
+                "unit": "µg/m³",
+                "provider_observation_ref": "openaq:4475454:page-1:result-49",
+                "source_page": 1,
+                "source_result_index": 49,
+                "provider_timestamp": null,
+                "provider_period": {
+                  "datetimeFrom": {
+                    "local": "2026-08-02T22:00:00-03:00",
+                    "utc": "2026-08-03T01:00:00Z"
+                  },
+                  "datetimeTo": {
+                    "local": "2026-08-02T23:00:00-03:00",
+                    "utc": "2026-08-03T02:00:00Z"
+                  },
+                  "interval": "01:00:00",
+                  "label": "raw"
+                },
+                "is_valid": true,
+                "qc_flags": {
+                  "provider_flagged": false,
+                  "transport_provider": "OpenAQ",
+                  "value_and_unit_preserved_without_conversion": true
+                },
+                "qc_version": "openaq-provider-flags-phase-2i.4a",
+                "assigned_anchor": null,
+                "exclusion_reason": null
+              },
+              {
+                "sensor_ref": "openaq-sensor-4475454",
+                "observed_at": "2026-08-03T03:00:00Z",
+                "decimal_value": "74.0",
+                "unit": "µg/m³",
+                "provider_observation_ref": "openaq:4475454:page-1:result-50",
+                "source_page": 1,
+                "source_result_index": 50,
+                "provider_timestamp": null,
+                "provider_period": {
+                  "datetimeFrom": {
+                    "local": "2026-08-02T23:00:00-03:00",
+                    "utc": "2026-08-03T02:00:00Z"
+                  },
+                  "datetimeTo": {
+                    "local": "2026-08-03T00:00:00-03:00",
+                    "utc": "2026-08-03T03:00:00Z"
+                  },
+                  "interval": "01:00:00",
+                  "label": "raw"
+                },
+                "is_valid": true,
+                "qc_flags": {
+                  "provider_flagged": false,
+                  "transport_provider": "OpenAQ",
+                  "value_and_unit_preserved_without_conversion": true
+                },
+                "qc_version": "openaq-provider-flags-phase-2i.4a",
+                "assigned_anchor": null,
+                "exclusion_reason": null
+              }
+            ],
+            "observed_count": 24,
+            "expected_count": 24,
+            "required_count": 18,
+            "daily_mean_before_preprocessing": "31.012083333333333333333333333333333333333333333333",
+            "coverage_status": "complete",
+            "input_concentration": "31.012083333333333333333333333333333333333333333333",
+            "input_unit": "µg/m³",
+            "regulatory_preprocessing": {
+              "operation": "truncate_toward_zero",
+              "decimal_places": 0,
+              "result": "31"
+            },
+            "breakpoint": {
+              "concentration_low": "0",
+              "concentration_high": "54",
+              "aqi_low": 0,
+              "aqi_high": 50
+            },
+            "interpolation_formula": "((aqi_high-aqi_low)/(concentration_high-concentration_low))*(concentration-concentration_low)+aqi_low",
+            "unrounded_aqi": "28.703703703703703703703703703703703703703703703704",
+            "rounding": "nearest integer with half rounded up",
+            "numeric_result": 29,
+            "category_code": "good",
+            "category_label": "Good"
+          }
+        ]
+      },
+      "review": {
+        "status": "approved",
+        "reviewer": "Spheros Environmental",
+        "reviewed_at": "2026-08-12T06:53:00-07:00",
+        "derivation_sha256": "ad4dd6659b44f9b68a00461c22cb730db634c1533b235a70118dcc9d7939ecfb",
+        "comments": "Reviewed the Phase 2I.5 independent derivations, current CompassAQ observations, discrepancy resolutions, and settled methodology decisions. I approve the public OpenAQ candidate expectations for promotion. The remaining zero-row terminology distinction is accepted as intentional where source-level missing_measurements and final no_eligible_sensor_stream represent different diagnostic layers.",
+        "approval_decision": "approved"
+      }
+    },
+    {
+      "case_id": "openaq_ny_o3_window_2026_08_02T12",
+      "calculation_type": "provider_hour_window",
+      "source": {
+        "dataset_name": "openaq",
+        "dataset_id": "openaq_phase_2i4a_2026-08-01_2026-08-08",
+        "access_classification": "public_frozen_reference_data",
+        "source_fact_hash": "baf7637e9fe612c31ac4491a5dac3058f17882b538db788247be126fcdb0d942",
+        "sensor_refs": [
+          "openaq-sensor-1098"
+        ]
+      },
+      "input_window": {
+        "utc_window": {
+          "started_at": "2026-08-02T04:00:00Z",
+          "ended_at": "2026-08-02T12:00:00Z"
+        },
+        "boundary_semantics": "start_exclusive_end_inclusive"
+      },
+      "source_observations": [
+        {
+          "sensor_ref": "openaq-sensor-1098",
+          "provider_observation_ref": "openaq:1098:page-1:result-28",
+          "source_page": 1,
+          "source_result_index": 28,
+          "provider_period": {
+            "datetimeFrom": {
+              "local": "2026-08-02T00:00:00-04:00",
+              "utc": "2026-08-02T04:00:00Z"
+            },
+            "datetimeTo": {
+              "local": "2026-08-02T01:00:00-04:00",
+              "utc": "2026-08-02T05:00:00Z"
+            },
+            "interval": "01:00:00",
+            "label": "raw"
+          },
+          "provider_timestamp": null,
+          "is_valid": true,
+          "qc_flags": {
+            "provider_flagged": false,
+            "transport_provider": "OpenAQ",
+            "value_and_unit_preserved_without_conversion": true
+          },
+          "qc_version": "openaq-provider-flags-phase-2i.4a",
+          "observed_at": "2026-08-02T05:00:00Z",
+          "value": "0.038",
+          "unit": "ppm",
+          "assignment": "included",
+          "assigned_anchor": null,
+          "exclusion_reason": null
+        },
+        {
+          "sensor_ref": "openaq-sensor-1098",
+          "provider_observation_ref": "openaq:1098:page-1:result-29",
+          "source_page": 1,
+          "source_result_index": 29,
+          "provider_period": {
+            "datetimeFrom": {
+              "local": "2026-08-02T01:00:00-04:00",
+              "utc": "2026-08-02T05:00:00Z"
+            },
+            "datetimeTo": {
+              "local": "2026-08-02T02:00:00-04:00",
+              "utc": "2026-08-02T06:00:00Z"
+            },
+            "interval": "01:00:00",
+            "label": "raw"
+          },
+          "provider_timestamp": null,
+          "is_valid": true,
+          "qc_flags": {
+            "provider_flagged": false,
+            "transport_provider": "OpenAQ",
+            "value_and_unit_preserved_without_conversion": true
+          },
+          "qc_version": "openaq-provider-flags-phase-2i.4a",
+          "observed_at": "2026-08-02T06:00:00Z",
+          "value": "0.038",
+          "unit": "ppm",
+          "assignment": "included",
+          "assigned_anchor": null,
+          "exclusion_reason": null
+        },
+        {
+          "sensor_ref": "openaq-sensor-1098",
+          "provider_observation_ref": "openaq:1098:page-1:result-30",
+          "source_page": 1,
+          "source_result_index": 30,
+          "provider_period": {
+            "datetimeFrom": {
+              "local": "2026-08-02T02:00:00-04:00",
+              "utc": "2026-08-02T06:00:00Z"
+            },
+            "datetimeTo": {
+              "local": "2026-08-02T03:00:00-04:00",
+              "utc": "2026-08-02T07:00:00Z"
+            },
+            "interval": "01:00:00",
+            "label": "raw"
+          },
+          "provider_timestamp": null,
+          "is_valid": true,
+          "qc_flags": {
+            "provider_flagged": false,
+            "transport_provider": "OpenAQ",
+            "value_and_unit_preserved_without_conversion": true
+          },
+          "qc_version": "openaq-provider-flags-phase-2i.4a",
+          "observed_at": "2026-08-02T07:00:00Z",
+          "value": "0.035",
+          "unit": "ppm",
+          "assignment": "included",
+          "assigned_anchor": null,
+          "exclusion_reason": null
+        },
+        {
+          "sensor_ref": "openaq-sensor-1098",
+          "provider_observation_ref": "openaq:1098:page-1:result-31",
+          "source_page": 1,
+          "source_result_index": 31,
+          "provider_period": {
+            "datetimeFrom": {
+              "local": "2026-08-02T03:00:00-04:00",
+              "utc": "2026-08-02T07:00:00Z"
+            },
+            "datetimeTo": {
+              "local": "2026-08-02T04:00:00-04:00",
+              "utc": "2026-08-02T08:00:00Z"
+            },
+            "interval": "01:00:00",
+            "label": "raw"
+          },
+          "provider_timestamp": null,
+          "is_valid": true,
+          "qc_flags": {
+            "provider_flagged": false,
+            "transport_provider": "OpenAQ",
+            "value_and_unit_preserved_without_conversion": true
+          },
+          "qc_version": "openaq-provider-flags-phase-2i.4a",
+          "observed_at": "2026-08-02T08:00:00Z",
+          "value": "0.037",
+          "unit": "ppm",
+          "assignment": "included",
+          "assigned_anchor": null,
+          "exclusion_reason": null
+        },
+        {
+          "sensor_ref": "openaq-sensor-1098",
+          "provider_observation_ref": "openaq:1098:page-1:result-32",
+          "source_page": 1,
+          "source_result_index": 32,
+          "provider_period": {
+            "datetimeFrom": {
+              "local": "2026-08-02T04:00:00-04:00",
+              "utc": "2026-08-02T08:00:00Z"
+            },
+            "datetimeTo": {
+              "local": "2026-08-02T05:00:00-04:00",
+              "utc": "2026-08-02T09:00:00Z"
+            },
+            "interval": "01:00:00",
+            "label": "raw"
+          },
+          "provider_timestamp": null,
+          "is_valid": true,
+          "qc_flags": {
+            "provider_flagged": false,
+            "transport_provider": "OpenAQ",
+            "value_and_unit_preserved_without_conversion": true
+          },
+          "qc_version": "openaq-provider-flags-phase-2i.4a",
+          "observed_at": "2026-08-02T09:00:00Z",
+          "value": "0.038",
+          "unit": "ppm",
+          "assignment": "included",
+          "assigned_anchor": null,
+          "exclusion_reason": null
+        },
+        {
+          "sensor_ref": "openaq-sensor-1098",
+          "provider_observation_ref": "openaq:1098:page-1:result-33",
+          "source_page": 1,
+          "source_result_index": 33,
+          "provider_period": {
+            "datetimeFrom": {
+              "local": "2026-08-02T05:00:00-04:00",
+              "utc": "2026-08-02T09:00:00Z"
+            },
+            "datetimeTo": {
+              "local": "2026-08-02T06:00:00-04:00",
+              "utc": "2026-08-02T10:00:00Z"
+            },
+            "interval": "01:00:00",
+            "label": "raw"
+          },
+          "provider_timestamp": null,
+          "is_valid": true,
+          "qc_flags": {
+            "provider_flagged": false,
+            "transport_provider": "OpenAQ",
+            "value_and_unit_preserved_without_conversion": true
+          },
+          "qc_version": "openaq-provider-flags-phase-2i.4a",
+          "observed_at": "2026-08-02T10:00:00Z",
+          "value": "0.039",
+          "unit": "ppm",
+          "assignment": "included",
+          "assigned_anchor": null,
+          "exclusion_reason": null
+        },
+        {
+          "sensor_ref": "openaq-sensor-1098",
+          "provider_observation_ref": "openaq:1098:page-1:result-34",
+          "source_page": 1,
+          "source_result_index": 34,
+          "provider_period": {
+            "datetimeFrom": {
+              "local": "2026-08-02T06:00:00-04:00",
+              "utc": "2026-08-02T10:00:00Z"
+            },
+            "datetimeTo": {
+              "local": "2026-08-02T07:00:00-04:00",
+              "utc": "2026-08-02T11:00:00Z"
+            },
+            "interval": "01:00:00",
+            "label": "raw"
+          },
+          "provider_timestamp": null,
+          "is_valid": true,
+          "qc_flags": {
+            "provider_flagged": false,
+            "transport_provider": "OpenAQ",
+            "value_and_unit_preserved_without_conversion": true
+          },
+          "qc_version": "openaq-provider-flags-phase-2i.4a",
+          "observed_at": "2026-08-02T11:00:00Z",
+          "value": "0.037",
+          "unit": "ppm",
+          "assignment": "included",
+          "assigned_anchor": null,
+          "exclusion_reason": null
+        },
+        {
+          "sensor_ref": "openaq-sensor-1098",
+          "provider_observation_ref": "openaq:1098:page-1:result-35",
+          "source_page": 1,
+          "source_result_index": 35,
+          "provider_period": {
+            "datetimeFrom": {
+              "local": "2026-08-02T07:00:00-04:00",
+              "utc": "2026-08-02T11:00:00Z"
+            },
+            "datetimeTo": {
+              "local": "2026-08-02T08:00:00-04:00",
+              "utc": "2026-08-02T12:00:00Z"
+            },
+            "interval": "01:00:00",
+            "label": "raw"
+          },
+          "provider_timestamp": null,
+          "is_valid": true,
+          "qc_flags": {
+            "provider_flagged": false,
+            "transport_provider": "OpenAQ",
+            "value_and_unit_preserved_without_conversion": true
+          },
+          "qc_version": "openaq-provider-flags-phase-2i.4a",
+          "observed_at": "2026-08-02T12:00:00Z",
+          "value": "0.037",
+          "unit": "ppm",
+          "assignment": "included",
+          "assigned_anchor": null,
+          "exclusion_reason": null
+        }
+      ],
+      "completeness": {
+        "numerator": 8,
+        "denominator": 8,
+        "required_count": 6,
+        "fraction": "1",
+        "missing_positions": [],
+        "duplicate_positions": [],
+        "off_frequency_positions": [],
+        "status": "complete",
+        "components": [
+          {
+            "numerator": 8,
+            "denominator": 8,
+            "required_count": 6,
+            "missing_positions": [],
+            "duplicate_positions": [],
+            "off_frequency_positions": [],
+            "status": "complete",
+            "parameter_code": "o3",
+            "sensor_ref": "openaq-sensor-1098"
+          }
+        ]
+      },
+      "methodology": {
+        "methodology_code": "us_epa_aqi",
+        "methodology_version": "EPA AQI Technical Assistance Document, May 2026",
+        "reference_ids": [
+          "EPA-403/B-26-003",
+          "40 CFR Part 58 Appendix G section 3.4 and Table 2",
+          "89 FR 16202"
+        ]
+      },
+      "derivation": {
+        "status": "independently_derived_review_candidate",
+        "decimal_arithmetic": true,
+        "absolute_tolerance": "0.000000000001",
+        "methodology": {
+          "methodology_code": "us_epa_aqi",
+          "methodology_version": "EPA AQI Technical Assistance Document, May 2026",
+          "reference_ids": [
+            "EPA-403/B-26-003",
+            "40 CFR Part 58 Appendix G section 3.4 and Table 2",
+            "89 FR 16202"
+          ]
+        },
+        "steps": [
+          {
+            "operation": "truncate each O3 hour to 0.001 ppm before the eight-hour mean",
+            "inputs": [
+              "0.038",
+              "0.038",
+              "0.035",
+              "0.037",
+              "0.038",
+              "0.039",
+              "0.037",
+              "0.037"
+            ],
+            "outputs": [
+              "0.038",
+              "0.038",
+              "0.035",
+              "0.037",
+              "0.038",
+              "0.039",
+              "0.037",
+              "0.037"
+            ]
+          },
+          {
+            "operation": "sum(hourly values) / 8",
+            "sum": "0.299",
+            "divisor": "8",
+            "eight_hour_mean": "0.037375"
+          },
+          {
+            "operation": "derive and select applicable O3 AQI candidates",
+            "eight_hour_candidate": {
+              "parameter_code": "o3",
+              "input_concentration": "0.037375",
+              "input_unit": "ppm",
+              "regulatory_preprocessing": {
+                "operation": "truncate_toward_zero",
+                "decimal_places": 3,
+                "result": "0.037"
+              },
+              "breakpoint": {
+                "concentration_low": "0.000",
+                "concentration_high": "0.054",
+                "aqi_low": 0,
+                "aqi_high": 50
+              },
+              "interpolation_formula": "((aqi_high-aqi_low)/(concentration_high-concentration_low))*(concentration-concentration_low)+aqi_low",
+              "unrounded_aqi": "34.259259259259259259259259259259259259259259259259",
+              "rounding": "nearest integer with half rounded up",
+              "numeric_result": 34,
+              "category_code": "good",
+              "category_label": "Good"
+            },
+            "one_hour_maximum": "0.039",
+            "one_hour_candidate_applicable": false,
+            "one_hour_candidate": null,
+            "selected_candidate": "eight_hour"
+          }
+        ]
+      },
+      "expected": {
+        "availability": "available",
+        "numeric_result": 34,
+        "category_code": "good",
+        "category_label": "Good",
+        "exclusion_reason": null,
+        "coverage_status": "complete",
+        "aggregation_period": "8h",
+        "result_kind": "us_epa_o3_selected_candidate",
+        "results": [
+          {
+            "sensor_ref": "openaq-sensor-1098",
+            "parameter_code": "o3",
+            "observed_count": 8,
+            "expected_count": 8,
+            "required_count": 6,
+            "raw_hourly_values": [
+              "0.038",
+              "0.038",
+              "0.035",
+              "0.037",
+              "0.038",
+              "0.039",
+              "0.037",
+              "0.037"
+            ],
+            "hourly_values_truncated_to_0.001_ppm": [
+              "0.038",
+              "0.038",
+              "0.035",
+              "0.037",
+              "0.038",
+              "0.039",
+              "0.037",
+              "0.037"
+            ],
+            "eight_hour_mean_before_final_preprocessing": "0.037375",
+            "eight_hour_candidate": {
+              "parameter_code": "o3",
+              "input_concentration": "0.037375",
+              "input_unit": "ppm",
+              "regulatory_preprocessing": {
+                "operation": "truncate_toward_zero",
+                "decimal_places": 3,
+                "result": "0.037"
+              },
+              "breakpoint": {
+                "concentration_low": "0.000",
+                "concentration_high": "0.054",
+                "aqi_low": 0,
+                "aqi_high": 50
+              },
+              "interpolation_formula": "((aqi_high-aqi_low)/(concentration_high-concentration_low))*(concentration-concentration_low)+aqi_low",
+              "unrounded_aqi": "34.259259259259259259259259259259259259259259259259",
+              "rounding": "nearest integer with half rounded up",
+              "numeric_result": 34,
+              "category_code": "good",
+              "category_label": "Good"
+            },
+            "one_hour_maximum": "0.039",
+            "one_hour_candidate_applicable": false,
+            "one_hour_candidate": null,
+            "selected_candidate": "eight_hour",
+            "coverage_status": "complete",
+            "numeric_result": 34,
+            "category_code": "good",
+            "category_label": "Good"
+          }
+        ]
+      },
+      "review": {
+        "status": "approved",
+        "reviewer": "Spheros Environmental",
+        "reviewed_at": "2026-08-12T06:53:00-07:00",
+        "derivation_sha256": "b39f23dc6dc2c7eb3b66a2531f5329db2b8a1d1c7e03cb10f961d9085816d6f0",
+        "comments": "Reviewed the Phase 2I.5 independent derivations, current CompassAQ observations, discrepancy resolutions, and settled methodology decisions. I approve the public OpenAQ candidate expectations for promotion. The remaining zero-row terminology distinction is accepted as intentional where source-level missing_measurements and final no_eligible_sensor_stream represent different diagnostic layers.",
+        "approval_decision": "approved"
+      }
+    },
+    {
+      "case_id": "openaq_ny_co_window_2026_08_02T12",
+      "calculation_type": "provider_hour_window",
+      "source": {
+        "dataset_name": "openaq",
+        "dataset_id": "openaq_phase_2i4a_2026-08-01_2026-08-08",
+        "access_classification": "public_frozen_reference_data",
+        "source_fact_hash": "04a2415d6b098dd552e928c90f4bbfecda8806c75a914c8c2c81d787917e4381",
+        "sensor_refs": [
+          "openaq-sensor-3952"
+        ]
+      },
+      "input_window": {
+        "utc_window": {
+          "started_at": "2026-08-02T04:00:00Z",
+          "ended_at": "2026-08-02T12:00:00Z"
+        },
+        "boundary_semantics": "start_exclusive_end_inclusive"
+      },
+      "source_observations": [
+        {
+          "sensor_ref": "openaq-sensor-3952",
+          "provider_observation_ref": "openaq:3952:page-1:result-26",
+          "source_page": 1,
+          "source_result_index": 26,
+          "provider_period": {
+            "datetimeFrom": {
+              "local": "2026-08-02T00:00:00-04:00",
+              "utc": "2026-08-02T04:00:00Z"
+            },
+            "datetimeTo": {
+              "local": "2026-08-02T01:00:00-04:00",
+              "utc": "2026-08-02T05:00:00Z"
+            },
+            "interval": "01:00:00",
+            "label": "raw"
+          },
+          "provider_timestamp": null,
+          "is_valid": true,
+          "qc_flags": {
+            "provider_flagged": false,
+            "transport_provider": "OpenAQ",
+            "value_and_unit_preserved_without_conversion": true
+          },
+          "qc_version": "openaq-provider-flags-phase-2i.4a",
+          "observed_at": "2026-08-02T05:00:00Z",
+          "value": "0.4",
+          "unit": "ppm",
+          "assignment": "included",
+          "assigned_anchor": null,
+          "exclusion_reason": null
+        },
+        {
+          "sensor_ref": "openaq-sensor-3952",
+          "provider_observation_ref": "openaq:3952:page-1:result-27",
+          "source_page": 1,
+          "source_result_index": 27,
+          "provider_period": {
+            "datetimeFrom": {
+              "local": "2026-08-02T01:00:00-04:00",
+              "utc": "2026-08-02T05:00:00Z"
+            },
+            "datetimeTo": {
+              "local": "2026-08-02T02:00:00-04:00",
+              "utc": "2026-08-02T06:00:00Z"
+            },
+            "interval": "01:00:00",
+            "label": "raw"
+          },
+          "provider_timestamp": null,
+          "is_valid": true,
+          "qc_flags": {
+            "provider_flagged": false,
+            "transport_provider": "OpenAQ",
+            "value_and_unit_preserved_without_conversion": true
+          },
+          "qc_version": "openaq-provider-flags-phase-2i.4a",
+          "observed_at": "2026-08-02T06:00:00Z",
+          "value": "0.4",
+          "unit": "ppm",
+          "assignment": "included",
+          "assigned_anchor": null,
+          "exclusion_reason": null
+        },
+        {
+          "sensor_ref": "openaq-sensor-3952",
+          "provider_observation_ref": "openaq:3952:page-1:result-28",
+          "source_page": 1,
+          "source_result_index": 28,
+          "provider_period": {
+            "datetimeFrom": {
+              "local": "2026-08-02T02:00:00-04:00",
+              "utc": "2026-08-02T06:00:00Z"
+            },
+            "datetimeTo": {
+              "local": "2026-08-02T03:00:00-04:00",
+              "utc": "2026-08-02T07:00:00Z"
+            },
+            "interval": "01:00:00",
+            "label": "raw"
+          },
+          "provider_timestamp": null,
+          "is_valid": true,
+          "qc_flags": {
+            "provider_flagged": false,
+            "transport_provider": "OpenAQ",
+            "value_and_unit_preserved_without_conversion": true
+          },
+          "qc_version": "openaq-provider-flags-phase-2i.4a",
+          "observed_at": "2026-08-02T07:00:00Z",
+          "value": "0.4",
+          "unit": "ppm",
+          "assignment": "included",
+          "assigned_anchor": null,
+          "exclusion_reason": null
+        },
+        {
+          "sensor_ref": "openaq-sensor-3952",
+          "provider_observation_ref": "openaq:3952:page-1:result-29",
+          "source_page": 1,
+          "source_result_index": 29,
+          "provider_period": {
+            "datetimeFrom": {
+              "local": "2026-08-02T03:00:00-04:00",
+              "utc": "2026-08-02T07:00:00Z"
+            },
+            "datetimeTo": {
+              "local": "2026-08-02T04:00:00-04:00",
+              "utc": "2026-08-02T08:00:00Z"
+            },
+            "interval": "01:00:00",
+            "label": "raw"
+          },
+          "provider_timestamp": null,
+          "is_valid": true,
+          "qc_flags": {
+            "provider_flagged": false,
+            "transport_provider": "OpenAQ",
+            "value_and_unit_preserved_without_conversion": true
+          },
+          "qc_version": "openaq-provider-flags-phase-2i.4a",
+          "observed_at": "2026-08-02T08:00:00Z",
+          "value": "0.4",
+          "unit": "ppm",
+          "assignment": "included",
+          "assigned_anchor": null,
+          "exclusion_reason": null
+        },
+        {
+          "sensor_ref": "openaq-sensor-3952",
+          "provider_observation_ref": "openaq:3952:page-1:result-30",
+          "source_page": 1,
+          "source_result_index": 30,
+          "provider_period": {
+            "datetimeFrom": {
+              "local": "2026-08-02T04:00:00-04:00",
+              "utc": "2026-08-02T08:00:00Z"
+            },
+            "datetimeTo": {
+              "local": "2026-08-02T05:00:00-04:00",
+              "utc": "2026-08-02T09:00:00Z"
+            },
+            "interval": "01:00:00",
+            "label": "raw"
+          },
+          "provider_timestamp": null,
+          "is_valid": true,
+          "qc_flags": {
+            "provider_flagged": false,
+            "transport_provider": "OpenAQ",
+            "value_and_unit_preserved_without_conversion": true
+          },
+          "qc_version": "openaq-provider-flags-phase-2i.4a",
+          "observed_at": "2026-08-02T09:00:00Z",
+          "value": "0.4",
+          "unit": "ppm",
+          "assignment": "included",
+          "assigned_anchor": null,
+          "exclusion_reason": null
+        },
+        {
+          "sensor_ref": "openaq-sensor-3952",
+          "provider_observation_ref": "openaq:3952:page-1:result-31",
+          "source_page": 1,
+          "source_result_index": 31,
+          "provider_period": {
+            "datetimeFrom": {
+              "local": "2026-08-02T07:00:00-04:00",
+              "utc": "2026-08-02T11:00:00Z"
+            },
+            "datetimeTo": {
+              "local": "2026-08-02T08:00:00-04:00",
+              "utc": "2026-08-02T12:00:00Z"
+            },
+            "interval": "01:00:00",
+            "label": "raw"
+          },
+          "provider_timestamp": null,
+          "is_valid": true,
+          "qc_flags": {
+            "provider_flagged": false,
+            "transport_provider": "OpenAQ",
+            "value_and_unit_preserved_without_conversion": true
+          },
+          "qc_version": "openaq-provider-flags-phase-2i.4a",
+          "observed_at": "2026-08-02T12:00:00Z",
+          "value": "0.4",
+          "unit": "ppm",
+          "assignment": "included",
+          "assigned_anchor": null,
+          "exclusion_reason": null
+        }
+      ],
+      "completeness": {
+        "numerator": 6,
+        "denominator": 8,
+        "required_count": 6,
+        "fraction": "0.75",
+        "missing_positions": [
+          "2026-08-02T10:00:00Z",
+          "2026-08-02T11:00:00Z"
+        ],
+        "duplicate_positions": [],
+        "off_frequency_positions": [],
+        "status": "partial",
+        "components": [
+          {
+            "numerator": 6,
+            "denominator": 8,
+            "required_count": 6,
+            "missing_positions": [
+              "2026-08-02T10:00:00Z",
+              "2026-08-02T11:00:00Z"
+            ],
+            "duplicate_positions": [],
+            "off_frequency_positions": [],
+            "status": "partial",
+            "parameter_code": "co",
+            "sensor_ref": "openaq-sensor-3952"
+          }
+        ]
+      },
+      "methodology": {
+        "methodology_code": "us_epa_aqi",
+        "methodology_version": "EPA AQI Technical Assistance Document, May 2026",
+        "reference_ids": [
+          "EPA-403/B-26-003",
+          "40 CFR Part 58 Appendix G section 3.4 and Table 2",
+          "89 FR 16202"
+        ]
+      },
+      "derivation": {
+        "status": "independently_derived_review_candidate",
+        "decimal_arithmetic": true,
+        "absolute_tolerance": "0.000000000001",
+        "methodology": {
+          "methodology_code": "us_epa_aqi",
+          "methodology_version": "EPA AQI Technical Assistance Document, May 2026",
+          "reference_ids": [
+            "EPA-403/B-26-003",
+            "40 CFR Part 58 Appendix G section 3.4 and Table 2",
+            "89 FR 16202"
+          ]
+        },
+        "steps": [
+          {
+            "operation": "sum(available CO hours) / 6 at exact 75 percent coverage",
+            "operands": [
+              "0.4",
+              "0.4",
+              "0.4",
+              "0.4",
+              "0.4",
+              "0.4"
+            ],
+            "sum": "2.4",
+            "divisor": "6",
+            "missing_positions": [
+              "2026-08-02T10:00:00Z",
+              "2026-08-02T11:00:00Z"
+            ],
+            "mean": "0.4"
+          },
+          {
+            "operation": "CO truncation and AQI interpolation",
+            "regulatory_preprocessing": {
+              "operation": "truncate_toward_zero",
+              "decimal_places": 1,
+              "result": "0.4"
+            },
+            "breakpoint": {
+              "concentration_low": "0.0",
+              "concentration_high": "4.4",
+              "aqi_low": 0,
+              "aqi_high": 50
+            },
+            "unrounded_aqi": "4.5454545454545454545454545454545454545454545454544",
+            "numeric_result": 5
+          }
+        ]
+      },
+      "expected": {
+        "availability": "available",
+        "numeric_result": 5,
+        "category_code": "good",
+        "category_label": "Good",
+        "exclusion_reason": null,
+        "coverage_status": "partial",
+        "aggregation_period": "8h",
+        "result_kind": "us_epa_co_rolling_window",
+        "results": [
+          {
+            "sensor_ref": "openaq-sensor-3952",
+            "parameter_code": "co",
+            "observed_count": 6,
+            "expected_count": 8,
+            "required_count": 6,
+            "missing_interval_end_positions": [
+              "2026-08-02T10:00:00Z",
+              "2026-08-02T11:00:00Z"
+            ],
+            "mean_before_preprocessing": "0.4",
+            "coverage_status": "partial",
+            "input_concentration": "0.4",
+            "input_unit": "ppm",
+            "regulatory_preprocessing": {
+              "operation": "truncate_toward_zero",
+              "decimal_places": 1,
+              "result": "0.4"
+            },
+            "breakpoint": {
+              "concentration_low": "0.0",
+              "concentration_high": "4.4",
+              "aqi_low": 0,
+              "aqi_high": 50
+            },
+            "interpolation_formula": "((aqi_high-aqi_low)/(concentration_high-concentration_low))*(concentration-concentration_low)+aqi_low",
+            "unrounded_aqi": "4.5454545454545454545454545454545454545454545454544",
+            "rounding": "nearest integer with half rounded up",
+            "numeric_result": 5,
+            "category_code": "good",
+            "category_label": "Good"
+          }
+        ]
+      },
+      "review": {
+        "status": "approved",
+        "reviewer": "Spheros Environmental",
+        "reviewed_at": "2026-08-12T06:53:00-07:00",
+        "derivation_sha256": "55b8ca2e97ebed7e72567a7fc8221d2e13e5a5edf79d6a646f3bfe1aef6cfaaa",
+        "comments": "Reviewed the Phase 2I.5 independent derivations, current CompassAQ observations, discrepancy resolutions, and settled methodology decisions. I approve the public OpenAQ candidate expectations for promotion. The remaining zero-row terminology distinction is accepted as intentional where source-level missing_measurements and final no_eligible_sensor_stream represent different diagnostic layers.",
+        "approval_decision": "approved"
+      }
+    },
+    {
+      "case_id": "openaq_ny_no2_hour_2026_08_02T11",
+      "calculation_type": "provider_hour_window",
+      "source": {
+        "dataset_name": "openaq",
+        "dataset_id": "openaq_phase_2i4a_2026-08-01_2026-08-08",
+        "access_classification": "public_frozen_reference_data",
+        "source_fact_hash": "27ff1f81e44a236eb6bf36bc15cd606c86044ac98d6529fdf979b34dfcf36e47",
+        "sensor_refs": [
+          "openaq-sensor-3951"
+        ]
+      },
+      "input_window": {
+        "utc_window": {
+          "started_at": "2026-08-02T11:00:00Z",
+          "ended_at": "2026-08-02T12:00:00Z"
+        },
+        "boundary_semantics": "start_exclusive_end_inclusive"
+      },
+      "source_observations": [
+        {
+          "sensor_ref": "openaq-sensor-3951",
+          "provider_observation_ref": "openaq:3951:page-1:result-32",
+          "source_page": 1,
+          "source_result_index": 32,
+          "provider_period": {
+            "datetimeFrom": {
+              "local": "2026-08-02T07:00:00-04:00",
+              "utc": "2026-08-02T11:00:00Z"
+            },
+            "datetimeTo": {
+              "local": "2026-08-02T08:00:00-04:00",
+              "utc": "2026-08-02T12:00:00Z"
+            },
+            "interval": "01:00:00",
+            "label": "raw"
+          },
+          "provider_timestamp": null,
+          "is_valid": true,
+          "qc_flags": {
+            "provider_flagged": false,
+            "transport_provider": "OpenAQ",
+            "value_and_unit_preserved_without_conversion": true
+          },
+          "qc_version": "openaq-provider-flags-phase-2i.4a",
+          "observed_at": "2026-08-02T12:00:00Z",
+          "value": "0.015",
+          "unit": "ppm",
+          "assignment": "included",
+          "assigned_anchor": null,
+          "exclusion_reason": null
+        }
+      ],
+      "completeness": {
+        "numerator": 0,
+        "denominator": 0,
+        "required_count": null,
+        "fraction": null,
+        "missing_positions": [],
+        "duplicate_positions": [],
+        "off_frequency_positions": [],
+        "status": "complete",
+        "components": []
+      },
+      "methodology": {
+        "methodology_code": "us_epa_aqi",
+        "methodology_version": "EPA AQI Technical Assistance Document, May 2026",
+        "reference_ids": [
+          "EPA-403/B-26-003",
+          "40 CFR Part 58 Appendix G section 3.4 and Table 2",
+          "89 FR 16202"
+        ]
+      },
+      "derivation": {
+        "status": "independently_derived_review_candidate",
+        "decimal_arithmetic": true,
+        "absolute_tolerance": "0.000000000001",
+        "methodology": {
+          "methodology_code": "us_epa_aqi",
+          "methodology_version": "EPA AQI Technical Assistance Document, May 2026",
+          "reference_ids": [
+            "EPA-403/B-26-003",
+            "40 CFR Part 58 Appendix G section 3.4 and Table 2",
+            "89 FR 16202"
+          ]
+        },
+        "steps": [
+          {
+            "operation": "exact mixing-ratio conversion",
+            "formula": "ppm * 1000 = ppb",
+            "operands": [
+              "0.015",
+              "1000"
+            ],
+            "result": "15.000"
+          },
+          {
+            "operation": "NO2 integer truncation and AQI interpolation",
+            "regulatory_preprocessing": {
+              "operation": "truncate_toward_zero",
+              "decimal_places": 0,
+              "result": "15"
+            },
+            "breakpoint": {
+              "concentration_low": "0",
+              "concentration_high": "53",
+              "aqi_low": 0,
+              "aqi_high": 50
+            },
+            "unrounded_aqi": "14.150943396226415094339622641509433962264150943396",
+            "numeric_result": 14
+          }
+        ]
+      },
+      "expected": {
+        "availability": "available",
+        "numeric_result": 14,
+        "category_code": "good",
+        "category_label": "Good",
+        "exclusion_reason": null,
+        "coverage_status": "complete",
+        "aggregation_period": "1h",
+        "result_kind": "us_epa_no2_hour",
+        "results": [
+          {
+            "sensor_ref": "openaq-sensor-3951",
+            "parameter_code": "no2",
+            "source_ppm": "0.015",
+            "conversion_operation": "ppm * 1000",
+            "converted_ppb": "15.000",
+            "coverage_status": "complete",
+            "input_concentration": "15.000",
+            "input_unit": "ppb",
+            "regulatory_preprocessing": {
+              "operation": "truncate_toward_zero",
+              "decimal_places": 0,
+              "result": "15"
+            },
+            "breakpoint": {
+              "concentration_low": "0",
+              "concentration_high": "53",
+              "aqi_low": 0,
+              "aqi_high": 50
+            },
+            "interpolation_formula": "((aqi_high-aqi_low)/(concentration_high-concentration_low))*(concentration-concentration_low)+aqi_low",
+            "unrounded_aqi": "14.150943396226415094339622641509433962264150943396",
+            "rounding": "nearest integer with half rounded up",
+            "numeric_result": 14,
+            "category_code": "good",
+            "category_label": "Good"
+          }
+        ]
+      },
+      "review": {
+        "status": "approved",
+        "reviewer": "Spheros Environmental",
+        "reviewed_at": "2026-08-12T06:53:00-07:00",
+        "derivation_sha256": "36c32bd3651b186486d4c39a9f1de62ed0b1739372d676a993fe4aa574fc0f3b",
+        "comments": "Reviewed the Phase 2I.5 independent derivations, current CompassAQ observations, discrepancy resolutions, and settled methodology decisions. I approve the public OpenAQ candidate expectations for promotion. The remaining zero-row terminology distinction is accepted as intentional where source-level missing_measurements and final no_eligible_sensor_stream represent different diagnostic layers.",
+        "approval_decision": "approved"
+      }
+    },
+    {
+      "case_id": "openaq_ny_so2_window_2026_08_02T12",
+      "calculation_type": "provider_hour_window",
+      "source": {
+        "dataset_name": "openaq",
+        "dataset_id": "openaq_phase_2i4a_2026-08-01_2026-08-08",
+        "access_classification": "public_frozen_reference_data",
+        "source_fact_hash": "eb23cc42b8d555a7a628257e77f2139a754b0d845c7abfc7da20f3e7f519946b",
+        "sensor_refs": [
+          "openaq-sensor-3950"
+        ]
+      },
+      "input_window": {
+        "utc_window": {
+          "started_at": "2026-08-01T12:00:00Z",
+          "ended_at": "2026-08-02T12:00:00Z"
+        },
+        "boundary_semantics": "start_exclusive_end_inclusive"
+      },
+      "source_observations": [
+        {
+          "sensor_ref": "openaq-sensor-3950",
+          "provider_observation_ref": "openaq:3950:page-1:result-11",
+          "source_page": 1,
+          "source_result_index": 11,
+          "provider_period": {
+            "datetimeFrom": {
+              "local": "2026-08-01T08:00:00-04:00",
+              "utc": "2026-08-01T12:00:00Z"
+            },
+            "datetimeTo": {
+              "local": "2026-08-01T09:00:00-04:00",
+              "utc": "2026-08-01T13:00:00Z"
+            },
+            "interval": "01:00:00",
+            "label": "raw"
+          },
+          "provider_timestamp": null,
+          "is_valid": true,
+          "qc_flags": {
+            "provider_flagged": false,
+            "transport_provider": "OpenAQ",
+            "value_and_unit_preserved_without_conversion": true
+          },
+          "qc_version": "openaq-provider-flags-phase-2i.4a",
+          "observed_at": "2026-08-01T13:00:00Z",
+          "value": "0.001",
+          "unit": "ppm",
+          "assignment": "included",
+          "assigned_anchor": null,
+          "exclusion_reason": null
+        },
+        {
+          "sensor_ref": "openaq-sensor-3950",
+          "provider_observation_ref": "openaq:3950:page-1:result-12",
+          "source_page": 1,
+          "source_result_index": 12,
+          "provider_period": {
+            "datetimeFrom": {
+              "local": "2026-08-01T09:00:00-04:00",
+              "utc": "2026-08-01T13:00:00Z"
+            },
+            "datetimeTo": {
+              "local": "2026-08-01T10:00:00-04:00",
+              "utc": "2026-08-01T14:00:00Z"
+            },
+            "interval": "01:00:00",
+            "label": "raw"
+          },
+          "provider_timestamp": null,
+          "is_valid": true,
+          "qc_flags": {
+            "provider_flagged": false,
+            "transport_provider": "OpenAQ",
+            "value_and_unit_preserved_without_conversion": true
+          },
+          "qc_version": "openaq-provider-flags-phase-2i.4a",
+          "observed_at": "2026-08-01T14:00:00Z",
+          "value": "0.002",
+          "unit": "ppm",
+          "assignment": "included",
+          "assigned_anchor": null,
+          "exclusion_reason": null
+        },
+        {
+          "sensor_ref": "openaq-sensor-3950",
+          "provider_observation_ref": "openaq:3950:page-1:result-13",
+          "source_page": 1,
+          "source_result_index": 13,
+          "provider_period": {
+            "datetimeFrom": {
+              "local": "2026-08-01T10:00:00-04:00",
+              "utc": "2026-08-01T14:00:00Z"
+            },
+            "datetimeTo": {
+              "local": "2026-08-01T11:00:00-04:00",
+              "utc": "2026-08-01T15:00:00Z"
+            },
+            "interval": "01:00:00",
+            "label": "raw"
+          },
+          "provider_timestamp": null,
+          "is_valid": true,
+          "qc_flags": {
+            "provider_flagged": false,
+            "transport_provider": "OpenAQ",
+            "value_and_unit_preserved_without_conversion": true
+          },
+          "qc_version": "openaq-provider-flags-phase-2i.4a",
+          "observed_at": "2026-08-01T15:00:00Z",
+          "value": "0.001",
+          "unit": "ppm",
+          "assignment": "included",
+          "assigned_anchor": null,
+          "exclusion_reason": null
+        },
+        {
+          "sensor_ref": "openaq-sensor-3950",
+          "provider_observation_ref": "openaq:3950:page-1:result-14",
+          "source_page": 1,
+          "source_result_index": 14,
+          "provider_period": {
+            "datetimeFrom": {
+              "local": "2026-08-01T11:00:00-04:00",
+              "utc": "2026-08-01T15:00:00Z"
+            },
+            "datetimeTo": {
+              "local": "2026-08-01T12:00:00-04:00",
+              "utc": "2026-08-01T16:00:00Z"
+            },
+            "interval": "01:00:00",
+            "label": "raw"
+          },
+          "provider_timestamp": null,
+          "is_valid": true,
+          "qc_flags": {
+            "provider_flagged": false,
+            "transport_provider": "OpenAQ",
+            "value_and_unit_preserved_without_conversion": true
+          },
+          "qc_version": "openaq-provider-flags-phase-2i.4a",
+          "observed_at": "2026-08-01T16:00:00Z",
+          "value": "0.001",
+          "unit": "ppm",
+          "assignment": "included",
+          "assigned_anchor": null,
+          "exclusion_reason": null
+        },
+        {
+          "sensor_ref": "openaq-sensor-3950",
+          "provider_observation_ref": "openaq:3950:page-1:result-15",
+          "source_page": 1,
+          "source_result_index": 15,
+          "provider_period": {
+            "datetimeFrom": {
+              "local": "2026-08-01T12:00:00-04:00",
+              "utc": "2026-08-01T16:00:00Z"
+            },
+            "datetimeTo": {
+              "local": "2026-08-01T13:00:00-04:00",
+              "utc": "2026-08-01T17:00:00Z"
+            },
+            "interval": "01:00:00",
+            "label": "raw"
+          },
+          "provider_timestamp": null,
+          "is_valid": true,
+          "qc_flags": {
+            "provider_flagged": false,
+            "transport_provider": "OpenAQ",
+            "value_and_unit_preserved_without_conversion": true
+          },
+          "qc_version": "openaq-provider-flags-phase-2i.4a",
+          "observed_at": "2026-08-01T17:00:00Z",
+          "value": "0.0",
+          "unit": "ppm",
+          "assignment": "included",
+          "assigned_anchor": null,
+          "exclusion_reason": null
+        },
+        {
+          "sensor_ref": "openaq-sensor-3950",
+          "provider_observation_ref": "openaq:3950:page-1:result-16",
+          "source_page": 1,
+          "source_result_index": 16,
+          "provider_period": {
+            "datetimeFrom": {
+              "local": "2026-08-01T13:00:00-04:00",
+              "utc": "2026-08-01T17:00:00Z"
+            },
+            "datetimeTo": {
+              "local": "2026-08-01T14:00:00-04:00",
+              "utc": "2026-08-01T18:00:00Z"
+            },
+            "interval": "01:00:00",
+            "label": "raw"
+          },
+          "provider_timestamp": null,
+          "is_valid": true,
+          "qc_flags": {
+            "provider_flagged": false,
+            "transport_provider": "OpenAQ",
+            "value_and_unit_preserved_without_conversion": true
+          },
+          "qc_version": "openaq-provider-flags-phase-2i.4a",
+          "observed_at": "2026-08-01T18:00:00Z",
+          "value": "0.0",
+          "unit": "ppm",
+          "assignment": "included",
+          "assigned_anchor": null,
+          "exclusion_reason": null
+        },
+        {
+          "sensor_ref": "openaq-sensor-3950",
+          "provider_observation_ref": "openaq:3950:page-1:result-17",
+          "source_page": 1,
+          "source_result_index": 17,
+          "provider_period": {
+            "datetimeFrom": {
+              "local": "2026-08-01T14:00:00-04:00",
+              "utc": "2026-08-01T18:00:00Z"
+            },
+            "datetimeTo": {
+              "local": "2026-08-01T15:00:00-04:00",
+              "utc": "2026-08-01T19:00:00Z"
+            },
+            "interval": "01:00:00",
+            "label": "raw"
+          },
+          "provider_timestamp": null,
+          "is_valid": true,
+          "qc_flags": {
+            "provider_flagged": false,
+            "transport_provider": "OpenAQ",
+            "value_and_unit_preserved_without_conversion": true
+          },
+          "qc_version": "openaq-provider-flags-phase-2i.4a",
+          "observed_at": "2026-08-01T19:00:00Z",
+          "value": "0.0",
+          "unit": "ppm",
+          "assignment": "included",
+          "assigned_anchor": null,
+          "exclusion_reason": null
+        },
+        {
+          "sensor_ref": "openaq-sensor-3950",
+          "provider_observation_ref": "openaq:3950:page-1:result-18",
+          "source_page": 1,
+          "source_result_index": 18,
+          "provider_period": {
+            "datetimeFrom": {
+              "local": "2026-08-01T15:00:00-04:00",
+              "utc": "2026-08-01T19:00:00Z"
+            },
+            "datetimeTo": {
+              "local": "2026-08-01T16:00:00-04:00",
+              "utc": "2026-08-01T20:00:00Z"
+            },
+            "interval": "01:00:00",
+            "label": "raw"
+          },
+          "provider_timestamp": null,
+          "is_valid": true,
+          "qc_flags": {
+            "provider_flagged": false,
+            "transport_provider": "OpenAQ",
+            "value_and_unit_preserved_without_conversion": true
+          },
+          "qc_version": "openaq-provider-flags-phase-2i.4a",
+          "observed_at": "2026-08-01T20:00:00Z",
+          "value": "0.001",
+          "unit": "ppm",
+          "assignment": "included",
+          "assigned_anchor": null,
+          "exclusion_reason": null
+        },
+        {
+          "sensor_ref": "openaq-sensor-3950",
+          "provider_observation_ref": "openaq:3950:page-1:result-19",
+          "source_page": 1,
+          "source_result_index": 19,
+          "provider_period": {
+            "datetimeFrom": {
+              "local": "2026-08-01T16:00:00-04:00",
+              "utc": "2026-08-01T20:00:00Z"
+            },
+            "datetimeTo": {
+              "local": "2026-08-01T17:00:00-04:00",
+              "utc": "2026-08-01T21:00:00Z"
+            },
+            "interval": "01:00:00",
+            "label": "raw"
+          },
+          "provider_timestamp": null,
+          "is_valid": true,
+          "qc_flags": {
+            "provider_flagged": false,
+            "transport_provider": "OpenAQ",
+            "value_and_unit_preserved_without_conversion": true
+          },
+          "qc_version": "openaq-provider-flags-phase-2i.4a",
+          "observed_at": "2026-08-01T21:00:00Z",
+          "value": "0.001",
+          "unit": "ppm",
+          "assignment": "included",
+          "assigned_anchor": null,
+          "exclusion_reason": null
+        },
+        {
+          "sensor_ref": "openaq-sensor-3950",
+          "provider_observation_ref": "openaq:3950:page-1:result-20",
+          "source_page": 1,
+          "source_result_index": 20,
+          "provider_period": {
+            "datetimeFrom": {
+              "local": "2026-08-01T17:00:00-04:00",
+              "utc": "2026-08-01T21:00:00Z"
+            },
+            "datetimeTo": {
+              "local": "2026-08-01T18:00:00-04:00",
+              "utc": "2026-08-01T22:00:00Z"
+            },
+            "interval": "01:00:00",
+            "label": "raw"
+          },
+          "provider_timestamp": null,
+          "is_valid": true,
+          "qc_flags": {
+            "provider_flagged": false,
+            "transport_provider": "OpenAQ",
+            "value_and_unit_preserved_without_conversion": true
+          },
+          "qc_version": "openaq-provider-flags-phase-2i.4a",
+          "observed_at": "2026-08-01T22:00:00Z",
+          "value": "0.001",
+          "unit": "ppm",
+          "assignment": "included",
+          "assigned_anchor": null,
+          "exclusion_reason": null
+        },
+        {
+          "sensor_ref": "openaq-sensor-3950",
+          "provider_observation_ref": "openaq:3950:page-1:result-21",
+          "source_page": 1,
+          "source_result_index": 21,
+          "provider_period": {
+            "datetimeFrom": {
+              "local": "2026-08-01T18:00:00-04:00",
+              "utc": "2026-08-01T22:00:00Z"
+            },
+            "datetimeTo": {
+              "local": "2026-08-01T19:00:00-04:00",
+              "utc": "2026-08-01T23:00:00Z"
+            },
+            "interval": "01:00:00",
+            "label": "raw"
+          },
+          "provider_timestamp": null,
+          "is_valid": true,
+          "qc_flags": {
+            "provider_flagged": false,
+            "transport_provider": "OpenAQ",
+            "value_and_unit_preserved_without_conversion": true
+          },
+          "qc_version": "openaq-provider-flags-phase-2i.4a",
+          "observed_at": "2026-08-01T23:00:00Z",
+          "value": "0.001",
+          "unit": "ppm",
+          "assignment": "included",
+          "assigned_anchor": null,
+          "exclusion_reason": null
+        },
+        {
+          "sensor_ref": "openaq-sensor-3950",
+          "provider_observation_ref": "openaq:3950:page-1:result-22",
+          "source_page": 1,
+          "source_result_index": 22,
+          "provider_period": {
+            "datetimeFrom": {
+              "local": "2026-08-01T19:00:00-04:00",
+              "utc": "2026-08-01T23:00:00Z"
+            },
+            "datetimeTo": {
+              "local": "2026-08-01T20:00:00-04:00",
+              "utc": "2026-08-02T00:00:00Z"
+            },
+            "interval": "01:00:00",
+            "label": "raw"
+          },
+          "provider_timestamp": null,
+          "is_valid": true,
+          "qc_flags": {
+            "provider_flagged": false,
+            "transport_provider": "OpenAQ",
+            "value_and_unit_preserved_without_conversion": true
+          },
+          "qc_version": "openaq-provider-flags-phase-2i.4a",
+          "observed_at": "2026-08-02T00:00:00Z",
+          "value": "0.001",
+          "unit": "ppm",
+          "assignment": "included",
+          "assigned_anchor": null,
+          "exclusion_reason": null
+        },
+        {
+          "sensor_ref": "openaq-sensor-3950",
+          "provider_observation_ref": "openaq:3950:page-1:result-23",
+          "source_page": 1,
+          "source_result_index": 23,
+          "provider_period": {
+            "datetimeFrom": {
+              "local": "2026-08-01T20:00:00-04:00",
+              "utc": "2026-08-02T00:00:00Z"
+            },
+            "datetimeTo": {
+              "local": "2026-08-01T21:00:00-04:00",
+              "utc": "2026-08-02T01:00:00Z"
+            },
+            "interval": "01:00:00",
+            "label": "raw"
+          },
+          "provider_timestamp": null,
+          "is_valid": true,
+          "qc_flags": {
+            "provider_flagged": false,
+            "transport_provider": "OpenAQ",
+            "value_and_unit_preserved_without_conversion": true
+          },
+          "qc_version": "openaq-provider-flags-phase-2i.4a",
+          "observed_at": "2026-08-02T01:00:00Z",
+          "value": "0.0",
+          "unit": "ppm",
+          "assignment": "included",
+          "assigned_anchor": null,
+          "exclusion_reason": null
+        },
+        {
+          "sensor_ref": "openaq-sensor-3950",
+          "provider_observation_ref": "openaq:3950:page-1:result-24",
+          "source_page": 1,
+          "source_result_index": 24,
+          "provider_period": {
+            "datetimeFrom": {
+              "local": "2026-08-01T21:00:00-04:00",
+              "utc": "2026-08-02T01:00:00Z"
+            },
+            "datetimeTo": {
+              "local": "2026-08-01T22:00:00-04:00",
+              "utc": "2026-08-02T02:00:00Z"
+            },
+            "interval": "01:00:00",
+            "label": "raw"
+          },
+          "provider_timestamp": null,
+          "is_valid": true,
+          "qc_flags": {
+            "provider_flagged": false,
+            "transport_provider": "OpenAQ",
+            "value_and_unit_preserved_without_conversion": true
+          },
+          "qc_version": "openaq-provider-flags-phase-2i.4a",
+          "observed_at": "2026-08-02T02:00:00Z",
+          "value": "0.001",
+          "unit": "ppm",
+          "assignment": "included",
+          "assigned_anchor": null,
+          "exclusion_reason": null
+        },
+        {
+          "sensor_ref": "openaq-sensor-3950",
+          "provider_observation_ref": "openaq:3950:page-1:result-25",
+          "source_page": 1,
+          "source_result_index": 25,
+          "provider_period": {
+            "datetimeFrom": {
+              "local": "2026-08-01T22:00:00-04:00",
+              "utc": "2026-08-02T02:00:00Z"
+            },
+            "datetimeTo": {
+              "local": "2026-08-01T23:00:00-04:00",
+              "utc": "2026-08-02T03:00:00Z"
+            },
+            "interval": "01:00:00",
+            "label": "raw"
+          },
+          "provider_timestamp": null,
+          "is_valid": true,
+          "qc_flags": {
+            "provider_flagged": false,
+            "transport_provider": "OpenAQ",
+            "value_and_unit_preserved_without_conversion": true
+          },
+          "qc_version": "openaq-provider-flags-phase-2i.4a",
+          "observed_at": "2026-08-02T03:00:00Z",
+          "value": "0.0",
+          "unit": "ppm",
+          "assignment": "included",
+          "assigned_anchor": null,
+          "exclusion_reason": null
+        },
+        {
+          "sensor_ref": "openaq-sensor-3950",
+          "provider_observation_ref": "openaq:3950:page-1:result-26",
+          "source_page": 1,
+          "source_result_index": 26,
+          "provider_period": {
+            "datetimeFrom": {
+              "local": "2026-08-01T23:00:00-04:00",
+              "utc": "2026-08-02T03:00:00Z"
+            },
+            "datetimeTo": {
+              "local": "2026-08-02T00:00:00-04:00",
+              "utc": "2026-08-02T04:00:00Z"
+            },
+            "interval": "01:00:00",
+            "label": "raw"
+          },
+          "provider_timestamp": null,
+          "is_valid": true,
+          "qc_flags": {
+            "provider_flagged": false,
+            "transport_provider": "OpenAQ",
+            "value_and_unit_preserved_without_conversion": true
+          },
+          "qc_version": "openaq-provider-flags-phase-2i.4a",
+          "observed_at": "2026-08-02T04:00:00Z",
+          "value": "0.0",
+          "unit": "ppm",
+          "assignment": "included",
+          "assigned_anchor": null,
+          "exclusion_reason": null
+        },
+        {
+          "sensor_ref": "openaq-sensor-3950",
+          "provider_observation_ref": "openaq:3950:page-1:result-27",
+          "source_page": 1,
+          "source_result_index": 27,
+          "provider_period": {
+            "datetimeFrom": {
+              "local": "2026-08-02T00:00:00-04:00",
+              "utc": "2026-08-02T04:00:00Z"
+            },
+            "datetimeTo": {
+              "local": "2026-08-02T01:00:00-04:00",
+              "utc": "2026-08-02T05:00:00Z"
+            },
+            "interval": "01:00:00",
+            "label": "raw"
+          },
+          "provider_timestamp": null,
+          "is_valid": true,
+          "qc_flags": {
+            "provider_flagged": false,
+            "transport_provider": "OpenAQ",
+            "value_and_unit_preserved_without_conversion": true
+          },
+          "qc_version": "openaq-provider-flags-phase-2i.4a",
+          "observed_at": "2026-08-02T05:00:00Z",
+          "value": "0.0",
+          "unit": "ppm",
+          "assignment": "included",
+          "assigned_anchor": null,
+          "exclusion_reason": null
+        },
+        {
+          "sensor_ref": "openaq-sensor-3950",
+          "provider_observation_ref": "openaq:3950:page-1:result-28",
+          "source_page": 1,
+          "source_result_index": 28,
+          "provider_period": {
+            "datetimeFrom": {
+              "local": "2026-08-02T01:00:00-04:00",
+              "utc": "2026-08-02T05:00:00Z"
+            },
+            "datetimeTo": {
+              "local": "2026-08-02T02:00:00-04:00",
+              "utc": "2026-08-02T06:00:00Z"
+            },
+            "interval": "01:00:00",
+            "label": "raw"
+          },
+          "provider_timestamp": null,
+          "is_valid": true,
+          "qc_flags": {
+            "provider_flagged": false,
+            "transport_provider": "OpenAQ",
+            "value_and_unit_preserved_without_conversion": true
+          },
+          "qc_version": "openaq-provider-flags-phase-2i.4a",
+          "observed_at": "2026-08-02T06:00:00Z",
+          "value": "0.0",
+          "unit": "ppm",
+          "assignment": "included",
+          "assigned_anchor": null,
+          "exclusion_reason": null
+        },
+        {
+          "sensor_ref": "openaq-sensor-3950",
+          "provider_observation_ref": "openaq:3950:page-1:result-29",
+          "source_page": 1,
+          "source_result_index": 29,
+          "provider_period": {
+            "datetimeFrom": {
+              "local": "2026-08-02T02:00:00-04:00",
+              "utc": "2026-08-02T06:00:00Z"
+            },
+            "datetimeTo": {
+              "local": "2026-08-02T03:00:00-04:00",
+              "utc": "2026-08-02T07:00:00Z"
+            },
+            "interval": "01:00:00",
+            "label": "raw"
+          },
+          "provider_timestamp": null,
+          "is_valid": true,
+          "qc_flags": {
+            "provider_flagged": false,
+            "transport_provider": "OpenAQ",
+            "value_and_unit_preserved_without_conversion": true
+          },
+          "qc_version": "openaq-provider-flags-phase-2i.4a",
+          "observed_at": "2026-08-02T07:00:00Z",
+          "value": "0.0",
+          "unit": "ppm",
+          "assignment": "included",
+          "assigned_anchor": null,
+          "exclusion_reason": null
+        },
+        {
+          "sensor_ref": "openaq-sensor-3950",
+          "provider_observation_ref": "openaq:3950:page-1:result-30",
+          "source_page": 1,
+          "source_result_index": 30,
+          "provider_period": {
+            "datetimeFrom": {
+              "local": "2026-08-02T03:00:00-04:00",
+              "utc": "2026-08-02T07:00:00Z"
+            },
+            "datetimeTo": {
+              "local": "2026-08-02T04:00:00-04:00",
+              "utc": "2026-08-02T08:00:00Z"
+            },
+            "interval": "01:00:00",
+            "label": "raw"
+          },
+          "provider_timestamp": null,
+          "is_valid": true,
+          "qc_flags": {
+            "provider_flagged": false,
+            "transport_provider": "OpenAQ",
+            "value_and_unit_preserved_without_conversion": true
+          },
+          "qc_version": "openaq-provider-flags-phase-2i.4a",
+          "observed_at": "2026-08-02T08:00:00Z",
+          "value": "0.0",
+          "unit": "ppm",
+          "assignment": "included",
+          "assigned_anchor": null,
+          "exclusion_reason": null
+        },
+        {
+          "sensor_ref": "openaq-sensor-3950",
+          "provider_observation_ref": "openaq:3950:page-1:result-31",
+          "source_page": 1,
+          "source_result_index": 31,
+          "provider_period": {
+            "datetimeFrom": {
+              "local": "2026-08-02T04:00:00-04:00",
+              "utc": "2026-08-02T08:00:00Z"
+            },
+            "datetimeTo": {
+              "local": "2026-08-02T05:00:00-04:00",
+              "utc": "2026-08-02T09:00:00Z"
+            },
+            "interval": "01:00:00",
+            "label": "raw"
+          },
+          "provider_timestamp": null,
+          "is_valid": true,
+          "qc_flags": {
+            "provider_flagged": false,
+            "transport_provider": "OpenAQ",
+            "value_and_unit_preserved_without_conversion": true
+          },
+          "qc_version": "openaq-provider-flags-phase-2i.4a",
+          "observed_at": "2026-08-02T09:00:00Z",
+          "value": "0.0",
+          "unit": "ppm",
+          "assignment": "included",
+          "assigned_anchor": null,
+          "exclusion_reason": null
+        },
+        {
+          "sensor_ref": "openaq-sensor-3950",
+          "provider_observation_ref": "openaq:3950:page-1:result-32",
+          "source_page": 1,
+          "source_result_index": 32,
+          "provider_period": {
+            "datetimeFrom": {
+              "local": "2026-08-02T06:00:00-04:00",
+              "utc": "2026-08-02T10:00:00Z"
+            },
+            "datetimeTo": {
+              "local": "2026-08-02T07:00:00-04:00",
+              "utc": "2026-08-02T11:00:00Z"
+            },
+            "interval": "01:00:00",
+            "label": "raw"
+          },
+          "provider_timestamp": null,
+          "is_valid": true,
+          "qc_flags": {
+            "provider_flagged": false,
+            "transport_provider": "OpenAQ",
+            "value_and_unit_preserved_without_conversion": true
+          },
+          "qc_version": "openaq-provider-flags-phase-2i.4a",
+          "observed_at": "2026-08-02T11:00:00Z",
+          "value": "0.0",
+          "unit": "ppm",
+          "assignment": "included",
+          "assigned_anchor": null,
+          "exclusion_reason": null
+        },
+        {
+          "sensor_ref": "openaq-sensor-3950",
+          "provider_observation_ref": "openaq:3950:page-1:result-33",
+          "source_page": 1,
+          "source_result_index": 33,
+          "provider_period": {
+            "datetimeFrom": {
+              "local": "2026-08-02T07:00:00-04:00",
+              "utc": "2026-08-02T11:00:00Z"
+            },
+            "datetimeTo": {
+              "local": "2026-08-02T08:00:00-04:00",
+              "utc": "2026-08-02T12:00:00Z"
+            },
+            "interval": "01:00:00",
+            "label": "raw"
+          },
+          "provider_timestamp": null,
+          "is_valid": true,
+          "qc_flags": {
+            "provider_flagged": false,
+            "transport_provider": "OpenAQ",
+            "value_and_unit_preserved_without_conversion": true
+          },
+          "qc_version": "openaq-provider-flags-phase-2i.4a",
+          "observed_at": "2026-08-02T12:00:00Z",
+          "value": "0.001",
+          "unit": "ppm",
+          "assignment": "included",
+          "assigned_anchor": null,
+          "exclusion_reason": null
+        }
+      ],
+      "completeness": {
+        "numerator": 23,
+        "denominator": 24,
+        "required_count": 18,
+        "fraction": "0.9583333333333333333333333333",
+        "missing_positions": [
+          "2026-08-02T10:00:00Z"
+        ],
+        "duplicate_positions": [],
+        "off_frequency_positions": [],
+        "status": "partial",
+        "components": [
+          {
+            "numerator": 23,
+            "denominator": 24,
+            "required_count": 18,
+            "missing_positions": [
+              "2026-08-02T10:00:00Z"
+            ],
+            "duplicate_positions": [],
+            "off_frequency_positions": [],
+            "status": "partial",
+            "parameter_code": "so2",
+            "sensor_ref": "openaq-sensor-3950"
+          }
+        ]
+      },
+      "methodology": {
+        "methodology_code": "us_epa_aqi",
+        "methodology_version": "EPA AQI Technical Assistance Document, May 2026",
+        "reference_ids": [
+          "EPA-403/B-26-003",
+          "40 CFR Part 58 Appendix G section 3.4 and Table 2",
+          "89 FR 16202"
+        ]
+      },
+      "derivation": {
+        "status": "independently_derived_review_candidate",
+        "decimal_arithmetic": true,
+        "absolute_tolerance": "0.000000000001",
+        "methodology": {
+          "methodology_code": "us_epa_aqi",
+          "methodology_version": "EPA AQI Technical Assistance Document, May 2026",
+          "reference_ids": [
+            "EPA-403/B-26-003",
+            "40 CFR Part 58 Appendix G section 3.4 and Table 2",
+            "89 FR 16202"
+          ]
+        },
+        "steps": [
+          {
+            "operation": "convert every available SO2 hour from ppm to ppb",
+            "formula": "ppm * 1000 = ppb",
+            "inputs": [
+              "0.001",
+              "0.002",
+              "0.001",
+              "0.001",
+              "0.0",
+              "0.0",
+              "0.0",
+              "0.001",
+              "0.001",
+              "0.001",
+              "0.001",
+              "0.001",
+              "0.0",
+              "0.001",
+              "0.0",
+              "0.0",
+              "0.0",
+              "0.0",
+              "0.0",
+              "0.0",
+              "0.0",
+              "0.0",
+              "0.001"
+            ],
+            "outputs": [
+              "1.000",
+              "2.000",
+              "1.000",
+              "1.000",
+              "0.0",
+              "0.0",
+              "0.0",
+              "1.000",
+              "1.000",
+              "1.000",
+              "1.000",
+              "1.000",
+              "0.0",
+              "1.000",
+              "0.0",
+              "0.0",
+              "0.0",
+              "0.0",
+              "0.0",
+              "0.0",
+              "0.0",
+              "0.0",
+              "1.000"
+            ]
+          },
+          {
+            "operation": "derive maximum-hour and 24-hour concentrations",
+            "maximum_hour_ppb": "2.000",
+            "twenty_four_hour_sum_ppb": "12.000",
+            "observed_hour_divisor": "23",
+            "daily_mean_ppb": "0.52173913043478260869565217391304347826086956521739",
+            "missing_positions": [
+              "2026-08-02T10:00:00Z"
+            ]
+          },
+          {
+            "operation": "apply SO2 candidate applicability and interpolate selected one-hour candidate",
+            "rule": "use one-hour table when the maximum hour is at or below 304 ppb",
+            "one_hour_candidate": {
+              "parameter_code": "so2",
+              "input_concentration": "2.000",
+              "input_unit": "ppb",
+              "regulatory_preprocessing": {
+                "operation": "truncate_toward_zero",
+                "decimal_places": 0,
+                "result": "2"
+              },
+              "breakpoint": {
+                "concentration_low": "0",
+                "concentration_high": "35",
+                "aqi_low": 0,
+                "aqi_high": 50
+              },
+              "interpolation_formula": "((aqi_high-aqi_low)/(concentration_high-concentration_low))*(concentration-concentration_low)+aqi_low",
+              "unrounded_aqi": "2.8571428571428571428571428571428571428571428571428",
+              "rounding": "nearest integer with half rounded up",
+              "numeric_result": 3,
+              "category_code": "good",
+              "category_label": "Good"
+            },
+            "twenty_four_hour_candidate_applicable": false,
+            "selected_candidate": "one_hour"
+          }
+        ]
+      },
+      "expected": {
+        "availability": "available",
+        "numeric_result": 3,
+        "category_code": "good",
+        "category_label": "Good",
+        "exclusion_reason": null,
+        "coverage_status": "partial",
+        "aggregation_period": "1h",
+        "result_kind": "us_epa_so2_selected_candidate",
+        "results": [
+          {
+            "sensor_ref": "openaq-sensor-3950",
+            "parameter_code": "so2",
+            "source_ppm_values": [
+              "0.001",
+              "0.002",
+              "0.001",
+              "0.001",
+              "0.0",
+              "0.0",
+              "0.0",
+              "0.001",
+              "0.001",
+              "0.001",
+              "0.001",
+              "0.001",
+              "0.0",
+              "0.001",
+              "0.0",
+              "0.0",
+              "0.0",
+              "0.0",
+              "0.0",
+              "0.0",
+              "0.0",
+              "0.0",
+              "0.001"
+            ],
+            "converted_ppb_values": [
+              "1.000",
+              "2.000",
+              "1.000",
+              "1.000",
+              "0.0",
+              "0.0",
+              "0.0",
+              "1.000",
+              "1.000",
+              "1.000",
+              "1.000",
+              "1.000",
+              "0.0",
+              "1.000",
+              "0.0",
+              "0.0",
+              "0.0",
+              "0.0",
+              "0.0",
+              "0.0",
+              "0.0",
+              "0.0",
+              "1.000"
+            ],
+            "observed_count": 23,
+            "expected_count": 24,
+            "required_count": 18,
+            "missing_interval_end_positions": [
+              "2026-08-02T10:00:00Z"
+            ],
+            "maximum_hour_ppb": "2.000",
+            "daily_mean_ppb": "0.52173913043478260869565217391304347826086956521739",
+            "one_hour_candidate": {
+              "parameter_code": "so2",
+              "input_concentration": "2.000",
+              "input_unit": "ppb",
+              "regulatory_preprocessing": {
+                "operation": "truncate_toward_zero",
+                "decimal_places": 0,
+                "result": "2"
+              },
+              "breakpoint": {
+                "concentration_low": "0",
+                "concentration_high": "35",
+                "aqi_low": 0,
+                "aqi_high": 50
+              },
+              "interpolation_formula": "((aqi_high-aqi_low)/(concentration_high-concentration_low))*(concentration-concentration_low)+aqi_low",
+              "unrounded_aqi": "2.8571428571428571428571428571428571428571428571428",
+              "rounding": "nearest integer with half rounded up",
+              "numeric_result": 3,
+              "category_code": "good",
+              "category_label": "Good"
+            },
+            "twenty_four_hour_candidate_applicable": false,
+            "twenty_four_hour_candidate": null,
+            "selected_candidate": "one_hour",
+            "coverage_status": "partial",
+            "numeric_result": 3,
+            "category_code": "good",
+            "category_label": "Good"
+          }
+        ]
+      },
+      "review": {
+        "status": "approved",
+        "reviewer": "Spheros Environmental",
+        "reviewed_at": "2026-08-12T06:53:00-07:00",
+        "derivation_sha256": "b2a9ff6173cbfc839309545ec8ffb26f66fe766131d8ead2039df74d0389c559",
+        "comments": "Reviewed the Phase 2I.5 independent derivations, current CompassAQ observations, discrepancy resolutions, and settled methodology decisions. I approve the public OpenAQ candidate expectations for promotion. The remaining zero-row terminology distinction is accepted as intentional where source-level missing_measurements and final no_eligible_sensor_stream represent different diagnostic layers.",
+        "approval_decision": "approved"
+      }
+    },
+    {
+      "case_id": "openaq_rio_epa_mass_units_unavailable",
+      "calculation_type": "source_rows_at_timestamp",
+      "source": {
+        "dataset_name": "openaq",
+        "dataset_id": "openaq_phase_2i4a_2026-08-01_2026-08-08",
+        "access_classification": "public_frozen_reference_data",
+        "source_fact_hash": "2e8a4397f0e35c022f0e6416e54a5c4dd734daea85f591ed57f73605a7dfdbfa",
+        "sensor_refs": [
+          "openaq-sensor-11268993",
+          "openaq-sensor-4475455",
+          "openaq-sensor-6459542"
+        ]
+      },
+      "input_window": {
+        "observed_at": "2026-08-02T12:00:00Z"
+      },
+      "source_observations": [
+        {
+          "sensor_ref": "openaq-sensor-6459542",
+          "provider_observation_ref": "openaq:6459542:page-1:result-35",
+          "source_page": 1,
+          "source_result_index": 35,
+          "provider_period": {
+            "datetimeFrom": {
+              "local": "2026-08-02T08:00:00-03:00",
+              "utc": "2026-08-02T11:00:00Z"
+            },
+            "datetimeTo": {
+              "local": "2026-08-02T09:00:00-03:00",
+              "utc": "2026-08-02T12:00:00Z"
+            },
+            "interval": "01:00:00",
+            "label": "raw"
+          },
+          "provider_timestamp": null,
+          "is_valid": true,
+          "qc_flags": {
+            "provider_flagged": false,
+            "transport_provider": "OpenAQ",
+            "value_and_unit_preserved_without_conversion": true
+          },
+          "qc_version": "openaq-provider-flags-phase-2i.4a",
+          "observed_at": "2026-08-02T12:00:00Z",
+          "value": "28.16",
+          "unit": "µg/m³",
+          "assignment": "included",
+          "assigned_anchor": null,
+          "exclusion_reason": null
+        },
+        {
+          "sensor_ref": "openaq-sensor-4475455",
+          "provider_observation_ref": "openaq:4475455:page-1:result-35",
+          "source_page": 1,
+          "source_result_index": 35,
+          "provider_period": {
+            "datetimeFrom": {
+              "local": "2026-08-02T08:00:00-03:00",
+              "utc": "2026-08-02T11:00:00Z"
+            },
+            "datetimeTo": {
+              "local": "2026-08-02T09:00:00-03:00",
+              "utc": "2026-08-02T12:00:00Z"
+            },
+            "interval": "01:00:00",
+            "label": "raw"
+          },
+          "provider_timestamp": null,
+          "is_valid": true,
+          "qc_flags": {
+            "provider_flagged": false,
+            "transport_provider": "OpenAQ",
+            "value_and_unit_preserved_without_conversion": true
+          },
+          "qc_version": "openaq-provider-flags-phase-2i.4a",
+          "observed_at": "2026-08-02T12:00:00Z",
+          "value": "40.55",
+          "unit": "µg/m³",
+          "assignment": "included",
+          "assigned_anchor": null,
+          "exclusion_reason": null
+        },
+        {
+          "sensor_ref": "openaq-sensor-11268993",
+          "provider_observation_ref": "openaq:11268993:page-1:result-35",
+          "source_page": 1,
+          "source_result_index": 35,
+          "provider_period": {
+            "datetimeFrom": {
+              "local": "2026-08-02T08:00:00-03:00",
+              "utc": "2026-08-02T11:00:00Z"
+            },
+            "datetimeTo": {
+              "local": "2026-08-02T09:00:00-03:00",
+              "utc": "2026-08-02T12:00:00Z"
+            },
+            "interval": "01:00:00",
+            "label": "raw"
+          },
+          "provider_timestamp": null,
+          "is_valid": true,
+          "qc_flags": {
+            "provider_flagged": false,
+            "transport_provider": "OpenAQ",
+            "value_and_unit_preserved_without_conversion": true
+          },
+          "qc_version": "openaq-provider-flags-phase-2i.4a",
+          "observed_at": "2026-08-02T12:00:00Z",
+          "value": "11.99",
+          "unit": "µg/m³",
+          "assignment": "included",
+          "assigned_anchor": null,
+          "exclusion_reason": null
+        }
+      ],
+      "completeness": {
+        "numerator": 0,
+        "denominator": 0,
+        "required_count": null,
+        "fraction": null,
+        "missing_positions": [],
+        "duplicate_positions": [],
+        "off_frequency_positions": [],
+        "status": "unavailable",
+        "components": []
+      },
+      "methodology": {
+        "methodology_code": "us_epa_aqi",
+        "methodology_version": "EPA AQI Technical Assistance Document, May 2026",
+        "reference_ids": [
+          "EPA-403/B-26-003",
+          "40 CFR Part 58 Appendix G section 3.4 and Table 2",
+          "89 FR 16202"
+        ]
+      },
+      "derivation": {
+        "status": "independently_derived_review_candidate",
+        "decimal_arithmetic": true,
+        "absolute_tolerance": "0.000000000001",
+        "methodology": {
+          "methodology_code": "us_epa_aqi",
+          "methodology_version": "EPA AQI Technical Assistance Document, May 2026",
+          "reference_ids": [
+            "EPA-403/B-26-003",
+            "40 CFR Part 58 Appendix G section 3.4 and Table 2",
+            "89 FR 16202"
+          ]
+        },
+        "steps": [
+          {
+            "operation": "reject unsupported gas mass-to-mixing conversion",
+            "reason": "Molecular-weight, temperature, and pressure assumptions are not supplied by the frozen record.",
+            "results": [
+              {
+                "sensor_ref": "openaq-sensor-6459542",
+                "parameter_code": "o3",
+                "source_value": "28.16",
+                "source_unit": "µg/m³",
+                "availability": "unavailable",
+                "exclusion_reason": "conversion_not_supported"
+              },
+              {
+                "sensor_ref": "openaq-sensor-4475455",
+                "parameter_code": "no2",
+                "source_value": "40.55",
+                "source_unit": "µg/m³",
+                "availability": "unavailable",
+                "exclusion_reason": "conversion_not_supported"
+              },
+              {
+                "sensor_ref": "openaq-sensor-11268993",
+                "parameter_code": "so2",
+                "source_value": "11.99",
+                "source_unit": "µg/m³",
+                "availability": "unavailable",
+                "exclusion_reason": "conversion_not_supported"
+              }
+            ]
+          }
+        ]
+      },
+      "expected": {
+        "availability": "unavailable",
+        "numeric_result": null,
+        "category_code": null,
+        "category_label": null,
+        "exclusion_reason": "conversion_not_supported",
+        "coverage_status": "unavailable",
+        "aggregation_period": null,
+        "result_kind": "explicit_unsupported_conversion",
+        "results": [
+          {
+            "sensor_ref": "openaq-sensor-6459542",
+            "parameter_code": "o3",
+            "source_value": "28.16",
+            "source_unit": "µg/m³",
+            "availability": "unavailable",
+            "exclusion_reason": "conversion_not_supported"
+          },
+          {
+            "sensor_ref": "openaq-sensor-4475455",
+            "parameter_code": "no2",
+            "source_value": "40.55",
+            "source_unit": "µg/m³",
+            "availability": "unavailable",
+            "exclusion_reason": "conversion_not_supported"
+          },
+          {
+            "sensor_ref": "openaq-sensor-11268993",
+            "parameter_code": "so2",
+            "source_value": "11.99",
+            "source_unit": "µg/m³",
+            "availability": "unavailable",
+            "exclusion_reason": "conversion_not_supported"
+          }
+        ]
+      },
+      "review": {
+        "status": "approved",
+        "reviewer": "Spheros Environmental",
+        "reviewed_at": "2026-08-12T06:53:00-07:00",
+        "derivation_sha256": "eff31f2228ff47c95c6438d0487e303432231bb79b83dc54e7cbe6f426d84520",
+        "comments": "Reviewed the Phase 2I.5 independent derivations, current CompassAQ observations, discrepancy resolutions, and settled methodology decisions. I approve the public OpenAQ candidate expectations for promotion. The remaining zero-row terminology distinction is accepted as intentional where source-level missing_measurements and final no_eligible_sensor_stream represent different diagnostic layers.",
+        "approval_decision": "approved"
+      }
+    },
+    {
+      "case_id": "eea_rio_2026_08_02T11",
+      "calculation_type": "represented_hour",
+      "source": {
+        "dataset_name": "openaq",
+        "dataset_id": "openaq_phase_2i4a_2026-08-01_2026-08-08",
+        "access_classification": "public_frozen_reference_data",
+        "source_fact_hash": "d65d358917c037155f18ac0987ebb5e40165715d32f5cbabdb190463e525f5d5",
+        "sensor_refs": [
+          "openaq-sensor-11268993",
+          "openaq-sensor-4475454",
+          "openaq-sensor-4475455",
+          "openaq-sensor-6459542",
+          "openaq-sensor-6819305"
+        ]
+      },
+      "input_window": {
+        "represented_utc_window": {
+          "started_at": "2026-08-02T11:00:00Z",
+          "ended_at": "2026-08-02T12:00:00Z"
+        },
+        "timestamp_semantics": "hour_end"
+      },
+      "source_observations": [
+        {
+          "sensor_ref": "openaq-sensor-6819305",
+          "provider_observation_ref": "openaq:6819305:page-1:result-35",
+          "source_page": 1,
+          "source_result_index": 35,
+          "provider_period": {
+            "datetimeFrom": {
+              "local": "2026-08-02T08:00:00-03:00",
+              "utc": "2026-08-02T11:00:00Z"
+            },
+            "datetimeTo": {
+              "local": "2026-08-02T09:00:00-03:00",
+              "utc": "2026-08-02T12:00:00Z"
+            },
+            "interval": "01:00:00",
+            "label": "raw"
+          },
+          "provider_timestamp": null,
+          "is_valid": true,
+          "qc_flags": {
+            "provider_flagged": false,
+            "transport_provider": "OpenAQ",
+            "value_and_unit_preserved_without_conversion": true
+          },
+          "qc_version": "openaq-provider-flags-phase-2i.4a",
+          "observed_at": "2026-08-02T12:00:00Z",
+          "value": "11.33",
+          "unit": "µg/m³",
+          "assignment": "included",
+          "assigned_anchor": null,
+          "exclusion_reason": null
+        },
+        {
+          "sensor_ref": "openaq-sensor-4475454",
+          "provider_observation_ref": "openaq:4475454:page-1:result-35",
+          "source_page": 1,
+          "source_result_index": 35,
+          "provider_period": {
+            "datetimeFrom": {
+              "local": "2026-08-02T08:00:00-03:00",
+              "utc": "2026-08-02T11:00:00Z"
+            },
+            "datetimeTo": {
+              "local": "2026-08-02T09:00:00-03:00",
+              "utc": "2026-08-02T12:00:00Z"
+            },
+            "interval": "01:00:00",
+            "label": "raw"
+          },
+          "provider_timestamp": null,
+          "is_valid": true,
+          "qc_flags": {
+            "provider_flagged": false,
+            "transport_provider": "OpenAQ",
+            "value_and_unit_preserved_without_conversion": true
+          },
+          "qc_version": "openaq-provider-flags-phase-2i.4a",
+          "observed_at": "2026-08-02T12:00:00Z",
+          "value": "22.5",
+          "unit": "µg/m³",
+          "assignment": "included",
+          "assigned_anchor": null,
+          "exclusion_reason": null
+        },
+        {
+          "sensor_ref": "openaq-sensor-6459542",
+          "provider_observation_ref": "openaq:6459542:page-1:result-35",
+          "source_page": 1,
+          "source_result_index": 35,
+          "provider_period": {
+            "datetimeFrom": {
+              "local": "2026-08-02T08:00:00-03:00",
+              "utc": "2026-08-02T11:00:00Z"
+            },
+            "datetimeTo": {
+              "local": "2026-08-02T09:00:00-03:00",
+              "utc": "2026-08-02T12:00:00Z"
+            },
+            "interval": "01:00:00",
+            "label": "raw"
+          },
+          "provider_timestamp": null,
+          "is_valid": true,
+          "qc_flags": {
+            "provider_flagged": false,
+            "transport_provider": "OpenAQ",
+            "value_and_unit_preserved_without_conversion": true
+          },
+          "qc_version": "openaq-provider-flags-phase-2i.4a",
+          "observed_at": "2026-08-02T12:00:00Z",
+          "value": "28.16",
+          "unit": "µg/m³",
+          "assignment": "included",
+          "assigned_anchor": null,
+          "exclusion_reason": null
+        },
+        {
+          "sensor_ref": "openaq-sensor-4475455",
+          "provider_observation_ref": "openaq:4475455:page-1:result-35",
+          "source_page": 1,
+          "source_result_index": 35,
+          "provider_period": {
+            "datetimeFrom": {
+              "local": "2026-08-02T08:00:00-03:00",
+              "utc": "2026-08-02T11:00:00Z"
+            },
+            "datetimeTo": {
+              "local": "2026-08-02T09:00:00-03:00",
+              "utc": "2026-08-02T12:00:00Z"
+            },
+            "interval": "01:00:00",
+            "label": "raw"
+          },
+          "provider_timestamp": null,
+          "is_valid": true,
+          "qc_flags": {
+            "provider_flagged": false,
+            "transport_provider": "OpenAQ",
+            "value_and_unit_preserved_without_conversion": true
+          },
+          "qc_version": "openaq-provider-flags-phase-2i.4a",
+          "observed_at": "2026-08-02T12:00:00Z",
+          "value": "40.55",
+          "unit": "µg/m³",
+          "assignment": "included",
+          "assigned_anchor": null,
+          "exclusion_reason": null
+        },
+        {
+          "sensor_ref": "openaq-sensor-11268993",
+          "provider_observation_ref": "openaq:11268993:page-1:result-35",
+          "source_page": 1,
+          "source_result_index": 35,
+          "provider_period": {
+            "datetimeFrom": {
+              "local": "2026-08-02T08:00:00-03:00",
+              "utc": "2026-08-02T11:00:00Z"
+            },
+            "datetimeTo": {
+              "local": "2026-08-02T09:00:00-03:00",
+              "utc": "2026-08-02T12:00:00Z"
+            },
+            "interval": "01:00:00",
+            "label": "raw"
+          },
+          "provider_timestamp": null,
+          "is_valid": true,
+          "qc_flags": {
+            "provider_flagged": false,
+            "transport_provider": "OpenAQ",
+            "value_and_unit_preserved_without_conversion": true
+          },
+          "qc_version": "openaq-provider-flags-phase-2i.4a",
+          "observed_at": "2026-08-02T12:00:00Z",
+          "value": "11.99",
+          "unit": "µg/m³",
+          "assignment": "included",
+          "assigned_anchor": null,
+          "exclusion_reason": null
+        }
+      ],
+      "completeness": {
+        "numerator": 5,
+        "denominator": 5,
+        "required_count": null,
+        "fraction": "1",
+        "missing_positions": [],
+        "duplicate_positions": [],
+        "off_frequency_positions": [],
+        "status": "complete",
+        "components": [
+          {
+            "numerator": 5,
+            "denominator": 5,
+            "required_count": null,
+            "missing_positions": [],
+            "duplicate_positions": [],
+            "off_frequency_positions": [],
+            "status": "complete"
+          }
+        ]
+      },
+      "methodology": {
+        "methodology_code": "eea_european_aqi",
+        "methodology_version": "European Air Quality Index pollutant bands",
+        "reference_ids": [
+          "European Environment Agency European Air Quality Index"
+        ]
+      },
+      "derivation": {
+        "status": "independently_derived_review_candidate",
+        "decimal_arithmetic": true,
+        "absolute_tolerance": "0.000000000001",
+        "methodology": {
+          "methodology_code": "eea_european_aqi",
+          "methodology_version": "European Air Quality Index pollutant bands",
+          "reference_ids": [
+            "European Environment Agency European Air Quality Index"
+          ]
+        },
+        "steps": [
+          {
+            "operation": "compare exact normalized concentrations directly with inclusive EEA band upper bounds",
+            "pollutant_results": [
+              {
+                "sensor_ref": "openaq-sensor-6819305",
+                "parameter_code": "pm25",
+                "normalized_concentration": "11.33",
+                "normalized_unit": "µg/m³",
+                "band_upper_bounds": [
+                  "5",
+                  "15",
+                  "50",
+                  "90",
+                  "140"
+                ],
+                "band_index": 1,
+                "category_code": "fair",
+                "category_label": "Fair"
+              },
+              {
+                "sensor_ref": "openaq-sensor-4475454",
+                "parameter_code": "pm10",
+                "normalized_concentration": "22.5",
+                "normalized_unit": "µg/m³",
+                "band_upper_bounds": [
+                  "15",
+                  "45",
+                  "120",
+                  "195",
+                  "270"
+                ],
+                "band_index": 1,
+                "category_code": "fair",
+                "category_label": "Fair"
+              },
+              {
+                "sensor_ref": "openaq-sensor-6459542",
+                "parameter_code": "o3",
+                "normalized_concentration": "28.16",
+                "normalized_unit": "µg/m³",
+                "band_upper_bounds": [
+                  "60",
+                  "100",
+                  "120",
+                  "160",
+                  "180"
+                ],
+                "band_index": 0,
+                "category_code": "good",
+                "category_label": "Good"
+              },
+              {
+                "sensor_ref": "openaq-sensor-4475455",
+                "parameter_code": "no2",
+                "normalized_concentration": "40.55",
+                "normalized_unit": "µg/m³",
+                "band_upper_bounds": [
+                  "10",
+                  "25",
+                  "60",
+                  "100",
+                  "150"
+                ],
+                "band_index": 2,
+                "category_code": "moderate",
+                "category_label": "Moderate"
+              },
+              {
+                "sensor_ref": "openaq-sensor-11268993",
+                "parameter_code": "so2",
+                "normalized_concentration": "11.99",
+                "normalized_unit": "µg/m³",
+                "band_upper_bounds": [
+                  "20",
+                  "40",
+                  "125",
+                  "190",
+                  "275"
+                ],
+                "band_index": 0,
+                "category_code": "good",
+                "category_label": "Good"
+              }
+            ]
+          },
+          {
+            "operation": "select the worst pollutant category and every pollutant tied at that severity",
+            "overall_category_code": "moderate",
+            "overall_category_label": "Moderate",
+            "dominant_pollutants": [
+              "no2"
+            ]
+          }
+        ]
+      },
+      "expected": {
+        "availability": "available",
+        "numeric_result": null,
+        "category_code": "moderate",
+        "category_label": "Moderate",
+        "exclusion_reason": null,
+        "coverage_status": "complete",
+        "aggregation_period": "1h",
+        "result_kind": "eea_overall_category",
+        "dominant_pollutants": [
+          "no2"
+        ],
+        "results": [
+          {
+            "sensor_ref": "openaq-sensor-6819305",
+            "parameter_code": "pm25",
+            "normalized_concentration": "11.33",
+            "normalized_unit": "µg/m³",
+            "band_upper_bounds": [
+              "5",
+              "15",
+              "50",
+              "90",
+              "140"
+            ],
+            "band_index": 1,
+            "category_code": "fair",
+            "category_label": "Fair"
+          },
+          {
+            "sensor_ref": "openaq-sensor-4475454",
+            "parameter_code": "pm10",
+            "normalized_concentration": "22.5",
+            "normalized_unit": "µg/m³",
+            "band_upper_bounds": [
+              "15",
+              "45",
+              "120",
+              "195",
+              "270"
+            ],
+            "band_index": 1,
+            "category_code": "fair",
+            "category_label": "Fair"
+          },
+          {
+            "sensor_ref": "openaq-sensor-6459542",
+            "parameter_code": "o3",
+            "normalized_concentration": "28.16",
+            "normalized_unit": "µg/m³",
+            "band_upper_bounds": [
+              "60",
+              "100",
+              "120",
+              "160",
+              "180"
+            ],
+            "band_index": 0,
+            "category_code": "good",
+            "category_label": "Good"
+          },
+          {
+            "sensor_ref": "openaq-sensor-4475455",
+            "parameter_code": "no2",
+            "normalized_concentration": "40.55",
+            "normalized_unit": "µg/m³",
+            "band_upper_bounds": [
+              "10",
+              "25",
+              "60",
+              "100",
+              "150"
+            ],
+            "band_index": 2,
+            "category_code": "moderate",
+            "category_label": "Moderate"
+          },
+          {
+            "sensor_ref": "openaq-sensor-11268993",
+            "parameter_code": "so2",
+            "normalized_concentration": "11.99",
+            "normalized_unit": "µg/m³",
+            "band_upper_bounds": [
+              "20",
+              "40",
+              "125",
+              "190",
+              "275"
+            ],
+            "band_index": 0,
+            "category_code": "good",
+            "category_label": "Good"
+          }
+        ]
+      },
+      "review": {
+        "status": "approved",
+        "reviewer": "Spheros Environmental",
+        "reviewed_at": "2026-08-12T06:53:00-07:00",
+        "derivation_sha256": "19e1930da55fe2ff6461d33632e69822acfbf00d61be36b20d0022373b79af9e",
+        "comments": "Reviewed the Phase 2I.5 independent derivations, current CompassAQ observations, discrepancy resolutions, and settled methodology decisions. I approve the public OpenAQ candidate expectations for promotion. The remaining zero-row terminology distinction is accepted as intentional where source-level missing_measurements and final no_eligible_sensor_stream represent different diagnostic layers.",
+        "approval_decision": "approved"
+      }
+    },
+    {
+      "case_id": "eea_openaq_manila_2026_08_02T11",
+      "calculation_type": "represented_hour",
+      "source": {
+        "dataset_name": "openaq",
+        "dataset_id": "openaq_phase_2i4a_2026-08-01_2026-08-08",
+        "access_classification": "public_frozen_reference_data",
+        "source_fact_hash": "4db2dab4a9bd05408b1ab9a4be7dae840d56e4fc4ffee0101ad400a0806e959e",
+        "sensor_refs": [
+          "openaq-sensor-13191003"
+        ]
+      },
+      "input_window": {
+        "represented_utc_window": {
+          "started_at": "2026-08-02T11:00:00Z",
+          "ended_at": "2026-08-02T12:00:00Z"
+        },
+        "timestamp_semantics": "hour_end"
+      },
+      "source_observations": [
+        {
+          "sensor_ref": "openaq-sensor-13191003",
+          "provider_observation_ref": "openaq:13191003:page-1:result-35",
+          "source_page": 1,
+          "source_result_index": 35,
+          "provider_period": {
+            "datetimeFrom": {
+              "local": "2026-08-02T19:00:00+08:00",
+              "utc": "2026-08-02T11:00:00Z"
+            },
+            "datetimeTo": {
+              "local": "2026-08-02T20:00:00+08:00",
+              "utc": "2026-08-02T12:00:00Z"
+            },
+            "interval": "01:00:00",
+            "label": "raw"
+          },
+          "provider_timestamp": null,
+          "is_valid": true,
+          "qc_flags": {
+            "provider_flagged": false,
+            "transport_provider": "OpenAQ",
+            "value_and_unit_preserved_without_conversion": true
+          },
+          "qc_version": "openaq-provider-flags-phase-2i.4a",
+          "observed_at": "2026-08-02T12:00:00Z",
+          "value": "48.5",
+          "unit": "µg/m³",
+          "assignment": "included",
+          "assigned_anchor": null,
+          "exclusion_reason": null
+        }
+      ],
+      "completeness": {
+        "numerator": 1,
+        "denominator": 5,
+        "required_count": null,
+        "fraction": "0.2",
+        "missing_positions": [
+          "no2",
+          "o3",
+          "pm10",
+          "so2"
+        ],
+        "duplicate_positions": [],
+        "off_frequency_positions": [],
+        "status": "partial",
+        "components": [
+          {
+            "numerator": 1,
+            "denominator": 5,
+            "required_count": null,
+            "missing_positions": [
+              "pm10",
+              "o3",
+              "no2",
+              "so2"
+            ],
+            "duplicate_positions": [],
+            "off_frequency_positions": [],
+            "status": "partial"
+          }
+        ]
+      },
+      "methodology": {
+        "methodology_code": "eea_european_aqi",
+        "methodology_version": "European Air Quality Index pollutant bands",
+        "reference_ids": [
+          "European Environment Agency European Air Quality Index"
+        ]
+      },
+      "derivation": {
+        "status": "independently_derived_review_candidate",
+        "decimal_arithmetic": true,
+        "absolute_tolerance": "0.000000000001",
+        "methodology": {
+          "methodology_code": "eea_european_aqi",
+          "methodology_version": "European Air Quality Index pollutant bands",
+          "reference_ids": [
+            "European Environment Agency European Air Quality Index"
+          ]
+        },
+        "steps": [
+          {
+            "operation": "classify the sole available PM2.5 value using exact EEA bands",
+            "pollutant_result": {
+              "sensor_ref": "openaq-sensor-13191003",
+              "parameter_code": "pm25",
+              "normalized_concentration": "48.5",
+              "normalized_unit": "µg/m³",
+              "band_upper_bounds": [
+                "5",
+                "15",
+                "50",
+                "90",
+                "140"
+              ],
+              "band_index": 2,
+              "category_code": "moderate",
+              "category_label": "Moderate"
+            }
+          },
+          {
+            "operation": "record absent pollutants without substitution",
+            "missing_pollutants": [
+              "pm10",
+              "o3",
+              "no2",
+              "so2"
+            ],
+            "overall_coverage_status": "partial"
+          }
+        ]
+      },
+      "expected": {
+        "availability": "available",
+        "numeric_result": null,
+        "category_code": "moderate",
+        "category_label": "Moderate",
+        "exclusion_reason": null,
+        "coverage_status": "partial",
+        "aggregation_period": "1h",
+        "result_kind": "eea_overall_category",
+        "dominant_pollutants": [
+          "pm25"
+        ],
+        "missing_pollutants": [
+          "pm10",
+          "o3",
+          "no2",
+          "so2"
+        ],
+        "results": [
+          {
+            "sensor_ref": "openaq-sensor-13191003",
+            "parameter_code": "pm25",
+            "normalized_concentration": "48.5",
+            "normalized_unit": "µg/m³",
+            "band_upper_bounds": [
+              "5",
+              "15",
+              "50",
+              "90",
+              "140"
+            ],
+            "band_index": 2,
+            "category_code": "moderate",
+            "category_label": "Moderate"
+          }
+        ]
+      },
+      "review": {
+        "status": "approved",
+        "reviewer": "Spheros Environmental",
+        "reviewed_at": "2026-08-12T06:53:00-07:00",
+        "derivation_sha256": "22cd269a1e251af2b721466b2c2d323c1cce1ae3ba1964f34e1285f737eca295",
+        "comments": "Reviewed the Phase 2I.5 independent derivations, current CompassAQ observations, discrepancy resolutions, and settled methodology decisions. I approve the public OpenAQ candidate expectations for promotion. The remaining zero-row terminology distinction is accepted as intentional where source-level missing_measurements and final no_eligible_sensor_stream represent different diagnostic layers.",
+        "approval_decision": "approved"
+      }
+    },
+    {
+      "case_id": "unavailable_zero_row_sensors",
+      "calculation_type": "zero_row_sensors",
+      "source": {
+        "dataset_name": "openaq",
+        "dataset_id": "openaq_phase_2i4a_2026-08-01_2026-08-08",
+        "access_classification": "public_frozen_reference_data",
+        "source_fact_hash": "9b8c745de1763c3271a1df687080f65e18b7ef2031b89560bd49e10164a25f9f",
+        "sensor_refs": [
+          "openaq-sensor-1099"
+        ]
+      },
+      "input_window": {},
+      "source_observations": [],
+      "completeness": {
+        "numerator": 0,
+        "denominator": 0,
+        "required_count": null,
+        "fraction": null,
+        "missing_positions": [],
+        "duplicate_positions": [],
+        "off_frequency_positions": [],
+        "status": "unavailable",
+        "components": []
+      },
+      "methodology": {
+        "methodology_code": "frozen_source_fact_verification",
+        "methodology_version": "Phase 2I.5 review candidate",
+        "reference_ids": [
+          "frozen fixture manifest and measurements.jsonl"
+        ]
+      },
+      "derivation": {
+        "status": "independently_derived_review_candidate",
+        "decimal_arithmetic": true,
+        "absolute_tolerance": "0.000000000001",
+        "methodology": {
+          "methodology_code": "frozen_source_fact_verification",
+          "methodology_version": "Phase 2I.5 review candidate",
+          "reference_ids": [
+            "frozen fixture manifest and measurements.jsonl"
+          ]
+        },
+        "steps": [
+          {
+            "operation": "verify zero retained measurements and report unavailability",
+            "results": [
+              {
+                "dataset": "openaq",
+                "sensor_ref": "openaq-sensor-1099",
+                "measurement_count": 0,
+                "availability": "unavailable",
+                "source_availability": "unavailable_no_measurements",
+                "parameter_code": "pm10",
+                "exclusion_reason": "insufficient_data"
+              }
+            ]
+          }
+        ]
+      },
+      "expected": {
+        "availability": "unavailable",
+        "numeric_result": null,
+        "category_code": null,
+        "category_label": null,
+        "exclusion_reason": "insufficient_data",
+        "coverage_status": "unavailable",
+        "aggregation_period": null,
+        "result_kind": "zero_row_unavailability",
+        "results": [
+          {
+            "dataset": "openaq",
+            "sensor_ref": "openaq-sensor-1099",
+            "measurement_count": 0,
+            "availability": "unavailable",
+            "source_availability": "unavailable_no_measurements",
+            "parameter_code": "pm10",
+            "exclusion_reason": "insufficient_data"
+          }
+        ]
+      },
+      "review": {
+        "status": "approved",
+        "reviewer": "Spheros Environmental",
+        "reviewed_at": "2026-08-12T06:53:00-07:00",
+        "derivation_sha256": "d3049acd8e40f1ee5e3abf605923aea31cad650fa6f326df338a5108f72a306c",
+        "comments": "Reviewed the Phase 2I.5 independent derivations, current CompassAQ observations, discrepancy resolutions, and settled methodology decisions. I approve the public OpenAQ candidate expectations for promotion. The remaining zero-row terminology distinction is accepted as intentional where source-level missing_measurements and final no_eligible_sensor_stream represent different diagnostic layers.",
+        "approval_decision": "approved"
+      }
+    }
+  ]
+}

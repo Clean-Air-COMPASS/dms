@@ -1,4 +1,5 @@
 import React from 'react';
+import i18n from '../i18n';
 
 
 
@@ -59,7 +60,7 @@ const DataSourceBadge: React.FC<DataSourceBadgeProps> = ({
         color: colors.text,
         borderColor: colors.border,
       }}
-      title={`Data source: ${source}`}
+      title={i18n.t('common:dynamic.dataSource', { source })}
     >
       {icon && <span className="data-source-badge__icon" aria-hidden="true">{icon}</span>}
       <span className="data-source-badge__text">{source}</span>

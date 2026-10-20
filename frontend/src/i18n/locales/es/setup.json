@@ -1,0 +1,149 @@
+{
+  "serverMessages": {
+    "adminCreated": "Cuenta de administrador creada exitosamente.",
+    "dataSourceConfigured": "Fuente de datos configurada correctamente.",
+    "geoapifyConfigured": "Clave Geoapify API configurada correctamente.",
+    "completed": "La configuración del sistema se completó exitosamente.",
+    "verificationSucceeded": "La clave API se verificó correctamente.",
+    "verificationFailed": "No se pudo verificar la clave API. Verifique la clave e inténtelo nuevamente."
+  },
+  "serverErrors": {
+    "alreadyCompleted": "La configuración del sistema ya se ha completado.",
+    "passwordConfirmationMismatch": "La contraseña y la confirmación no coinciden.",
+    "passwordPolicyNotMet": "La contraseña no cumple con los requisitos de seguridad.",
+    "adminEmailExists": "Ya existe un usuario con este correo electrónico.",
+    "apiKeyConfirmationMismatch": "La clave API y la confirmación no coinciden.",
+    "dataSourceNotFound": "La fuente de datos seleccionada ya no está disponible.",
+    "apiKeyRequired": "Se requiere una clave API.",
+    "adminRequired": "Cree una cuenta de administrador antes de completar la configuración.",
+    "adminCreationFailed": "No se pudo crear la cuenta de administrador.",
+    "apiKeySaveFailed": "No se pudo guardar la clave API.",
+    "completionFailed": "No se pudo completar la configuración."
+  },
+  "startup": {
+    "headings": {
+      "starting": "CompassAQ se está iniciando",
+      "failure": "CompassAQ no pudo terminar de iniciarse"
+    },
+    "text": {
+      "starting": "Estamos preparando el sistema. Esto suele tardar un momento.",
+      "failure": "Los servicios de la aplicación aún no responden."
+    },
+    "actions": {
+      "retry": "Reintentar"
+    }
+  },
+  "setupWizard": {
+    "headings": {
+      "productName": "CompassAQ",
+      "welcomeCompassAQ": "Bienvenido a CompassAQ",
+      "optionalItems": "Elementos opcionales que conviene tener a mano",
+      "createAdminAccount": "Crear cuenta de administrador",
+      "configureDataSource": "Configurar fuente de datos",
+      "configureLocationSearch": "Configurar la búsqueda de ubicación",
+      "setupComplete": "¡Configuración completa!"
+    },
+    "text": {
+      "airQualityDataPlatform": "Plataforma de datos sobre la calidad del aire",
+      "welcomePreparation": "Puede completar la configuración sin ninguna cuenta de servicios externos. Si ya dispone de claves API o de la configuración de correo electrónico, puede añadir esa información durante la configuración.",
+      "openAQApiKey": "Clave API de OpenAQ",
+      "openAQPurpose": "Importe datos de monitoreo de OpenAQ.",
+      "purpleAirApiKey": "Clave API de PurpleAir",
+      "purpleAirPurpose": "Importe datos de sensores de PurpleAir.",
+      "airGradientApiToken": "Token API de AirGradient",
+      "airGradientPurpose": "Importe sus ubicaciones de AirGradient.",
+      "geoapifyApiKey": "Clave API de Geoapify",
+      "geoapifyPurpose": "Habilite las funciones de mapas y geocodificación que requieren Geoapify.",
+      "smtpSettings": "Configuración de SMTP",
+      "smtpPurpose": "Envíe el Resumen para administradores y otras notificaciones por correo electrónico.",
+      "noneRequired": "Todo lo que omita podrá configurarse más adelante desde Administración.",
+      "adminAccount": "Cuenta de administrador",
+      "dataSource": "Fuente de datos",
+      "locationSearch": "Búsqueda de ubicación",
+      "complete": "Completo",
+      "createAdministratorAccountManagePlatformAccount": "Cree una cuenta de administrador para gestionar la plataforma. Esta cuenta tendrá acceso completo a todas las funciones.",
+      "optionallyConfigureExternalDataSourceStart": "Elija Demo Data o añada una clave API de un proveedor externo. Puede cambiar estas fuentes después en Administración.",
+      "note": "Nota:",
+      "noMeasurementDataWillAvailableUntil": "Las fuentes habilitadas pueden empezar a añadir observaciones al completar la configuración.",
+      "configured": "Configurado",
+      "dataSourceConfiguredAndEnabled": "Fuente de datos configurada y habilitada",
+      "optionallyConfigureGeoapifyApiKeyEnable": "Opcionalmente, configure una clave Geoapify API para habilitar la búsqueda de ubicación en el mapa.",
+      "note2": "Nota:",
+      "withoutGeoapifyApiKeyMapLocation": "Sin una clave Geoapify API, la función de búsqueda de ubicación en el mapa no funcionará. Puede configurar esto más tarde desde la sección Administrador.",
+      "getFreeApiKey": "Obtenga una clave API gratuita en",
+      "youReAllSetClickButton": "Todo está listo. Seleccione el botón siguiente para finalizar la configuración y comenzar a usar la plataforma.",
+      "adminAccountCreated": "Cuenta de administrador creada",
+      "dataSourceNotConfiguredCanDone": "Fuente de datos no configurada ni habilitada (puede configurarse en Administración)",
+      "locationSearchConfigured": "Búsqueda de ubicación configurada",
+      "locationSearchNotConfiguredCanDone": "Búsqueda de ubicación no configurada (puede configurarse en Administración)"
+    },
+    "fields": {
+      "emailAddress": "Dirección de correo electrónico",
+      "confirmPassword": "Confirmar contraseña",
+      "selectDataSource": "Seleccionar fuente de datos",
+      "apiKey": "Clave API",
+      "confirmApiKey": "Confirmar clave API",
+      "geoapifyApiKey": "Clave Geoapify API"
+    },
+    "placeholders": {
+      "adminExampleCom": "administrador@ejemplo.com",
+      "createStrongPassword": "Cree una contraseña segura",
+      "reEnterPassword": "Escriba la contraseña otra vez",
+      "enterApiKey": "Ingrese su clave API",
+      "optionalApiKey": "Clave API opcional",
+      "reEnterApiKey": "Vuelva a ingresar la clave API",
+      "enterGeoapifyApiKey": "Ingrese su clave Geoapify API"
+    },
+    "actions": {
+      "continue": "Continuar",
+      "creatingAccount": "Creando cuenta...",
+      "createAdminAccount": "Crear cuenta de administrador",
+      "verifying": "Verificando...",
+      "verified": "✓ Verificado",
+      "verifyKey": "Verificar clave",
+      "saving": "Guardando…",
+      "saveContinue": "Guardar y continuar",
+      "saveSourcesContinue": "Guardar fuentes y continuar",
+      "back": "← Volver",
+      "skipNow": "Saltar por ahora →",
+      "verifying2": "Verificando...",
+      "verified2": "✓ Verificado",
+      "verifyKey2": "Verificar clave",
+      "saving2": "Guardando…",
+      "saveContinue2": "Guardar y continuar",
+      "back2": "← Volver",
+      "skipNow2": "Saltar por ahora →",
+      "back3": "← Volver",
+      "completingSetup": "Completando la configuración...",
+      "completeSetupStartUsingPlatform": "Complete la configuración y comience a usar la plataforma"
+    },
+    "messages": {
+      "emailAddressRequired": "Se requiere dirección de correo electrónico",
+      "emailAddressInvalid": "Ingrese una dirección de correo electrónico válida, por ejemplo, nombre@ejemplo.com.",
+      "passwordRequired": "Se requiere contraseña",
+      "pleaseChooseStrongerPasswordThatMeets": "Elija una contraseña más segura que cumpla con todos los requisitos.",
+      "passwordsDoNotMatch": "Las contraseñas no coinciden",
+      "networkErrorPleaseTryAgain": "Error de red. Inténtelo de nuevo.",
+      "networkErrorDuringVerificationPleaseTry": "Error de red durante la verificación. Inténtelo de nuevo.",
+      "apiKeysDoNotMatch": "Las claves API no coinciden",
+      "networkErrorPleaseTryAgain2": "Error de red. Inténtelo de nuevo.",
+      "networkErrorDuringVerificationPleaseTry2": "Error de red durante la verificación. Inténtelo de nuevo.",
+      "networkErrorPleaseTryAgain3": "Error de red. Inténtelo de nuevo.",
+      "networkErrorPleaseTryAgain4": "Error de red. Inténtelo de nuevo.",
+      "sourceConfigured": "Se configuró {{source}}"
+    }
+  },
+  "passkey": {
+    "title": "Proteja su cuenta de administrador",
+    "description": "Añada una clave de acceso para iniciar sesión con su dispositivo sin depender únicamente de su contraseña.",
+    "supporting": "Una clave de acceso puede ayudarle si olvida su contraseña, especialmente antes de configurar la recuperación por correo electrónico.",
+    "note": "Para iniciar sesión más adelante, seleccione su clave de acceso en las sugerencias del campo de correo electrónico. Puede gestionarla en el administrador de contraseñas de su dispositivo.",
+    "create": "Crear una clave de acceso",
+    "creating": "Creando clave de acceso…",
+    "skip": "Configurar más adelante",
+    "unsupported": "Las claves de acceso no están disponibles en este navegador. Pruebe un navegador compatible mediante HTTPS o configúrela más adelante.",
+    "cancelled": "Se canceló la creación de la clave de acceso. Inténtelo de nuevo o configúrela más adelante.",
+    "failed": "No se pudo crear la clave de acceso. Inténtelo de nuevo o configúrela más adelante.",
+    "success": "Clave de acceso creada. Continúe con la configuración de las fuentes de datos."
+  }
+}

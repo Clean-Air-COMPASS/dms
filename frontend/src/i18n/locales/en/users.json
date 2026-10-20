@@ -1,0 +1,227 @@
+{
+  "workspace": {
+    "navigation": "Account management",
+    "access": "Account access",
+    "account": "Account"
+  },
+  "adminUserDetail": {
+    "actions": {
+      "admin": "Admin",
+      "users": "Users",
+      "admin2": "Admin",
+      "users2": "Users",
+      "backUsers": "← Back to Users",
+      "deleteUser": "Delete User",
+      "disableUser": "Disable User",
+      "enableUser": "Enable User",
+      "unlockAccount": "Unlock Account",
+      "saving": "Saving…",
+      "saveRoles": "Save changes",
+      "disable": "Disable",
+      "enable": "Enable",
+      "deleteUser2": "Delete User",
+      "unlockAccount2": "Unlock Account"
+    },
+    "headings": {
+      "loadingUser": "Loading User…",
+      "userNotFound": "User Not Found",
+      "userInformation": "User Information",
+      "accountStatus": "Account Status",
+      "securityInformation": "Security Information",
+      "roles": "Roles",
+      "disableUser": "Disable User",
+      "enableUser": "Enable User",
+      "deleteUser": "Delete User",
+      "unlockAccount": "Unlock Account"
+    },
+    "text": {
+      "loadingUserDetails": "Loading user details…",
+      "error": "Error",
+      "organizationId": "Organization ID",
+      "created": "Created",
+      "lastUpdated": "Last Updated",
+      "active": "Active",
+      "disabled": "Disabled",
+      "userCanLogAccessSystem": "This user can log in and access the system.",
+      "userCannotLogAccessSystem": "This user cannot log in or access the system.",
+      "loginSecurityStatusAccountInformationOnly": "Login security status for this account. This information is only visible to administrators.",
+      "failedLoginAttempts": "Failed Login Attempts",
+      "lastFailedLogin": "Last Failed Login",
+      "accountLockStatus": "Account Lock Status",
+      "lockedUntil": "Locked until",
+      "lockExpired": "Lock expired (",
+      "resetsFailedLoginCountClearsAny": "Resets failed login count and clears any active lock.",
+      "selectRolesAssignUserChangesSaved": "Select the roles to assign to this user, then select “Save changes”.",
+      "unsavedChanges": "Unsaved changes",
+      "youSureYouWant": "Are you sure you want to",
+      "disable": "disable",
+      "enable": "enable",
+      "user": "this user?",
+      "theyWillNotAbleLogUntil": "They will not be able to log in until re-enabled.",
+      "youSureYouWantPermanentlyDelete": "Are you sure you want to permanently delete",
+      "actionCannotUndone": "? This action cannot be undone.",
+      "youSureYouWantUnlockAccount": "Are you sure you want to unlock this account? This will reset the failed login counter to zero and remove any active time-based lock.",
+      "rolesUpdated": "Roles updated successfully.",
+      "userEnabled": "User enabled successfully.",
+      "userDisabled": "User disabled successfully.",
+      "accountUnlocked": "Account unlocked successfully. Failed login count has been reset.",
+      "userNotFound": "User not found",
+      "notLocked": "Not locked",
+      "userId": "User ID: {{id}}",
+      "lockedUntilValue": "Locked until {{date}}",
+      "lockExpiredValue": "Lock expired ({{date}})"
+    },
+    "content": {
+      "admin": "Admin",
+      "users": "Users"
+    }
+  },
+  "adminUserNew": {
+    "tooltips": {
+      "createNewUser": "Create New User"
+    },
+    "headings": {
+      "accountDetails": "Account Details",
+      "initialStatus": "Initial Status",
+      "initialRoles": "Initial Roles"
+    },
+    "placeholders": {
+      "userExampleCom": "user@example.com",
+      "minimum8Characters": "Minimum 8 characters",
+      "reEnterPassword": "Re-enter password"
+    },
+    "text": {
+      "confirmPassword": "Confirm Password",
+      "active": "Active",
+      "userWillAbleLogImmediatelyAfter": "User will be able to log in immediately after creation.",
+      "userWillCreatedButCannotLog": "User will be created but cannot log in until enabled.",
+      "selectRolesAssignUserRolesCan": "Select roles to assign to this user. Roles can be modified later.",
+      "loadingRoles": "Loading roles…",
+      "noRolesAvailable": "No roles available."
+    },
+    "actions": {
+      "creating": "Creating…",
+      "createUser": "Create User"
+    },
+    "accessibility": {
+      "addNewUserAccountSystem": "Add a new user account to the system."
+    },
+    "content": {
+      "admin": "Admin",
+      "users": "Users",
+      "newUser": "New User"
+    },
+    "messages": {
+      "emailRequired": "Email is required",
+      "invalidEmailFormat": "Invalid email format",
+      "passwordRequired": "Password is required",
+      "passwordMustLeast8Characters": "Password must be at least 8 characters",
+      "passwordsDoNotMatch": "Passwords do not match"
+    }
+  },
+  "adminUsersList": {
+    "tooltips": {
+      "users": "Users"
+    },
+    "actions": {
+      "newUser": "New User",
+      "view": "View"
+    },
+    "placeholders": {
+      "searchEmail": "Search email…"
+    },
+    "options": {
+      "any": "Any",
+      "active": "Active",
+      "disabled": "Disabled",
+      "any2": "Any"
+    },
+    "text": {
+      "role": "Role",
+      "loadingUsers": "Loading users…",
+      "noRoles": "No roles",
+      "active": "Active",
+      "disabled": "Disabled",
+      "noUsersFound": "No users found.",
+      "showing": "Showing",
+      "of": "of",
+      "users": "users"
+    },
+    "columns": {
+      "roles": "Roles",
+      "created": "Created",
+      "lastUpdated": "Last Updated"
+    },
+    "accessibility": {
+      "manageUserAccountsRoleAssignments": "Manage user accounts and role assignments.",
+      "viewUser": "View {{email}}"
+    },
+    "content": {
+      "admin": "Admin",
+      "users": "Users"
+    }
+  },
+  "recovery": {
+    "title": "Password recovery",
+    "description": "Help this user choose a new password. Creating a new link replaces any previous unused link. Disabled accounts stay disabled.",
+    "create": "Create password reset link",
+    "send": "Send password reset email",
+    "checking": "Checking email delivery…",
+    "unavailable": "Email delivery unavailable",
+    "unavailableReason": "Saved SMTP settings must be configured and successfully tested. You can still create and copy a reset link.",
+    "readinessFailed": "Email readiness could not be checked. You can still create and copy a reset link.",
+    "configure": "Configure email",
+    "created": "Password reset link created",
+    "expiry": "This link can be used once and expires in {{count}} minutes.",
+    "link": "Password reset URL",
+    "bearerAdvice": "Anyone with this link can reset this user’s password until it expires. Share it only with the intended user.",
+    "copy": "Copy link",
+    "copied": "Link copied.",
+    "copyFallback": "Link selected. Use your device’s Copy command to copy it manually.",
+    "done": "Done",
+    "sent": "Password reset email sent. The link expires in 60 minutes.",
+    "sendFailed": "The email could not be sent. Check email configuration and try again; each attempt creates a new link.",
+    "createFailed": "The reset link could not be created. Check that the trusted application URL is configured and try again.",
+    "resetTitle": "Reset your CompassAQ password",
+    "policy": "Use at least {{count}} characters. Do not include your email address or the name before @.",
+    "newPassword": "New password",
+    "confirmPassword": "Confirm password",
+    "mismatch": "Passwords do not match.",
+    "policyError": "Use at least {{count}} characters and avoid your account email address or the name before @.",
+    "resetFailed": "Your password could not be changed. Please try again.",
+    "verifying": "Checking your reset link…",
+    "saving": "Changing password…",
+    "resetAction": "Set new password",
+    "successTitle": "Password changed",
+    "success": "Your password has been changed. Sign in with your new password. If your account is disabled, contact your administrator.",
+    "reset_invalid": "This reset link is invalid",
+    "reset_expired": "This reset link has expired",
+    "reset_used": "This reset link has already been used or replaced",
+    "requestAnother": "Ask your administrator for a new password reset link.",
+    "signIn": "Go to sign in",
+    "rolesLoadFailed": "Roles could not be loaded. Reload this page to choose roles before creating the user.",
+    "detailDescription": "Manage profile details, account access, roles, and password recovery.",
+    "deleteTitle": "Delete account",
+    "deleteDescription": "Permanently remove this user. Disable the account instead if you only need to suspend access.",
+    "resetUnavailable": "Reset link could not be checked",
+    "userCount": "Showing {{shown}} of {{total}} users",
+    "scrollTable": "Scroll horizontally to see all account details.",
+    "confirmDisable": "Disable access for {{email}}? This user will not be able to sign in until the account is enabled again.",
+    "confirmEnable": "Enable access for {{email}}? This user will be able to sign in again.",
+    "confirmDelete": "Permanently delete {{email}}? This action cannot be undone."
+  },
+  "roles": {
+    "admin": {
+      "name": "Administrator",
+      "description": "Administrative access"
+    },
+    "analyst": {
+      "name": "Analyst",
+      "description": "Data analysis privileges"
+    },
+    "viewer": {
+      "name": "Viewer",
+      "description": "Read-only access"
+    }
+  }
+}

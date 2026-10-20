@@ -2,26 +2,39 @@ from __future__ import annotations
 
 import csv
 import io
+import logging
+import math
 import os
 import secrets
 from dataclasses import dataclass
-from datetime import datetime, timezone
+from datetime import datetime, timedelta, timezone
 from typing import Optional
 from zoneinfo import ZoneInfo
 
 from fastapi import Header, HTTPException, UploadFile, status
-from sqlalchemy import select
 from sqlalchemy.exc import IntegrityError
+from starlette.concurrency import run_in_threadpool
 
 from db import SessionLocal
 import models
-
+from services.event_log import add_event
+from sources.openaq.openaq_upserts import upsert_measurement_with_policy_detailed
 
 CSV_UPLOAD_API_KEY_ENV = "COMPASSAQ_CSV_UPLOAD_API_KEY"
 CSV_UPLOAD_MAX_BYTES_ENV = "COMPASSAQ_CSV_UPLOAD_MAX_BYTES"
-DEFAULT_CSV_UPLOAD_MAX_BYTES = 1_048_576
+DEFAULT_CSV_UPLOAD_MAX_BYTES = 5_000_000
+CSV_UPLOAD_TOO_LARGE_ERROR_CODE = "csv_file_too_large"
 CSV_REQUIRED_HEADERS = ("internalsensorid", "datetime", "value")
 API_KEY_HEADER_NAME = "X-API-Key"
+# CSV-only MVP policy: accommodate a small device clock error, not forecasts.
+CSV_FUTURE_TOLERANCE = timedelta(minutes=5)
+logger = logging.getLogger(__name__)
+
+
+class CsvRowError(ValueError):
+    def __init__(self, code: str, message: str):
+        super().__init__(message)
+        self.code = code
 
 
 @dataclass
@@ -91,33 +104,48 @@ def _looks_binary(payload: bytes) -> bool:
 
 
 async def validate_csv_upload_file(file: UploadFile) -> CsvUploadPayload:
-    payload = await file.read()
     max_bytes = get_csv_upload_max_bytes()
+    # Read one byte past the configured limit so the application can distinguish
+    # an exactly-at-limit file from an oversized one without retaining an
+    # unbounded request body in memory.
+    payload = await file.read(max_bytes + 1)
     if len(payload) > max_bytes:
         raise HTTPException(
             status_code=status.HTTP_413_CONTENT_TOO_LARGE,
-            detail=f"Upload exceeds maximum size of {max_bytes} bytes",
+            detail={
+                "error_code": CSV_UPLOAD_TOO_LARGE_ERROR_CODE,
+                "message": f"Upload exceeds maximum size of {max_bytes} bytes",
+                "error_context": {"max_bytes": max_bytes},
+            },
         )
 
     if not payload:
         raise HTTPException(status_code=400, detail="Uploaded file is empty")
 
     if _looks_binary(payload):
-        raise HTTPException(status_code=400, detail="Uploaded file must be a text-based CSV")
+        raise HTTPException(
+            status_code=400, detail="Uploaded file must be a text-based CSV"
+        )
 
     try:
         text = payload.decode("utf-8-sig")
     except UnicodeDecodeError as exc:
-        raise HTTPException(status_code=400, detail="Uploaded file must be valid UTF-8 CSV text") from exc
+        raise HTTPException(
+            status_code=400, detail="Uploaded file must be valid UTF-8 CSV text"
+        ) from exc
 
     if "," not in text:
-        raise HTTPException(status_code=400, detail="Uploaded file does not appear to be CSV")
+        raise HTTPException(
+            status_code=400, detail="Uploaded file does not appear to be CSV"
+        )
 
     preview_reader = csv.reader(io.StringIO(text))
     try:
         first_row = next(preview_reader)
     except StopIteration as exc:
-        raise HTTPException(status_code=400, detail="CSV header row is required") from exc
+        raise HTTPException(
+            status_code=400, detail="CSV header row is required"
+        ) from exc
 
     if not first_row:
         raise HTTPException(status_code=400, detail="CSV header row is required")
@@ -136,7 +164,7 @@ async def validate_csv_upload_file(file: UploadFile) -> CsvUploadPayload:
 def _parse_iso8601_to_utc(value: str, fallback_timezone: Optional[str]) -> datetime:
     raw = (value or "").strip()
     if not raw:
-        raise ValueError("datetime is required")
+        raise CsvRowError("datetime_required", "datetime is required")
 
     if raw.endswith("Z"):
         raw = f"{raw[:-1]}+00:00"
@@ -144,52 +172,35 @@ def _parse_iso8601_to_utc(value: str, fallback_timezone: Optional[str]) -> datet
     try:
         dt = datetime.fromisoformat(raw)
     except ValueError as exc:
-        raise ValueError("datetime must be ISO 8601") from exc
+        raise CsvRowError("datetime_invalid", "datetime must be ISO 8601") from exc
 
     if dt.tzinfo is not None:
         return dt.astimezone(timezone.utc)
 
     if not fallback_timezone:
-        raise ValueError("datetime has no timezone and device timezone is not configured")
+        raise CsvRowError(
+            "timezone_missing",
+            "datetime has no timezone and device timezone is not configured",
+        )
 
     try:
         tz = ZoneInfo(fallback_timezone)
     except Exception as exc:
-        raise ValueError(f"device timezone '{fallback_timezone}' is invalid") from exc
+        raise CsvRowError(
+            "timezone_invalid", f"device timezone '{fallback_timezone}' is invalid"
+        ) from exc
 
     return dt.replace(tzinfo=tz).astimezone(timezone.utc)
 
 
-def _resolve_sensor_timezone(
-    session,
-    sensor_id: int,
-    cache: dict[int, tuple[Optional[str], Optional[str]]],
-) -> tuple[Optional[int], Optional[str], Optional[str]]:
-    if sensor_id in cache:
-        sensor_error = cache[sensor_id][1]
-        return sensor_id if sensor_error is None else None, cache[sensor_id][0], sensor_error
-
-    row = session.execute(
-        select(models.Device.timezone)
-        .join(models.Sensor, models.Sensor.device_id == models.Device.device_id)
-        .where(models.Sensor.sensor_id == sensor_id)
-        .limit(1)
-    ).first()
-    if not row:
-        cache[sensor_id] = (None, "sensor not found")
-        return None, None, "sensor not found"
-
-    timezone_name = row[0]
-    cache[sensor_id] = (timezone_name, None)
-    return sensor_id, timezone_name, None
-
-
-def import_measurements_csv_text(text: str) -> dict:
+def import_measurements_csv_text(text: str, *, event_id: int | None = None) -> dict:
     reader = csv.DictReader(io.StringIO(text))
     if not reader.fieldnames:
         raise HTTPException(status_code=400, detail="CSV header row is required")
 
-    normalized_headers = {(header or "").strip().lower(): header for header in reader.fieldnames}
+    normalized_headers = {
+        (header or "").strip().lower(): header for header in reader.fieldnames
+    }
     missing = [name for name in CSV_REQUIRED_HEADERS if name not in normalized_headers]
     if missing:
         raise HTTPException(
@@ -199,79 +210,254 @@ def import_measurements_csv_text(text: str) -> dict:
 
     total_records = 0
     inserted_records = 0
+    updated_records = 0
+    skipped_records = 0
     failed_records = 0
     errors: list[str] = []
-    sensor_cache: dict[int, tuple[Optional[str], Optional[str]]] = {}
+    row_errors: list[dict] = []
+    sensor_cache: dict[int, models.Sensor | None] = {}
+    qc = {"evaluated": 0, "passed": 0, "flagged": 0, "indeterminate": 0}
+    latest_allowed_timestamp = datetime.now(timezone.utc) + CSV_FUTURE_TOLERANCE
 
     with SessionLocal() as session:
-        for row_index, row in enumerate(reader, start=2):
+        for row in reader:
+            # DictReader tracks physical file lines, including the header and
+            # blank/multiline records. Keep this indexing; call it a line.
+            line_number = reader.line_num
             if not row:
                 continue
-            if not any((value or "").strip() for value in row.values()):
+            if all(
+                value is None or isinstance(value, str) and not value.strip()
+                for value in row.values()
+            ):
                 continue
 
             total_records += 1
 
             try:
-                raw_sensor_id = (row.get(normalized_headers["internalsensorid"]) or "").strip()
+                if None in row:
+                    raise CsvRowError(
+                        "extra_columns", "record has more fields than the CSV header"
+                    )
+                raw_sensor_id = (
+                    row.get(normalized_headers["internalsensorid"]) or ""
+                ).strip()
                 raw_datetime = (row.get(normalized_headers["datetime"]) or "").strip()
                 raw_value = (row.get(normalized_headers["value"]) or "").strip()
 
                 if not raw_sensor_id:
-                    raise ValueError("internalsensorid is required")
+                    raise CsvRowError("sensor_required", "internalsensorid is required")
                 if not raw_value:
-                    raise ValueError("value is required")
+                    raise CsvRowError("value_required", "value is required")
 
-                sensor_id = int(raw_sensor_id)
-                value = float(raw_value)
+                try:
+                    sensor_id = int(raw_sensor_id)
+                except ValueError as exc:
+                    raise CsvRowError(
+                        "sensor_invalid",
+                        "internalsensorid must be an integer sensor ID",
+                    ) from exc
+                if not 1 <= sensor_id <= 2_147_483_647:
+                    raise CsvRowError(
+                        "sensor_invalid",
+                        "internalsensorid must be a positive internal Sensor ID",
+                    )
 
-                sensor_id, device_timezone, sensor_error = _resolve_sensor_timezone(
-                    session, sensor_id, sensor_cache
-                )
-                if sensor_error or sensor_id is None:
-                    raise ValueError(sensor_error or "unable to resolve sensor")
+                try:
+                    value = float(raw_value)
+                except ValueError as exc:
+                    raise CsvRowError(
+                        "value_invalid", "value must be a finite number"
+                    ) from exc
+                if not math.isfinite(value):
+                    raise CsvRowError("value_invalid", "value must be a finite number")
 
-                observed_at = _parse_iso8601_to_utc(raw_datetime, device_timezone)
+                if sensor_id not in sensor_cache:
+                    sensor_cache[sensor_id] = session.get(models.Sensor, sensor_id)
+                sensor = sensor_cache[sensor_id]
+                if sensor is None:
+                    raise CsvRowError("sensor_not_found", "sensor not found")
+                device = sensor.device
+
+                observed_at = _parse_iso8601_to_utc(raw_datetime, device.timezone)
+                if observed_at > latest_allowed_timestamp:
+                    raise CsvRowError(
+                        "timestamp_future",
+                        "timestamp is later than the allowed future tolerance (5 minutes)",
+                    )
 
                 try:
                     with session.begin_nested():
-                        session.add(
+                        result = upsert_measurement_with_policy_detailed(
+                            session,
                             models.Measurement(
                                 sensor_id=sensor_id,
                                 value=value,
                                 observed_at=observed_at,
                                 is_valid=True,
-                            )
+                            ),
+                            sensor=sensor,
+                            device=device,
                         )
                         session.flush()
                 except IntegrityError as exc:
-                    raise ValueError("duplicate measurement for sensor and observed_at") from exc
+                    # An unexpected competing write is not a Keep decision.
+                    raise CsvRowError(
+                        "write_conflict",
+                        "measurement changed during import; retry this line",
+                    ) from exc
 
-                inserted_records += 1
+                if result.action == "insert":
+                    inserted_records += 1
+                elif result.action == "update":
+                    updated_records += 1
+                else:
+                    skipped_records += 1
+                if result.qc:
+                    for key in qc:
+                        qc[key] += result.qc[key]
             except Exception as exc:
                 failed_records += 1
+                if isinstance(exc, CsvRowError):
+                    code, message = exc.code, str(exc)
+                else:
+                    logger.exception("CSV import failed at line %s", line_number)
+                    code, message = (
+                        "import_failed",
+                        "measurement could not be saved; contact an administrator",
+                    )
                 if len(errors) < 20:
-                    errors.append(f"row {row_index}: {exc}")
+                    errors.append(f"Line {line_number}: {message}")
+                    row_errors.append(
+                        {"line": line_number, "code": code, "message": message}
+                    )
 
+        result = {
+            "success": failed_records == 0,
+            "message": (
+                f"CSV processing completed: {inserted_records} inserted, {updated_records} updated, "
+                f"{skipped_records} skipped, {failed_records} failed ({total_records} total)."
+            ),
+            "total_records": total_records,
+            "inserted_records": inserted_records,
+            "updated_records": updated_records,
+            "skipped_records": skipped_records,
+            "failed_records": failed_records,
+            "errors": errors,
+            "row_errors": row_errors,
+            "qc": qc,
+        }
+        if event_id is not None:
+            # Completion and measurements commit together. A later HTTP error
+            # must not leave a successful import looking unfinished in Events.
+            _update_csv_event(session, event_id, result)
+        session.commit()
+        return result
+
+
+def _start_csv_event(
+    filename: str | None, endpoint: str, actor_user_id, actor_email
+) -> int:
+    with SessionLocal() as session:
+        event = add_event(
+            session,
+            event_type="csv.upload",
+            source="CSV upload",
+            message="CSV upload started",
+            endpoint=endpoint,
+            actor_user_id=actor_user_id,
+            actor_email=actor_email,
+            params={
+                "outcome": "running",
+                "filename": (filename or "")[:255],
+                "started_at": datetime.now(timezone.utc).isoformat(),
+                "total_records": 0,
+                "inserted_records": 0,
+                "updated_records": 0,
+                "skipped_records": 0,
+                "failed_records": 0,
+            },
+        )
+        session.commit()
+        return event.event_id
+
+
+def _finish_csv_event(
+    event_id: int, result: dict | None, error_code: str | None = None
+):
+    with SessionLocal() as session:
+        _update_csv_event(session, event_id, result, error_code)
         session.commit()
 
-    success = failed_records == 0
-    if success:
-        message = (
-            f"Upload succeeded. Inserted {inserted_records}/{total_records} records "
-            f"({failed_records} failed)."
-        )
-    else:
-        message = (
-            f"Upload completed with failures. Inserted {inserted_records}/{total_records} records "
-            f"({failed_records} failed)."
-        )
 
-    return {
-        "success": success,
-        "message": message,
-        "total_records": total_records,
-        "inserted_records": inserted_records,
-        "failed_records": failed_records,
-        "errors": errors,
+def _update_csv_event(
+    session, event_id: int, result: dict | None, error_code: str | None = None
+):
+    event = session.get(models.Event, event_id)
+    counts = {
+        key: (result or {}).get(key, 0)
+        for key in (
+            "total_records",
+            "inserted_records",
+            "updated_records",
+            "skipped_records",
+            "failed_records",
+        )
     }
+    completed_records = sum(
+        counts[key]
+        for key in ("inserted_records", "updated_records", "skipped_records")
+    )
+    if result is None or (counts["failed_records"] and not completed_records):
+        outcome = "failed"
+    elif counts["failed_records"]:
+        outcome = "partial"
+    else:
+        outcome = "success"
+    event.severity = {"success": "info", "partial": "warning", "failed": "error"}[
+        outcome
+    ]
+    event.message = (result or {}).get(
+        "message", "CSV upload rejected or import failed"
+    )
+    event.params = {
+        **event.params,
+        **counts,
+        "outcome": outcome,
+        "completed_at": datetime.now(timezone.utc).isoformat(),
+        "qc": (result or {}).get("qc"),
+        "error_code": error_code,
+    }
+
+
+async def import_measurements_csv_upload(
+    file: UploadFile,
+    *,
+    endpoint: str,
+    actor_user_id=None,
+    actor_email: str | None = None,
+) -> dict:
+    """Keep one existing Event per authenticated upload, including rejected files.
+
+    CSV has no schedule, so a JobRun (which requires a JobSchedule) would invent
+    scheduler state. QC failures remain in MeasurementQCResult, not row Events.
+    """
+    event_id = await run_in_threadpool(
+        _start_csv_event, file.filename, endpoint, actor_user_id, actor_email
+    )
+    try:
+        upload = await validate_csv_upload_file(file)
+        result = await run_in_threadpool(
+            import_measurements_csv_text, upload.text, event_id=event_id
+        )
+    except Exception as exc:
+        code = "csv_import_failed"
+        if isinstance(exc, HTTPException):
+            code = (
+                exc.detail.get("error_code", "csv_file_invalid")
+                if isinstance(exc.detail, dict)
+                else "csv_file_invalid"
+            )
+        await run_in_threadpool(_finish_csv_event, event_id, None, code)
+        raise
+    return {**result, "event_id": event_id}

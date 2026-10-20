@@ -4,7 +4,7 @@ from dataclasses import dataclass
 from typing import Dict, Iterable, Optional, Set
 import math
 
-from sqlalchemy import select, cast, String
+from sqlalchemy import select, cast, String, func, or_
 from sqlalchemy.orm import Session
 
 from models import AggregationPeriod, Parameter, ParameterAggregationRule
@@ -16,6 +16,20 @@ class ParameterAggregationRuleFormatting:
     rounding_precision: Optional[int]
     truncation_method: Optional[str]
     truncation_precision: Optional[int]
+
+
+def parameter_aggregation_display_precision(
+    rule: Optional[ParameterAggregationRuleFormatting],
+) -> Optional[int]:
+    """Return the decimal precision clients may use to present a formatted value."""
+
+    if rule is None:
+        return None
+    if (rule.rounding_method or "").lower() != "none" and rule.rounding_precision is not None:
+        return max(rule.rounding_precision, 0)
+    if (rule.truncation_method or "").lower() != "none" and rule.truncation_precision is not None:
+        return max(rule.truncation_precision, 0)
+    return None
 
 
 def _round_half_up_from_scaled(scaled_value: float, factor: float) -> float:
@@ -70,13 +84,17 @@ def apply_parameter_aggregation_rule(
 def load_parameter_aggregation_rules(
     session: Session, parameter_code: str, aggregation_codes: Iterable[str]
 ) -> Dict[str, ParameterAggregationRuleFormatting]:
-    """Load rules for the parameter + aggregation codes (plus '1h' fallback) in one query."""
+    """Load currently effective rules for the requested aggregation codes.
+
+    Ordinary measurement formatting is period-specific.  A missing rule means
+    that the calculated value is returned unchanged; another period's rule is
+    never substituted.
+    """
     normalized_parameter_code = (parameter_code or "").lower()
     if not normalized_parameter_code:
         return {}
 
     requested_codes: Set[str] = {code.lower() for code in aggregation_codes if code}
-    requested_codes.add("1h")
     if not requested_codes:
         return {}
 
@@ -99,6 +117,18 @@ def load_parameter_aggregation_rules(
         .where(Parameter.code == normalized_parameter_code)
         .where(AggregationPeriod.code.in_(requested_codes))
         .where(cast(ParameterAggregationRule.active, String).in_(active_truthy_values))
+        .where(
+            or_(
+                ParameterAggregationRule.valid_from.is_(None),
+                ParameterAggregationRule.valid_from <= func.now(),
+            )
+        )
+        .where(
+            or_(
+                ParameterAggregationRule.valid_to.is_(None),
+                ParameterAggregationRule.valid_to > func.now(),
+            )
+        )
     )
     rows = session.execute(stmt).all()
 
@@ -117,10 +147,8 @@ def resolve_parameter_aggregation_rule(
     rules_by_aggregation_code: Dict[str, ParameterAggregationRuleFormatting],
     aggregation_code: Optional[str],
 ) -> Optional[ParameterAggregationRuleFormatting]:
-    """Return the rule for the aggregation code or fall back to the 1h rule when present."""
+    """Return only the exact rule for the produced aggregation period."""
     normalized_code = (aggregation_code or "").lower()
     if normalized_code and normalized_code in rules_by_aggregation_code:
         return rules_by_aggregation_code[normalized_code]
-    if "1h" in rules_by_aggregation_code:
-        return rules_by_aggregation_code["1h"]
     return None

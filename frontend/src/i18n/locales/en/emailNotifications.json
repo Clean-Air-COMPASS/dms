@@ -1,0 +1,388 @@
+{
+  "page": {
+    "title": "Email & notifications",
+    "description": "Configure provider-neutral SMTP delivery and verify that CompassAQ can send administrator email."
+  },
+  "breadcrumbs": {
+    "admin": "Admin",
+    "email": "Email & notifications"
+  },
+  "common": {
+    "yes": "Yes",
+    "no": "No",
+    "notConfigured": "Not configured",
+    "notUsed": "Not used"
+  },
+  "actions": {
+    "edit": "Edit configuration",
+    "save": "Save changes",
+    "saving": "Saving…",
+    "cancel": "Cancel",
+    "retry": "Retry",
+    "retryTest": "Retry test"
+  },
+  "states": {
+    "loading": "Loading email configuration…"
+  },
+  "messages": {
+    "saved": "Email configuration saved."
+  },
+  "overview": {
+    "title": "Overall status",
+    "nextActionLabel": "Recommended next step",
+    "factLabel": "Email delivery at a glance",
+    "enabled": "Email enabled",
+    "sender": "Sender",
+    "password": "SMTP password",
+    "recipients": "Administrator recipients",
+    "recipientCount_one": "{{count}} recipient",
+    "recipientCount_other": "{{count}} recipients",
+    "lastTest": "Delivery test"
+  },
+  "status": {
+    "not_configured": {
+      "label": "Not configured",
+      "explanation": "CompassAQ does not yet have saved email delivery settings.",
+      "nextAction": "Enter and save the SMTP, sender, and recipient settings."
+    },
+    "disabled": {
+      "label": "Disabled",
+      "explanation": "Email settings are saved, but CompassAQ will not send email while delivery is disabled.",
+      "nextAction": "Edit the configuration and enable delivery when you are ready."
+    },
+    "needs_attention": {
+      "label": "Needs attention",
+      "explanation": "The saved configuration needs another step before email delivery is ready.",
+      "nextAction": "Review the issue below, then save or retry the delivery test."
+    },
+    "ready": {
+      "label": "Ready",
+      "explanation": "The saved configuration has completed a successful delivery test.",
+      "nextAction": "No action is required. You can send another test at any time."
+    }
+  },
+  "reasons": {
+    "emailNotConfigured": "Email delivery has not been configured.",
+    "emailDisabled": "Email delivery is turned off.",
+    "smtpHostMissing": "Enter the SMTP server hostname.",
+    "smtpPortMissing": "Enter the SMTP server port.",
+    "smtpSecurityModeMissing": "Choose how the SMTP connection is secured.",
+    "fromEmailMissing": "Enter the sender email address.",
+    "administratorRecipientsMissing": "Add at least one administrator recipient.",
+    "smtpCredentialsIncomplete": "Enter both the SMTP username and password, or leave both unused for a network-authenticated relay.",
+    "unencryptedCredentialsNotAllowed": "Username and password authentication cannot be used with unencrypted SMTP.",
+    "testRequired": "Save is complete. Send a test email to verify delivery.",
+    "lastTestFailed": "The last delivery test failed. Review the configuration and try again."
+  },
+  "errors": {
+    "loadFailed": "Email configuration could not be loaded. Check the API connection and try again.",
+    "saveFailed": "Email configuration could not be saved. Review the fields and try again.",
+    "testFailed": "CompassAQ could not send the test email. Review the configuration and try again.",
+    "unknown": "The saved email configuration needs attention.",
+    "emailConfigurationDisabled": "Email delivery is disabled. Enable and save it before testing.",
+    "emailConfigurationIncomplete": "The saved configuration is incomplete. Review the required connection, sender, and recipient fields.",
+    "smtpSecretUnavailable": "The saved SMTP password cannot be read. Restore the CompassAQ encryption key or replace the password.",
+    "smtpDnsFailure": "The SMTP server name could not be found. Check the server hostname and network DNS.",
+    "smtpConnectionTimeout": "The SMTP server did not respond in time. Check the hostname, port, firewall, and network path.",
+    "smtpConnectionFailed": "CompassAQ could not connect to the SMTP server. Check the hostname, port, and network access.",
+    "smtpTlsError": "The secure SMTP connection failed. Check the security mode and the server certificate.",
+    "smtpAuthenticationFailed": "The SMTP server rejected the saved username or password. Replace the credentials and try again.",
+    "smtpSenderRejected": "The SMTP server rejected the sender address. Verify that the From address is authorized by your email service.",
+    "smtpRecipientRejected": "The SMTP server rejected the test recipient. Verify the address and any provider restrictions.",
+    "smtpRelayDenied": "The SMTP server would not relay this message. Check authentication and relay permissions.",
+    "smtpServerDisconnected": "The SMTP server disconnected before delivery completed. Check the server and try again.",
+    "smtpServerError": "The SMTP server returned an unexpected error. Check the provider service and try again.",
+    "invalidEmailMessage": "CompassAQ could not build a valid test message. Review the sender and recipient addresses."
+  },
+  "validation": {
+    "required": "This field is required while email delivery is enabled.",
+    "invalidText": "Enter valid text or leave the field blank.",
+    "textTooLong": "This value is too long.",
+    "invalidControlCharacter": "Remove line breaks or unsupported control characters.",
+    "invalidSmtpHost": "Enter a hostname or IP address without a URL scheme, path, or spaces.",
+    "invalidSmtpPort": "Enter a port from 1 through 65535.",
+    "invalidSecurityMode": "Choose a supported SMTP security mode.",
+    "invalidEmailAddress": "Enter one valid email address.",
+    "invalidRecipients": "Administrator recipients must be a list of email addresses.",
+    "tooManyRecipients": "No more than 50 administrator recipients are allowed.",
+    "duplicateRecipients": "Remove duplicate administrator recipient addresses.",
+    "recipientRequired": "Add at least one administrator recipient while email delivery is enabled.",
+    "invalidEnabledState": "Choose whether email delivery is enabled.",
+    "invalidPassword": "Enter a valid SMTP password or deliberately clear it.",
+    "emptyPassword": "Enter a non-empty replacement password. Use Clear password to remove the saved password.",
+    "passwordTooLong": "The SMTP password must not exceed 4096 characters.",
+    "credentialsTogether": "SMTP username and password must be configured together.",
+    "unencryptedCredentials": "Clear the username and saved password before using unencrypted SMTP."
+  },
+  "security": {
+    "options": {
+      "starttls": "STARTTLS",
+      "ssl_tls": "SSL/TLS",
+      "none": "Unencrypted SMTP"
+    },
+    "warningTitle": "This connection will not be encrypted.",
+    "warningDescription": "Use this mode only for a trusted network relay. CompassAQ does not allow username or password authentication over an unencrypted connection.",
+    "confirmDialog": {
+      "title": "Save unencrypted SMTP?",
+      "description": "Messages and connection metadata may be readable on the network. Confirm that this server is a trusted relay that does not require username or password authentication.",
+      "confirm": "Save unencrypted SMTP"
+    }
+  },
+  "password": {
+    "configured": "Password configured",
+    "notConfigured": "Password not configured",
+    "willClear": "Password will be cleared",
+    "writeOnlyHelp": "CompassAQ never returns the saved password. Unrelated changes preserve it automatically.",
+    "newLabel": "SMTP password",
+    "replacementLabel": "New SMTP password",
+    "inputHelp": "The password is sent only when you save and is never shown again.",
+    "replaceAction": "Replace password",
+    "clearAction": "Clear password",
+    "keepAction": "Keep saved password",
+    "clearDialog": {
+      "title": "Clear the saved SMTP password?",
+      "description": "The password will be removed when you save the configuration. SMTP authentication will not work until a new password is saved.",
+      "confirm": "Clear password"
+    }
+  },
+  "form": {
+    "delivery": {
+      "title": "Delivery control",
+      "description": "Choose whether CompassAQ may send email using this saved configuration.",
+      "enabledLabel": "Enable email delivery",
+      "enabledHelp": "Disable delivery without deleting the saved connection, sender, or recipients."
+    },
+    "smtp": {
+      "title": "SMTP connection",
+      "description": "Enter the standard SMTP settings supplied by your email service, such as Amazon SES, Microsoft 365, Google Workspace, Exchange, SendGrid, or Mailgun.",
+      "hostLabel": "SMTP server",
+      "hostPlaceholder": "smtp.example.com",
+      "hostHelp": "Hostname or IP address only; do not include smtp://, https://, or a path.",
+      "portLabel": "Port",
+      "portHelp": "Common values are 587 for STARTTLS and 465 for SSL/TLS. Use the port supplied by your provider.",
+      "securityLabel": "Security",
+      "securityPlaceholder": "Choose security",
+      "securityHelp": "STARTTLS upgrades the connection before authentication. SSL/TLS is encrypted from connection start.",
+      "usernameLabel": "SMTP username",
+      "usernameHelp": "Optional for a network-authenticated relay; otherwise configure it together with a password.",
+      "passwordLabel": "SMTP password"
+    },
+    "sender": {
+      "title": "Sender",
+      "description": "This identity appears in the From header of administrator email.",
+      "fromEmailLabel": "From email",
+      "displayNameLabel": "From display name",
+      "replyToLabel": "Reply-To email",
+      "replyToHelp": "Optional address that receives replies instead of the From address."
+    },
+    "recipients": {
+      "title": "Administrator recipients",
+      "description": "These addresses are the default recipients for future administrator notifications.",
+      "count": "{{count}} of {{maximum}} configured",
+      "addressLabel": "Recipient {{number}}",
+      "removeLabel": "Remove recipient {{number}}",
+      "removeAction": "Remove",
+      "addAction": "Add recipient"
+    }
+  },
+  "summary": {
+    "smtp": {
+      "title": "SMTP connection",
+      "description": "Saved server and authentication settings."
+    },
+    "sender": {
+      "title": "Sender",
+      "description": "Identity used for outgoing administrator email."
+    },
+    "recipients": {
+      "title": "Administrator recipients",
+      "description": "Default destinations for administrator email.",
+      "empty": "No administrator recipients are configured."
+    }
+  },
+  "test": {
+    "title": "Test delivery",
+    "description": "Send a clearly labeled CompassAQ test using the exact saved configuration.",
+    "recipientLabel": "Test recipient",
+    "recipientPlaceholder": "administrator@example.com",
+    "recipientHelp": "Defaults to the first saved administrator recipient. Enter another address for this test only.",
+    "sendAction": "Send test email",
+    "sending": "Sending test…",
+    "success": "Test email sent to {{recipient}}.",
+    "lastSuccess": "Last test succeeded",
+    "lastFailure": "Last test failed",
+    "neverTested": "Not tested yet",
+    "lastTested": "Last tested {{date}}",
+    "unsavedChanges": "Save or cancel your changes before testing. Tests always use the saved configuration.",
+    "disabled": "Enable and save email delivery before sending a test.",
+    "moreDetails": "More details",
+    "smtpResponseCode": "SMTP response code: {{code}}"
+  },
+  "administratorSummary": {
+    "eyebrow": "Scheduled administrator email",
+    "title": "Administrator summary",
+    "description": "Send administrators a concise digest of data imports, quality-control activity, and important system events for each completed reporting period.",
+    "common": {
+      "notScheduled": "Not scheduled",
+      "notAvailable": "Not available",
+      "noneYet": "None yet"
+    },
+    "states": {
+      "loading": "Loading administrator summary settings…"
+    },
+    "status": {
+      "summary_off": {
+        "label": "Summary off",
+        "explanation": "Scheduled administrator summaries are not being sent. You can still preview a completed reporting period."
+      },
+      "blocked_email_delivery": {
+        "label": "Blocked",
+        "explanation": "The schedule is saved, but summaries cannot send until Email Delivery is ready."
+      },
+      "waiting_for_first_scheduled_period": {
+        "label": "Waiting for first period",
+        "explanation": "The schedule is active. CompassAQ is waiting for the first completed reporting period after this schedule took effect."
+      },
+      "last_summary_sent": {
+        "label": "Last summary sent",
+        "explanation": "The latest scheduled summary was sent. The next completed period remains scheduled."
+      },
+      "last_summary_failed": {
+        "label": "Last summary failed",
+        "explanation": "CompassAQ could not send the latest scheduled summary. This does not necessarily mean the SMTP service is unavailable."
+      },
+      "delivery_unknown": {
+        "label": "Delivery outcome unknown",
+        "explanation": "CompassAQ cannot confirm whether this summary was delivered. It will not resend it automatically to avoid a duplicate."
+      },
+      "delivery_in_progress": {
+        "label": "Delivery in progress",
+        "explanation": "CompassAQ has started the latest scheduled delivery and is waiting for its outcome."
+      },
+      "blockedTitle": "Email Delivery needs attention",
+      "reviewEmailDelivery": "Review Email Delivery above"
+    },
+    "schedule": {
+      "dailyAt": "Daily at {{time}}",
+      "hourly": "Hourly",
+      "testing": "Every 15 minutes (testing)",
+      "whenEnabled": "{{cadence}} when enabled"
+    },
+    "facts": {
+      "label": "Administrator summary schedule at a glance",
+      "nextSummary": "Next summary",
+      "nextPeriod": "Reporting period it will cover",
+      "lastSummary": "Last scheduled summary",
+      "lastDelivery": "Last delivery status"
+    },
+    "delivery": {
+      "sending": "Sending",
+      "sent": "Sent",
+      "failed": "Failed",
+      "delivery_unknown": "Outcome unknown"
+    },
+    "form": {
+      "title": "Schedule",
+      "description": "Choose one reporting cadence and timezone. Changes begin with future completed periods and do not send older summaries.",
+      "enabledLabel": "Enable administrator summary",
+      "enabledHelp": "Send the selected digest automatically when Email Delivery is ready.",
+      "cadenceLegend": "How often should CompassAQ summarize activity?",
+      "sendTimeLabel": "Send time",
+      "sendTimeHelp": "A summary sent at {{time}} reports on the previous calendar day in this timezone.",
+      "timezoneLabel": "Reporting timezone",
+      "useSystemTimezone": "Use system timezone — {{timezone}}",
+      "systemTimezoneHelp": "Inherited from System Preferences. Changing the system timezone updates this summary unless you choose an override.",
+      "timezoneHelp": "Reporting periods and schedule times use this IANA timezone.",
+      "save": "Save changes",
+      "saving": "Saving schedule…"
+    },
+    "cadence": {
+      "daily": {
+        "label": "Daily",
+        "help": "Recommended for normal production use.",
+        "periodHelp": "Each email summarizes the previous completed local calendar day."
+      },
+      "hourly": {
+        "label": "Hourly",
+        "help": "An advanced operational cadence for closer monitoring.",
+        "periodHelp": "Each email summarizes the previous completed hour."
+      },
+      "every15": {
+        "label": "Testing — every 15 minutes",
+        "help": "A commissioning cadence for short, closely monitored tests.",
+        "periodHelp": "Each email summarizes the previous completed 15-minute period.",
+        "warning": "This cadence can generate frequent email. Use it only for testing or commissioning, then return to Daily."
+      }
+    },
+    "advanced": {
+      "title": "Advanced / Testing",
+      "help": "Use these cadences only when administrators need more frequent operational summaries."
+    },
+    "preview": {
+      "action": "Preview summary",
+      "loading": "Building preview…",
+      "title": "Summary preview",
+      "notSent": "This preview uses current database data for a completed period. No email was sent and scheduled delivery was not changed.",
+      "allNormal": "All systems normal",
+      "needsAttention": "{{count}} need attention",
+      "period": "Reporting period",
+      "subject": "Email subject",
+      "formatLabel": "Preview format",
+      "html": "Email preview",
+      "text": "Plain text",
+      "frameTitle": "Rendered administrator summary email"
+    },
+    "test": {
+      "action": "Send test summary",
+      "blocked": "Send test summary becomes available when Email Delivery above is Ready.",
+      "unsaved": "Save the summary schedule before sending a test. Preview can use unsaved selections.",
+      "dialogTitle": "Send a test administrator summary?",
+      "dialogDescription": "CompassAQ will build the actual summary and send a clearly marked test. It will not count as a scheduled delivery.",
+      "recipientLabel": "Test summary recipient",
+      "recipientPlaceholder": "Use first saved administrator recipient",
+      "recipientHelp": "Leave blank to use the first saved administrator recipient, or enter a one-time address. This address will not be saved.",
+      "confirm": "Send test summary",
+      "sending": "Sending test summary…",
+      "success": "Test summary sent to {{recipient}}."
+    },
+    "messages": {
+      "saved": "Administrator summary schedule saved."
+    },
+    "errors": {
+      "loadFailed": "Administrator summary settings could not be loaded. Try again.",
+      "saveFailed": "The administrator summary schedule could not be saved. Review the settings and try again.",
+      "previewFailed": "CompassAQ could not build the summary preview. Try again.",
+      "testFailed": "CompassAQ could not send the test summary. Review Email Delivery and try again."
+    },
+    "timezones": {
+      "UTC": "Coordinated Universal Time",
+      "America_Los_Angeles": "Pacific Time",
+      "America_Denver": "Mountain Time",
+      "America_Phoenix": "Arizona Time",
+      "America_Chicago": "Central Time",
+      "America_New_York": "Eastern Time",
+      "America_Anchorage": "Alaska Time",
+      "Pacific_Honolulu": "Hawaii Time",
+      "America_Mexico_City": "Mexico City Time",
+      "America_Bogota": "Bogotá Time",
+      "America_Lima": "Lima Time",
+      "America_Santiago": "Santiago Time",
+      "America_Argentina_Buenos_Aires": "Buenos Aires Time",
+      "America_Sao_Paulo": "São Paulo Time",
+      "Europe_London": "London Time",
+      "Europe_Madrid": "Madrid Time"
+    }
+  },
+  "workflow": {
+    "deliveryTitle": "Email delivery",
+    "deliveryDescription": "Configure how CompassAQ sends administrator email.",
+    "setupHelp": "Set up SMTP, sender, and recipients to enable administrator email.",
+    "configure": "Configure email delivery",
+    "test": "Send a test email",
+    "retry": "Review the delivery error and retry the test",
+    "summary": "Configure or enable administrator summary",
+    "monitor": "Monitor recent delivery activity",
+    "summaryDescription": "Uses your configured email delivery to send scheduled summaries to administrator recipients.",
+    "activityTitle": "Recent status and activity"
+  }
+}

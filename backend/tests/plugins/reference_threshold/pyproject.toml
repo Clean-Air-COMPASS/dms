@@ -1,0 +1,15 @@
+[build-system]
+requires = ["setuptools>=69"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "compassaq-reference-threshold-test"
+version = "1.0.0"
+description = "Test-only deployment plugin for the CompassAQ QC contract"
+requires-python = ">=3.11"
+
+[project.entry-points."aq_platform.qaqc_plugins"]
+reference_threshold = "compassaq_reference_threshold.plugin:plugin"
+
+[tool.setuptools.packages.find]
+where = ["src"]

@@ -11,6 +11,17 @@ from models import Device, Sensor, Measurement, Parameter, MeasurementQCResult, 
 router = APIRouter(prefix="/admin", tags=["admin"]) 
 
 
+def _lag_minutes(observed_at: datetime | None, now: datetime) -> int | None:
+    if not observed_at:
+        return None
+    try:
+        if observed_at.tzinfo is None:
+            observed_at = observed_at.replace(tzinfo=timezone.utc)
+        return int(max(0, (now - observed_at).total_seconds() // 60))
+    except Exception:
+        return None
+
+
 @router.get("/diagnostics/location_migration")
 def location_migration_diagnostics(session: Session = Depends(get_session)):
     """Report Phase 2 migration diagnostics.
@@ -81,15 +92,7 @@ def diagnostics_summary(session: Session = Depends(get_session)):
                                             
         latest_obs = session.scalar(select(func.max(Measurement.observed_at)))
         latest_obs_iso = latest_obs.isoformat() if latest_obs else None
-        lag_minutes = None
-        if latest_obs:
-            try:
-                latest_dt = latest_obs
-                if latest_dt.tzinfo is None:
-                    latest_dt = latest_dt.replace(tzinfo=timezone.utc)
-                lag_minutes = int(max(0, (now - latest_dt).total_seconds() // 60))
-            except Exception:
-                lag_minutes = None
+        lag_minutes = _lag_minutes(latest_obs, now)
 
                                                   
         rows = session.execute(
@@ -101,13 +104,7 @@ def diagnostics_summary(session: Session = Depends(get_session)):
         per_param = []
         for code, dt in rows:
             iso = dt.isoformat() if dt else None
-            lag = None
-            if dt:
-                try:
-                    dtt = dt if dt.tzinfo else dt.replace(tzinfo=timezone.utc)
-                    lag = int(max(0, (now - dtt).total_seconds() // 60))
-                except Exception:
-                    lag = None
+            lag = _lag_minutes(dt, now)
             per_param.append({"code": code, "latest_observed_at": iso, "lag_minutes": lag})
 
                                 
