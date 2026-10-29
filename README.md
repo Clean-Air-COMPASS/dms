@@ -26,8 +26,8 @@ You need internet access for downloads and an available port **80**. Use your or
 ### 1. Download
 
 ```sh
-git clone https://github.com/phrxst/CompassAQ.git
-cd CompassAQ
+git clone https://github.com/Clean-Air-COMPASS/dms.git
+cd dms
 ```
 
 Run all remaining terminal commands from this `CompassAQ` directory.
